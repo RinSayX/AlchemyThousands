@@ -12,6 +12,7 @@ const Result := preload("res://scripts/core/transaction_result.gd")
 const Transaction := preload("res://scripts/core/state_transaction.gd")
 const FIELDS := ["exp", "research_points", "action_count", "statistics", "alchemy_discoveries", "rng_states", "equipped_furnace", "equipped_flame", "needs_save"]
 const COUNTERS := ["alchemy_attempts", "alchemy_successes", "alchemy_failures"]
+const Lineage := preload("res://scripts/core/lineage_rules.gd")
 const Talents := preload("res://scripts/core/talent_rules.gd")
 const RESIDUE := "material_danzha"
 
@@ -72,8 +73,6 @@ func validate_state(state: Dictionary) -> Dictionary:
 		if not key is String or key not in allowed or seen.has(key):
 			return Result.failure("INVALID_STATE", "炼丹发现记录含未知或重复条目。")
 		seen[key] = true
-	if state.has("world_modifiers") and (not state.world_modifiers is Array or not state.world_modifiers.is_empty()):
-		return Result.failure("UNSUPPORTED_RULE", "此阶段尚未接入天地变数。")
 	if not Talents.valid_choices(_db, state):
 		return Result.failure("INVALID_STATE", "天赋引用、境界或选择次数不合法。")
 	if RESIDUE not in _db.get_ids("materials"):
@@ -110,7 +109,8 @@ func preview_alchemy(state: Dictionary, recipe_id: String, setup: Dictionary = {
 			return Result.failure("INVALID_SETUP", "所选符箓不存在。")
 		consumable = _db.get_item(selected.consumable_id)
 		consume[selected.consumable_id] = 1
-	var snapshot := Rules.calculate(recipe, state.rank, _db.get_item(selected.furnace_id), _db.get_item(selected.flame_id), consumable, selected.strategy, Talents.definitions(_db, state))
+	var effects := Lineage.alchemy(_db, state, recipe, selected)
+	var snapshot := Rules.calculate(recipe, state.rank, _db.get_item(selected.furnace_id), _db.get_item(selected.flame_id), consumable, selected.strategy, Talents.definitions(_db, state), effects)
 	var missing: Dictionary = {}
 	var missing_consumables: Dictionary = {}
 	var refund: Dictionary = {}
@@ -124,12 +124,12 @@ func preview_alchemy(state: Dictionary, recipe_id: String, setup: Dictionary = {
 	for id in consume:
 		if state.inventory.get(id, 0) < 1:
 			missing_consumables[id] = 1
-	var material_cost: Variant = _shop_cost(recipe.materials)
+	var material_cost: Variant = _shop_cost(recipe.materials, state)
 	var consumable_cost: Variant = 0 if consumable.is_empty() else (consumable.unlock.price if consumable.unlock.type == "shop" else null)
 	var total_cost: Variant = null
 	if material_cost is int and consumable_cost is int and material_cost + consumable_cost <= Economy.MAX_VALUE:
 		total_cost = material_cost + consumable_cost
-	snapshot.merge({"recipe_id": recipe_id, "setup": selected, "materials": recipe.materials, "consumables": consume, "missing_materials": missing, "missing_consumables": missing_consumables, "can_execute": missing.is_empty() and missing_consumables.is_empty(), "failure_returns": refund, "failure_items": {RESIDUE: 1}, "material_shop_cost": material_cost, "consumable_shop_cost": consumable_cost, "total_shop_cost": total_cost, "exp_rewards": {"success": recipe.tier * 10, "failure": recipe.tier * 3}, "research_rewards": {"base": 1, "new_quality": 2}})
+	snapshot.merge({"recipe_id": recipe_id, "setup": selected, "materials": recipe.materials, "consumables": consume, "missing_materials": missing, "missing_consumables": missing_consumables, "can_execute": missing.is_empty() and missing_consumables.is_empty(), "failure_returns": refund, "failure_items": {RESIDUE: 1}, "material_shop_cost": material_cost, "consumable_shop_cost": consumable_cost, "total_shop_cost": total_cost, "exp_rewards": {"success": recipe.tier * 10, "failure": recipe.tier * 3}, "research_rewards": {"base": 1 + effects.base_research, "new_quality": 2 + effects.discovery_research}})
 	return Result.success({}, snapshot)
 
 
@@ -199,13 +199,13 @@ func _settle(candidate: Dictionary, snapshot: Dictionary, outcome: Dictionary) -
 	return Result.success({}, {"candidate": next, "exp_gained": exp, "research_gained": research, "new_quality": first})
 
 
-func _shop_cost(materials: Dictionary) -> Variant:
+func _shop_cost(materials: Dictionary, state: Dictionary) -> Variant:
 	var total := 0
 	for id in materials:
 		var item: Dictionary = _db.get_item(id)
 		if not item.shop_available:
 			return null
-		var cost: int = item.buy_price * materials[id]
+		var cost: int = Lineage.buy_price(_db, state, item, item.buy_price) * materials[id]
 		if cost > Economy.MAX_VALUE - total:
 			return null
 		total += cost

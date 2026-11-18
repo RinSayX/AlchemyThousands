@@ -7,7 +7,7 @@ const QUALITIES := ["common", "good", "superior", "legendary"]
 const STRATEGIES := {"normal": 0.0, "stable": 0.10, "rush": -0.15}
 
 
-static func calculate(recipe: Dictionary, rank: int, furnace: Dictionary, flame: Dictionary, consumable: Dictionary, strategy: String, talents: Array = []) -> Dictionary:
+static func calculate(recipe: Dictionary, rank: int, furnace: Dictionary, flame: Dictionary, consumable: Dictionary, strategy: String, talents: Array = [], effects: Dictionary = {}) -> Dictionary:
 	var weights: Dictionary = recipe.quality_weights.duplicate(true)
 	var bonuses := {"base": recipe.base_success_rate, "rank": minf(maxi(rank - recipe.required_rank, 0) * 0.02, 0.10), "furnace": 0.0, "flame": 0.0, "consumable": 0.0, "material": 0.0, "world": 0.0, "strategy": STRATEGIES[strategy]}
 	var refund := 0.0
@@ -16,6 +16,8 @@ static func calculate(recipe: Dictionary, rank: int, furnace: Dictionary, flame:
 	var equipment := {"furnace": furnace, "flame": flame, "consumable": consumable}
 	for source in ["furnace", "flame", "consumable"]:
 		var item: Dictionary = equipment[source]
+		if source == "flame" and effects.get("suppress_flame", false):
+			continue
 		if item.is_empty() or not _matches(item.effect_tags, recipe.tags):
 			continue
 		bonuses[source] = item.success_bonus
@@ -25,6 +27,11 @@ static func calculate(recipe: Dictionary, rank: int, furnace: Dictionary, flame:
 			if item.quality_transfers.has(target):
 				var amount: float = item.quality_transfers[target]
 				transfers.append({"source": source, "target": target, "requested": amount, "applied": transfer_up(weights, target, amount)})
+	bonuses.world = effects.get("world_success", 0.0)
+	if effects.get("heritage_success", 0.0) != 0.0:
+		bonuses["inheritance"] = effects.heritage_success
+	if effects.get("legendary_transfer", 0.0) > 0.0:
+		transfers.append({"source": "lineage", "target": "legendary", "requested": effects.legendary_transfer, "applied": transfer_up(weights, "legendary", effects.legendary_transfer)})
 	for talent in talents:
 		if talent.style != strategy:
 			continue

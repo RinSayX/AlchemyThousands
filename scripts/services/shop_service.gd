@@ -2,6 +2,7 @@ class_name ShopService
 extends RefCounted
 ## Authoritative quotes and all-or-nothing carts. Execution always requotes.
 
+const Lineage := preload("res://scripts/core/lineage_rules.gd")
 const Database := preload("res://scripts/core/content_db.gd")
 const Economy := preload("res://scripts/services/economy_service.gd")
 const Inventory := preload("res://scripts/services/inventory_service.gd")
@@ -116,7 +117,7 @@ func _buy_line(state: Dictionary, line: Dictionary) -> Dictionary:
 	if is_material:
 		if not item.shop_available or item.unlock.type not in ["initial", "rank", "shop"]:
 			return Result.failure("NOT_FOR_SALE", "此材料不可在商店购买。")
-		unit = item.buy_price
+		unit = Lineage.buy_price(_db, state, item, item.buy_price)
 	else:
 		if item.unlock.type != "shop" or (is_consumable and not item.shop_available):
 			return Result.failure("NOT_FOR_SALE", "此物品不可在商店购买。")
@@ -152,7 +153,7 @@ func _sell_line(state: Dictionary, line: Dictionary) -> Dictionary:
 		var planned := _inventory.plan_items(state, {line.item_id: line.quantity}, true)
 		if not planned.ok:
 			return planned
-		return Result.success({}, {"candidate": planned.result.candidate, "unit_price": _db.get_item(line.item_id).sell_price})
+		return Result.success({}, {"candidate": planned.result.candidate, "unit_price": Lineage.sell_price(_db, state, line.item_id, _db.get_item(line.item_id).sell_price)})
 	if not _fields(line, ["recipe_id", "quality", "quantity"], ["mutation_id"]) or not line.recipe_id is String or not line.quality is String:
 		return Result.failure("INVALID_CART", "丹药出售行的丹方、品质或数量字段不合法。")
 	var planned := _inventory.plan_pill(state, line.recipe_id, line.quality, line.quantity, true, line.get("mutation_id", ""))

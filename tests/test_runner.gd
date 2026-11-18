@@ -13,6 +13,9 @@ const ProgressionTests := preload("res://tests/test_progression.gd")
 const ProgressionUITests := preload("res://tests/test_progression_ui.gd")
 const SaveTests := preload("res://tests/test_save_load.gd")
 
+const RebirthUITests := preload("res://tests/test_rebirth_ui.gd")
+const RebirthTests := preload("res://tests/test_rebirth.gd")
+
 var checks := 0
 var failures: Array[String] = []
 
@@ -24,7 +27,7 @@ func _initialize() -> void:
 func _run() -> void:
 	var args := OS.get_cmdline_user_args()
 	var selected := ""
-	for flag in ["--content-only", "--economy-only", "--alchemy-only", "--resources-only", "--progression-only", "--ui-only"]:
+	for flag in ["--content-only", "--economy-only", "--alchemy-only", "--resources-only", "--progression-only", "--rebirth-only", "--ui-only"]:
 		if args.has(flag):
 			if not selected.is_empty():
 				_check(false, "Choose one focused test suite at a time")
@@ -42,6 +45,8 @@ func _run() -> void:
 	if selected.is_empty() or selected == "--progression-only":
 		_check(ProgressionTests.new().run(_check), "P6: Progression suite completed")
 		_check(SaveTests.new().run(_check), "P6: Save/load suite completed")
+	if selected.is_empty() or selected == "--rebirth-only":
+		_check(RebirthTests.new().run(_check), "P7: Rebirth suite completed")
 	if not selected.is_empty() and selected != "--ui-only":
 		_finish()
 		return
@@ -101,6 +106,7 @@ func _run() -> void:
 	_check(await AlchemyUITests.new().run(self, _check), "P4: Alchemy UI suite completed")
 	_check(await ResourceUITests.new().run(self, _check), "P5: Resource UI suite completed")
 	_check(await ProgressionUITests.new().run(self, _check), "P6: Progression UI suite completed")
+	_check(await RebirthUITests.new().run(self, _check), "P7: Rebirth UI suite completed")
 	_finish()
 
 

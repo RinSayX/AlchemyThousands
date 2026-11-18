@@ -16,7 +16,7 @@ func run(check: Callable) -> void:
 	if not result.ok:
 		printerr(result.errors)
 		return
-	_check.call(result.counts == {"recipes": 12, "materials": 9, "furnaces": 3, "flames": 2, "consumables": 3, "quests": 5, "exploration_events": 5, "ranks": 11, "talents": 9}, "P1/P3/P5: Required content counts include residue, quests and events")
+	_check.call(result.counts == {"recipes": 12, "materials": 9, "furnaces": 3, "flames": 2, "consumables": 3, "quests": 5, "exploration_events": 5, "ranks": 11, "talents": 9, "inheritances": 9, "world_modifiers": 6}, "P1/P3/P5: Required content counts include residue, quests and events")
 	_check.call(db.get_item("recipe_juling").name == "聚灵丹", "P1: Stable ID resolves Chinese content")
 	_check.call(db.get_item("recipe_juling").materials == {"herb_lingcao": 2, "herb_qinghua": 1}, "P1: Juling material baseline is preserved")
 	_check.call(typeof(db.get_item("recipe_juling").tier) == TYPE_INT and typeof(db.get_item("recipe_juling").base_sell_price) == TYPE_INT and typeof(db.get_item("consumable_wendan").unlock.price) == TYPE_INT, "P1: Validated integral JSON values become runtime integers")
@@ -182,7 +182,7 @@ func _test_files(db: RefCounted) -> void:
 	if created != OK:
 		return
 	var result: Dictionary = db.load_directory(directory)
-	_check.call(not result.ok and result.errors.size() == 9 and result.errors[0].code == "FILE_NOT_FOUND", "P1: Missing files produce structured errors")
+	_check.call(not result.ok and result.errors.size() == 11 and result.errors[0].code == "FILE_NOT_FOUND", "P1: Missing files produce structured errors")
 	for category in Validator.CATEGORIES:
 		_write(directory.path_join(category + ".json"), JSON.stringify(_baseline[category]))
 	result = db.load_directory(directory)

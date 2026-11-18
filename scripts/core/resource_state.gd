@@ -81,7 +81,7 @@ func prepare(state: Dictionary, action_id: Variant, allow_pending: bool = false)
 	return economy.prepare(state, action_id)
 
 
-func reward(candidate: Dictionary, items: Dictionary, stones: int = 0, exp: int = 0, flame: String = "") -> Dictionary:
+func reward(candidate: Dictionary, items: Dictionary, stones: int = 0, exp: int = 0, flame: String = "", furnace: String = "") -> Dictionary:
 	var next := candidate.duplicate(true)
 	if not items.is_empty():
 		var granted := inventory.plan_items(next, items)
@@ -94,6 +94,8 @@ func reward(candidate: Dictionary, items: Dictionary, stones: int = 0, exp: int 
 	next.exp += exp
 	if not flame.is_empty() and not next.owned_flames.has(flame):
 		next.owned_flames.append(flame)
+	if not furnace.is_empty() and furnace not in next.owned_furnaces:
+		next.owned_furnaces.append(furnace)
 	return Result.success({}, {"candidate": next})
 
 

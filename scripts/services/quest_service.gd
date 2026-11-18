@@ -1,6 +1,7 @@
 class_name QuestService
 extends RefCounted
 
+const Lineage := preload("res://scripts/core/lineage_rules.gd")
 const State := preload("res://scripts/core/resource_state.gd")
 const Database := preload("res://scripts/core/content_db.gd")
 const Pills := preload("res://scripts/core/pill_stack.gd")
@@ -18,7 +19,8 @@ func board(state: Dictionary) -> Dictionary:
 	if not checked.ok:
 		return checked
 	var rows: Array[Dictionary] = []
-	for template in _state.db.get_items("quests"):
+	for source in _state.db.get_items("quests"):
+		var template := Lineage.quest(_state.db, state, source)
 		var active := ""
 		var completed := false
 		for id in state.quest_instances:
@@ -64,7 +66,7 @@ func preview_delivery(state: Dictionary, instance_id: String) -> Dictionary:
 	var instance: Dictionary = state.quest_instances[instance_id]
 	if instance.status != "active":
 		return Result.failure("QUEST_ALREADY_COMPLETED", "此委托已经交付并领奖。")
-	var template: Dictionary = _state.db.get_item(instance.template_id)
+	var template := Lineage.quest(_state.db, state, _state.db.get_item(instance.template_id))
 	var remaining: int = template.quantity
 	var consumed: Dictionary = {}
 	for quality in Pills.QUALITIES:

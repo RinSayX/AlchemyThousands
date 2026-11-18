@@ -1,6 +1,7 @@
 class_name ForageService
 extends RefCounted
 
+const Lineage := preload("res://scripts/core/lineage_rules.gd")
 const State := preload("res://scripts/core/resource_state.gd")
 const Database := preload("res://scripts/core/content_db.gd")
 const Result := preload("res://scripts/core/transaction_result.gd")
@@ -23,7 +24,8 @@ func preview(state: Dictionary) -> Dictionary:
 		var missing: int = recipe.materials[id] - state.inventory.get(id, 0)
 		if missing > 0:
 			needed[id] = missing
-	return Result.success({}, {"items": needed, "charges_left": 3 - state.forage_uses, "can_forage": not needed.is_empty() and state.forage_uses < 3, "can_rest": state.forage_uses == 3, "has_basic_materials": needed.is_empty(), "recovery_available": true})
+	var heritage: bool = Lineage.inheritance(_state.db, state, "shortage_supply") > 0 and state.resource_stats.get("heritage_supplies", 0) == 0
+	return Result.success({}, {"heritage_supply": heritage and not needed.is_empty(), "items": needed, "charges_left": 3 - state.forage_uses, "can_forage": not needed.is_empty() and (state.forage_uses < 3 or heritage), "can_rest": state.forage_uses == 3, "has_basic_materials": needed.is_empty(), "recovery_available": true})
 
 
 func forage(state: Dictionary, action_id: Variant) -> Dictionary:
@@ -33,7 +35,7 @@ func forage(state: Dictionary, action_id: Variant) -> Dictionary:
 	var view := preview(state)
 	if not view.ok:
 		return view
-	if view.result.charges_left == 0:
+	if view.result.charges_left == 0 and not view.result.heritage_supply:
 		return Result.failure("FORAGE_EXHAUSTED", "本趟采药次数已用尽，可免费休整后再来。")
 	if view.result.items.is_empty():
 		return Result.failure("FORAGE_NOT_NEEDED", "已有一炉聚灵丹药材，无需再取补给。")
@@ -41,7 +43,10 @@ func forage(state: Dictionary, action_id: Variant) -> Dictionary:
 	if not granted.ok:
 		return granted
 	var next: Dictionary = granted.result.candidate
-	next.forage_uses += 1
+	if view.result.heritage_supply:
+		next.resource_stats["heritage_supplies"] = 1
+	else:
+		next.forage_uses += 1
 	var counted := _state.count_action(next, "forages")
 	if not counted.ok:
 		return counted

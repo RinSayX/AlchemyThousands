@@ -2,12 +2,14 @@ class_name ContentValidator
 extends RefCounted
 ## Pure validation of schema-v1 content. Never changes input or game state.
 
-const CATEGORIES := ["recipes", "materials", "furnaces", "flames", "consumables", "quests", "exploration_events", "ranks", "talents"]
+const CATEGORIES := ["recipes", "materials", "furnaces", "flames", "consumables", "quests", "exploration_events", "ranks", "talents", "inheritances", "world_modifiers"]
 const QUALITIES := ["common", "good", "superior", "legendary"]
 const MAX_INTEGER := 2147483647
 const COMMON_FIELDS := ["id", "name", "description", "tier", "tags", "unlock"]
 const EQUIPMENT_FIELDS := ["success_bonus", "quality_transfers", "material_refund_bonus", "extra_pill_chance", "effect_tags", "effect_ids"]
 const CATEGORY_FIELDS := {
+	"inheritances": ["effect", "amount", "min_completed_runs"],
+	"world_modifiers": ["weight", "min_run_number", "opportunity", "exclusive_with", "changes"],
 	"recipes": ["required_rank", "base_success_rate", "materials", "quality_weights", "base_sell_price", "special_rules"],
 	"materials": ["category", "buy_price", "sell_price", "shop_available", "sources", "repeatable"],
 	"furnaces": EQUIPMENT_FIELDS,
@@ -18,6 +20,8 @@ const CATEGORY_FIELDS := {
 	"quests": ["required_recipe_id", "min_quality", "quantity", "reward_spirit_stones", "reward_exp", "reward_items", "reward_flame", "repeatable"],
 	"exploration_events": ["weight", "options"],
 }
+const HERITAGE_EFFECTS := ["discovery_research", "basic_furnace_success", "ritual_discount", "first_quest_stones", "rush_transfer", "residue_multiplier", "furnace_trace", "quest_quality", "shortage_supply"]
+const WORLD_FIELDS := ["success_bonus", "herb_buy_multiplier", "exploration_herb_bonus", "fire_success_bonus", "fire_legendary_transfer", "quest_stones_multiplier", "quest_quality_shift", "research_per_attempt", "suppress_special_flames", "normal_flame_success"]
 const MATERIAL_CATEGORIES := ["herb", "mineral", "beast", "spirit"]
 const MATERIAL_SOURCES := ["shop", "forage", "exploration", "quest", "research", "alchemy"]
 const UNLOCK_TYPES := ["initial", "shop", "rank", "exploration"]
@@ -63,6 +67,10 @@ func validate_documents(documents: Dictionary) -> Array[Dictionary]:
 				if category == "materials":
 					material_ids[id] = true
 			match category:
+				"inheritances":
+					_validate_heritage(item, path, errors)
+				"world_modifiers":
+					_validate_world(item, path, errors)
 				"recipes":
 					_validate_recipe(item, path, errors)
 				"materials":
@@ -88,7 +96,86 @@ func validate_documents(documents: Dictionary) -> Array[Dictionary]:
 						_error(errors, "MISSING_REFERENCE", "recipes.items[%d].materials.%s" % [index, material_id], "丹方引用的材料不存在。")
 	_validate_resource_references(documents, errors)
 	_validate_progression_references(documents, errors)
+	_validate_lineage_references(documents, errors)
 	return errors
+
+
+func _validate_heritage(item: Dictionary, path: String, errors: Array[Dictionary]) -> void:
+	_validate_resource_unlock(item, path, errors)
+	_enum(item.get("effect"), HERITAGE_EFFECTS, path + ".effect", errors)
+	_integer(item.get("min_completed_runs"), 1, MAX_INTEGER, path + ".min_completed_runs", errors)
+	_number(item.get("amount"), 0, MAX_INTEGER, path + ".amount", errors)
+	var effect: Variant = item.get("effect")
+	var amount: Variant = item.get("amount")
+	if not _is_number(amount):
+		return
+	if effect in ["basic_furnace_success", "ritual_discount"]:
+		_number(amount, 0, 1, path + ".amount", errors)
+	else:
+		_integer(amount, 1, 100, path + ".amount", errors)
+
+
+func _validate_world(item: Dictionary, path: String, errors: Array[Dictionary]) -> void:
+	_validate_resource_unlock(item, path, errors)
+	_number(item.get("weight"), 0.000001, MAX_INTEGER, path + ".weight", errors)
+	_integer(item.get("min_run_number"), 2, MAX_INTEGER, path + ".min_run_number", errors)
+	_boolean(item.get("opportunity"), path + ".opportunity", errors)
+	_string_list(item.get("exclusive_with"), path + ".exclusive_with", errors)
+	var changes: Variant = item.get("changes")
+	if not changes is Dictionary or changes.is_empty():
+		_error(errors, "INVALID_TYPE", path + ".changes", "世界修正规则须为非空对象。")
+		return
+	for field in changes:
+		var p := path + ".changes." + str(field)
+		if field not in WORLD_FIELDS:
+			_error(errors, "UNKNOWN_EFFECT", p, "未注册的世界修正。")
+		elif field == "suppress_special_flames":
+			_boolean(changes[field], p, errors)
+		elif field in ["herb_buy_multiplier", "quest_stones_multiplier"]:
+			_number(changes[field], 1, 2, p, errors)
+		elif field in ["success_bonus", "fire_success_bonus", "normal_flame_success"]:
+			_number(changes[field], -1, 1, p, errors)
+		else:
+			_integer(changes[field], 0, 10, p, errors)
+
+
+func _validate_lineage_references(documents: Dictionary, errors: Array[Dictionary]) -> void:
+	var heritage_doc: Variant = documents.get("inheritances")
+	var effects: Dictionary = {}
+	if heritage_doc is Dictionary and heritage_doc.get("items") is Array:
+		for item in heritage_doc.items:
+			if item is Dictionary and item.get("effect") is String:
+				if effects.has(item.effect):
+					_error(errors, "DUPLICATE_EFFECT", "inheritances.items", "不同传承不可重复定义相同效果，以免携带时重复叠加。")
+				effects[item.effect] = true
+	var worlds: Dictionary = {}
+	var doc: Variant = documents.get("world_modifiers")
+	if not doc is Dictionary or not doc.get("items") is Array:
+		return
+	for item in doc.items:
+		if item is Dictionary and item.get("id") is String:
+			worlds[item.id] = item
+	var reachable := false
+	for id in worlds:
+		var item: Dictionary = worlds[id]
+		if not item.get("exclusive_with") is Array:
+			continue
+		for other in item.exclusive_with:
+			if not worlds.has(other) or other == id:
+				_error(errors, "MISSING_REFERENCE", "world_modifiers." + id + ".exclusive_with", "冲突规则引用不存在或指向自身。")
+			elif worlds[other].get("exclusive_with") is Array and id not in worlds[other].exclusive_with:
+				_error(errors, "ASYMMETRIC_CONFLICT", "world_modifiers." + id + ".exclusive_with", "世界冲突必须双向声明。")
+		for other in worlds:
+			if id == other or other in item.exclusive_with or not worlds[other].get("exclusive_with") is Array or id in worlds[other].exclusive_with:
+				continue
+			if item.get("opportunity") is bool and item.opportunity and _is_number(item.get("min_run_number")) and _is_number(worlds[other].get("min_run_number")) and item.min_run_number <= 2 and worlds[other].min_run_number <= 2:
+				reachable = true
+			if item.get("changes") is Dictionary and worlds[other].get("changes") is Dictionary:
+				for field in item.changes:
+					if worlds[other].changes.has(field):
+						_error(errors, "SHARED_WORLD_EFFECT", "world_modifiers." + id + ".changes." + str(field), "相容世界规则不可重复定义同一修正。")
+	if not reachable:
+		_error(errors, "NO_WORLD_PAIR", "world_modifiers.items", "第二世须有含机会规则的相容组合。")
 
 
 func _validate_rank(item: Dictionary, path: String, errors: Array[Dictionary]) -> void:
@@ -192,7 +279,14 @@ func _validate_event(item: Dictionary, path: String, errors: Array[Dictionary]) 
 	for i in range(options.size()):
 		var option: Variant = options[i]
 		var p := "%s.options[%d]" % [path, i]
-		if not _shape(option, ["id", "name", "description", "cost_stones", "cost_items", "success_rate", "success_items", "failure_items", "success_stones", "failure_stones", "reward_flame"], p, errors):
+		var fields := ["id", "name", "description", "cost_stones", "cost_items", "success_rate", "success_items", "failure_items", "success_stones", "failure_stones", "reward_flame"]
+		if option is Dictionary:
+			for field in ["required_heritage", "reward_furnace"]:
+				if option.has(field):
+					fields.append(field)
+					if not option[field] is String:
+						_error(errors, "INVALID_TYPE", p + "." + field, "传承和丹炉引用必须为 ID 或空字符串。")
+		if not _shape(option, fields, p, errors):
 			continue
 		for field in ["id", "name", "description"]:
 			_text(option.get(field), p + "." + field, errors)
@@ -252,6 +346,10 @@ func _validate_resource_references(documents: Dictionary, errors: Array[Dictiona
 					if item.options[j] is Dictionary:
 						rewards.append({"item": item.options[j], "path": "%s.options[%d]" % [path, j], "maps": ["cost_items", "success_items", "failure_items"]})
 			for row in rewards:
+				for pair in [["required_heritage", "inheritances"], ["reward_furnace", "furnaces"]]:
+					var id: Variant = row.item.get(pair[0], "")
+					if id is String and not id.is_empty() and id not in known[pair[1]]:
+						_error(errors, "MISSING_REFERENCE", row.path + "." + pair[0], "事件传承或丹炉引用不存在。")
 				var flame: Variant = row.item.get("reward_flame")
 				if flame is String and not flame.is_empty() and flame not in known.flames:
 					_error(errors, "MISSING_REFERENCE", row.path + ".reward_flame", "奖励异火不存在。")

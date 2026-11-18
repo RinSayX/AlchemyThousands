@@ -1,0 +1,139 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "world_lingqi",
+      "name": "灵气复苏",
+      "description": "所有概率炼丹成功率+3个百分点。",
+      "tier": 1,
+      "tags": [
+        "world"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 0
+      },
+      "weight": 1,
+      "min_run_number": 2,
+      "opportunity": true,
+      "exclusive_with": [
+        "world_kucao",
+        "world_jinhuo"
+      ],
+      "changes": {
+        "success_bonus": 0.03
+      }
+    },
+    {
+      "id": "world_kucao",
+      "name": "灵草枯竭",
+      "description": "商店草药单价×1.25向上取整；秘境选项的草药奖励每种+1。免费基础采药不变。",
+      "tier": 1,
+      "tags": [
+        "world"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 0
+      },
+      "weight": 1,
+      "min_run_number": 2,
+      "opportunity": false,
+      "exclusive_with": [
+        "world_lingqi"
+      ],
+      "changes": {
+        "herb_buy_multiplier": 1.25,
+        "exploration_herb_bonus": 1
+      }
+    },
+    {
+      "id": "world_huoling",
+      "name": "火灵躁动",
+      "description": "火属性丹方成功率-3个百分点，向极品转移3点权重。",
+      "tier": 1,
+      "tags": [
+        "world"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 0
+      },
+      "weight": 1,
+      "min_run_number": 2,
+      "opportunity": false,
+      "exclusive_with": [
+        "world_jinhuo"
+      ],
+      "changes": {
+        "fire_success_bonus": -0.03,
+        "fire_legendary_transfer": 3
+      }
+    },
+    {
+      "id": "world_dansheng",
+      "name": "丹道盛世",
+      "description": "委托灵石奖励×1.25向下取整；除基础供丹外，最低品质提高一档。",
+      "tier": 1,
+      "tags": [
+        "world"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 0
+      },
+      "weight": 1,
+      "min_run_number": 2,
+      "opportunity": true,
+      "exclusive_with": [],
+      "changes": {
+        "quest_stones_multiplier": 1.25,
+        "quest_quality_shift": 1
+      }
+    },
+    {
+      "id": "world_yiji",
+      "name": "上古遗迹",
+      "description": "每次概率开炉的基础研究心得额外+1，失败同样获得。",
+      "tier": 1,
+      "tags": [
+        "world"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 0
+      },
+      "weight": 1,
+      "min_run_number": 2,
+      "opportunity": true,
+      "exclusive_with": [],
+      "changes": {
+        "research_per_attempt": 1
+      }
+    },
+    {
+      "id": "world_jinhuo",
+      "name": "天地禁火",
+      "description": "异火可正常收服但炼丹加成失效；使用凡火时成功率+5个百分点，主线异火认证不受影响。",
+      "tier": 1,
+      "tags": [
+        "world"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 0
+      },
+      "weight": 1,
+      "min_run_number": 2,
+      "opportunity": false,
+      "exclusive_with": [
+        "world_lingqi",
+        "world_huoling"
+      ],
+      "changes": {
+        "suppress_special_flames": true,
+        "normal_flame_success": 0.05
+      }
+    }
+  ]
+}

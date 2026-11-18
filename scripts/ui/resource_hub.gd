@@ -3,12 +3,13 @@ extends Control
 
 signal closed
 signal changed
+signal reborn
 
 const Session := preload("res://scripts/core/game_session.gd")
 const GOLD := Color("d4c28e")
 const MUTED := Color("92a394")
 const QUALITY := {"common": "凡品", "good": "良品", "superior": "上品", "legendary": "极品"}
-const HINTS := ["按商品数量查看权威报价，永久物品每次一件。", "交付会消耗丹药并立即发奖；可重复委托需要重新接单。", "入境后查看选项消耗与奖励，也可免费离开。", "已有一炉基础药材时无需采集，机会耗尽可免费休整。", "考核与定式研制均公开消耗；天赋每个阶段只能选一次。", "炼制或研制均记录发现；交付、出售不会清除图鉴。", "行动后自动保存。读档会覆盖当前内存进度，请确认后执行。"]
+const HINTS := ["按商品数量查看权威报价，永久物品每次一件。", "交付会消耗丹药并立即发奖；可重复委托需要重新接单。", "入境后查看选项消耗与奖励，也可免费离开。", "已有一炉基础药材时无需采集，机会耗尽可免费休整。", "考核与定式研制均公开消耗；天赋每个阶段只能选一次。", "炼制或研制均记录发现；交付、出售不会清除图鉴。", "行动后自动保存。读档会覆盖当前内存进度，请确认后执行。", "通关后主动领取传承并确认轮回，永久记录会保留。"]
 const CATEGORIES := ["materials", "consumables", "recipes", "furnaces", "flames"]
 var session: Session
 var tabs: TabBar
@@ -31,6 +32,12 @@ var talent_buttons: Dictionary = {}
 var save_button: Button
 var load_button: Button
 var confirm_load_button: Button
+var inheritance_buttons: Dictionary = {}
+var loadout_buttons: Dictionary = {}
+var rebirth_button: Button
+var confirm_rebirth_button: Button
+var _confirm_rebirth := false
+var _loadout: Array = []
 var _confirm_load := false
 var _locked := false
 var _building := false
@@ -57,7 +64,7 @@ func _ready() -> void:
 	status.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	status.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	tabs = TabBar.new()
-	for title in ["坊市", "宗门委托", "秘境", "免费采药", "丹师晋升", "丹道图鉴", "存档"]:
+	for title in ["坊市", "宗门委托", "秘境", "免费采药", "丹师晋升", "丹道图鉴", "存档", "轮回传承"]:
 		tabs.add_tab(title)
 	column.add_child(tabs)
 	tabs.tab_changed.connect(_tab_changed)
@@ -95,6 +102,8 @@ func _ready() -> void:
 
 func open_tab(index: int) -> void:
 	_confirm_load = false
+	_confirm_rebirth = false
+	_loadout = session.state().get("equipped_inheritances", []).duplicate()
 	scroll.scroll_vertical = 0
 	_building = true
 	tabs.current_tab = 2 if not session.state().pending_exploration.is_empty() else index
@@ -112,6 +121,7 @@ func _tab_changed(index: int) -> void:
 		tabs.current_tab = 2
 		return
 	_confirm_load = false
+	_confirm_rebirth = false
 	scroll.scroll_vertical = 0
 	message.text = HINTS[index]
 	refresh()
@@ -121,13 +131,13 @@ func refresh() -> void:
 	if not is_node_ready():
 		return
 	var state := session.state()
-	status.text = "灵石 %d   ·   行动 %d   ·   已交委托 %d" % [state.spirit_stones, state.action_count, state.resource_stats.quests_completed]
+	status.text = "第%d世 · 灵石 %d · 行动 %d · 委托 %d" % [state.run_number, state.spirit_stones, state.action_count, state.resource_stats.quests_completed]
 	var pending: bool = not state.pending_exploration.is_empty()
 	if pending and tabs.current_tab != 2:
 		_building = true
 		tabs.current_tab = 2
 		_building = false
-	for index in range(7):
+	for index in range(8):
 		tabs.set_tab_disabled(index, pending and index != 2)
 	shop_tools.visible = tabs.current_tab == 0
 	for child in body.get_children():
@@ -137,6 +147,8 @@ func refresh() -> void:
 	option_buttons.clear()
 	shop_buttons.clear()
 	talent_buttons.clear()
+	inheritance_buttons.clear()
+	loadout_buttons.clear()
 	match tabs.current_tab:
 		0: _shop(state)
 		1: _quests()
@@ -145,6 +157,7 @@ func refresh() -> void:
 		4: _progression(state)
 		5: _collection()
 		6: _saves()
+		7: _rebirth()
 	close_button.disabled = _locked
 
 
@@ -212,12 +225,17 @@ func _exploration(state: Dictionary) -> void:
 	var event: Dictionary = session.content.get_item(pending.event_id)
 	_label(body, event.name, 23, GOLD)
 	_label(body, event.description, 16, MUTED, true)
-	for option in event.options:
-		var view := session.preview_event_option(option.id)
+	for source in event.options:
+		var view := session.preview_event_option(source.id)
+		if not view.ok:
+			continue
+		var option: Dictionary = view.result.option
 		var row := _row()
 		var text := _text_column(row)
 		_label(text, "%s · 成功率 %.1f%%" % [option.name, option.success_rate * 100], 17, GOLD)
 		_label(text, "消耗：灵石%d；%s\n成功：%s%s\n失败：%s\n%s" % [option.cost_stones, _names(option.cost_items), _names(option.success_items), "；" + session.content.get_item(option.reward_flame).name if not option.reward_flame.is_empty() else "", _names(option.failure_items), option.description], 14, MUTED, true)
+		if not option.get("reward_furnace", "").is_empty():
+			_label(text, "丹炉奖励：" + session.content.get_item(option.reward_furnace).name, 14, GOLD, true)
 		var choose := _button(row, "选择此行动", _resolve.bind(pending.instance_id, option.id))
 		choose.disabled = _locked or not view.ok or not view.result.can_execute
 		choose.tooltip_text = "费用或所需物品不足。" if view.ok and not view.result.can_execute else ""
@@ -234,7 +252,7 @@ func _forage() -> void:
 	_label(body, "青岚山径 · 基础补给", 23, GOLD)
 	_label(body, "免费补齐一炉聚灵丹所需的基础药材，已有足量时不再发放。每趟最多三次，耗尽后可免费休整，无需灵石或实时等待。", 16, MUTED, true)
 	_label(body, "本趟剩余 %d 次\n本次可得：%s" % [view.result.charges_left, _names(view.result.items)], 18, GOLD, true)
-	forage_button = _button(body, "免费采药 · 补齐一炉", _forage_action)
+	forage_button = _button(body, "元气初复 · 本世一次免费补给" if view.result.heritage_supply else "免费采药 · 补齐一炉", _forage_action)
 	forage_button.disabled = _locked or not view.result.can_forage
 	rest_button = _button(body, "归山休整 · 免费恢复三次机会", _rest_action)
 	rest_button.disabled = _locked or not view.result.can_rest
@@ -254,7 +272,7 @@ func _progression(state: Dictionary) -> void:
 
 本世结算：行动 %d 次，概率开炉 %d 次，定式研制 %d 次，交付委托 %d 单，历练 %d。
 
-可返回丹房继续收集图鉴。轮回将在后续阶段开放。" % [state.ending.action_count, state.ending.alchemy_attempts, state.ending.research_crafts, state.ending.quests_completed, state.ending.exp], 17, MUTED, true)
+可返回丹房继续收集图鉴。可在轮回传承页选择奖励并主动开启下一世。" % [state.ending.action_count, state.ending.alchemy_attempts, state.ending.research_crafts, state.ending.quests_completed, state.ending.exp], 17, MUTED, true)
 		return
 	if not view.result.talents.is_empty():
 		_label(body, "%d品天赋抉择 · 三选一，不可重选" % state.pending_talent_rank, 20, GOLD)
@@ -302,7 +320,7 @@ func _collection() -> void:
 	if not view.ok:
 		_label(body, view.message, 16, GOLD)
 		return
-	_label(body, "丹道图鉴 · %d / %d" % [view.result.discovered, view.result.total], 23, GOLD)
+	_label(body, "永久丹道图鉴 · %d / %d" % [view.result.discovered, view.result.total], 23, GOLD)
 	for row in view.result.rows:
 		_label(body, row.recipe.name + (" · 已习得" if row.learned else " · 未习得"), 17, GOLD)
 		var names: Array[String] = []
@@ -353,6 +371,106 @@ func _load() -> void:
 	_perform(session.load_run, "已读取有效存档，进度和随机流已恢复。")
 
 
+func _rebirth() -> void:
+	var view := session.rebirth_status()
+	if not view.ok:
+		_label(body, view.message, 16, GOLD)
+		return
+	var state := session.state()
+	var meta := session.meta()
+	_label(body, "轮回丹经 · 第%d世" % state.run_number, 23, GOLD)
+	_label(body, "已完成 %d 世 · 传承栏 %d · 永久发现 %d/48 · 最佳行动 %s" % [meta.records.size(), meta.heritage_slots, meta.discovered_pills.size(), str(meta.best_records.get("fewest_actions", "尚无"))], 15, MUTED, true)
+	_label(body, "本世携带：" + _definition_names(state.equipped_inheritances), 15, GOLD, true)
+	if state.world_modifiers.is_empty():
+		_label(body, "首世标准世界 · 无天地变数。", 15, MUTED)
+	else:
+		for id in state.world_modifiers:
+			var world: Dictionary = session.content.get_item(id)
+			_label(body, world.name + "：" + world.description, 14, MUTED, true)
+	if not view.result.completed:
+		_label(body, "本世大宗师结局尚未完成。完成后可选一项传承解锁，再确认下一世；不会自动轮回。", 17, GOLD, true)
+	elif not view.result.reward_claimed:
+		_label(body, "本世传承奖励 · 选择一项永久解锁", 19, GOLD)
+		for item in view.result.choices:
+			var row := _row()
+			var text := _text_column(row)
+			_label(text, item.name, 17, GOLD)
+			_label(text, item.description, 14, MUTED, true)
+			var choose := _button(row, "永久解锁此传承", _claim.bind(state.run_number, item.id))
+			choose.disabled = _locked
+			inheritance_buttons[item.id] = choose
+		if view.result.fallback_available:
+			_label(body, "所有传承均已解锁。替代奖励：薪火心得+1，每世初始研究心得增加1（最多10）。", 15, MUTED, true)
+			inheritance_buttons["legacy_insight"] = _button(body, "领取薪火心得 · 本世一次", _claim.bind(state.run_number, "legacy_insight"))
+			inheritance_buttons.legacy_insight.disabled = _locked
+	else:
+		_label(body, "本世奖励已领取：" + ("薪火心得" if state.heritage_reward == "legacy_insight" else session.content.get_item(state.heritage_reward).name), 16, GOLD, true)
+		_label(body, "选择下一世携带（最多%d项，可不携带；相同传承不可叠加）" % meta.heritage_slots, 16, MUTED, true)
+		for id in meta.unlocked_inheritances:
+			var item: Dictionary = session.content.get_item(id)
+			var choose := CheckButton.new()
+			choose.text = item.name
+			choose.tooltip_text = item.description
+			choose.button_pressed = id in _loadout
+			choose.disabled = _locked
+			choose.toggled.connect(_toggle_loadout.bind(id))
+			body.add_child(choose)
+			loadout_buttons[id] = choose
+			_label(body, item.description, 14, MUTED, true)
+		var preview := session.preview_rebirth(_loadout)
+		if preview.ok:
+			_label(body, "下一世 · 第%d世 · 种子 %s" % [preview.result.state.run_number, preview.result.state.run_seed], 18, GOLD)
+			for world in preview.result.worlds:
+				_label(body, world.name + ("（机会）" if world.opportunity else "（变化）") + "：" + world.description, 14, MUTED, true)
+			if _confirm_rebirth:
+				_label(body, "确认轮回：灵石、材料、丹药、丹炉、异火、丹方权限、品阶、经验、委托和临时天赋重新开始。永久图鉴、传承、成就、便利功能与历史成绩保留。下一世与永久记录将在同一份存档成功写入后生效。", 16, GOLD, true)
+				confirm_rebirth_button = _button(body, "确认轮回 · 保存并开启第%d世" % preview.result.state.run_number, _start_rebirth.bind(state.run_number, _loadout.duplicate()))
+				confirm_rebirth_button.disabled = _locked
+				_button(body, "取消 · 留在本世", func() -> void: _confirm_rebirth = false; refresh())
+			else:
+				rebirth_button = _button(body, "准备轮回 · 查看重置确认", func() -> void: _confirm_rebirth = true; refresh())
+				rebirth_button.disabled = _locked
+		else:
+			_label(body, preview.message, 16, GOLD, true)
+	_label(body, "历史周目成绩", 19, GOLD)
+	for record in meta.records:
+		_label(body, "第%d世 · 大宗师 · 行动%d / 概率开炉%d / 研制%d · %s" % [record.run_number, record.ending.action_count, record.ending.alchemy_attempts, record.ending.research_crafts, "已转生" if record.next_run > 0 else "留世中"], 14, MUTED, true)
+	if meta.records.is_empty():
+		_label(body, "尚无通关成绩，继续本世修行。", 14, MUTED)
+
+
+func _definition_names(ids: Array) -> String:
+	var names: Array[String] = []
+	for id in ids:
+		names.append(session.content.get_item(id).name)
+	return "、".join(names) if not names.is_empty() else "无"
+
+
+func _toggle_loadout(pressed: bool, id: String) -> void:
+	if _locked:
+		return
+	_confirm_rebirth = false
+	if pressed and id not in _loadout:
+		_loadout.append(id)
+	elif not pressed:
+		_loadout.erase(id)
+	refresh()
+	if loadout_buttons.has(id):
+		loadout_buttons[id].grab_focus()
+
+
+func _claim(source_run: int, id: String) -> void:
+	_perform(func() -> Dictionary:
+		var result := session.claim_inheritance(source_run, id)
+		if result.ok and id != "legacy_insight" and id not in _loadout and _loadout.size() < session.meta().heritage_slots:
+			_loadout.append(id)
+		return result, "本世传承奖励已永久保存。")
+
+
+func _start_rebirth(source_run: int, loadout: Array) -> void:
+	_perform(func() -> Dictionary: return session.begin_rebirth(source_run, loadout), "新一世已开始，永久记录与传承已保留。")
+
+
 func _perform(operation: Callable, success_message: String) -> void:
 	if _locked:
 		return
@@ -363,8 +481,14 @@ func _perform(operation: Callable, success_message: String) -> void:
 		message.text += " 收获：" + _names(result.result.items)
 		if result.result.has("flame") and not result.result.flame.is_empty():
 			message.text += "；异火：" + session.content.get_item(result.result.flame).name
+		if not result.result.get("furnace", "").is_empty():
+			message.text += "；丹炉：" + session.content.get_item(result.result.furnace).name
 		if result.result.has("success") and not result.result.success:
 			message.text = "未获珍品，带回：" + _names(result.result.items)
+	if result.ok and result.result.get("reset_history", false):
+		_confirm_rebirth = false
+		_loadout = session.state().equipped_inheritances.duplicate()
+		reborn.emit()
 	changed.emit()
 	refresh()
 	call_deferred("_release")

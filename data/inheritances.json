@@ -1,0 +1,149 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "heritage_baicao",
+      "name": "百草通灵",
+      "description": "每世首次发现一种丹方品质时，额外研究心得+1。",
+      "tier": 1,
+      "tags": [
+        "inheritance"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 0
+      },
+      "effect": "discovery_research",
+      "amount": 1,
+      "min_completed_runs": 1
+    },
+    {
+      "id": "heritage_luyin",
+      "name": "本命炉印",
+      "description": "使用凡铁丹炉时成功率+3个百分点。",
+      "tier": 1,
+      "tags": [
+        "inheritance"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 0
+      },
+      "effect": "basic_furnace_success",
+      "amount": 0.03,
+      "min_completed_runs": 1
+    },
+    {
+      "id": "heritage_huozhong",
+      "name": "异火火种",
+      "description": "地火裂隙的确定性仪式灵石费用减半，物品费用不变。",
+      "tier": 1,
+      "tags": [
+        "inheritance"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 0
+      },
+      "effect": "ritual_discount",
+      "amount": 0.5,
+      "min_completed_runs": 1
+    },
+    {
+      "id": "heritage_wendan",
+      "name": "稳丹心法",
+      "description": "每世第一次交付宗门日常供丹，额外获得20灵石。",
+      "tier": 1,
+      "tags": [
+        "inheritance"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 0
+      },
+      "effect": "first_quest_stones",
+      "amount": 20,
+      "min_completed_runs": 1
+    },
+    {
+      "id": "heritage_jizhuan",
+      "name": "九转灵识",
+      "description": "冲击极品时成功率-2个百分点，向极品额外转移2点权重。",
+      "tier": 1,
+      "tags": [
+        "inheritance"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 0
+      },
+      "effect": "rush_transfer",
+      "amount": 2,
+      "min_completed_runs": 1
+    },
+    {
+      "id": "heritage_huishou",
+      "name": "残灰归元",
+      "description": "出售丹渣的单位灵石收益翻倍。",
+      "tier": 1,
+      "tags": [
+        "inheritance"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 0
+      },
+      "effect": "residue_multiplier",
+      "amount": 2,
+      "min_completed_runs": 1
+    },
+    {
+      "id": "heritage_tuolu",
+      "name": "古炉寻踪",
+      "description": "赤岩矿脉增加确定性的青木灵炉寻踪选项，消耗180灵石与铁精砂×4。",
+      "tier": 1,
+      "tags": [
+        "inheritance"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 0
+      },
+      "effect": "furnace_trace",
+      "amount": 1,
+      "min_completed_runs": 1
+    },
+    {
+      "id": "heritage_yandan",
+      "name": "丹眼识真",
+      "description": "宗门委托最低品质降低一档，最低为凡品；奖励不减。",
+      "tier": 1,
+      "tags": [
+        "inheritance"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 0
+      },
+      "effect": "quest_quality",
+      "amount": 1,
+      "min_completed_runs": 1
+    },
+    {
+      "id": "heritage_yuanqi",
+      "name": "元气初复",
+      "description": "每世首次缺少基础药材时，免费采药优先用传承补给，不消耗当趟机会。",
+      "tier": 1,
+      "tags": [
+        "inheritance"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 0
+      },
+      "effect": "shortage_supply",
+      "amount": 1,
+      "min_completed_runs": 1
+    }
+  ]
+}

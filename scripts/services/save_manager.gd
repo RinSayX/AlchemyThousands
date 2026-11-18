@@ -2,19 +2,22 @@ class_name SaveManager
 extends RefCounted
 ## Versioned run envelope. Temporary write/readback, validated backup, rename.
 
+const Profile := preload("res://scripts/core/profile_state.gd")
 const State := preload("res://scripts/core/progression_state.gd")
 const Context := preload("res://scripts/core/rng_context.gd")
 const Economy := preload("res://scripts/services/economy_service.gd")
 const Pills := preload("res://scripts/core/pill_stack.gd")
 const Result := preload("res://scripts/core/transaction_result.gd")
-const SCHEMA := 1
+const SCHEMA := 2
 const MAX_BYTES := 16 * 1024 * 1024
 var path: String
 var _state: State
+var _profile: Profile
 
 
 func _init(content: RefCounted, save_path: String) -> void:
 	_state = State.new(content)
+	_profile = Profile.new(content)
 	path = save_path
 
 
@@ -33,13 +36,16 @@ func load_run() -> Dictionary:
 	return Result.failure(primary.error_code, "存档与备份均无法读取：" + primary.message)
 
 
-func save_run(state: Dictionary, history: Array = []) -> Dictionary:
-	var checked := _validate_payload({"run": state, "history": history})
+func save_run(state: Dictionary, history: Array = [], meta: Variant = null) -> Dictionary:
+	var upgraded := _profile.upgrade(state, meta)
+	if not upgraded.ok:
+		return upgraded
+	var checked := _validate_payload({"run": upgraded.result.state, "meta": upgraded.result.meta, "history": history})
 	if not checked.ok:
 		return checked
-	var run := state.duplicate(true)
+	var run: Dictionary = upgraded.result.state.duplicate(true)
 	run.needs_save = false
-	var payload := JSON.stringify({"run": run, "history": history})
+	var payload := JSON.stringify({"run": run, "meta": upgraded.result.meta, "history": history})
 	var envelope := {"schema_version": SCHEMA, "engine_version": Context.ENGINE_VERSION, "saved_at": Time.get_datetime_string_from_system(true), "payload": payload, "checksum": payload.sha256_text()}
 	var absolute := ProjectSettings.globalize_path(path)
 	var directory_error := DirAccess.make_dir_recursive_absolute(absolute.get_base_dir())
@@ -103,7 +109,7 @@ func _read(file_path: String) -> Dictionary:
 	var envelope: Variant = _normalize(parser.data)
 	if not envelope is Dictionary or envelope.size() != 5:
 		return Result.failure("INVALID_SAVE", "存档封套不完整。")
-	if not Economy.valid_integer(envelope.get("schema_version"), 0) or envelope.schema_version != SCHEMA:
+	if not Economy.valid_integer(envelope.get("schema_version"), 0) or envelope.schema_version not in [1, SCHEMA]:
 		return Result.failure("UNSUPPORTED_SAVE_VERSION", "此存档版本尚不支持，不会覆盖原文件。")
 	if not envelope.get("engine_version") is String or envelope.engine_version != Context.ENGINE_VERSION:
 		return Result.failure("ENGINE_MISMATCH", "存档引擎版本与本机锁定版本不同。")
@@ -112,16 +118,25 @@ func _read(file_path: String) -> Dictionary:
 	if parser.parse(envelope.payload) != OK:
 		return Result.failure("INVALID_SAVE", "存档内容 JSON 不完整。")
 	var data: Variant = _normalize(parser.data)
+	var migrated: bool = envelope.schema_version == 1
+	if migrated:
+		if not data is Dictionary or data.size() != 2 or not data.get("run") is Dictionary or not data.get("history") is Array:
+			return Result.failure("INVALID_SAVE", "旧版存档结构不完整。")
+		var upgraded := _profile.upgrade(data.run)
+		if not upgraded.ok:
+			return upgraded
+		data.run = upgraded.result.state
+		data["meta"] = upgraded.result.meta
 	var checked := _validate_payload(data)
 	if not checked.ok:
 		return checked
-	return Result.success({}, {"state": data.run, "history": data.history, "saved_at": envelope.saved_at})
+	return Result.success({}, {"state": data.run, "history": data.history, "meta": data.meta, "migrated": migrated, "saved_at": envelope.saved_at})
 
 
 func _validate_payload(data: Variant) -> Dictionary:
-	if not data is Dictionary or data.size() != 2 or not data.get("run") is Dictionary or not data.get("history") is Array or data.history.size() > 20:
+	if not data is Dictionary or data.size() != 3 or not data.get("run") is Dictionary or not data.get("meta") is Dictionary or not data.get("history") is Array or data.history.size() > 20:
 		return Result.failure("INVALID_SAVE", "修行状态或最近记录不完整。")
-	var checked := _state.validate(data.run)
+	var checked := _profile.validate(data.run, data.meta)
 	if not checked.ok:
 		return checked
 	for record in data.history:

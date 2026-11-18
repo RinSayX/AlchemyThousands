@@ -6,6 +6,8 @@ const Database := preload("res://scripts/core/content_db.gd")
 const Alchemy := preload("res://scripts/services/alchemy_service.gd")
 const Shop := preload("res://scripts/services/shop_service.gd")
 const Result := preload("res://scripts/core/transaction_result.gd")
+const Profile := preload("res://scripts/core/profile_state.gd")
+const Rebirth := preload("res://scripts/services/rebirth_service.gd")
 const Resources := preload("res://scripts/core/progression_state.gd")
 const Progression := preload("res://scripts/services/progression_service.gd")
 const Saves := preload("res://scripts/services/save_manager.gd")
@@ -22,6 +24,9 @@ var _exploration: Exploration
 var _forage: Forage
 var _state: Dictionary = {}
 var _history: Array[Dictionary] = []
+var _meta: Dictionary = {}
+var _profiles: Profile
+var _rebirth: Rebirth
 var _pending: Dictionary = {}
 var _progression: Progression
 var _saves: Saves
@@ -31,6 +36,8 @@ var save_path := ""
 
 func _init(path: String = "") -> void:
 	startup = content.load_directory()
+	_profiles = Profile.new(content)
+	_rebirth = Rebirth.new(content)
 	_alchemy = Alchemy.new(content)
 	_shop = Shop.new(content)
 	_resources = Resources.new(content)
@@ -56,10 +63,25 @@ func new_run(seed_value: Variant = null) -> Dictionary:
 		return Result.failure("BUSY", "请先结束当前炼制或秘境事件。")
 	if not startup.ok:
 		return Result.failure("INVALID_CONTENT", "内容配置读取失败，请检查游戏文件。")
-	var created := _resources.create_state(Time.get_ticks_usec() if seed_value == null else seed_value)
+	var base: Dictionary = _state.duplicate(true)
+	var permanent: Dictionary = _meta.duplicate(true)
+	if base.is_empty() and _saves != null:
+		var saved := _saves.load_run()
+		if saved.ok:
+			base = saved.result.state
+			permanent = saved.result.meta
+	if not base.get("ending", {}).is_empty():
+		return Result.failure("REBIRTH_REQUIRED", "本世已通关，请读取继续并在轮回页领取传承、确认下一世；永久记录不会重置。")
+	var number: int = base.get("run_number", 1)
+	var run_seed: Variant = Time.get_ticks_usec() if seed_value == null else seed_value
+	if not run_seed is int:
+		return Result.failure("INVALID_SEED", "随机种子必须为整数。")
+	if permanent.is_empty():
+		permanent = _profiles.empty_meta()
+	var created := _profiles.create_run(run_seed, number, base.get("equipped_inheritances", []), base.get("world_modifiers", []), permanent.legacy_insight)
 	if created.ok:
-		created.result.state.needs_save = true
 		_state = created.result.state.duplicate(true)
+		_meta = _profiles.sync(_state, permanent)
 		_history.clear()
 	return _after_action(created)
 
@@ -264,13 +286,20 @@ func choose_talent(id: String) -> Dictionary:
 
 
 func collection() -> Dictionary:
-	if has_run():
-		return _progression.collection(_state)
-	if _saves != null:
+	var run := state()
+	var permanent := meta()
+	if not has_run() and _saves != null:
 		var saved := _saves.load_run()
 		if saved.ok:
-			return _progression.collection(saved.result.state)
-	return _progression.collection({})
+			run = saved.result.state
+			permanent = saved.result.meta
+	if not run.is_empty():
+		run.alchemy_discoveries = permanent.discovered_pills.duplicate()
+	return _progression.collection(run)
+
+
+func meta() -> Dictionary:
+	return _meta.duplicate(true)
 
 
 func saved_run() -> Dictionary:
@@ -283,6 +312,7 @@ func load_run() -> Dictionary:
 	var loaded := saved_run()
 	if not loaded.ok:
 		return loaded
+	_meta = loaded.result.meta.duplicate(true)
 	_state = loaded.result.state.duplicate(true)
 	_state.needs_save = false
 	_history.assign(loaded.result.history.duplicate(true))
@@ -303,13 +333,53 @@ func save_run() -> Dictionary:
 		records.push_front(_pending.result.duplicate(true))
 		if records.size() > 20:
 			records.resize(20)
-	save_status = _saves.save_run(_state, records)
+	save_status = _saves.save_run(_state, records, _meta)
 	if save_status.ok:
 		_state.needs_save = false
 	return save_status.duplicate(true)
 
 
 func _after_action(outcome: Dictionary) -> Dictionary:
-	if outcome.ok and _saves != null:
-		save_run()
+	if outcome.ok:
+		_meta = _profiles.sync(_state, _meta)
+		if _saves != null:
+			save_run()
 	return outcome
+
+
+func rebirth_status() -> Dictionary:
+	return _rebirth.preview(_state, _meta)
+
+
+func preview_rebirth(loadout: Variant) -> Dictionary:
+	return _rebirth.preview_next(_state, _meta, loadout)
+
+
+func claim_inheritance(source_run: int, choice: String) -> Dictionary:
+	if is_busy():
+		return Result.failure("BUSY", "请先结束当前炼制或秘境事件。")
+	return _commit_profile_plan(_rebirth.plan_claim(_state, _meta, source_run, choice, _next_id()))
+
+
+func begin_rebirth(source_run: int, loadout: Variant) -> Dictionary:
+	if is_busy():
+		return Result.failure("BUSY", "请先结束当前炼制或秘境事件。")
+	return _commit_profile_plan(_rebirth.plan_rebirth(_state, _meta, source_run, loadout, _next_id()))
+
+
+func _commit_profile_plan(plan: Dictionary) -> Dictionary:
+	if not plan.ok:
+		return plan
+	var next: Dictionary = plan.result.state.duplicate(true)
+	var permanent: Dictionary = plan.result.meta.duplicate(true)
+	var records: Array = [] if plan.result.reset_history else _history.duplicate(true)
+	if _saves != null:
+		save_status = _saves.save_run(next, records, permanent)
+		if not save_status.ok:
+			return Result.failure(save_status.error_code, "轮回事务尚未提交：" + save_status.message + " 原周目与永久记录仍保留，可重试。")
+		next.needs_save = false
+	_state = next
+	_meta = permanent
+	_history.assign(records)
+	_pending.clear()
+	return plan

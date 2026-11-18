@@ -7,9 +7,11 @@ var error := ""
 var checkpoints: Dictionary = {}
 
 
-func run(style: String = "research", stop_at: int = 10, choose_last: bool = true) -> Dictionary:
-	session = Session.new()
-	if not _accept(session.new_run(20261119)) or not _accept(session.accept_quest("quest_juling_supply")):
+func run(style: String = "research", stop_at: int = 10, choose_last: bool = true, existing_session: Variant = null) -> Dictionary:
+	session = Session.new() if existing_session == null else existing_session
+	if existing_session == null and not _accept(session.new_run(20261119)):
+		return _result(false)
+	if not _accept(session.accept_quest("quest_juling_supply")):
 		return _result(false)
 	for target in range(1, stop_at + 1):
 		var exam: Dictionary = session.progression().result.next

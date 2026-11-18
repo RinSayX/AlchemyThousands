@@ -146,7 +146,7 @@ func show_prologue() -> void:
 	_label(modal_content, "青岚山下，晨雾初散。", 20, Color("b9c8b5"))
 	_wrapped_label("你原是边陲宗门的一名丹童。师父留下一座旧丹炉，\n还有半部被烟火熏黄的炼丹手记。\n\n“草木各有性，成丹先修心。”\n\n从一株灵草、一缕凡火开始，你的丹道将由此写下。")
 	if _has_session or _has_save:
-		_wrapped_label("重新入宗将重置本次修行并替换已保存的进度；灵石、背包、境界和天赋重新开始。")
+		_wrapped_label("重新修行会重置本世临时资源、境界和天赋，保留永久图鉴与记录、已有传承和本世天地规则。已通关请从轮回页主动开启下一世。")
 	else:
 		_label(modal_content, "行动后自动保存，可关闭游戏后继续修行。", 15, MUTED)
 	var enter := _button(modal_content, "重新入宗" if _has_session or _has_save else "入丹房 · 点燃凡火", func() -> void: new_run_requested.emit())
@@ -176,7 +176,7 @@ func show_collection() -> void:
 	if collection_provider.is_valid():
 		var result: Dictionary = collection_provider.call()
 		if result.ok:
-			_wrapped_label("已发现 %d / %d 个丹方品质。出售或交付不会抹去发现记录。" % [result.result.discovered, result.result.total])
+			_wrapped_label("永久发现 %d / %d 个丹方品质。交付、出售与轮回不会抹去记录。" % [result.result.discovered, result.result.total])
 			var scroll := ScrollContainer.new()
 			scroll.custom_minimum_size = Vector2(540, 250)
 			modal_content.add_child(scroll)

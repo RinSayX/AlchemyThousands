@@ -46,7 +46,7 @@ func run(tree: SceneTree, check: Callable) -> bool:
 	room.brew_button.pressed.emit()
 	_check.call(room.phase == "brewing" and session.is_busy() and session.state().statistics.alchemy_attempts == before.statistics.alchemy_attempts + 1, "P4: Repeated brew clicks produce exactly one furnace")
 	_check.call(room.brew_button.disabled and room.buy_button.disabled and room.back_button.disabled, "P4: Actions lock immediately while the animation is running")
-	_check.call(room.status.text.contains("历练 %d" % before.exp) and room.status.text.contains("心得 %d" % before.research_points) and room.sell_button.text == "暂无丹药或丹渣可售", "P4: Brewing presentation does not reveal rewards or future sale prices early")
+	_check.call(room.status.text.contains("历练%d" % before.exp) and room.status.text.contains("心得%d" % before.research_points) and room.sell_button.text == "暂无丹药或丹渣可售", "P4: Brewing presentation does not reveal rewards or future sale prices early")
 	var after_brew := var_to_bytes(session.state())
 	room.buy_materials()
 	_check.call(after_brew == var_to_bytes(session.state()), "P4: Trading callback cannot bypass the brewing lock")

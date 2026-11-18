@@ -76,6 +76,8 @@ func _ready() -> void:
 	resource_hub.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	resource_hub.closed.connect(_close_resources)
 	resource_hub.changed.connect(refresh)
+	resource_hub.reborn.connect(_reset_run_view)
+	quick.button_pressed = session.meta().get("quality_of_life_unlocks", []).has("quick_reveal")
 	refresh()
 
 
@@ -156,8 +158,8 @@ func _build() -> void:
 	notice = _label(footer, "先选丹方，再配火候；初始药材已放入背包。", 13, MUTED)
 	notice.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	notice.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
-	for index in range(7):
-		var button := _button(footer, ["坊市", "委托", "秘境", "采药", "丹师", "图鉴", "存档"][index], open_resources.bind(index))
+	for index in range(8):
+		var button := _button(footer, ["坊市", "委托", "秘境", "采药", "丹师", "图鉴", "存档", "轮回"][index], open_resources.bind(index))
 		resource_buttons.append(button)
 	save_hint = _label(footer, "", 13, MUTED)
 	save_hint.custom_minimum_size.x = 180
@@ -345,7 +347,7 @@ func refresh() -> void:
 	chapter.text = ["第一章 / 破炉丹童", "第二章 / 初窥丹道", "第三章 / 丹会问道", "第四章 / 九品登极", "终章 / 道成宗师"][0 if state.rank == 0 else 1 if state.rank <= 3 else 2 if state.rank <= 6 else 3 if state.rank <= 9 else 4]
 	save_hint.text = "未启用磁盘存档" if session.save_path.is_empty() else ("保存失败 · 请在存档页重试" if session.save_status.get("ok") == false else "已从备份恢复" if session.save_status.get("result", {}).get("recovered", false) else "行动后自动保存")
 	save_hint.tooltip_text = session.save_status.get("message", "")
-	status.text = "%s   ·   历练 %d   ·   心得 %d   ·   灵石 %d" % [rank_name, state.exp, state.research_points, state.spirit_stones]
+	status.text = "第%d世 · %s · 历练%d · 心得%d · 灵石%d" % [state.run_number, rank_name, state.exp, state.research_points, state.spirit_stones]
 	_render_recipes(state)
 	var recipe: Dictionary = session.content.get_item(selected_recipe)
 	description.text = "%s  ·  %s\n%s" % [recipe.name, _tier_name(recipe.tier), recipe.description]
@@ -362,12 +364,12 @@ func refresh() -> void:
 	if preview.ok:
 		var view: Dictionary = preview.result
 		rate.text = "%.1f%%" % (view.success_rate * 100)
-		rate.tooltip_text = "引擎最终概率；成功后再独立判定品质。天赋修正：%+.1f 个百分点" % (view.success_breakdown.get("talent", 0.0) * 100)
+		rate.tooltip_text = "引擎最终概率；成功后再独立判定品质。天赋%+.1f / 天地%+.1f / 传承%+.1f 个百分点" % [view.success_breakdown.get("talent", 0.0) * 100, view.success_breakdown.get("world", 0.0) * 100, view.success_breakdown.get("inheritance", 0.0) * 100]
 		for quality in QUALITY_NAMES:
 			quality_labels[quality].text = "%s  %.1f%%" % [QUALITY_NAMES[quality], view.quality_probabilities[quality] * 100]
 		legendary.text = "单炉极品概率  %.2f%%" % (view.legendary_per_attempt * 100)
 		costs.text = "本炉材料价值：%s\n符箓消耗：%s" % [_money(view.material_shop_cost), _names(view.consumables)]
-		refunds.text = "失败返还：%s\n另得丹渣×1、历练+%d、心得+1" % [_names(view.failure_returns), view.exp_rewards.failure]
+		refunds.text = "失败返还：%s\n另得丹渣×1、历练+%d、心得+%d" % [_names(view.failure_returns), view.exp_rewards.failure, view.research_rewards.base]
 		brew_button.disabled = not idle or not view.can_execute
 		brew_button.tooltip_text = "材料或符箓不足，请先补充。" if not view.can_execute else "扣除本炉材料，按公开概率炼制。"
 	else:
@@ -697,3 +699,21 @@ func _money(value: Variant) -> String:
 
 func _tier_name(tier: int) -> String:
 	return ["一品", "二品", "三品", "四品", "五品", "六品", "七品", "八品", "九品"][tier - 1]
+
+
+func _reset_run_view() -> void:
+	selected_recipe = "recipe_juling"
+	search.text = ""
+	tier_filter.select(0)
+	batches.value = 1
+	for option in selectors.values():
+		option.select(0)
+	phase_label.text = "新一世已启，药材就绪。"
+	notice.text = "永久图鉴与传承已保留，可开始本世修行。"
+	_current_result.clear()
+	_brewing_state.clear()
+	_brewing_preview.clear()
+	_brewing_products.clear()
+	reveal_timer.stop()
+	quick.button_pressed = session.meta().quality_of_life_unlocks.has("quick_reveal")
+	refresh()

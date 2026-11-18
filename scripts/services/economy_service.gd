@@ -2,6 +2,7 @@ class_name EconomyService
 extends RefCounted
 ## Synchronous, in-memory transaction boundary. No UI, saves or RNG.
 
+const Lineage := preload("res://scripts/core/lineage_rules.gd")
 const Database := preload("res://scripts/core/content_db.gd")
 const Result := preload("res://scripts/core/transaction_result.gd")
 const Pills := preload("res://scripts/core/pill_stack.gd")
@@ -60,6 +61,8 @@ func validate_state(state: Dictionary) -> Dictionary:
 		if not valid_action_id(id) or seen.has(id):
 			return Result.failure("INVALID_STATE", "操作记录存在非法或重复 ID。")
 		seen[id] = true
+	if not Lineage.valid_ids(_db, state):
+		return Result.failure("UNSUPPORTED_RULE", "传承或世界规则引用、重复或冲突不合法。")
 	return Result.success()
 
 

@@ -1,10 +1,10 @@
-# 静态内容格式与接口（P1～P6）
+# 静态内容格式与接口（P1～P7）
 
 适用于 Godot `4.5.stable.official.876b29033`，内容格式版本 `schema_version: 1`。内容库只定义并校验静态内容，交易、炼丹与资源结算分别由业务服务执行。原始设计文档不变，未定数值的首批配置记录在 BALANCE.md。
 
 ## 文件和通用字段
 
-固定读取 `data/recipes.json`、`materials.json`、`furnaces.json`、`flames.json`、`consumables.json`、`quests.json`、`exploration_events.json`、`ranks.json`、`talents.json` 九张表，全部必需。每张表格式为：
+固定读取 `data/recipes.json`、`materials.json`、`furnaces.json`、`flames.json`、`consumables.json`、`quests.json`、`exploration_events.json`、`ranks.json`、`talents.json`、`inheritances.json`、`world_modifiers.json` 十一张表，全部必需。每张表格式为：
 
 ```json
 {"schema_version": 1, "items": [{"id": "recipe_example"}]}
@@ -85,7 +85,7 @@
 
 `exploration_events` 除通用字段外必填 `weight`（有限数值 0.000001～2147483647）和非空 `options` 数组；`unlock` 必须使用 `rank` 条件。权重在当前境界可进入的地点中归一化，指定地点不抽取权重。
 
-每个 option 恰好提供：
+每个 option 必须提供以下字段：
 
 | 字段 | 约束 |
 |---|---|
@@ -95,6 +95,8 @@
 | `cost_items` / `success_items` / `failure_items` | 物品 ID → 正整数，可空对象 |
 | `success_rate` | 有限数值 [0,1]，独立于炼丹 5%～95% 限幅 |
 | `reward_flame` | 成功时发放的异火 ID 或空字符串 |
+
+P7 另允许可选 `required_heritage`（有效传承 ID 或空字符串）、`reward_furnace`（有效丹炉 ID 或空字符串）。前者控制选项资格，后者是成功后的独立永久装备奖励，不混入材料堆叠。未携带所需传承返回 OPTION_LOCKED；重复拥有奖励丹炉不叠加份数。其他未知字段仍拒绝。
 
 全部奖励/消耗物品映射只允许存在的材料或消耗品，不允许丹方、装备或任意脚本作为堆叠物品。数量、金额和经验不超过统一整数上限；加载后规范化为运行时 int。所有引用验证通过才替换缓存，非法事件不影响此前可用内容。委托实例和待处理秘境属于运行状态，不写入静态定义。
 
@@ -106,7 +108,25 @@
 
 `talents` 另含：`choice_rank`（3 / 6 / 9，须与 unlock.required_rank 一致）、`style`（stable / rush / research）、`success_bonus`（[-1,1]）、`material_refund_bonus`（[0,1]）、`legendary_transfer`（[0,100]）、`research_discount`（[0,0.5]）、`substitution_ratio`（整数 0～10）。修正必须有限；每阶段恰好三项且三类各一，禁止缺选项或重复流派。仅已选天赋参与运行，具体激活策略和研制成本规则见 P6_PROGRESSION.md。
 
-当前共 12 丹方、9 材料、3 丹炉、2 异火、3 消耗品、5 委托、5 事件、11 品阶、9 天赋，合计 59 条。原有六丹方价格与基础概率不变；四至九品新增值见 BALANCE.md。
+## P7 传承与天地变数
+
+两表均保留通用字段，`unlock.type` 使用 `rank`；实际跨世资格还按以下周目字段判断。不能通过 JSON 注入脚本或任意表达式。
+
+`inheritances` 必填 `effect`、`amount`、`min_completed_runs`（整数 1～2147483647）。注册效果为 discovery_research、basic_furnace_success、ritual_discount、first_quest_stones、rush_transfer、residue_multiplier、furnace_trace、quest_quality、shortage_supply。同一效果只能定义一次，避免多项传承隐式重复叠加。basic_furnace_success、ritual_discount 的 amount 为有限 [0,1]；其余为整数 1～100。整数语义加载后规范化。
+
+`world_modifiers` 必填：
+
+| 字段 | 约束 |
+|---|---|
+| `weight` | 有限数值 0.000001～2147483647 |
+| `min_run_number` | 整数 2～2147483647 |
+| `opportunity` | 布尔，标记机会规则 |
+| `exclusive_with` | 不重复 ID 数组，不可引用自己，冲突必须双向声明 |
+| `changes` | 非空对象，只接受下述注册字段 |
+
+changes 中 success_bonus、fire_success_bonus、normal_flame_success 为有限 [-1,1]；herb_buy_multiplier、quest_stones_multiplier 为有限 [1,2]；exploration_herb_bonus、fire_legendary_transfer、quest_quality_shift、research_per_attempt 为整数 0～10；suppress_special_flames 为布尔。相容的两条世界不能重复定义同一修正字段，避免依赖数组顺序决定覆盖。必须存在第二世可用且至少含一条机会规则的相容组合。
+
+当前共 12 丹方、9 材料、3 丹炉、2 异火、3 消耗品、5 委托、5 事件、11 品阶、9 天赋、9 传承、6 变数，合计 74 条。原有丹方价格与基础概率不变；P7 候选效果见 BALANCE.md，生成规则见 P7_REBIRTH.md。
 
 ## ContentDB 与诊断
 
@@ -123,7 +143,7 @@ else:
     print(loaded.errors)
 ```
 
-- `load_directory(directory)`：读九个文件并解析，随后调用验证器。
+- `load_directory(directory)`：读十一个文件并解析，随后调用验证器。
 - `load_documents(documents)`：接收分类 → 原始 JSON 文档的对象，可用于配置工具和测试。
 - `has_item(id)`、`get_item(id)`、`get_ids(category)`、`get_items(category)`、`get_counts()`：不改变状态；未知 ID 或分类返回空结果；分类列表保留 JSON 顺序。
 - 加载成功返回 `{ok: true, errors: [], counts: {...}}`，失败返回 `{ok: false, errors: [...]}`。

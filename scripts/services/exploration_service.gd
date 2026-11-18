@@ -1,6 +1,7 @@
 class_name ExplorationService
 extends RefCounted
 
+const Lineage := preload("res://scripts/core/lineage_rules.gd")
 const State := preload("res://scripts/core/resource_state.gd")
 const Database := preload("res://scripts/core/content_db.gd")
 const Economy := preload("res://scripts/services/economy_service.gd")
@@ -69,9 +70,12 @@ func preview_option(state: Dictionary, instance_id: String, option_id: String) -
 	if state.pending_exploration.is_empty() or state.pending_exploration.instance_id != instance_id:
 		return Result.failure("EVENT_CHANGED", "事件已结束或发生变化，请重新查看。")
 	var event: Dictionary = _state.db.get_item(state.pending_exploration.event_id)
-	for option in event.options:
-		if option.id != option_id:
+	for source in event.options:
+		if source.id != option_id:
 			continue
+		if not source.get("required_heritage", "").is_empty() and source.required_heritage not in state.get("equipped_inheritances", []):
+			return Result.failure("OPTION_LOCKED", "此秘境选项需要携带对应传承。")
+		var option := Lineage.option(_state.db, state, event.id, source)
 		var can_pay: bool = state.spirit_stones >= option.cost_stones
 		var missing: Dictionary = {}
 		for id in option.cost_items:
@@ -112,12 +116,13 @@ func resolve(state: Dictionary, instance_id: String, option_id: String, action_i
 	var items: Dictionary = option.success_items if success else option.failure_items
 	var stones: int = option.success_stones if success else option.failure_stones
 	var flame: String = option.reward_flame if success else ""
-	var granted := _state.reward(next, items, stones, 0, flame)
+	var furnace: String = option.get("reward_furnace", "") if success else ""
+	var granted := _state.reward(next, items, stones, 0, flame, furnace)
 	if not granted.ok:
 		return granted
 	next = granted.result.candidate
 	next.pending_exploration = {}
-	return _state.commit(state, next, action_id, {"instance_id": instance_id, "success": success, "items": items, "spirit_stones": stones, "flame": flame, "cost_stones": option.cost_stones, "cost_items": option.cost_items})
+	return _state.commit(state, next, action_id, {"instance_id": instance_id, "success": success, "items": items, "spirit_stones": stones, "flame": flame, "furnace": furnace, "cost_stones": option.cost_stones, "cost_items": option.cost_items})
 
 
 func leave(state: Dictionary, instance_id: String, action_id: Variant) -> Dictionary:

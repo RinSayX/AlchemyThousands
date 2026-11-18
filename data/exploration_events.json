@@ -193,6 +193,23 @@
           "success_stones": 0,
           "failure_stones": 0,
           "reward_flame": ""
+        },
+        {
+          "id": "choice_furnace_trace",
+          "name": "循炉胚铸灵炉",
+          "description": "古炉寻踪传承：以铁精砂修复青木灵炉；已拥有时不会重复获得第二座。",
+          "cost_stones": 180,
+          "cost_items": {
+            "ore_tiejing": 4
+          },
+          "success_rate": 1,
+          "success_items": {},
+          "failure_items": {},
+          "success_stones": 0,
+          "failure_stones": 0,
+          "reward_flame": "",
+          "required_heritage": "heritage_tuolu",
+          "reward_furnace": "furnace_qingmu"
         }
       ]
     },

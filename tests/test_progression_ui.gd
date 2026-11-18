@@ -21,11 +21,11 @@ func run(tree: SceneTree, check: Callable) -> bool:
 	var menu: Control = main.get_node("MainMenu")
 	_check.call(not main.session.has_run() and not menu.continue_button.disabled and menu.continue_button.text == "读取修行存档", "P6 UI: Saved run enables disk continue without creating a new run")
 	menu.show_collection()
-	_check.call(menu.modal_content.get_child_count() > 3 and menu.modal_content.get_child(1).text.contains("已发现"), "P6 UI: Menu collection reads actual saved discoveries")
+	_check.call(menu.modal_content.get_child_count() > 3 and menu.modal_content.get_child(1).text.contains("永久发现"), "P6 UI: Menu collection reads actual saved discoveries")
 	menu.close_modal()
 	menu.new_game_button.pressed.emit()
 	var snapshot := FileAccess.get_file_as_bytes(path)
-	_check.call(menu.modal_content.get_child(3).text.contains("重新入宗") and snapshot == FileAccess.get_file_as_bytes(path), "P6 UI: Existing disk progress gets an explicit replacement warning before new-run confirmation")
+	_check.call(menu.modal_content.get_child(3).text.contains("重新修行") and snapshot == FileAccess.get_file_as_bytes(path), "P6 UI: Existing disk progress gets an explicit replacement warning before new-run confirmation")
 	menu.close_modal()
 	menu.continue_button.pressed.emit()
 	await tree.process_frame

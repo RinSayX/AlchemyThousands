@@ -57,7 +57,7 @@ func load_documents(documents: Dictionary) -> Dictionary:
 func _normalize_item(category: String, source: Dictionary) -> Dictionary:
 	# Godot JSON decodes all numbers as floats. Convert only validated integers.
 	var item := source.duplicate(true)
-	for field in ["tier", "required_rank", "base_sell_price", "buy_price", "sell_price", "quantity", "reward_spirit_stones", "reward_exp", "rank_index", "exp_required", "research_cost", "choice_rank", "substitution_ratio"]:
+	for field in ["tier", "required_rank", "base_sell_price", "buy_price", "sell_price", "quantity", "reward_spirit_stones", "reward_exp", "rank_index", "exp_required", "research_cost", "choice_rank", "substitution_ratio", "min_completed_runs", "min_run_number"]:
 		if item.has(field):
 			item[field] = int(item[field])
 	for field in ["required_rank", "price"]:
