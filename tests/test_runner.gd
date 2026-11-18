@@ -2,6 +2,7 @@ extends SceneTree
 ## Dependency-free content and UI integration checks. Never writes preferences.
 
 const ContentTests := preload("res://tests/test_content.gd")
+const EconomyTests := preload("res://tests/test_economy.gd")
 
 var checks := 0
 var failures: Array[String] = []
@@ -12,8 +13,18 @@ func _initialize() -> void:
 
 
 func _run() -> void:
-	ContentTests.new().run(_check)
-	if OS.get_cmdline_user_args().has("--content-only"):
+	var args := OS.get_cmdline_user_args()
+	if args.has("--content-only") and args.has("--economy-only"):
+		_check(false, "Choose one focused test suite at a time")
+		_finish()
+		return
+	if not args.has("--economy-only"):
+		ContentTests.new().run(_check)
+	if args.has("--content-only"):
+		_finish()
+		return
+	_check(EconomyTests.new().run(_check), "P2: Economy suite completed")
+	if args.has("--economy-only"):
 		_finish()
 		return
 	var packed := load("res://scenes/main/main.tscn") as PackedScene
