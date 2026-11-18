@@ -182,6 +182,26 @@
         "research"
       ],
       "repeatable": true
+    },
+    {
+      "id": "material_danzha",
+      "name": "丹渣",
+      "description": "炼丹失败留下的残渣，可出售；后续可用于研究兑换。",
+      "tier": 1,
+      "tags": [
+        "residue"
+      ],
+      "unlock": {
+        "type": "initial"
+      },
+      "category": "spirit",
+      "buy_price": 0,
+      "sell_price": 3,
+      "shop_available": false,
+      "sources": [
+        "alchemy"
+      ],
+      "repeatable": true
     }
   ]
 }

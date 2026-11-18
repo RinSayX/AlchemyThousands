@@ -1,5 +1,14 @@
 # 变更记录
 
+## 0.1.3-p3 · 2026-11-18
+
+- 实现 AlchemyRules / AlchemyService：统一概率预览与执行、normal/stable/rush 策略、装备/符箓、品质和额外成丹。
+- 失败材料回收、丹渣、经验/研究、首次品质发现、统计、行动数、操作防重放及 needs_save 一次提交；P2 复用 StateTransaction。
+- 增加独立三流 RNGContext，用十进制字符串保存 int64 seed/state；JSON 快照和检查点恢复可复现，失败事务不推进实际 RNG。
+- 新增丹渣定义，材料由 8 增至 9；既有丹方/装备静态价格和概率未改动。
+- 新增真实炼丹演示、五组各十万炉概率模拟及统计产物，补充接口与阶段报告。
+- 本阶段不接入 P4 UI、正式存档、变异内容、天赋或天地规则。
+
 ## 0.1.2-p2 · 2026-11-18
 
 - 实现无 UI 依赖的 EconomyService、InventoryService、ShopService 与统一事务结果。

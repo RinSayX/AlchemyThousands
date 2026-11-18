@@ -15,7 +15,7 @@ const CATEGORY_FIELDS := {
 	"consumables": ["success_bonus", "quality_transfers", "material_refund_bonus", "extra_pill_chance", "effect_tags", "effect_ids", "effect_category", "shop_available", "sell_price"],
 }
 const MATERIAL_CATEGORIES := ["herb", "mineral", "beast", "spirit"]
-const MATERIAL_SOURCES := ["shop", "forage", "exploration", "quest", "research"]
+const MATERIAL_SOURCES := ["shop", "forage", "exploration", "quest", "research", "alchemy"]
 const UNLOCK_TYPES := ["initial", "shop", "rank", "exploration"]
 
 var _id_pattern := RegEx.create_from_string("^[a-z][a-z0-9]*(_[a-z0-9]+)+$")

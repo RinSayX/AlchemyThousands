@@ -1,0 +1,480 @@
+{
+  "engine_version": "4.5.stable.official.876b29033",
+  "passed": true,
+  "profiles": [
+    {
+      "checks": [
+        {
+          "actual": 0.79786,
+          "expected": 0.8,
+          "name": "success",
+          "passed": true,
+          "tolerance": 0.01
+        },
+        {
+          "actual": 0.649612714009977,
+          "count": 51830,
+          "expected": 0.65,
+          "name": "common",
+          "passed": true,
+          "samples": 79786,
+          "tolerance": 0.0101316132795797
+        },
+        {
+          "actual": 0.250106534981074,
+          "count": 19955,
+          "expected": 0.25,
+          "name": "good",
+          "passed": true,
+          "samples": 79786,
+          "tolerance": 0.00919789696073174
+        },
+        {
+          "actual": 0.089539518211215,
+          "count": 7144,
+          "expected": 0.09,
+          "name": "superior",
+          "passed": true,
+          "samples": 79786,
+          "tolerance": 0.00607896796774782
+        },
+        {
+          "actual": 0.0107412327977339,
+          "count": 857,
+          "expected": 0.01,
+          "name": "legendary",
+          "passed": true,
+          "samples": 79786,
+          "tolerance": 0.00211351581229301
+        },
+        {
+          "actual": 0.00857,
+          "count": 857,
+          "expected": 0.008,
+          "name": "legendary_per_attempt",
+          "passed": true,
+          "samples": 100000,
+          "tolerance": 0.00169025441871926
+        },
+        {
+          "actual": 0.0,
+          "count": 0,
+          "expected": 0.0,
+          "name": "extra_given_success",
+          "passed": true,
+          "samples": 79786,
+          "tolerance": 0.0000125335271852205
+        }
+      ],
+      "extra_actual": 0.0,
+      "extra_count": 0,
+      "extra_expected": 0.0,
+      "name": "normal",
+      "passed": true,
+      "quality_actual": {
+        "common": 0.649612714009977,
+        "good": 0.250106534981074,
+        "legendary": 0.0107412327977339,
+        "superior": 0.089539518211215
+      },
+      "quality_counts": {
+        "common": 51830,
+        "good": 19955,
+        "legendary": 857,
+        "superior": 7144
+      },
+      "quality_expected": {
+        "common": 0.65,
+        "good": 0.25,
+        "legendary": 0.01,
+        "superior": 0.09
+      },
+      "samples": 100000,
+      "seed": 89271,
+      "success_actual": 0.79786,
+      "success_expected": 0.8,
+      "successes": 79786,
+      "test_fixture": false
+    },
+    {
+      "checks": [
+        {
+          "actual": 0.94922,
+          "expected": 0.95,
+          "name": "success",
+          "passed": true,
+          "tolerance": 0.01
+        },
+        {
+          "actual": 0.662280609342407,
+          "count": 62865,
+          "expected": 0.66,
+          "name": "common",
+          "passed": true,
+          "samples": 94922,
+          "tolerance": 0.00922527320486896
+        },
+        {
+          "actual": 0.249805103137313,
+          "count": 23712,
+          "expected": 0.25,
+          "name": "good",
+          "passed": true,
+          "samples": 94922,
+          "tolerance": 0.00843273487469948
+        },
+        {
+          "actual": 0.0879142875202798,
+          "count": 8345,
+          "expected": 0.09,
+          "name": "superior",
+          "passed": true,
+          "samples": 94922,
+          "tolerance": 0.00557326586747607
+        },
+        {
+          "actual": 0.0,
+          "count": 0,
+          "expected": 0.0,
+          "name": "legendary",
+          "passed": true,
+          "samples": 94922,
+          "tolerance": 0.0000105349655506626
+        },
+        {
+          "actual": 0.0,
+          "count": 0,
+          "expected": 0.0,
+          "name": "legendary_per_attempt",
+          "passed": true,
+          "samples": 100000,
+          "tolerance": 0.00001
+        },
+        {
+          "actual": 0.0,
+          "count": 0,
+          "expected": 0.0,
+          "name": "extra_given_success",
+          "passed": true,
+          "samples": 94922,
+          "tolerance": 0.0000105349655506626
+        }
+      ],
+      "extra_actual": 0.0,
+      "extra_count": 0,
+      "extra_expected": 0.0,
+      "name": "stable",
+      "passed": true,
+      "quality_actual": {
+        "common": 0.662280609342407,
+        "good": 0.249805103137313,
+        "legendary": 0.0,
+        "superior": 0.0879142875202798
+      },
+      "quality_counts": {
+        "common": 62865,
+        "good": 23712,
+        "legendary": 0,
+        "superior": 8345
+      },
+      "quality_expected": {
+        "common": 0.66,
+        "good": 0.25,
+        "legendary": 0.0,
+        "superior": 0.09
+      },
+      "samples": 100000,
+      "seed": 89368,
+      "success_actual": 0.94922,
+      "success_expected": 0.95,
+      "successes": 94922,
+      "test_fixture": false
+    },
+    {
+      "checks": [
+        {
+          "actual": 0.51849,
+          "expected": 0.52,
+          "name": "success",
+          "passed": true,
+          "tolerance": 0.01
+        },
+        {
+          "actual": 0.522555883430732,
+          "count": 27094,
+          "expected": 0.52,
+          "name": "common",
+          "passed": true,
+          "samples": 51849,
+          "tolerance": 0.0131644690726304
+        },
+        {
+          "actual": 0.251480259985728,
+          "count": 13039,
+          "expected": 0.25,
+          "name": "good",
+          "passed": true,
+          "samples": 51849,
+          "tolerance": 0.0114098962152954
+        },
+        {
+          "actual": 0.167235626530888,
+          "count": 8671,
+          "expected": 0.17,
+          "name": "superior",
+          "passed": true,
+          "samples": 51849,
+          "tolerance": 0.00989793425853883
+        },
+        {
+          "actual": 0.0587282300526529,
+          "count": 3045,
+          "expected": 0.06,
+          "name": "legendary",
+          "passed": true,
+          "samples": 51849,
+          "tolerance": 0.00625778459827906
+        },
+        {
+          "actual": 0.03045,
+          "count": 3045,
+          "expected": 0.0312,
+          "name": "legendary_per_attempt",
+          "passed": true,
+          "samples": 100000,
+          "tolerance": 0.00329872120677089
+        },
+        {
+          "actual": 0.0,
+          "count": 0,
+          "expected": 0.0,
+          "name": "extra_given_success",
+          "passed": true,
+          "samples": 51849,
+          "tolerance": 0.0000192867750583425
+        }
+      ],
+      "extra_actual": 0.0,
+      "extra_count": 0,
+      "extra_expected": 0.0,
+      "name": "rush_fire",
+      "passed": true,
+      "quality_actual": {
+        "common": 0.522555883430732,
+        "good": 0.251480259985728,
+        "legendary": 0.0587282300526529,
+        "superior": 0.167235626530888
+      },
+      "quality_counts": {
+        "common": 27094,
+        "good": 13039,
+        "legendary": 3045,
+        "superior": 8671
+      },
+      "quality_expected": {
+        "common": 0.52,
+        "good": 0.25,
+        "legendary": 0.06,
+        "superior": 0.17
+      },
+      "samples": 100000,
+      "seed": 89465,
+      "success_actual": 0.51849,
+      "success_expected": 0.52,
+      "successes": 51849,
+      "test_fixture": false
+    },
+    {
+      "checks": [
+        {
+          "actual": 0.79977,
+          "expected": 0.8,
+          "name": "success",
+          "passed": true,
+          "tolerance": 0.01
+        },
+        {
+          "actual": 0.650124410768096,
+          "count": 51995,
+          "expected": 0.65,
+          "name": "common",
+          "passed": true,
+          "samples": 79977,
+          "tolerance": 0.0101195079562628
+        },
+        {
+          "actual": 0.249609262663016,
+          "count": 19963,
+          "expected": 0.25,
+          "name": "good",
+          "passed": true,
+          "samples": 79977,
+          "tolerance": 0.00918690724828692
+        },
+        {
+          "actual": 0.0902384435525213,
+          "count": 7217,
+          "expected": 0.09,
+          "name": "superior",
+          "passed": true,
+          "samples": 79977,
+          "tolerance": 0.00607170477375771
+        },
+        {
+          "actual": 0.0100278830163672,
+          "count": 802,
+          "expected": 0.01,
+          "name": "legendary",
+          "passed": true,
+          "samples": 79977,
+          "tolerance": 0.00211099056862874
+        },
+        {
+          "actual": 0.00802,
+          "count": 802,
+          "expected": 0.008,
+          "name": "legendary_per_attempt",
+          "passed": true,
+          "samples": 100000,
+          "tolerance": 0.00169025441871926
+        },
+        {
+          "actual": 0.0,
+          "count": 0,
+          "expected": 0.0,
+          "name": "extra_given_success",
+          "passed": true,
+          "samples": 79977,
+          "tolerance": 0.0000125035947835003
+        }
+      ],
+      "extra_actual": 0.0,
+      "extra_count": 0,
+      "extra_expected": 0.0,
+      "name": "recovery",
+      "passed": true,
+      "quality_actual": {
+        "common": 0.650124410768096,
+        "good": 0.249609262663016,
+        "legendary": 0.0100278830163672,
+        "superior": 0.0902384435525213
+      },
+      "quality_counts": {
+        "common": 51995,
+        "good": 19963,
+        "legendary": 802,
+        "superior": 7217
+      },
+      "quality_expected": {
+        "common": 0.65,
+        "good": 0.25,
+        "legendary": 0.01,
+        "superior": 0.09
+      },
+      "samples": 100000,
+      "seed": 89562,
+      "success_actual": 0.79977,
+      "success_expected": 0.8,
+      "successes": 79977,
+      "test_fixture": false
+    },
+    {
+      "checks": [
+        {
+          "actual": 0.80011,
+          "expected": 0.8,
+          "name": "success",
+          "passed": true,
+          "tolerance": 0.01
+        },
+        {
+          "actual": 0.647785929434703,
+          "count": 51830,
+          "expected": 0.65,
+          "name": "common",
+          "passed": true,
+          "samples": 80011,
+          "tolerance": 0.0101173576279956
+        },
+        {
+          "actual": 0.250903000837385,
+          "count": 20075,
+          "expected": 0.25,
+          "name": "good",
+          "passed": true,
+          "samples": 80011,
+          "tolerance": 0.00918495509147952
+        },
+        {
+          "actual": 0.0912374548499581,
+          "count": 7300,
+          "expected": 0.09,
+          "name": "superior",
+          "passed": true,
+          "samples": 80011,
+          "tolerance": 0.00607041457679737
+        },
+        {
+          "actual": 0.0100736148779543,
+          "count": 806,
+          "expected": 0.01,
+          "name": "legendary",
+          "passed": true,
+          "samples": 80011,
+          "tolerance": 0.0021105419971457
+        },
+        {
+          "actual": 0.00806,
+          "count": 806,
+          "expected": 0.008,
+          "name": "legendary_per_attempt",
+          "passed": true,
+          "samples": 100000,
+          "tolerance": 0.00169025441871926
+        },
+        {
+          "actual": 0.347727187511717,
+          "count": 27822,
+          "expected": 0.35,
+          "name": "extra_given_success",
+          "passed": true,
+          "samples": 80011,
+          "tolerance": 0.0101173576279956
+        }
+      ],
+      "extra_actual": 0.347727187511717,
+      "extra_count": 27822,
+      "extra_expected": 0.35,
+      "name": "extra_pill_fixture",
+      "passed": true,
+      "quality_actual": {
+        "common": 0.647785929434703,
+        "good": 0.250903000837385,
+        "legendary": 0.0100736148779543,
+        "superior": 0.0912374548499581
+      },
+      "quality_counts": {
+        "common": 51830,
+        "good": 20075,
+        "legendary": 806,
+        "superior": 7300
+      },
+      "quality_expected": {
+        "common": 0.65,
+        "good": 0.25,
+        "legendary": 0.01,
+        "superior": 0.09
+      },
+      "samples": 100000,
+      "seed": 89659,
+      "success_actual": 0.80011,
+      "success_expected": 0.8,
+      "successes": 80011,
+      "test_fixture": true
+    }
+  ],
+  "samples_per_profile": 100000,
+  "schema_version": 1,
+  "scope": "shared outcome sampler; excludes economy, history growth and play-time balance",
+  "total_samples": 500000
+}

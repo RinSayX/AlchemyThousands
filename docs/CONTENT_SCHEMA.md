@@ -57,7 +57,7 @@
 | `category` | `herb`、`mineral`、`beast`、`spirit` 之一 |
 | `buy_price`、`sell_price` | 非负整数；可购材料卖价不得高于买价 |
 | `shop_available` | 布尔值，须与 `sources` 是否包含 `shop` 一致 |
-| `sources` | 非空、不重复数组；允许 `shop`、`forage`、`exploration`、`quest`、`research` |
+| `sources` | 非空、不重复数组；允许 `shop`、`forage`、`exploration`、`quest`、`research`，P3 新增 `alchemy` 来源用于丹渣 |
 | `repeatable` | 布尔值，描述是否能重复获取 |
 
 不可购材料的 `buy_price: 0` 是非售卖占位值，不表示可免费购买。是否允许购买必须结合 `shop_available`，由 P2 服务校验。
@@ -75,7 +75,7 @@
 | `effect_tags` | 与 `tags` 相同的数组格式；空表示通用，非空表示丹方含任一指定标签时应用这件装备的修正 |
 | `effect_ids` | P1 必须为空；未知效果 ID 或脚本字符串均拒绝 |
 
-`quality_transfers` 描述从低品质向目标品质转移的请求量，而非向总权重直接加值。转移顺序、低品质不足时的处理和最终预览由 P3 统一实现与测试。P1 只验证结构、目标和有限非负点数，不声称已执行效果或已验证所有构筑组合。
+`quality_transfers` 描述从低品质向目标品质转移的请求量，而非向总权重直接加值。P3 已实现并验证固定顺序、下位品质补足与不足截至可用量，详见 ALCHEMY_API.md。内容验证器仍只验证结构、目标和有限非负点数，不将所有构筑组合的运行态计算放在静态验证器中。
 
 消耗品另须包含 `effect_category`（`success` / `quality` / `refund`）、`shop_available`（须与 `unlock.type == shop` 一致）、`sell_price`（非负整数，可购商品卖价不得高于 `unlock.price`）。MVP 的每炉数量限制在 P3 实现，不在内容库中管理玩家库存。
 

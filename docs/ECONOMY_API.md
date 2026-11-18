@@ -32,7 +32,7 @@ if loaded.ok:
 | `owned_furnaces`、`owned_flames` | 对应装备 ID 数组，不重复、引用有效 |
 | `completed_actions` | 已提交操作 ID 数组，不重复 |
 
-上述字段均必需，允许存在额外的 RunState 字段。服务只修改经济字段和操作记录，保留经验、统计、RNG 状态等额外字段。P3 如需同时提交炼丹经验、统计和 RNG，应在该阶段扩展事务边界，不可把它们误当作本接口已覆盖的字段。
+上述字段均必需，允许存在额外的 RunState 字段。经济服务保留经验、统计、RNG 等额外字段；P3 状态带有 bool 类型的 needs_save 时，成功经济事务将其置 true。P3 的 AlchemyService 已通过共享 StateTransaction 扩展统一结算，具体边界见 ALCHEMY_API.md，普通经济方法仍不提交炼丹成长或 RNG 改动。
 
 运行时数量和金额必须是真正的 `int`，小数、布尔值、数字字符串、NaN/无穷全部拒绝。读取 JSON 存档时的整数恢复/迁移属于后续 SaveManager 的职责，P2 不静默修复输入状态。
 

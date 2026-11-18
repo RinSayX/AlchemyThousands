@@ -5,6 +5,7 @@ extends RefCounted
 const Database := preload("res://scripts/core/content_db.gd")
 const Result := preload("res://scripts/core/transaction_result.gd")
 const Pills := preload("res://scripts/core/pill_stack.gd")
+const Transaction := preload("res://scripts/core/state_transaction.gd")
 const MAX_VALUE := 2147483647
 const FIELDS := ["rank", "spirit_stones", "inventory", "pills", "unlocked_recipes", "owned_furnaces", "owned_flames", "completed_actions"]
 const OWNERSHIP := {"unlocked_recipes": "recipes", "owned_furnaces": "furnaces", "owned_flames": "flames"}
@@ -84,15 +85,11 @@ func commit(state: Dictionary, candidate: Dictionary, action_id: Variant, payloa
 		return Result.failure("INVALID_STATE", "经济事务不能修改境界或既有操作记录。")
 	var next := candidate.duplicate(true)
 	next.completed_actions.append(action_id)
-	var changes: Dictionary = {}
-	for field in FIELDS:
-		if state[field] != next[field]:
-			changes[field] = {"before": state[field], "after": next[field]}
-	# Prepare the detached receipt before touching caller-owned state.
-	var receipt := Result.success(changes, payload)
-	for field in changes:
-		state[field] = next[field]
-	return receipt
+	var fields: Array = FIELDS.duplicate()
+	if state.get("needs_save") is bool:
+		next.needs_save = true
+		fields.append("needs_save")
+	return Transaction.commit(state, next, fields, payload)
 
 
 func change_stones(state: Dictionary, delta: Variant, action_id: Variant) -> Dictionary:
