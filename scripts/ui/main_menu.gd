@@ -1,5 +1,8 @@
 extends Control
-## P0 navigation shell. No inventory, currency, RNG or gameplay state here.
+## Navigation view. The main scene owns the session and all business state.
+
+signal new_run_requested
+signal continue_requested
 
 const Landscape := preload("res://scripts/ui/ink_landscape.gd")
 const GOLD := Color("d4c28e")
@@ -13,6 +16,7 @@ var modal_title: Label
 var status_label: Label
 var _return_focus: Control
 var _serif := SystemFont.new()
+var _has_session := false
 
 
 func _ready() -> void:
@@ -71,7 +75,7 @@ func _build_menu() -> void:
 	new_game_button = _button(buttons, "启程入宗     →", show_prologue)
 	new_game_button.name = "NewGame"
 	new_game_button.add_theme_color_override("font_color", GOLD)
-	continue_button = _button(buttons, "继续修行", func() -> void: pass)
+	continue_button = _button(buttons, "继续修行", func() -> void: continue_requested.emit())
 	continue_button.name = "Continue"
 	continue_button.disabled = true
 	continue_button.focus_mode = Control.FOCUS_NONE
@@ -138,7 +142,27 @@ func show_prologue() -> void:
 	_open_modal("第一章 · 破炉丹童")
 	_label(modal_content, "青岚山下，晨雾初散。", 20, Color("b9c8b5"))
 	_wrapped_label("你原是边陲宗门的一名丹童。师父留下一座旧丹炉，\n还有半部被烟火熏黄的炼丹手记。\n\n“草木各有性，成丹先修心。”\n\n从一株灵草、一缕凡火开始，你的丹道将由此写下。")
-	_label(modal_content, "序章预览 · 炼丹房暂未开放", 15, MUTED)
+	if _has_session:
+		_wrapped_label("重新入宗将结束本次修行，灵石与背包会重置。")
+	else:
+		_label(modal_content, "修行进度仅在本次运行中保留。", 15, MUTED)
+	var enter := _button(modal_content, "重新入宗" if _has_session else "入丹房 · 点燃凡火", func() -> void: new_run_requested.emit())
+	enter.name = "EnterAlchemy"
+	_close_button()
+	enter.grab_focus()
+
+
+func configure_session(has_session: bool) -> void:
+	_has_session = has_session
+	continue_button.disabled = not has_session
+	continue_button.focus_mode = Control.FOCUS_ALL if has_session else Control.FOCUS_NONE
+	continue_button.text = "继续本次修行" if has_session else "继续修行"
+	continue_button.tooltip_text = "返回本次运行中的修行，关闭程序后不保留。" if has_session else "暂无修行记录"
+
+
+func show_notice(title: String, message: String) -> void:
+	_open_modal(title)
+	_wrapped_label(message)
 	_close_button()
 
 

@@ -4,6 +4,7 @@ extends SceneTree
 const ContentTests := preload("res://tests/test_content.gd")
 const EconomyTests := preload("res://tests/test_economy.gd")
 const AlchemyTests := preload("res://tests/test_alchemy.gd")
+const AlchemyUITests := preload("res://tests/test_alchemy_ui.gd")
 
 var checks := 0
 var failures: Array[String] = []
@@ -16,24 +17,25 @@ func _initialize() -> void:
 func _run() -> void:
 	var args := OS.get_cmdline_user_args()
 	var focused := 0
-	for flag in ["--content-only", "--economy-only", "--alchemy-only"]:
+	for flag in ["--content-only", "--economy-only", "--alchemy-only", "--ui-only"]:
 		if args.has(flag):
 			focused += 1
 	if focused > 1:
 		_check(false, "Choose one focused test suite at a time")
 		_finish()
 		return
-	if not args.has("--economy-only") and not args.has("--alchemy-only"):
+	if not args.has("--economy-only") and not args.has("--alchemy-only") and not args.has("--ui-only"):
 		ContentTests.new().run(_check)
 	if args.has("--content-only"):
 		_finish()
 		return
-	if not args.has("--alchemy-only"):
+	if not args.has("--alchemy-only") and not args.has("--ui-only"):
 		_check(EconomyTests.new().run(_check), "P2: Economy suite completed")
 	if args.has("--economy-only"):
 		_finish()
 		return
-	_check(AlchemyTests.new().run(_check), "P3: Alchemy suite completed")
+	if not args.has("--ui-only"):
+		_check(AlchemyTests.new().run(_check), "P3: Alchemy suite completed")
 	if args.has("--alchemy-only"):
 		_finish()
 		return
@@ -53,7 +55,7 @@ func _run() -> void:
 	_check(not menu.overlay.visible, "No modal obscures startup")
 	menu.new_game_button.pressed.emit()
 	await process_frame
-	_check(menu.overlay.visible and menu.modal_title.text == "第一章 · 破炉丹童", "New game opens prologue placeholder")
+	_check(menu.overlay.visible and menu.modal_title.text == "第一章 · 破炉丹童", "New game opens chapter prologue")
 	_check(menu.new_game_button.focus_mode == Control.FOCUS_NONE, "Modal blocks background keyboard focus")
 	var cancel := InputEventKey.new()
 	cancel.keycode = KEY_ESCAPE
@@ -89,6 +91,7 @@ func _run() -> void:
 		menu.close_modal()
 	main.queue_free()
 	await process_frame
+	_check(await AlchemyUITests.new().run(self, _check), "P4: Alchemy UI suite completed")
 	_finish()
 
 
