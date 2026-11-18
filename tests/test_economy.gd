@@ -207,7 +207,7 @@ func _test_replay_and_quotes() -> bool:
 
 func _modified_db(base_price: int) -> Database:
 	var documents: Dictionary = {}
-	for category in ["recipes", "materials", "furnaces", "flames", "consumables"]:
+	for category in ["recipes", "materials", "furnaces", "flames", "consumables", "quests", "exploration_events"]:
 		documents[category] = JSON.parse_string(FileAccess.get_file_as_string("res://data/" + category + ".json"))
 	documents.recipes.items[0].base_sell_price = base_price
 	var db := Database.new()

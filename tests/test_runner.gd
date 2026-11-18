@@ -6,6 +6,9 @@ const EconomyTests := preload("res://tests/test_economy.gd")
 const AlchemyTests := preload("res://tests/test_alchemy.gd")
 const AlchemyUITests := preload("res://tests/test_alchemy_ui.gd")
 
+const ResourceTests := preload("res://tests/test_resources.gd")
+const ResourceUITests := preload("res://tests/test_resources_ui.gd")
+
 var checks := 0
 var failures: Array[String] = []
 
@@ -16,27 +19,23 @@ func _initialize() -> void:
 
 func _run() -> void:
 	var args := OS.get_cmdline_user_args()
-	var focused := 0
-	for flag in ["--content-only", "--economy-only", "--alchemy-only", "--ui-only"]:
+	var selected := ""
+	for flag in ["--content-only", "--economy-only", "--alchemy-only", "--resources-only", "--ui-only"]:
 		if args.has(flag):
-			focused += 1
-	if focused > 1:
-		_check(false, "Choose one focused test suite at a time")
-		_finish()
-		return
-	if not args.has("--economy-only") and not args.has("--alchemy-only") and not args.has("--ui-only"):
+			if not selected.is_empty():
+				_check(false, "Choose one focused test suite at a time")
+				_finish()
+				return
+			selected = flag
+	if selected.is_empty() or selected == "--content-only":
 		ContentTests.new().run(_check)
-	if args.has("--content-only"):
-		_finish()
-		return
-	if not args.has("--alchemy-only") and not args.has("--ui-only"):
+	if selected.is_empty() or selected == "--economy-only":
 		_check(EconomyTests.new().run(_check), "P2: Economy suite completed")
-	if args.has("--economy-only"):
-		_finish()
-		return
-	if not args.has("--ui-only"):
+	if selected.is_empty() or selected == "--alchemy-only":
 		_check(AlchemyTests.new().run(_check), "P3: Alchemy suite completed")
-	if args.has("--alchemy-only"):
+	if selected.is_empty() or selected == "--resources-only":
+		_check(ResourceTests.new().run(_check), "P5: Resource suite completed")
+	if not selected.is_empty() and selected != "--ui-only":
 		_finish()
 		return
 	var packed := load("res://scenes/main/main.tscn") as PackedScene
@@ -92,6 +91,7 @@ func _run() -> void:
 	main.queue_free()
 	await process_frame
 	_check(await AlchemyUITests.new().run(self, _check), "P4: Alchemy UI suite completed")
+	_check(await ResourceUITests.new().run(self, _check), "P5: Resource UI suite completed")
 	_finish()
 
 

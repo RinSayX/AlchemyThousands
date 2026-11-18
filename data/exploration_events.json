@@ -1,0 +1,250 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "event_qinglan",
+      "name": "青岚山谷",
+      "description": "沿谷寻药，坡上偶有百年灵芝。",
+      "tier": 1,
+      "tags": [
+        "exploration"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 0
+      },
+      "weight": 4,
+      "options": [
+        {
+          "id": "choice_gather",
+          "name": "沿谷采摘",
+          "description": "必得灵草×2、青花×1。",
+          "cost_stones": 0,
+          "cost_items": {},
+          "success_rate": 1,
+          "success_items": {
+            "herb_lingcao": 2,
+            "herb_qinghua": 1
+          },
+          "failure_items": {},
+          "success_stones": 0,
+          "failure_stones": 0,
+          "reward_flame": ""
+        },
+        {
+          "id": "choice_deep",
+          "name": "冒险深入",
+          "description": "成功得百年灵芝×1；失败得灵草×2。",
+          "cost_stones": 6,
+          "cost_items": {},
+          "success_rate": 0.3,
+          "success_items": {
+            "herb_lingzhi": 1
+          },
+          "failure_items": {
+            "herb_lingcao": 2
+          },
+          "success_stones": 0,
+          "failure_stones": 0,
+          "reward_flame": ""
+        }
+      ]
+    },
+    {
+      "id": "event_old_grove",
+      "name": "古木药圃",
+      "description": "以灵石向守圃人求取灵芝，或寻访深处野株。",
+      "tier": 1,
+      "tags": [
+        "exploration"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 0
+      },
+      "weight": 2,
+      "options": [
+        {
+          "id": "choice_trade",
+          "name": "求取灵芝",
+          "description": "必得百年灵芝×1，可重复获取。",
+          "cost_stones": 10,
+          "cost_items": {},
+          "success_rate": 1,
+          "success_items": {
+            "herb_lingzhi": 1
+          },
+          "failure_items": {},
+          "success_stones": 0,
+          "failure_stones": 0,
+          "reward_flame": ""
+        },
+        {
+          "id": "choice_search",
+          "name": "深入寻株",
+          "description": "成功得灵芝×2；失败得灵草×1。",
+          "cost_stones": 4,
+          "cost_items": {},
+          "success_rate": 0.4,
+          "success_items": {
+            "herb_lingzhi": 2
+          },
+          "failure_items": {
+            "herb_lingcao": 1
+          },
+          "success_stones": 0,
+          "failure_stones": 0,
+          "reward_flame": ""
+        }
+      ]
+    },
+    {
+      "id": "event_soul_spring",
+      "name": "养魂灵泉",
+      "description": "灵泉蕴露，供品可换取稳定收获。",
+      "tier": 1,
+      "tags": [
+        "exploration"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 0
+      },
+      "weight": 2,
+      "options": [
+        {
+          "id": "choice_offer",
+          "name": "献礼取露",
+          "description": "必得养魂露×1，可重复获取。",
+          "cost_stones": 12,
+          "cost_items": {},
+          "success_rate": 1,
+          "success_items": {
+            "essence_hunlu": 1
+          },
+          "failure_items": {},
+          "success_stones": 0,
+          "failure_stones": 0,
+          "reward_flame": ""
+        },
+        {
+          "id": "choice_dive",
+          "name": "潜入泉眼",
+          "description": "成功得养魂露×2；失败得青花×1。",
+          "cost_stones": 6,
+          "cost_items": {},
+          "success_rate": 0.4,
+          "success_items": {
+            "essence_hunlu": 2
+          },
+          "failure_items": {
+            "herb_qinghua": 1
+          },
+          "success_stones": 0,
+          "failure_stones": 0,
+          "reward_flame": ""
+        }
+      ]
+    },
+    {
+      "id": "event_mineral_vein",
+      "name": "赤岩矿脉",
+      "description": "地火温养赤血参，石隙藏有铁精砂。",
+      "tier": 2,
+      "tags": [
+        "exploration"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 1
+      },
+      "weight": 2,
+      "options": [
+        {
+          "id": "choice_mine",
+          "name": "稳妥采集",
+          "description": "必得铁精砂×2、赤血参×1。",
+          "cost_stones": 0,
+          "cost_items": {},
+          "success_rate": 1,
+          "success_items": {
+            "ore_tiejing": 2,
+            "herb_chixue": 1
+          },
+          "failure_items": {},
+          "success_stones": 0,
+          "failure_stones": 0,
+          "reward_flame": ""
+        },
+        {
+          "id": "choice_excavate",
+          "name": "深入开采",
+          "description": "成功得铁精砂×4、赤血参×2；失败得铁精砂×1。",
+          "cost_stones": 8,
+          "cost_items": {},
+          "success_rate": 0.35,
+          "success_items": {
+            "ore_tiejing": 4,
+            "herb_chixue": 2
+          },
+          "failure_items": {
+            "ore_tiejing": 1
+          },
+          "success_stones": 0,
+          "failure_stones": 0,
+          "reward_flame": ""
+        }
+      ]
+    },
+    {
+      "id": "event_earth_fire",
+      "name": "地心火窟",
+      "description": "备齐祭品可稳妥引火，也可冒险寻一缕野火。",
+      "tier": 2,
+      "tags": [
+        "exploration"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 1
+      },
+      "weight": 1,
+      "options": [
+        {
+          "id": "choice_ritual",
+          "name": "祭火收服",
+          "description": "必得地心灵火与百年灵芝×1；已拥有异火时仅得药材。",
+          "cost_stones": 30,
+          "cost_items": {
+            "ore_tiejing": 2
+          },
+          "success_rate": 1,
+          "success_items": {
+            "herb_lingzhi": 1
+          },
+          "failure_items": {},
+          "success_stones": 0,
+          "failure_stones": 0,
+          "reward_flame": "flame_earth"
+        },
+        {
+          "id": "choice_risk",
+          "name": "冒险引火",
+          "description": "成功得地心灵火与灵芝×1；失败得铁精砂×1。",
+          "cost_stones": 12,
+          "cost_items": {},
+          "success_rate": 0.25,
+          "success_items": {
+            "herb_lingzhi": 1
+          },
+          "failure_items": {
+            "ore_tiejing": 1
+          },
+          "success_stones": 0,
+          "failure_stones": 0,
+          "reward_flame": "flame_earth"
+        }
+      ]
+    }
+  ]
+}

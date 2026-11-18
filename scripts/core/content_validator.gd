@@ -2,7 +2,7 @@ class_name ContentValidator
 extends RefCounted
 ## Pure validation of schema-v1 content. Never changes input or game state.
 
-const CATEGORIES := ["recipes", "materials", "furnaces", "flames", "consumables"]
+const CATEGORIES := ["recipes", "materials", "furnaces", "flames", "consumables", "quests", "exploration_events"]
 const QUALITIES := ["common", "good", "superior", "legendary"]
 const MAX_INTEGER := 2147483647
 const COMMON_FIELDS := ["id", "name", "description", "tier", "tags", "unlock"]
@@ -13,6 +13,8 @@ const CATEGORY_FIELDS := {
 	"furnaces": EQUIPMENT_FIELDS,
 	"flames": EQUIPMENT_FIELDS,
 	"consumables": ["success_bonus", "quality_transfers", "material_refund_bonus", "extra_pill_chance", "effect_tags", "effect_ids", "effect_category", "shop_available", "sell_price"],
+	"quests": ["required_recipe_id", "min_quality", "quantity", "reward_spirit_stones", "reward_exp", "reward_items", "reward_flame", "repeatable"],
+	"exploration_events": ["weight", "options"],
 }
 const MATERIAL_CATEGORIES := ["herb", "mineral", "beast", "spirit"]
 const MATERIAL_SOURCES := ["shop", "forage", "exploration", "quest", "research", "alchemy"]
@@ -63,6 +65,10 @@ func validate_documents(documents: Dictionary) -> Array[Dictionary]:
 					_validate_recipe(item, path, errors)
 				"materials":
 					_validate_material(item, path, errors)
+				"quests":
+					_validate_quest(item, path, errors)
+				"exploration_events":
+					_validate_event(item, path, errors)
 				_:
 					_validate_equipment(item, category, path, errors)
 	# Resolve references only after every table has been inspected.
@@ -74,7 +80,103 @@ func validate_documents(documents: Dictionary) -> Array[Dictionary]:
 				for material_id in recipe.materials:
 					if not material_ids.has(material_id):
 						_error(errors, "MISSING_REFERENCE", "recipes.items[%d].materials.%s" % [index, material_id], "丹方引用的材料不存在。")
+	_validate_resource_references(documents, errors)
 	return errors
+
+
+func _validate_quest(item: Dictionary, path: String, errors: Array[Dictionary]) -> void:
+	_validate_resource_unlock(item, path, errors)
+	_text(item.get("required_recipe_id"), path + ".required_recipe_id", errors)
+	_enum(item.get("min_quality"), QUALITIES, path + ".min_quality", errors)
+	_integer(item.get("quantity"), 1, MAX_INTEGER, path + ".quantity", errors)
+	_integer(item.get("reward_spirit_stones"), 0, MAX_INTEGER, path + ".reward_spirit_stones", errors)
+	_integer(item.get("reward_exp"), 0, MAX_INTEGER, path + ".reward_exp", errors)
+	_quantities(item.get("reward_items"), path + ".reward_items", errors)
+	_boolean(item.get("repeatable"), path + ".repeatable", errors)
+	if not item.get("reward_flame") is String:
+		_error(errors, "INVALID_TYPE", path + ".reward_flame", "异火奖励必须为 ID 或空字符串。")
+
+
+func _validate_event(item: Dictionary, path: String, errors: Array[Dictionary]) -> void:
+	_validate_resource_unlock(item, path, errors)
+	_number(item.get("weight"), 0.000001, MAX_INTEGER, path + ".weight", errors)
+	var options: Variant = item.get("options")
+	if not options is Array or options.is_empty():
+		_error(errors, "INVALID_TYPE", path + ".options", "事件选项必须为非空数组。")
+		return
+	var seen: Dictionary = {}
+	for i in range(options.size()):
+		var option: Variant = options[i]
+		var p := "%s.options[%d]" % [path, i]
+		if not _shape(option, ["id", "name", "description", "cost_stones", "cost_items", "success_rate", "success_items", "failure_items", "success_stones", "failure_stones", "reward_flame"], p, errors):
+			continue
+		for field in ["id", "name", "description"]:
+			_text(option.get(field), p + "." + field, errors)
+		if option.get("id") is String:
+			if _id_pattern.search(option.id) == null:
+				_error(errors, "INVALID_ID", p + ".id", "选项 ID 必须为英文下划线格式。")
+			if seen.has(option.id):
+				_error(errors, "DUPLICATE_ID", p + ".id", "同一事件选项 ID 重复。")
+			seen[option.id] = true
+		for field in ["cost_stones", "success_stones", "failure_stones"]:
+			_integer(option.get(field), 0, MAX_INTEGER, p + "." + field, errors)
+		_number(option.get("success_rate"), 0, 1, p + ".success_rate", errors)
+		for field in ["cost_items", "success_items", "failure_items"]:
+			_quantities(option.get(field), p + "." + field, errors)
+		if not option.get("reward_flame") is String:
+			_error(errors, "INVALID_TYPE", p + ".reward_flame", "异火奖励必须为 ID 或空字符串。")
+
+
+func _validate_resource_unlock(item: Dictionary, path: String, errors: Array[Dictionary]) -> void:
+	if item.get("unlock") is Dictionary:
+		_enum(item.unlock.get("type"), ["rank"], path + ".unlock.type", errors)
+
+
+func _quantities(value: Variant, path: String, errors: Array[Dictionary]) -> void:
+	if not value is Dictionary:
+		_error(errors, "INVALID_TYPE", path, "物品表必须为对象。")
+		return
+	for id in value:
+		_integer(value[id], 1, MAX_INTEGER, path + "." + str(id), errors)
+
+
+func _validate_resource_references(documents: Dictionary, errors: Array[Dictionary]) -> void:
+	var known: Dictionary = {}
+	for category in CATEGORIES:
+		known[category] = []
+		var doc: Variant = documents.get(category)
+		if doc is Dictionary and doc.get("items") is Array:
+			for item in doc.items:
+				if item is Dictionary and item.get("id") is String:
+					known[category].append(item.id)
+	for category in ["quests", "exploration_events"]:
+		var doc: Variant = documents.get(category)
+		if not doc is Dictionary or not doc.get("items") is Array:
+			continue
+		for i in range(doc.items.size()):
+			var item: Variant = doc.items[i]
+			if not item is Dictionary:
+				continue
+			var path := "%s.items[%d]" % [category, i]
+			var rewards: Array = []
+			if category == "quests":
+				if item.get("required_recipe_id") not in known.recipes:
+					_error(errors, "MISSING_REFERENCE", path + ".required_recipe_id", "委托丹方不存在。")
+				rewards.append({"item": item, "path": path, "maps": ["reward_items"]})
+			elif item.get("options") is Array:
+				for j in range(item.options.size()):
+					if item.options[j] is Dictionary:
+						rewards.append({"item": item.options[j], "path": "%s.options[%d]" % [path, j], "maps": ["cost_items", "success_items", "failure_items"]})
+			for row in rewards:
+				var flame: Variant = row.item.get("reward_flame")
+				if flame is String and not flame.is_empty() and flame not in known.flames:
+					_error(errors, "MISSING_REFERENCE", row.path + ".reward_flame", "奖励异火不存在。")
+				for field in row.maps:
+					var map: Variant = row.item.get(field)
+					if map is Dictionary:
+						for id in map:
+							if id not in known.materials and id not in known.consumables:
+								_error(errors, "MISSING_REFERENCE", row.path + "." + field + "." + str(id), "物品引用不存在或不可堆叠。")
 
 
 func _validate_common(item: Dictionary, path: String, errors: Array[Dictionary]) -> void:

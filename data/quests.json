@@ -1,0 +1,122 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "quest_juling_supply",
+      "name": "宗门日常供丹",
+      "description": "交付聚灵丹，换取灵石与下一炉的基础药材。",
+      "tier": 1,
+      "tags": [
+        "commission"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 0
+      },
+      "required_recipe_id": "recipe_juling",
+      "min_quality": "common",
+      "quantity": 1,
+      "reward_spirit_stones": 40,
+      "reward_exp": 6,
+      "reward_items": {
+        "herb_lingcao": 2,
+        "herb_qinghua": 1
+      },
+      "reward_flame": "",
+      "repeatable": true
+    },
+    {
+      "id": "quest_zhixue_supply",
+      "name": "山门止血药",
+      "description": "为外出弟子备好两枚止血丹。",
+      "tier": 1,
+      "tags": [
+        "commission"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 0
+      },
+      "required_recipe_id": "recipe_zhixue",
+      "min_quality": "common",
+      "quantity": 2,
+      "reward_spirit_stones": 72,
+      "reward_exp": 12,
+      "reward_items": {
+        "herb_zhixue": 2,
+        "herb_lingcao": 1
+      },
+      "reward_flame": "",
+      "repeatable": true
+    },
+    {
+      "id": "quest_juling_elite",
+      "name": "清灵上品",
+      "description": "长老求一枚上品以上聚灵丹，此委托每世仅结算一次。",
+      "tier": 1,
+      "tags": [
+        "commission"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 0
+      },
+      "required_recipe_id": "recipe_juling",
+      "min_quality": "superior",
+      "quantity": 1,
+      "reward_spirit_stones": 110,
+      "reward_exp": 15,
+      "reward_items": {
+        "consumable_juling": 1
+      },
+      "reward_flame": "",
+      "repeatable": false
+    },
+    {
+      "id": "quest_ningshen_supply",
+      "name": "养神之托",
+      "description": "交付良品以上凝神丹，获赠可重复获取的百年灵芝。",
+      "tier": 2,
+      "tags": [
+        "commission"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 1
+      },
+      "required_recipe_id": "recipe_ningshen",
+      "min_quality": "good",
+      "quantity": 2,
+      "reward_spirit_stones": 185,
+      "reward_exp": 20,
+      "reward_items": {
+        "herb_lingzhi": 1
+      },
+      "reward_flame": "",
+      "repeatable": true
+    },
+    {
+      "id": "quest_fire_trial",
+      "name": "地火凭证",
+      "description": "交付三枚淬体丹，以丹道修为换取地心灵火。",
+      "tier": 2,
+      "tags": [
+        "commission"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 1
+      },
+      "required_recipe_id": "recipe_cuiti",
+      "min_quality": "common",
+      "quantity": 3,
+      "reward_spirit_stones": 80,
+      "reward_exp": 20,
+      "reward_items": {
+        "ore_tiejing": 2
+      },
+      "reward_flame": "flame_earth",
+      "repeatable": false
+    }
+  ]
+}

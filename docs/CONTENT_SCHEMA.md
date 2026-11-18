@@ -1,10 +1,10 @@
-# P1 静态内容格式与接口
+# 静态内容格式与接口（P1～P5）
 
-适用于 Godot `4.5.stable.official.876b29033`，内容格式版本 `schema_version: 1`。本阶段定义并校验静态内容，不执行交易、解锁或炼丹效果。原始设计文档不变，未定数值的首批配置记录在 BALANCE.md。
+适用于 Godot `4.5.stable.official.876b29033`，内容格式版本 `schema_version: 1`。内容库只定义并校验静态内容，交易、炼丹与资源结算分别由业务服务执行。原始设计文档不变，未定数值的首批配置记录在 BALANCE.md。
 
 ## 文件和通用字段
 
-固定读取 `data/recipes.json`、`materials.json`、`furnaces.json`、`flames.json`、`consumables.json` 五张表，全部必需。每张表格式为：
+固定读取 `data/recipes.json`、`materials.json`、`furnaces.json`、`flames.json`、`consumables.json`、`quests.json`、`exploration_events.json` 七张表，全部必需。每张表格式为：
 
 ```json
 {"schema_version": 1, "items": [{"id": "recipe_example"}]}
@@ -29,7 +29,7 @@
 | `shop` | `required_rank`、`price` |
 | `exploration` | `required_rank` |
 
-`required_rank` 的范围为整数 0～10（丹童至大宗师）。`price` 为非负整数。`exploration` 目前只表示获取类别及资格，具体事件表和确定性获取路径在 P5 接入；P1 不添加指向尚不存在事件、委托或试炼的 ID。
+`required_rank` 的范围为整数 0～10（丹童至大宗师）。`price` 为非负整数。`exploration` 表示获取类别及资格；P5 的具体事件、确定性获取路径见 `exploration_events.json`，不执行任意脚本。
 
 价格与数量上限统一为 `2147483647`。此边界保证单项整数能安全转换，不代表后续批量交易可忽略乘法/累计上限校验。JSON 数字被 Godot 解析为浮点数：验证器接受数值为整数的浮点数，拒绝小数、布尔值、数值字符串、NaN 与无穷；ContentDB 校验通过后把整数语义字段转换为 `int`，不修改传入原文档。
 
@@ -79,6 +79,25 @@
 
 消耗品另须包含 `effect_category`（`success` / `quality` / `refund`）、`shop_available`（须与 `unlock.type == shop` 一致）、`sell_price`（非负整数，可购商品卖价不得高于 `unlock.price`）。MVP 的每炉数量限制在 P3 实现，不在内容库中管理玩家库存。
 
+## P5 委托与探索
+
+`quests` 除通用字段外必填：`required_recipe_id`（存在的丹方 ID）、`min_quality`（四档品质）、`quantity`（正整数）、`reward_spirit_stones` / `reward_exp`（非负整数）、`reward_items`（物品数量映射，可空）、`reward_flame`（存在的异火 ID 或空字符串）、`repeatable`（布尔）。`unlock` 必须使用带 `required_rank` 的 `rank` 条件。接取还要求已习得所需丹方。
+
+`exploration_events` 除通用字段外必填 `weight`（有限数值 0.000001～2147483647）和非空 `options` 数组；`unlock` 必须使用 `rank` 条件。权重在当前境界可进入的地点中归一化，指定地点不抽取权重。
+
+每个 option 恰好提供：
+
+| 字段 | 约束 |
+|---|---|
+| `id` | 英文下划线格式，同一事件内唯一 |
+| `name` / `description` | 非空中文说明 |
+| `cost_stones` / `success_stones` / `failure_stones` | 非负整数 |
+| `cost_items` / `success_items` / `failure_items` | 物品 ID → 正整数，可空对象 |
+| `success_rate` | 有限数值 [0,1]，独立于炼丹 5%～95% 限幅 |
+| `reward_flame` | 成功时发放的异火 ID 或空字符串 |
+
+全部奖励/消耗物品映射只允许存在的材料或消耗品，不允许丹方、装备或任意脚本作为堆叠物品。数量、金额和经验不超过统一整数上限；加载后规范化为运行时 int。所有引用验证通过才替换缓存，非法事件不影响此前可用内容。委托实例和待处理秘境属于运行状态，不写入静态定义。
+
 ## ContentDB 与诊断
 
 ContentDB 为 `RefCounted` 类，路径 `scripts/core/content_db.gd`；由业务协调方显式持有并注入服务，P1 不添加未被界面使用的 Autoload。
@@ -94,7 +113,7 @@ else:
     print(loaded.errors)
 ```
 
-- `load_directory(directory)`：读五个文件并解析，随后调用验证器。
+- `load_directory(directory)`：读七个文件并解析，随后调用验证器。
 - `load_documents(documents)`：接收分类 → 原始 JSON 文档的对象，可用于配置工具和测试。
 - `has_item(id)`、`get_item(id)`、`get_ids(category)`、`get_items(category)`、`get_counts()`：不改变状态；未知 ID 或分类返回空结果；分类列表保留 JSON 顺序。
 - 加载成功返回 `{ok: true, errors: [], counts: {...}}`，失败返回 `{ok: false, errors: [...]}`。

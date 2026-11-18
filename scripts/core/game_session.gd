@@ -6,10 +6,18 @@ const Database := preload("res://scripts/core/content_db.gd")
 const Alchemy := preload("res://scripts/services/alchemy_service.gd")
 const Shop := preload("res://scripts/services/shop_service.gd")
 const Result := preload("res://scripts/core/transaction_result.gd")
+const Resources := preload("res://scripts/core/resource_state.gd")
+const Quests := preload("res://scripts/services/quest_service.gd")
+const Exploration := preload("res://scripts/services/exploration_service.gd")
+const Forage := preload("res://scripts/services/forage_service.gd")
 var content := Database.new()
 var startup: Dictionary
 var _alchemy: Alchemy
 var _shop: Shop
+var _resources: Resources
+var _quests: Quests
+var _exploration: Exploration
+var _forage: Forage
 var _state: Dictionary = {}
 var _history: Array[Dictionary] = []
 var _pending: Dictionary = {}
@@ -20,6 +28,10 @@ func _init() -> void:
 	startup = content.load_directory()
 	_alchemy = Alchemy.new(content)
 	_shop = Shop.new(content)
+	_resources = Resources.new(content)
+	_quests = Quests.new(content)
+	_exploration = Exploration.new(content)
+	_forage = Forage.new(content)
 
 
 func has_run() -> bool:
@@ -27,15 +39,15 @@ func has_run() -> bool:
 
 
 func is_busy() -> bool:
-	return not _pending.is_empty()
+	return not _pending.is_empty() or not _state.get("pending_exploration", {}).is_empty()
 
 
 func new_run(seed_value: Variant = null) -> Dictionary:
 	if is_busy():
-		return Result.failure("BUSY", "丹炉尚未揭晓。")
+		return Result.failure("BUSY", "请先结束当前炼制或秘境事件。")
 	if not startup.ok:
 		return Result.failure("INVALID_CONTENT", "内容配置读取失败，请检查游戏文件。")
-	var created := _alchemy.create_state(Time.get_ticks_usec() if seed_value == null else seed_value)
+	var created := _resources.create_state(Time.get_ticks_usec() if seed_value == null else seed_value)
 	if created.ok:
 		_state = created.result.state.duplicate(true)
 		_history.clear()
@@ -57,7 +69,7 @@ func preview(recipe_id: String, setup: Dictionary) -> Dictionary:
 
 func begin_brew(recipe_id: String, setup: Dictionary) -> Dictionary:
 	if is_busy():
-		return Result.failure("BUSY", "此炉正在炼制，请先揭晓结果。")
+		return Result.failure("BUSY", "请先结束当前炼制或秘境事件。")
 	var outcome := _alchemy.execute_alchemy(_state, recipe_id, setup, _next_id())
 	if outcome.ok:
 		_pending = outcome.duplicate(true)
@@ -65,7 +77,7 @@ func begin_brew(recipe_id: String, setup: Dictionary) -> Dictionary:
 
 
 func finish_brew() -> Dictionary:
-	if not is_busy():
+	if _pending.is_empty():
 		return Result.failure("NO_PENDING_RESULT", "没有待揭晓的丹药。")
 	var outcome := _pending.duplicate(true)
 	_pending.clear()
@@ -81,7 +93,7 @@ func quote_materials(recipe_id: String, batches: int) -> Dictionary:
 
 func buy_materials(recipe_id: String, batches: int) -> Dictionary:
 	if is_busy():
-		return Result.failure("BUSY", "请先揭晓本炉结果。")
+		return Result.failure("BUSY", "请先结束当前炼制或秘境事件。")
 	return _shop.buy_batch(_state, _material_cart(recipe_id, batches), _next_id())
 
 
@@ -101,7 +113,7 @@ func quote_item(id: String) -> Dictionary:
 
 func buy_item(id: String) -> Dictionary:
 	if is_busy():
-		return Result.failure("BUSY", "请先揭晓本炉结果。")
+		return Result.failure("BUSY", "请先结束当前炼制或秘境事件。")
 	return _shop.buy_item(_state, id, 1, _next_id())
 
 
@@ -114,7 +126,7 @@ func quote_products() -> Dictionary:
 
 func sell_products() -> Dictionary:
 	if is_busy():
-		return Result.failure("BUSY", "请先揭晓本炉结果。")
+		return Result.failure("BUSY", "请先结束当前炼制或秘境事件。")
 	var lines := _product_cart()
 	if lines.is_empty():
 		return Result.failure("NO_PRODUCTS", "尚无可出售的丹药或丹渣。")
@@ -136,3 +148,79 @@ func _next_id() -> String:
 	while _state.get("completed_actions", []).has("session-%d" % _sequence):
 		_sequence += 1
 	return "session-%d" % _sequence
+
+
+func quote_shop(id: String, quantity: int) -> Dictionary:
+	return _shop.quote_buy(_state, [{"item_id": id, "quantity": quantity}])
+
+
+func buy_shop(id: String, quantity: int) -> Dictionary:
+	if is_busy():
+		return Result.failure("BUSY", "请先结束当前炼制或秘境事件。")
+	return _shop.buy_item(_state, id, quantity, _next_id())
+
+
+func quote_sell_item(id: String, quantity: int) -> Dictionary:
+	return _shop.quote_sell(_state, [{"item_id": id, "quantity": quantity}])
+
+
+func sell_shop(id: String, quantity: int) -> Dictionary:
+	if is_busy():
+		return Result.failure("BUSY", "请先结束当前炼制或事件。")
+	return _shop.sell_item(_state, id, quantity, _next_id())
+
+
+func quest_board() -> Dictionary:
+	return _quests.board(_state)
+
+
+func accept_quest(id: String) -> Dictionary:
+	if is_busy():
+		return Result.failure("BUSY", "请先结束当前炼制或事件。")
+	return _quests.accept(_state, id, _next_id())
+
+
+func deliver_quest(id: String) -> Dictionary:
+	if is_busy():
+		return Result.failure("BUSY", "请先结束当前炼制或事件。")
+	return _quests.deliver(_state, id, _next_id())
+
+
+func forage_status() -> Dictionary:
+	return _forage.preview(_state)
+
+
+func forage() -> Dictionary:
+	if is_busy():
+		return Result.failure("BUSY", "请先结束当前炼制或事件。")
+	return _forage.forage(_state, _next_id())
+
+
+func rest() -> Dictionary:
+	if is_busy():
+		return Result.failure("BUSY", "请先结束当前炼制或事件。")
+	return _forage.rest(_state, _next_id())
+
+
+func destinations() -> Dictionary:
+	return _exploration.destinations(_state)
+
+
+func enter_event(event_id: String = "") -> Dictionary:
+	if is_busy():
+		return Result.failure("BUSY", "请先结束当前炼制或事件。")
+	return _exploration.enter(_state, _next_id(), event_id)
+
+
+func preview_event_option(option_id: String) -> Dictionary:
+	return _exploration.preview_option(_state, _state.pending_exploration.get("instance_id", ""), option_id)
+
+
+func resolve_event(instance_id: String, option_id: String) -> Dictionary:
+	if not _pending.is_empty():
+		return Result.failure("BUSY", "丹炉正在炼制。")
+	return _exploration.resolve(_state, instance_id, option_id, _next_id())
+
+
+func leave_event() -> Dictionary:
+	return _exploration.leave(_state, _state.pending_exploration.get("instance_id", ""), _next_id())

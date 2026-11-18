@@ -5,6 +5,7 @@ signal back_requested
 
 const Session := preload("res://scripts/core/game_session.gd")
 const FurnaceArt := preload("res://scripts/ui/furnace_art.gd")
+const ResourceHub := preload("res://scripts/ui/resource_hub.gd")
 const GOLD := Color("d4c28e")
 const MUTED := Color("92a394")
 const QUALITY_NAMES := {"common": "凡品", "good": "良品", "superior": "上品", "legendary": "极品"}
@@ -46,6 +47,8 @@ var result_body: Label
 var result_sell: Button
 var result_close: Button
 var reveal_timer: Timer
+var resource_hub: Control
+var resource_buttons: Array[Button] = []
 var _refreshing := false
 var _trade_lock := false
 var _focus_modes: Array[Dictionary] = []
@@ -64,6 +67,13 @@ func _ready() -> void:
 	reveal_timer.timeout.connect(finish_brew)
 	add_child(reveal_timer)
 	_build_result()
+	resource_hub = Control.new()
+	resource_hub.set_script(ResourceHub)
+	resource_hub.session = session
+	add_child(resource_hub)
+	resource_hub.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	resource_hub.closed.connect(_close_resources)
+	resource_hub.changed.connect(refresh)
 	refresh()
 
 
@@ -144,6 +154,9 @@ func _build() -> void:
 	notice = _label(footer, "先选丹方，再配火候；初始药材已放入背包。", 13, MUTED)
 	notice.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	notice.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+	for index in range(4):
+		var button := _button(footer, ["坊市", "委托", "秘境", "采药"][index], open_resources.bind(index))
+		resource_buttons.append(button)
 	_label(footer, "本次修行仅在本次运行中保留", 13, MUTED)
 
 
@@ -385,6 +398,8 @@ func refresh() -> void:
 	recipe_list.focus_mode = Control.FOCUS_ALL if idle else Control.FOCUS_NONE
 	batches.editable = idle
 	back_button.disabled = not idle
+	for button in resource_buttons:
+		button.disabled = not idle
 	var products: Dictionary = _brewing_products if phase == "brewing" else session.quote_products()
 	var sale_text := "出售全部产物 · %d 灵石" % products.result.total if products.ok else "暂无丹药或丹渣可售"
 	sell_button.text = sale_text
@@ -515,7 +530,7 @@ func finish_brew() -> void:
 	var record := _current_result
 	var name_text: String = session.content.get_item(record.snapshot.recipe_id).name
 	result_title.text = "%s · %s ×%d" % [name_text, QUALITY_NAMES[record.quality], record.quantity] if record.success else "火候未成 · 丹渣 ×1"
-	result_body.text = "消耗：%s\n返还：%s\n\n历练 +%d     研究心得 +%d%s\n\n结果已结算，可留下丹药，也可出售全部丹药与丹渣。" % [_names(record.consumed), _names(record.returned), record.exp_gained, record.research_gained, "\n首次发现此丹方与品质，额外心得已计入。" if record.new_quality else ""]
+	result_body.text = "消耗：%s\n返还：%s\n\n历练 +%d     研究心得 +%d%s\n\n可留丹交付宗门委托，也可出售全部丹药与丹渣。" % [_names(record.consumed), _names(record.returned), record.exp_gained, record.research_gained, "\n首次发现此丹方与品质，额外心得已计入。" if record.new_quality else ""]
 	phase_label.text = "丹成留香" if record.success else "失败亦有心得，再修一炉。"
 	refresh()
 	_lock_background()
@@ -537,10 +552,12 @@ func close_result() -> void:
 	brew_button.grab_focus()
 
 
-func _lock_background() -> void:
+func _lock_background(modal: Control = null) -> void:
+	if modal == null:
+		modal = result_overlay
 	_focus_modes.clear()
 	for control in find_children("*", "Control", true, false):
-		if not result_overlay.is_ancestor_of(control) and control.focus_mode != Control.FOCUS_NONE:
+		if control != modal and not modal.is_ancestor_of(control) and control.focus_mode != Control.FOCUS_NONE:
 			_focus_modes.append({"node": control, "mode": control.focus_mode})
 			control.focus_mode = Control.FOCUS_NONE
 
@@ -596,13 +613,35 @@ func _back() -> void:
 
 func _unhandled_key_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
-		if phase == "brewing":
+		if phase == "hub":
+			resource_hub.close_hub()
+		elif phase == "brewing":
 			finish_brew()
 		elif phase == "result":
 			close_result()
 		else:
 			_back()
 		get_viewport().set_input_as_handled()
+
+
+func open_resources(index: int) -> void:
+	if phase != "idle" or _trade_lock:
+		return
+	phase = "hub"
+	refresh()
+	resource_hub.open_tab(index)
+	_lock_background(resource_hub)
+	resource_hub.tabs.grab_focus()
+
+
+func _close_resources() -> void:
+	for entry in _focus_modes:
+		if is_instance_valid(entry.node):
+			entry.node.focus_mode = entry.mode
+	_focus_modes.clear()
+	phase = "idle"
+	refresh()
+	resource_buttons[0].grab_focus()
 
 
 func _panel(parent: Node, minimum_width: float) -> VBoxContainer:
