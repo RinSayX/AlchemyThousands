@@ -1,5 +1,7 @@
 extends SceneTree
-## Dependency-free P0 integration smoke tests. Never writes real preferences.
+## Dependency-free content and UI integration checks. Never writes preferences.
+
+const ContentTests := preload("res://tests/test_content.gd")
 
 var checks := 0
 var failures: Array[String] = []
@@ -10,6 +12,10 @@ func _initialize() -> void:
 
 
 func _run() -> void:
+	ContentTests.new().run(_check)
+	if OS.get_cmdline_user_args().has("--content-only"):
+		_finish()
+		return
 	var packed := load("res://scenes/main/main.tscn") as PackedScene
 	_check(packed != null, "Main scene loads")
 	if packed == null:
@@ -75,5 +81,5 @@ func _check(condition: bool, description: String) -> void:
 
 
 func _finish() -> void:
-	print("P0 smoke: %d checks, %d failures" % [checks, failures.size()])
+	print("Project checks: %d checks, %d failures" % [checks, failures.size()])
 	quit(0 if failures.is_empty() else 1)

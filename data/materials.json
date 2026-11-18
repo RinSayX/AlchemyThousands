@@ -1,0 +1,187 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "herb_lingcao",
+      "name": "灵草",
+      "description": "常见的入门灵药，是聚灵丹的主药。",
+      "tier": 1,
+      "tags": [
+        "wood"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 0
+      },
+      "category": "herb",
+      "buy_price": 4,
+      "sell_price": 1,
+      "shop_available": true,
+      "sources": [
+        "shop",
+        "forage",
+        "exploration"
+      ],
+      "repeatable": true
+    },
+    {
+      "id": "herb_qinghua",
+      "name": "青花",
+      "description": "性情温和的辅药，用于聚合灵气。",
+      "tier": 1,
+      "tags": [
+        "wood"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 0
+      },
+      "category": "herb",
+      "buy_price": 6,
+      "sell_price": 2,
+      "shop_available": true,
+      "sources": [
+        "shop",
+        "forage"
+      ],
+      "repeatable": true
+    },
+    {
+      "id": "herb_zhixue",
+      "name": "止血草",
+      "description": "用于炼制止血丹的常见药草。",
+      "tier": 1,
+      "tags": [
+        "wood"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 0
+      },
+      "category": "herb",
+      "buy_price": 5,
+      "sell_price": 1,
+      "shop_available": true,
+      "sources": [
+        "shop",
+        "forage"
+      ],
+      "repeatable": true
+    },
+    {
+      "id": "herb_ningshen",
+      "name": "凝神花",
+      "description": "安神定志，常用于滋养神识的丹药。",
+      "tier": 2,
+      "tags": [
+        "wood",
+        "soul"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 1
+      },
+      "category": "herb",
+      "buy_price": 10,
+      "sell_price": 3,
+      "shop_available": true,
+      "sources": [
+        "shop",
+        "exploration"
+      ],
+      "repeatable": true
+    },
+    {
+      "id": "herb_chixue",
+      "name": "赤血参",
+      "description": "蕴含温热灵力，是淬体丹的主药。",
+      "tier": 2,
+      "tags": [
+        "fire"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 1
+      },
+      "category": "herb",
+      "buy_price": 12,
+      "sell_price": 3,
+      "shop_available": true,
+      "sources": [
+        "shop",
+        "exploration"
+      ],
+      "repeatable": true
+    },
+    {
+      "id": "ore_tiejing",
+      "name": "铁精砂",
+      "description": "经地火淬炼的细砂，可辅以强健筋骨。",
+      "tier": 2,
+      "tags": [
+        "earth",
+        "fire"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 1
+      },
+      "category": "mineral",
+      "buy_price": 8,
+      "sell_price": 2,
+      "shop_available": true,
+      "sources": [
+        "shop",
+        "exploration"
+      ],
+      "repeatable": true
+    },
+    {
+      "id": "herb_lingzhi",
+      "name": "百年灵芝",
+      "description": "灵气充盈的筑基药材，可在秘境中反复获得。",
+      "tier": 3,
+      "tags": [
+        "wood"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 2
+      },
+      "category": "herb",
+      "buy_price": 0,
+      "sell_price": 6,
+      "shop_available": false,
+      "sources": [
+        "exploration",
+        "quest",
+        "research"
+      ],
+      "repeatable": true
+    },
+    {
+      "id": "essence_hunlu",
+      "name": "养魂露",
+      "description": "凝聚山间灵韵的露液，可用于滋养魂魄。",
+      "tier": 3,
+      "tags": [
+        "water",
+        "soul"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 2
+      },
+      "category": "spirit",
+      "buy_price": 0,
+      "sell_price": 8,
+      "shop_available": false,
+      "sources": [
+        "exploration",
+        "quest",
+        "research"
+      ],
+      "repeatable": true
+    }
+  ]
+}

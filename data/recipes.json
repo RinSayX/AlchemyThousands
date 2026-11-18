@@ -1,0 +1,175 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "recipe_juling",
+      "name": "聚灵丹",
+      "description": "用于初学者修行的基础丹药。",
+      "tier": 1,
+      "tags": [
+        "wood"
+      ],
+      "unlock": {
+        "type": "initial"
+      },
+      "required_rank": 0,
+      "base_success_rate": 0.8,
+      "materials": {
+        "herb_lingcao": 2,
+        "herb_qinghua": 1
+      },
+      "quality_weights": {
+        "common": 65,
+        "good": 25,
+        "superior": 9,
+        "legendary": 1
+      },
+      "base_sell_price": 26,
+      "special_rules": []
+    },
+    {
+      "id": "recipe_zhixue",
+      "name": "止血丹",
+      "description": "敛创止血的常用丹药。",
+      "tier": 1,
+      "tags": [
+        "wood"
+      ],
+      "unlock": {
+        "type": "shop",
+        "required_rank": 0,
+        "price": 40
+      },
+      "required_rank": 0,
+      "base_success_rate": 0.8,
+      "materials": {
+        "herb_zhixue": 2,
+        "herb_lingcao": 1
+      },
+      "quality_weights": {
+        "common": 65,
+        "good": 25,
+        "superior": 9,
+        "legendary": 1
+      },
+      "base_sell_price": 26,
+      "special_rules": []
+    },
+    {
+      "id": "recipe_ningshen",
+      "name": "凝神丹",
+      "description": "以清和药性滋养神识。",
+      "tier": 2,
+      "tags": [
+        "wood",
+        "soul"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 1
+      },
+      "required_rank": 1,
+      "base_success_rate": 0.7,
+      "materials": {
+        "herb_ningshen": 2,
+        "herb_qinghua": 1
+      },
+      "quality_weights": {
+        "common": 65,
+        "good": 25,
+        "superior": 9,
+        "legendary": 1
+      },
+      "base_sell_price": 52,
+      "special_rules": []
+    },
+    {
+      "id": "recipe_cuiti",
+      "name": "淬体丹",
+      "description": "借火性药力锤炼筋骨。",
+      "tier": 2,
+      "tags": [
+        "fire",
+        "earth"
+      ],
+      "unlock": {
+        "type": "shop",
+        "required_rank": 1,
+        "price": 100
+      },
+      "required_rank": 1,
+      "base_success_rate": 0.7,
+      "materials": {
+        "herb_chixue": 2,
+        "ore_tiejing": 1
+      },
+      "quality_weights": {
+        "common": 65,
+        "good": 25,
+        "superior": 9,
+        "legendary": 1
+      },
+      "base_sell_price": 62,
+      "special_rules": []
+    },
+    {
+      "id": "recipe_zhuji",
+      "name": "筑基丹",
+      "description": "调和经脉灵气，稳固修行根基。",
+      "tier": 3,
+      "tags": [
+        "wood",
+        "earth"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 2
+      },
+      "required_rank": 2,
+      "base_success_rate": 0.6,
+      "materials": {
+        "herb_lingzhi": 1,
+        "herb_ningshen": 2,
+        "herb_lingcao": 2
+      },
+      "quality_weights": {
+        "common": 65,
+        "good": 25,
+        "superior": 9,
+        "legendary": 1
+      },
+      "base_sell_price": 110,
+      "special_rules": []
+    },
+    {
+      "id": "recipe_yanghun",
+      "name": "养魂丹",
+      "description": "以灵露配合凝神药材，温养魂魄。",
+      "tier": 3,
+      "tags": [
+        "water",
+        "soul"
+      ],
+      "unlock": {
+        "type": "shop",
+        "required_rank": 2,
+        "price": 240
+      },
+      "required_rank": 2,
+      "base_success_rate": 0.6,
+      "materials": {
+        "essence_hunlu": 1,
+        "herb_ningshen": 2,
+        "herb_qinghua": 2
+      },
+      "quality_weights": {
+        "common": 65,
+        "good": 25,
+        "superior": 9,
+        "legendary": 1
+      },
+      "base_sell_price": 120,
+      "special_rules": []
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "consumable_wendan",
+      "name": "稳丹符",
+      "description": "本炉成功率增加 10 个百分点。",
+      "tier": 1,
+      "tags": [
+        "stable"
+      ],
+      "unlock": {
+        "type": "shop",
+        "required_rank": 0,
+        "price": 8
+      },
+      "success_bonus": 0.1,
+      "quality_transfers": {},
+      "material_refund_bonus": 0,
+      "extra_pill_chance": 0,
+      "effect_tags": [],
+      "effect_ids": [],
+      "effect_category": "success",
+      "shop_available": true,
+      "sell_price": 2
+    },
+    {
+      "id": "consumable_juling",
+      "name": "聚灵符",
+      "description": "本炉向良品与上品各转移 5 点品质权重。",
+      "tier": 1,
+      "tags": [
+        "quality"
+      ],
+      "unlock": {
+        "type": "shop",
+        "required_rank": 0,
+        "price": 8
+      },
+      "success_bonus": 0,
+      "quality_transfers": {
+        "good": 5,
+        "superior": 5
+      },
+      "material_refund_bonus": 0,
+      "extra_pill_chance": 0,
+      "effect_tags": [],
+      "effect_ids": [],
+      "effect_category": "quality",
+      "shop_available": true,
+      "sell_price": 2
+    },
+    {
+      "id": "consumable_hulu",
+      "name": "护炉玉",
+      "description": "本炉失败时，材料返还率增加 50 个百分点。",
+      "tier": 2,
+      "tags": [
+        "recovery"
+      ],
+      "unlock": {
+        "type": "shop",
+        "required_rank": 1,
+        "price": 12
+      },
+      "success_bonus": 0,
+      "quality_transfers": {},
+      "material_refund_bonus": 0.5,
+      "extra_pill_chance": 0,
+      "effect_tags": [],
+      "effect_ids": [],
+      "effect_category": "refund",
+      "shop_available": true,
+      "sell_price": 3
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "flame_normal",
+      "name": "凡火",
+      "description": "寻常炉火，没有额外加成。",
+      "tier": 1,
+      "tags": [
+        "basic"
+      ],
+      "unlock": {
+        "type": "initial"
+      },
+      "success_bonus": 0,
+      "quality_transfers": {},
+      "material_refund_bonus": 0,
+      "extra_pill_chance": 0,
+      "effect_tags": [],
+      "effect_ids": []
+    },
+    {
+      "id": "flame_earth",
+      "name": "地心灵火",
+      "description": "温润而稳定的地火，成功率增加 5 个百分点。",
+      "tier": 2,
+      "tags": [
+        "fire",
+        "stable"
+      ],
+      "unlock": {
+        "type": "exploration",
+        "required_rank": 1
+      },
+      "success_bonus": 0.05,
+      "quality_transfers": {},
+      "material_refund_bonus": 0,
+      "extra_pill_chance": 0,
+      "effect_tags": [],
+      "effect_ids": []
+    }
+  ]
+}

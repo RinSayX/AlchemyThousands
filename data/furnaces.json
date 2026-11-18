@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "furnace_basic",
+      "name": "凡铁丹炉",
+      "description": "一座陈旧的铁炉。虽无加成，仍可开启丹道。",
+      "tier": 1,
+      "tags": [
+        "basic"
+      ],
+      "unlock": {
+        "type": "initial"
+      },
+      "success_bonus": 0,
+      "quality_transfers": {},
+      "material_refund_bonus": 0,
+      "extra_pill_chance": 0,
+      "effect_tags": [],
+      "effect_ids": []
+    },
+    {
+      "id": "furnace_qingmu",
+      "name": "青木灵炉",
+      "description": "成功率增加 8 个百分点，适合稳妥炼制。",
+      "tier": 2,
+      "tags": [
+        "wood",
+        "stable"
+      ],
+      "unlock": {
+        "type": "shop",
+        "required_rank": 1,
+        "price": 220
+      },
+      "success_bonus": 0.08,
+      "quality_transfers": {},
+      "material_refund_bonus": 0,
+      "extra_pill_chance": 0,
+      "effect_tags": [],
+      "effect_ids": []
+    },
+    {
+      "id": "furnace_chiyan",
+      "name": "赤炎丹炉",
+      "description": "炼制火属性丹方时，成功率降低 3 个百分点，向上品转移 8 点品质权重。",
+      "tier": 2,
+      "tags": [
+        "fire",
+        "quality"
+      ],
+      "unlock": {
+        "type": "shop",
+        "required_rank": 1,
+        "price": 260
+      },
+      "success_bonus": -0.03,
+      "quality_transfers": {
+        "superior": 8
+      },
+      "material_refund_bonus": 0,
+      "extra_pill_chance": 0,
+      "effect_tags": [
+        "fire"
+      ],
+      "effect_ids": []
+    }
+  ]
+}

@@ -1,0 +1,119 @@
+# P1 静态内容格式与接口
+
+适用于 Godot `4.5.stable.official.876b29033`，内容格式版本 `schema_version: 1`。本阶段定义并校验静态内容，不执行交易、解锁或炼丹效果。原始设计文档不变，未定数值的首批配置记录在 BALANCE.md。
+
+## 文件和通用字段
+
+固定读取 `data/recipes.json`、`materials.json`、`furnaces.json`、`flames.json`、`consumables.json` 五张表，全部必需。每张表格式为：
+
+```json
+{"schema_version": 1, "items": [{"id": "recipe_example"}]}
+```
+
+上例仅展示封套；条目仍须提供完整字段。空表、缺表、未知表、未知字段、不支持的版本和错误类型均不接受。验证器不会将错误值自动修正为有效配置。
+
+所有条目必填：
+
+| 字段 | 约束 |
+|---|---|
+| `id` | 全局唯一，正则 `^[a-z][a-z0-9]*(_[a-z0-9]+)+$`；不使用中文名称做索引 |
+| `name`、`description` | 非空字符串；面向玩家使用中文 |
+| `tier` | 整数 1～9 |
+| `tags` | 不重复的非空字符串组成的数组；标签格式 `^[a-z][a-z0-9_]*$`，允许空数组 |
+| `unlock` | 下表中一种条件；仅描述后续解锁，P1 不发放任何内容 |
+
+| `unlock.type` | 其余必填字段 |
+|---|---|
+| `initial` | 无 |
+| `rank` | `required_rank` |
+| `shop` | `required_rank`、`price` |
+| `exploration` | `required_rank` |
+
+`required_rank` 的范围为整数 0～10（丹童至大宗师）。`price` 为非负整数。`exploration` 目前只表示获取类别及资格，具体事件表和确定性获取路径在 P5 接入；P1 不添加指向尚不存在事件、委托或试炼的 ID。
+
+价格与数量上限统一为 `2147483647`。此边界保证单项整数能安全转换，不代表后续批量交易可忽略乘法/累计上限校验。JSON 数字被 Godot 解析为浮点数：验证器接受数值为整数的浮点数，拒绝小数、布尔值、数值字符串、NaN 与无穷；ContentDB 校验通过后把整数语义字段转换为 `int`，不修改传入原文档。
+
+## 丹方
+
+除通用字段外，必填：
+
+| 字段 | 约束 |
+|---|---|
+| `required_rank` | 整数 0～10，表示可炼制品阶 |
+| `base_success_rate` | 有限数值 [0,1]，此处存基础值；5%～95% 最终限幅在 P3 计算 |
+| `materials` | 非空对象，材料 ID → 正整数数量；所有引用须存在于材料表 |
+| `quality_weights` | 恰好 `common`、`good`、`superior`、`legendary` 四项；每项有限且非负，总和为有限正数；不要求总和为 100 |
+| `base_sell_price` | 非负整数，凡品丹药售价基数，区别于丹方购买价 `unlock.price` |
+| `special_rules` | 效果 ID 数组；P1 尚无已注册处理器，必须为空 |
+
+解锁资格和可炼制资格是不同字段，P1 分别校验其格式和范围，不执行资格判断，也不将二者强行设为同一值。
+
+## 材料
+
+除通用字段外，必填：
+
+| 字段 | 约束 |
+|---|---|
+| `category` | `herb`、`mineral`、`beast`、`spirit` 之一 |
+| `buy_price`、`sell_price` | 非负整数；可购材料卖价不得高于买价 |
+| `shop_available` | 布尔值，须与 `sources` 是否包含 `shop` 一致 |
+| `sources` | 非空、不重复数组；允许 `shop`、`forage`、`exploration`、`quest`、`research` |
+| `repeatable` | 布尔值，描述是否能重复获取 |
+
+不可购材料的 `buy_price: 0` 是非售卖占位值，不表示可免费购买。是否允许购买必须结合 `shop_available`，由 P2 服务校验。
+
+## 丹炉、异火与消耗品
+
+三类共用以下必填修正字段，丹炉/异火购买价如有则放在 `unlock.price`：
+
+| 字段 | 约束 |
+|---|---|
+| `success_bonus` | 有限数值 [-1,1]，表示百分点加法修正；负值合法 |
+| `quality_transfers` | 目标品质 → 非负有限权重点数；目标仅为 `good`、`superior`、`legendary`，允许空对象，总和须有限 |
+| `material_refund_bonus` | 有限数值 [0,1]，表示返还率加法修正 |
+| `extra_pill_chance` | 有限数值 [0,1] |
+| `effect_tags` | 与 `tags` 相同的数组格式；空表示通用，非空表示丹方含任一指定标签时应用这件装备的修正 |
+| `effect_ids` | P1 必须为空；未知效果 ID 或脚本字符串均拒绝 |
+
+`quality_transfers` 描述从低品质向目标品质转移的请求量，而非向总权重直接加值。转移顺序、低品质不足时的处理和最终预览由 P3 统一实现与测试。P1 只验证结构、目标和有限非负点数，不声称已执行效果或已验证所有构筑组合。
+
+消耗品另须包含 `effect_category`（`success` / `quality` / `refund`）、`shop_available`（须与 `unlock.type == shop` 一致）、`sell_price`（非负整数，可购商品卖价不得高于 `unlock.price`）。MVP 的每炉数量限制在 P3 实现，不在内容库中管理玩家库存。
+
+## ContentDB 与诊断
+
+ContentDB 为 `RefCounted` 类，路径 `scripts/core/content_db.gd`；由业务协调方显式持有并注入服务，P1 不添加未被界面使用的 Autoload。
+
+```gdscript
+const Database = preload("res://scripts/core/content_db.gd")
+var db = Database.new()
+var loaded = db.load_directory() # 默认 res://data
+if loaded.ok:
+    var recipe = db.get_item("recipe_juling")
+    var materials = db.get_items("materials")
+else:
+    print(loaded.errors)
+```
+
+- `load_directory(directory)`：读五个文件并解析，随后调用验证器。
+- `load_documents(documents)`：接收分类 → 原始 JSON 文档的对象，可用于配置工具和测试。
+- `has_item(id)`、`get_item(id)`、`get_ids(category)`、`get_items(category)`、`get_counts()`：不改变状态；未知 ID 或分类返回空结果；分类列表保留 JSON 顺序。
+- 加载成功返回 `{ok: true, errors: [], counts: {...}}`，失败返回 `{ok: false, errors: [...]}`。
+- 任一文件、字段或引用失败，均保留上一次完整有效缓存；首次失败保持空库。成功重载会替换旧索引。
+- 缓存不保存调用方的可变引用，所有查询返回深副本或新建集合。
+- `ContentValidator.validate_documents(documents)` 是纯校验，返回含 `code`、`path`、中文 `message` 的错误数组。路径如 `recipes.items[0].materials.herb_missing`；文件解析错误另含文件路径和 Godot JSON 的 `line` 字段。
+- 内容库不管理玩家资源、不消耗 RNG、不执行配置中的任意代码。
+
+## 命令行
+
+```sh
+# 校验项目配置，合法时返回 0，非法时打印诊断并返回 1
+godot --headless --path . --script res://tools/validate_content.gd
+
+# 校验另一份完整配置目录
+godot --headless --path . --script res://tools/validate_content.gd -- /absolute/content/directory
+
+# 仅跑内容测试，或移除末尾参数运行包含菜单检查的完整测试
+godot --headless --path . --script res://tests/test_runner.gd -- --content-only
+```
+
+后续导出游戏时须将 `data/*.json` 作为非资源文件纳入导出包；P1 未配置或验证发布导出。
