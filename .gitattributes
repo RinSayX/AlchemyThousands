@@ -1,0 +1,2 @@
+# Markdown uses trailing spaces for explicit line breaks in the design baseline.
+*.md whitespace=-blank-at-eol
