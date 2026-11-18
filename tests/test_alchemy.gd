@@ -248,7 +248,7 @@ func _seed_for(success: bool, legendary: bool = false) -> int:
 
 func _documents() -> Dictionary:
 	var documents: Dictionary = {}
-	for category in ["recipes", "materials", "furnaces", "flames", "consumables", "quests", "exploration_events"]:
+	for category in ["recipes", "materials", "furnaces", "flames", "consumables", "quests", "exploration_events", "ranks", "talents"]:
 		documents[category] = JSON.parse_string(FileAccess.get_file_as_string("res://data/" + category + ".json"))
 	return documents
 

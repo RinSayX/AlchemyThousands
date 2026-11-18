@@ -1,10 +1,10 @@
-# 静态内容格式与接口（P1～P5）
+# 静态内容格式与接口（P1～P6）
 
 适用于 Godot `4.5.stable.official.876b29033`，内容格式版本 `schema_version: 1`。内容库只定义并校验静态内容，交易、炼丹与资源结算分别由业务服务执行。原始设计文档不变，未定数值的首批配置记录在 BALANCE.md。
 
 ## 文件和通用字段
 
-固定读取 `data/recipes.json`、`materials.json`、`furnaces.json`、`flames.json`、`consumables.json`、`quests.json`、`exploration_events.json` 七张表，全部必需。每张表格式为：
+固定读取 `data/recipes.json`、`materials.json`、`furnaces.json`、`flames.json`、`consumables.json`、`quests.json`、`exploration_events.json`、`ranks.json`、`talents.json` 九张表，全部必需。每张表格式为：
 
 ```json
 {"schema_version": 1, "items": [{"id": "recipe_example"}]}
@@ -98,6 +98,16 @@
 
 全部奖励/消耗物品映射只允许存在的材料或消耗品，不允许丹方、装备或任意脚本作为堆叠物品。数量、金额和经验不超过统一整数上限；加载后规范化为运行时 int。所有引用验证通过才替换缓存，非法事件不影响此前可用内容。委托实例和待处理秘境属于运行状态，不写入静态定义。
 
+## P6 品阶和天赋
+
+两表均保留通用字段，`unlock.type` 必须为 `rank`，数值字段校验后转换为 int。
+
+`ranks` 另含：`rank_index`（0～10，每个序号唯一且完整）、`exp_required`（非负整数，按品阶不递减）、`exam_recipe_id`（存在的考核丹方，丹童条目为空）、`min_quality`（四档之一）、`quantity`、`research_cost`（非负整数，晋升条目必须为正）、`required_quest_id` / `required_flame`（存在的引用或空字符串）。考核丹方的炼制/解锁境界必须在晋升前可达，避免晋升所需丹方反而锁在晋升后。当前研制每次产一枚考核品质丹药，认证按 quantity 扣丹。
+
+`talents` 另含：`choice_rank`（3 / 6 / 9，须与 unlock.required_rank 一致）、`style`（stable / rush / research）、`success_bonus`（[-1,1]）、`material_refund_bonus`（[0,1]）、`legendary_transfer`（[0,100]）、`research_discount`（[0,0.5]）、`substitution_ratio`（整数 0～10）。修正必须有限；每阶段恰好三项且三类各一，禁止缺选项或重复流派。仅已选天赋参与运行，具体激活策略和研制成本规则见 P6_PROGRESSION.md。
+
+当前共 12 丹方、9 材料、3 丹炉、2 异火、3 消耗品、5 委托、5 事件、11 品阶、9 天赋，合计 59 条。原有六丹方价格与基础概率不变；四至九品新增值见 BALANCE.md。
+
 ## ContentDB 与诊断
 
 ContentDB 为 `RefCounted` 类，路径 `scripts/core/content_db.gd`；由业务协调方显式持有并注入服务，P1 不添加未被界面使用的 Autoload。
@@ -113,7 +123,7 @@ else:
     print(loaded.errors)
 ```
 
-- `load_directory(directory)`：读七个文件并解析，随后调用验证器。
+- `load_directory(directory)`：读九个文件并解析，随后调用验证器。
 - `load_documents(documents)`：接收分类 → 原始 JSON 文档的对象，可用于配置工具和测试。
 - `has_item(id)`、`get_item(id)`、`get_ids(category)`、`get_items(category)`、`get_counts()`：不改变状态；未知 ID 或分类返回空结果；分类列表保留 JSON 顺序。
 - 加载成功返回 `{ok: true, errors: [], counts: {...}}`，失败返回 `{ok: false, errors: [...]}`。

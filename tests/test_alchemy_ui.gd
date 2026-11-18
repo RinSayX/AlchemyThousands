@@ -13,6 +13,7 @@ func run(tree: SceneTree, check: Callable) -> bool:
 	var motion_before: bool = settings.reduced_motion
 	settings.set_reduced_motion(false, false)
 	var main: Node = load("res://scenes/main/main.tscn").instantiate()
+	main.save_path = ""
 	tree.root.add_child(main)
 	await tree.process_frame
 	var menu: Control = main.get_node("MainMenu")
@@ -24,7 +25,7 @@ func run(tree: SceneTree, check: Callable) -> bool:
 	var room: Control = main.room
 	_check.call(room != null and room.is_visible_in_tree() and not menu.visible and main.session.has_run(), "P4: Entering the alchemy room creates one session")
 	var session: Session = main.session
-	_check.call(room.brew_button.disabled == false and room.recipe_list.item_count == 6 and room.rate.text == "80.0%", "P4: First recipe and engine probability are ready at startup")
+	_check.call(room.brew_button.disabled == false and room.recipe_list.item_count == 12 and room.rate.text == "80.0%", "P4: First recipe and engine probability are ready at startup")
 	var before: Dictionary = session.state()
 	room.buy_button.pressed.emit()
 	room.buy_button.pressed.emit()

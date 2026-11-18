@@ -1,0 +1,185 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "talent_stable_3",
+      "name": "丹心稳固·3品",
+      "description": "选择稳妥策略时提高成功率并降低失败损失。",
+      "tier": 3,
+      "tags": [
+        "talent"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 3
+      },
+      "choice_rank": 3,
+      "style": "stable",
+      "success_bonus": 0.03,
+      "material_refund_bonus": 0.1,
+      "legendary_transfer": 0,
+      "research_discount": 0,
+      "substitution_ratio": 0
+    },
+    {
+      "id": "talent_rush_3",
+      "name": "烈火淬丹·3品",
+      "description": "选择冲击极品时降低成功率，将低品质权重转向极品。",
+      "tier": 3,
+      "tags": [
+        "talent"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 3
+      },
+      "choice_rank": 3,
+      "style": "rush",
+      "success_bonus": -0.03,
+      "material_refund_bonus": 0,
+      "legendary_transfer": 3,
+      "research_discount": 0,
+      "substitution_ratio": 0
+    },
+    {
+      "id": "talent_research_3",
+      "name": "百草衍化·3品",
+      "description": "降低定式研制心得成本，缺少不可购素材时可用灵草替代。",
+      "tier": 3,
+      "tags": [
+        "talent"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 3
+      },
+      "choice_rank": 3,
+      "style": "research",
+      "success_bonus": 0,
+      "material_refund_bonus": 0,
+      "legendary_transfer": 0,
+      "research_discount": 0.2,
+      "substitution_ratio": 3
+    },
+    {
+      "id": "talent_stable_6",
+      "name": "丹心稳固·6品",
+      "description": "选择稳妥策略时提高成功率并降低失败损失。",
+      "tier": 6,
+      "tags": [
+        "talent"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 6
+      },
+      "choice_rank": 6,
+      "style": "stable",
+      "success_bonus": 0.04,
+      "material_refund_bonus": 0.15,
+      "legendary_transfer": 0,
+      "research_discount": 0,
+      "substitution_ratio": 0
+    },
+    {
+      "id": "talent_rush_6",
+      "name": "烈火淬丹·6品",
+      "description": "选择冲击极品时降低成功率，将低品质权重转向极品。",
+      "tier": 6,
+      "tags": [
+        "talent"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 6
+      },
+      "choice_rank": 6,
+      "style": "rush",
+      "success_bonus": -0.04,
+      "material_refund_bonus": 0,
+      "legendary_transfer": 4,
+      "research_discount": 0,
+      "substitution_ratio": 0
+    },
+    {
+      "id": "talent_research_6",
+      "name": "百草衍化·6品",
+      "description": "降低定式研制心得成本，缺少不可购素材时可用灵草替代。",
+      "tier": 6,
+      "tags": [
+        "talent"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 6
+      },
+      "choice_rank": 6,
+      "style": "research",
+      "success_bonus": 0,
+      "material_refund_bonus": 0,
+      "legendary_transfer": 0,
+      "research_discount": 0.25,
+      "substitution_ratio": 3
+    },
+    {
+      "id": "talent_stable_9",
+      "name": "丹心稳固·9品",
+      "description": "选择稳妥策略时提高成功率并降低失败损失。",
+      "tier": 9,
+      "tags": [
+        "talent"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 9
+      },
+      "choice_rank": 9,
+      "style": "stable",
+      "success_bonus": 0.05,
+      "material_refund_bonus": 0.2,
+      "legendary_transfer": 0,
+      "research_discount": 0,
+      "substitution_ratio": 0
+    },
+    {
+      "id": "talent_rush_9",
+      "name": "烈火淬丹·9品",
+      "description": "选择冲击极品时降低成功率，将低品质权重转向极品。",
+      "tier": 9,
+      "tags": [
+        "talent"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 9
+      },
+      "choice_rank": 9,
+      "style": "rush",
+      "success_bonus": -0.05,
+      "material_refund_bonus": 0,
+      "legendary_transfer": 5,
+      "research_discount": 0,
+      "substitution_ratio": 0
+    },
+    {
+      "id": "talent_research_9",
+      "name": "百草衍化·9品",
+      "description": "降低定式研制心得成本，缺少不可购素材时可用灵草替代。",
+      "tier": 9,
+      "tags": [
+        "talent"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 9
+      },
+      "choice_rank": 9,
+      "style": "research",
+      "success_bonus": 0,
+      "material_refund_bonus": 0,
+      "legendary_transfer": 0,
+      "research_discount": 0.3,
+      "substitution_ratio": 3
+    }
+  ]
+}

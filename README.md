@@ -1,6 +1,6 @@
 # 百炼成丹 · Alchemy Thousands
 
-单机、离线、2D UI 驱动的炼丹经营游戏。当前已完成 **P0～P5**，可以在界面中完成购药、炼丹、售丹、宗门委托、秘境与免费采药的资源循环；完整成长和正式存档仍在后续阶段。
+单机、离线、2D UI 驱动的炼丹经营游戏。当前已完成 **P0～P6**，已打通丹童到大宗师的标准结局，包含资源循环、逐级考核、三次天赋抉择、基础图鉴与自动存档/备份。轮回与完整内容平衡属于后续阶段。
 
 ## 引擎与启动
 
@@ -22,25 +22,29 @@ open -na /Applications/Godot.app --args --path "$PWD"
 ## 当前功能
 
 - 国风主菜单：旧丹炉、山景、烟雾和流光，均由代码绘制为占位美术。
-- “启程入宗”→“入丹房 · 点燃凡火”，进入真实炼丹房；图鉴仍为占位空状态。
-- 返回山门后可继续本次修行；关闭程序后进度不保留。重新入宗会先提示重置后果，尚无正式游戏存档。
+- “启程入宗”→“入丹房 · 点燃凡火”，进入真实炼丹房；山门及丹房均可查看实际丹药品质图鉴。
+- 行动后自动保存，返回山门或关闭程序后均可继续；损坏时尝试有效备份。重新入宗前明确提示重置并替换已保存进度。
 - 设置支持沉静模式（本机保存）及全屏切换（本次会话）。
 - Tab / Shift+Tab 导航，Enter / Space 确认，Esc 关闭弹层；关闭后恢复焦点。
 - 1280×720 设计视口，960×540 最小窗口，可调整窗口大小。
-- 静态配置：6 丹方、9 材料（含丹渣）、3 丹炉、2 异火、3 消耗品、5 委托模板、5 秘境事件，共 33 条。
+- 静态配置：12 丹方、9 材料（含丹渣）、3 丹炉、2 异火、3 消耗品、5 委托模板、5 秘境事件、11 个品阶、9 个天赋，共 59 条。
 - ContentDB 支持 ID 查询、深副本隔离和全量校验后替换缓存；非法配置提供字段路径诊断。
 - 三栏炼丹房支持丹方搜索/品阶筛选、材料与缺口、装备/符箓/策略、公开概率和成本、购药/购符、习得可购买丹方、出售全部丹药与丹渣。
 - 开炉立即锁定操作，五秒动画可跳过；快速揭晓与沉静模式跳过等待。结果弹层和最近二十炉记录来自引擎回执，动画不再次掷骰或提前透露结果。
-- 丹房底部进入坊市、委托、秘境、采药四个页签；坊市覆盖材料、符箓、丹方、丹炉和异火分类，支持数量购买与普通物品出售，按境界及来源限制获取。
+- 丹房底部进入坊市、委托、秘境、采药、丹师、图鉴、存档七个页签；坊市覆盖材料、符箓、丹方、丹炉和异火分类，支持数量购买与普通物品出售，按境界及来源限制获取。
 - 委托模板生成独立实例；交付实际消耗达标丹药并一次发奖，高品质可替代低品质，可重复委托需重新接取。
 - 秘境支持公开权重随机寻访或指定地点，卡片先展示费用、成功率与两种结果；百年灵芝、养魂露有确定性获取选项，地心灵火有一品境界确定性路径。
 - 免费采药只补齐一炉聚灵丹的缺少材料，每趟三次，耗尽可免费休整，无金钱或实时等待门槛；连续失败也可出售丹渣恢复购买资金。
+- 丹童至九品再到大宗师逐级认证，检查历练、已炼/研制成就、考核丹药及阶段委托/异火前置；晋升解锁丹方和已有境界商品。
+- 三品、六品、九品各三选一天赋：稳妥策略成功/返还、冲品策略风险/品质转移、定式研制折扣/普通药材替代稀有素材。
+- 当前考核丹可消耗公开药材与研究心得确定性研制，获得指定品质和历练；不使用随机流，不增加概率炼丹次数。失败开炉也有研究收益，通关不要求随机抽中极品。
+- 完成大宗师认证展示标准结局和固定通关统计，可留在本世继续图鉴收集；交付与出售不清除品质发现。
 - 业务层支持材料/消耗品堆叠、丹药分品质堆叠、购买出售和批量交易；包含境界校验、操作防重放和失败不改状态的事务边界。
 - 炼丹服务提供概率/缺口预览、三种策略、装备/符箓效果、成功后品质与多丹、失败回收和丹渣、经验/研究/统计。RNG 三流独立，支持种子和状态快照；失败事务不消耗实际随机流。
 
 中文使用操作系统字体：macOS 苹方/宋体、Windows 微软雅黑/宋体，另提供 Noto 字体候选。目标平台为 Windows/macOS；尚未验证 Windows 排版及导出。
 
-设置位于 Godot `user://settings.cfg`。本机路径为 `~/Library/Application Support/AlchemyThousands/settings.cfg`，不属于项目目录，也不包含游戏进度。
+设置位于 Godot `user://settings.cfg`。本机路径为 `~/Library/Application Support/AlchemyThousands/settings.cfg`，不属于项目目录，也不包含游戏进度。修行进度位于同一用户目录的 `run_save.json`，上一有效版本在 `run_save.json.bak`；使用版本/引擎/校验和、临时文件读回与备份替换，失败会保留原有效档并提示重试。
 
 ## 验证
 
@@ -49,11 +53,12 @@ godot --headless --path . --editor --quit
 godot --headless --path . --script res://tools/validate_content.gd
 godot --headless --path . --script res://tools/economy_demo.gd
 godot --headless --path . --script res://tools/alchemy_demo.gd
+godot --headless --path . --script res://tools/progression_demo.gd
 godot --headless --path . --script res://tests/test_runner.gd
 godot --headless --path . --quit-after 3
 ```
 
-测试入口无需测试框架，返回非零退出码表示检查失败；不写入真实用户偏好。可添加 `-- --content-only`、`-- --economy-only`、`-- --alchemy-only`、`-- --resources-only` 或 `-- --ui-only`，五种专项参数互斥。资源专项含委托/秘境事务、零资源恢复和十万次探索概率抽样；UI 专项含菜单、炼丹房、资源页和会话检查。旧 economy_demo 注入测试丹药；alchemy_demo 使用真实炼丹结果。最新记录见 `docs/P5_REPORT.md`。
+测试入口无需测试框架，返回非零退出码表示检查失败；不写入真实用户偏好。可添加 `-- --content-only`、`-- --economy-only`、`-- --alchemy-only`、`-- --resources-only`、`-- --progression-only` 或 `-- --ui-only`，六种专项参数互斥。资源专项含委托/秘境事务、零资源恢复和十万次探索概率抽样；成长专项含逐级晋升、天赋、真实通关路线和存档故障注入；UI 专项含菜单、炼丹房、资源页、存读档与结局场景检查。所有场景测试均禁用默认用户存档或使用隔离测试路径。旧 economy_demo 注入测试丹药；alchemy_demo 使用真实炼丹结果。最新记录见 `docs/P6_REPORT.md`。
 
 概率报告可重新生成：
 
@@ -71,12 +76,13 @@ godot --headless --path . --script res://tools/alchemy_simulator.gd -- res://doc
 - `scripts/core/content_db.gd`、`content_validator.gd`：由调用方显式持有的内容库与纯校验器，不依赖 UI。
 - `scripts/services/`：货币、背包和商店服务；`scripts/core/transaction_result.gd`、`pill_stack.gd`：统一结果与普通丹药堆叠格式。
 - `themes/`、`assets/icons/`：基础主题与原创矢量图标。
-- `data/`：七张 schema-v1 JSON 表；`tools/validate_content.gd`：独立内容校验入口。
+- `data/`：九张 schema-v1 JSON 表；`tools/validate_content.gd`：独立内容校验入口。
 - `tests/`：内容与无头菜单集成测试；临时数据写入被 Git 忽略的 `test-output/` 并在正常结束时清理。
 - `docs/CONTENT_SCHEMA.md`：字段格式、数值范围、接口和失败处理。
 - `docs/ECONOMY_API.md`：经济状态、交易接口、操作 ID、防溢出和丹药定价规则。
 - `docs/ALCHEMY_API.md`：炼丹接口、RNG 复现、快照、回收及统一结算；`docs/P3_PROBABILITY_RESULTS.json`：实际统计产物。
 - `docs/P4_UI.md`：炼丹操作、会话和动画边界；`docs/P5_RESOURCES.md`：资源操作、服务接口、委托实例和探索随机流。
+- `docs/P6_PROGRESSION.md`、`SAVE_API.md`：晋升、研制、天赋和存档接口/格式/恢复边界。
 - `docs/GAME_DESIGN.md`、`TECHNICAL_DESIGN.md`、`DEVELOPMENT_PLAN.md`、`BALANCE.md`：从完整设计文档拆出的基线；保留原章节编号。
 - `AGENTS.md`：依据原设计第 17 章建立的项目约定。
 
@@ -84,4 +90,4 @@ godot --headless --path . --script res://tools/alchemy_simulator.gd -- res://doc
 
 ## 后续阶段
 
-下一步 **P6 单周目成长与结局**：晋升、天赋、图鉴和标准结局，并按设计接入基础存读档。P5 仍是丹童阶段的可玩资源原型；一品以上商店、委托与秘境按条件锁定，业务测试用境界夹具核验，未给玩家增加调试解锁。尚无完整背包页、晋升、正式存档或轮回，也未接入变异和天地规则；不宣称已达到 20～40 分钟原型或完整一周目。
+下一步 **P7 轮回与元进度**：本世结算、永久记录、传承、天地变数及跨周目安全存档。P6 的图鉴和天赋属于当前修行，确认重新入宗会重置；本阶段没有轮回入口、MetaSave 或跨世继承。现有 12 张丹方已覆盖一至九品通关，仍未扩充至正式内容目标，也未完成整体经济/4～8 小时真人时长验证、变异、最终美术音效或 Windows 导出验证。

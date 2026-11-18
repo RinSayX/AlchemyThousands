@@ -9,6 +9,7 @@ var _check: Callable
 func run(tree: SceneTree, check: Callable) -> bool:
 	_check = check
 	var main: Node = load("res://scenes/main/main.tscn").instantiate()
+	main.save_path = ""
 	tree.root.add_child(main)
 	await tree.process_frame
 	main.session.new_run(1)

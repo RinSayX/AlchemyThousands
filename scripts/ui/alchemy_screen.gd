@@ -47,6 +47,8 @@ var result_body: Label
 var result_sell: Button
 var result_close: Button
 var reveal_timer: Timer
+var chapter: Label
+var save_hint: Label
 var resource_hub: Control
 var resource_buttons: Array[Button] = []
 var _refreshing := false
@@ -132,7 +134,7 @@ func _build() -> void:
 	heading.add_theme_constant_override("separation", 2)
 	header.add_child(heading)
 	_label(heading, "青岚丹房", 25, GOLD)
-	_label(heading, "第一章  /  破炉丹童", 13, MUTED)
+	chapter = _label(heading, "第一章  /  破炉丹童", 13, MUTED)
 	status = _label(header, "", 17, Color("c4d3bf"))
 	status.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	status.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -154,10 +156,12 @@ func _build() -> void:
 	notice = _label(footer, "先选丹方，再配火候；初始药材已放入背包。", 13, MUTED)
 	notice.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	notice.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
-	for index in range(4):
-		var button := _button(footer, ["坊市", "委托", "秘境", "采药"][index], open_resources.bind(index))
+	for index in range(7):
+		var button := _button(footer, ["坊市", "委托", "秘境", "采药", "丹师", "图鉴", "存档"][index], open_resources.bind(index))
 		resource_buttons.append(button)
-	_label(footer, "本次修行仅在本次运行中保留", 13, MUTED)
+	save_hint = _label(footer, "", 13, MUTED)
+	save_hint.custom_minimum_size.x = 180
+	save_hint.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 
 
 func _build_recipes(column: VBoxContainer) -> void:
@@ -338,6 +342,9 @@ func refresh() -> void:
 	_refreshing = true
 	var state: Dictionary = _brewing_state.duplicate(true) if phase == "brewing" else session.state()
 	var rank_name := "丹童" if state.rank == 0 else ("炼丹大宗师" if state.rank == 10 else "%d品丹师" % state.rank)
+	chapter.text = ["第一章 / 破炉丹童", "第二章 / 初窥丹道", "第三章 / 丹会问道", "第四章 / 九品登极", "终章 / 道成宗师"][0 if state.rank == 0 else 1 if state.rank <= 3 else 2 if state.rank <= 6 else 3 if state.rank <= 9 else 4]
+	save_hint.text = "未启用磁盘存档" if session.save_path.is_empty() else ("保存失败 · 请在存档页重试" if session.save_status.get("ok") == false else "已从备份恢复" if session.save_status.get("result", {}).get("recovered", false) else "行动后自动保存")
+	save_hint.tooltip_text = session.save_status.get("message", "")
 	status.text = "%s   ·   历练 %d   ·   心得 %d   ·   灵石 %d" % [rank_name, state.exp, state.research_points, state.spirit_stones]
 	_render_recipes(state)
 	var recipe: Dictionary = session.content.get_item(selected_recipe)
@@ -355,7 +362,7 @@ func refresh() -> void:
 	if preview.ok:
 		var view: Dictionary = preview.result
 		rate.text = "%.1f%%" % (view.success_rate * 100)
-		rate.tooltip_text = "引擎最终概率；成功后再独立判定品质。"
+		rate.tooltip_text = "引擎最终概率；成功后再独立判定品质。天赋修正：%+.1f 个百分点" % (view.success_breakdown.get("talent", 0.0) * 100)
 		for quality in QUALITY_NAMES:
 			quality_labels[quality].text = "%s  %.1f%%" % [QUALITY_NAMES[quality], view.quality_probabilities[quality] * 100]
 		legendary.text = "单炉极品概率  %.2f%%" % (view.legendary_per_attempt * 100)

@@ -3,6 +3,7 @@ extends Control
 
 signal new_run_requested
 signal continue_requested
+signal quit_requested
 
 const Landscape := preload("res://scripts/ui/ink_landscape.gd")
 const GOLD := Color("d4c28e")
@@ -17,6 +18,8 @@ var status_label: Label
 var _return_focus: Control
 var _serif := SystemFont.new()
 var _has_session := false
+var _has_save := false
+var collection_provider: Callable
 
 
 func _ready() -> void:
@@ -142,22 +145,24 @@ func show_prologue() -> void:
 	_open_modal("第一章 · 破炉丹童")
 	_label(modal_content, "青岚山下，晨雾初散。", 20, Color("b9c8b5"))
 	_wrapped_label("你原是边陲宗门的一名丹童。师父留下一座旧丹炉，\n还有半部被烟火熏黄的炼丹手记。\n\n“草木各有性，成丹先修心。”\n\n从一株灵草、一缕凡火开始，你的丹道将由此写下。")
-	if _has_session:
-		_wrapped_label("重新入宗将结束本次修行，灵石与背包会重置。")
+	if _has_session or _has_save:
+		_wrapped_label("重新入宗将重置本次修行并替换已保存的进度；灵石、背包、境界和天赋重新开始。")
 	else:
-		_label(modal_content, "修行进度仅在本次运行中保留。", 15, MUTED)
-	var enter := _button(modal_content, "重新入宗" if _has_session else "入丹房 · 点燃凡火", func() -> void: new_run_requested.emit())
+		_label(modal_content, "行动后自动保存，可关闭游戏后继续修行。", 15, MUTED)
+	var enter := _button(modal_content, "重新入宗" if _has_session or _has_save else "入丹房 · 点燃凡火", func() -> void: new_run_requested.emit())
 	enter.name = "EnterAlchemy"
 	_close_button()
 	enter.grab_focus()
 
 
-func configure_session(has_session: bool) -> void:
+func configure_session(has_session: bool, has_save: bool = false) -> void:
 	_has_session = has_session
-	continue_button.disabled = not has_session
-	continue_button.focus_mode = Control.FOCUS_ALL if has_session else Control.FOCUS_NONE
-	continue_button.text = "继续本次修行" if has_session else "继续修行"
-	continue_button.tooltip_text = "返回本次运行中的修行，关闭程序后不保留。" if has_session else "暂无修行记录"
+	_has_save = has_save
+	var available := has_session or has_save
+	continue_button.disabled = not available
+	continue_button.focus_mode = Control.FOCUS_ALL if available else Control.FOCUS_NONE
+	continue_button.text = "继续本次修行" if has_session else ("读取修行存档" if has_save else "继续修行")
+	continue_button.tooltip_text = "返回当前修行。" if has_session else ("读取最近有效存档；损坏时尝试备份。" if has_save else "暂无修行记录")
 
 
 func show_notice(title: String, message: String) -> void:
@@ -168,7 +173,26 @@ func show_notice(title: String, message: String) -> void:
 
 func show_collection() -> void:
 	_open_modal("丹道图鉴")
-	_wrapped_label("丹经未著，静候第一缕丹香。\n\n日后发现的丹药与品质，将在这里留下印记。")
+	if collection_provider.is_valid():
+		var result: Dictionary = collection_provider.call()
+		if result.ok:
+			_wrapped_label("已发现 %d / %d 个丹方品质。出售或交付不会抹去发现记录。" % [result.result.discovered, result.result.total])
+			var scroll := ScrollContainer.new()
+			scroll.custom_minimum_size = Vector2(540, 250)
+			modal_content.add_child(scroll)
+			var rows := VBoxContainer.new()
+			rows.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+			scroll.add_child(rows)
+			for row in result.result.rows:
+				var names: Array[String] = []
+				for quality in row.qualities:
+					if row.qualities[quality]:
+						names.append({"common": "凡品", "good": "良品", "superior": "上品", "legendary": "极品"}[quality])
+				_label(rows, row.recipe.name + " · " + (" / ".join(names) if not names.is_empty() else "未发现"), 16, MUTED)
+		else:
+			_wrapped_label(result.message)
+	else:
+		_wrapped_label("尚未开始修行，丹经静候第一缕丹香。")
 	_close_button()
 
 

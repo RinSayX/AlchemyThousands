@@ -7,7 +7,7 @@ const QUALITIES := ["common", "good", "superior", "legendary"]
 const STRATEGIES := {"normal": 0.0, "stable": 0.10, "rush": -0.15}
 
 
-static func calculate(recipe: Dictionary, rank: int, furnace: Dictionary, flame: Dictionary, consumable: Dictionary, strategy: String) -> Dictionary:
+static func calculate(recipe: Dictionary, rank: int, furnace: Dictionary, flame: Dictionary, consumable: Dictionary, strategy: String, talents: Array = []) -> Dictionary:
 	var weights: Dictionary = recipe.quality_weights.duplicate(true)
 	var bonuses := {"base": recipe.base_success_rate, "rank": minf(maxi(rank - recipe.required_rank, 0) * 0.02, 0.10), "furnace": 0.0, "flame": 0.0, "consumable": 0.0, "material": 0.0, "world": 0.0, "strategy": STRATEGIES[strategy]}
 	var refund := 0.0
@@ -25,6 +25,13 @@ static func calculate(recipe: Dictionary, rank: int, furnace: Dictionary, flame:
 			if item.quality_transfers.has(target):
 				var amount: float = item.quality_transfers[target]
 				transfers.append({"source": source, "target": target, "requested": amount, "applied": transfer_up(weights, target, amount)})
+	for talent in talents:
+		if talent.style != strategy:
+			continue
+		bonuses["talent"] = bonuses.get("talent", 0.0) + talent.success_bonus
+		refund += talent.material_refund_bonus
+		if talent.legendary_transfer > 0:
+			transfers.append({"source": talent.id, "target": "legendary", "requested": talent.legendary_transfer, "applied": transfer_up(weights, "legendary", talent.legendary_transfer)})
 	if strategy == "stable":
 		var amount := minf(weights.legendary, 1.0)
 		weights.legendary -= amount

@@ -9,6 +9,10 @@ const AlchemyUITests := preload("res://tests/test_alchemy_ui.gd")
 const ResourceTests := preload("res://tests/test_resources.gd")
 const ResourceUITests := preload("res://tests/test_resources_ui.gd")
 
+const ProgressionTests := preload("res://tests/test_progression.gd")
+const ProgressionUITests := preload("res://tests/test_progression_ui.gd")
+const SaveTests := preload("res://tests/test_save_load.gd")
+
 var checks := 0
 var failures: Array[String] = []
 
@@ -20,7 +24,7 @@ func _initialize() -> void:
 func _run() -> void:
 	var args := OS.get_cmdline_user_args()
 	var selected := ""
-	for flag in ["--content-only", "--economy-only", "--alchemy-only", "--resources-only", "--ui-only"]:
+	for flag in ["--content-only", "--economy-only", "--alchemy-only", "--resources-only", "--progression-only", "--ui-only"]:
 		if args.has(flag):
 			if not selected.is_empty():
 				_check(false, "Choose one focused test suite at a time")
@@ -35,6 +39,9 @@ func _run() -> void:
 		_check(AlchemyTests.new().run(_check), "P3: Alchemy suite completed")
 	if selected.is_empty() or selected == "--resources-only":
 		_check(ResourceTests.new().run(_check), "P5: Resource suite completed")
+	if selected.is_empty() or selected == "--progression-only":
+		_check(ProgressionTests.new().run(_check), "P6: Progression suite completed")
+		_check(SaveTests.new().run(_check), "P6: Save/load suite completed")
 	if not selected.is_empty() and selected != "--ui-only":
 		_finish()
 		return
@@ -44,6 +51,7 @@ func _run() -> void:
 		_finish()
 		return
 	var main := packed.instantiate()
+	main.save_path = ""
 	root.add_child(main)
 	await process_frame
 	await process_frame
@@ -65,7 +73,7 @@ func _run() -> void:
 	_check(root.gui_get_focus_owner() == menu.new_game_button, "Dismiss restores keyboard focus")
 	_check(menu.continue_button.focus_mode == Control.FOCUS_NONE, "Unavailable continue stays outside keyboard navigation")
 	menu.show_collection()
-	_check(menu.modal_title.text == "丹道图鉴", "Collection placeholder opens")
+	_check(menu.modal_title.text == "丹道图鉴", "Collection opens with actual run provider")
 	menu.close_modal()
 	menu.show_settings()
 	_check(menu.modal_content.has_node("ReducedMotion"), "Settings exposes reduced motion")
@@ -92,6 +100,7 @@ func _run() -> void:
 	await process_frame
 	_check(await AlchemyUITests.new().run(self, _check), "P4: Alchemy UI suite completed")
 	_check(await ResourceUITests.new().run(self, _check), "P5: Resource UI suite completed")
+	_check(await ProgressionUITests.new().run(self, _check), "P6: Progression UI suite completed")
 	_finish()
 
 

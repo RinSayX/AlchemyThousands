@@ -170,6 +170,181 @@
       },
       "base_sell_price": 120,
       "special_rules": []
+    },
+    {
+      "id": "recipe_tongmai",
+      "name": "通脉丹",
+      "description": "通脉丹的古方，可概率炼制，也可在丹师考核中消耗心得定式研制。",
+      "tier": 4,
+      "tags": [
+        "wood",
+        "earth"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 3
+      },
+      "required_rank": 3,
+      "base_success_rate": 0.55,
+      "materials": {
+        "herb_ningshen": 2,
+        "ore_tiejing": 2,
+        "herb_lingzhi": 1
+      },
+      "quality_weights": {
+        "common": 65,
+        "good": 25,
+        "superior": 9,
+        "legendary": 1
+      },
+      "base_sell_price": 180,
+      "special_rules": []
+    },
+    {
+      "id": "recipe_pojing",
+      "name": "破境丹",
+      "description": "破境丹的古方，可概率炼制，也可在丹师考核中消耗心得定式研制。",
+      "tier": 5,
+      "tags": [
+        "fire",
+        "earth"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 4
+      },
+      "required_rank": 4,
+      "base_success_rate": 0.5,
+      "materials": {
+        "herb_chixue": 3,
+        "ore_tiejing": 2,
+        "herb_lingzhi": 1
+      },
+      "quality_weights": {
+        "common": 65,
+        "good": 25,
+        "superior": 9,
+        "legendary": 1
+      },
+      "base_sell_price": 260,
+      "special_rules": []
+    },
+    {
+      "id": "recipe_huaying",
+      "name": "化婴丹",
+      "description": "化婴丹的古方，可概率炼制，也可在丹师考核中消耗心得定式研制。",
+      "tier": 6,
+      "tags": [
+        "wood",
+        "soul"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 5
+      },
+      "required_rank": 5,
+      "base_success_rate": 0.4,
+      "materials": {
+        "herb_ningshen": 3,
+        "herb_lingzhi": 2,
+        "essence_hunlu": 1
+      },
+      "quality_weights": {
+        "common": 65,
+        "good": 25,
+        "superior": 9,
+        "legendary": 1
+      },
+      "base_sell_price": 380,
+      "special_rules": []
+    },
+    {
+      "id": "recipe_xuanyuan",
+      "name": "玄元丹",
+      "description": "玄元丹的古方，可概率炼制，也可在丹师考核中消耗心得定式研制。",
+      "tier": 7,
+      "tags": [
+        "fire",
+        "soul"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 6
+      },
+      "required_rank": 6,
+      "base_success_rate": 0.35,
+      "materials": {
+        "herb_chixue": 3,
+        "herb_lingzhi": 2,
+        "essence_hunlu": 2
+      },
+      "quality_weights": {
+        "common": 65,
+        "good": 25,
+        "superior": 9,
+        "legendary": 1
+      },
+      "base_sell_price": 540,
+      "special_rules": []
+    },
+    {
+      "id": "recipe_dujie",
+      "name": "渡劫丹",
+      "description": "渡劫丹的古方，可概率炼制，也可在丹师考核中消耗心得定式研制。",
+      "tier": 8,
+      "tags": [
+        "earth",
+        "soul"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 7
+      },
+      "required_rank": 7,
+      "base_success_rate": 0.25,
+      "materials": {
+        "ore_tiejing": 4,
+        "herb_lingzhi": 3,
+        "essence_hunlu": 2
+      },
+      "quality_weights": {
+        "common": 65,
+        "good": 25,
+        "superior": 9,
+        "legendary": 1
+      },
+      "base_sell_price": 760,
+      "special_rules": []
+    },
+    {
+      "id": "recipe_taichu",
+      "name": "太初造化丹",
+      "description": "太初造化丹的古方，可概率炼制，也可在丹师考核中消耗心得定式研制。",
+      "tier": 9,
+      "tags": [
+        "wood",
+        "fire",
+        "soul"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 8
+      },
+      "required_rank": 8,
+      "base_success_rate": 0.1,
+      "materials": {
+        "herb_lingzhi": 4,
+        "essence_hunlu": 4,
+        "herb_chixue": 4
+      },
+      "quality_weights": {
+        "common": 65,
+        "good": 25,
+        "superior": 9,
+        "legendary": 1
+      },
+      "base_sell_price": 1100,
+      "special_rules": []
     }
   ]
 }

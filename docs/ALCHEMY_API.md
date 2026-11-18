@@ -41,7 +41,7 @@ if loaded.ok:
 | `rng_states` | 下节的版本化三流快照 |
 | `needs_save` | bool，初始 false，成功提交的开炉、购买/出售等经济事务置 true；预览与被拒绝操作不修改 |
 
-普通材料没有额外纯度加成；当前材料修正为 0。未注册的特殊效果仍由 ContentValidator 拒绝。非空天地变数/天赋配置会返回 UNSUPPORTED_RULE，避免看似支持却忽略其效果。
+普通材料没有额外纯度加成；当前材料修正为 0。未注册的特殊效果仍由 ContentValidator 拒绝。非空天地变数仍返回 UNSUPPORTED_RULE。P6 已支持经过引用、品阶和每组唯一选择校验的 talent_choices；按装备→天赋→策略处理品质转移，稳丹/冲品天赋只在对应策略激活，研究天赋由 ProgressionService 处理。空天赋维持 P3 所有概率不变。
 
 成功率按基础、境界熟练、丹炉、异火、符箓及策略加法求和，最后限幅 5%～95%。境界熟练为超过丹方要求的每阶 +2 个百分点，上限 +10；不满足境界时直接禁止炼制。
 
@@ -91,4 +91,4 @@ godot --headless --path . --script res://tools/alchemy_simulator.gd -- res://doc
 
 模拟以执行引擎相同的 Rules.roll 为入口，每构筑十万炉，覆盖普通、稳妥、火属性冲品、回收及正多丹概率测试夹具。统计的是概率规则，不运行五十万次完整背包/日志事务，也不替代 P8 经济模拟或人工时长测试。
 
-已测试 RNG 的 JSON 往返和临时二进制检查点恢复后继续开炉；尚未实现 SaveManager、自动存档文件、迁移或坏档恢复。needs_save 只提供后续协调层需要保存的标记。
+已测试 RNG 的 JSON 往返、临时检查点和 P6 实际存档恢复后继续开炉。SaveManager 的封套、备份及失败保护见 SAVE_API.md；自动保存失败仍保留 needs_save，UI 显示失败而非成功。P6 定式研制走独立显式命令，不修改概率炼丹的显示/抽样，也不计入 alchemy_attempts。

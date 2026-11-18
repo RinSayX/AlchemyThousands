@@ -12,6 +12,7 @@ const Result := preload("res://scripts/core/transaction_result.gd")
 const Transaction := preload("res://scripts/core/state_transaction.gd")
 const FIELDS := ["exp", "research_points", "action_count", "statistics", "alchemy_discoveries", "rng_states", "equipped_furnace", "equipped_flame", "needs_save"]
 const COUNTERS := ["alchemy_attempts", "alchemy_successes", "alchemy_failures"]
+const Talents := preload("res://scripts/core/talent_rules.gd")
 const RESIDUE := "material_danzha"
 
 var _db: Database
@@ -71,9 +72,10 @@ func validate_state(state: Dictionary) -> Dictionary:
 		if not key is String or key not in allowed or seen.has(key):
 			return Result.failure("INVALID_STATE", "炼丹发现记录含未知或重复条目。")
 		seen[key] = true
-	for field in ["world_modifiers", "talent_choices"]:
-		if state.has(field) and (not state[field] is Array or not state[field].is_empty()):
-			return Result.failure("UNSUPPORTED_RULE", "此阶段尚未接入天地变数或天赋效果。")
+	if state.has("world_modifiers") and (not state.world_modifiers is Array or not state.world_modifiers.is_empty()):
+		return Result.failure("UNSUPPORTED_RULE", "此阶段尚未接入天地变数。")
+	if not Talents.valid_choices(_db, state):
+		return Result.failure("INVALID_STATE", "天赋引用、境界或选择次数不合法。")
 	if RESIDUE not in _db.get_ids("materials"):
 		return Result.failure("INVALID_CONFIG", "缺少炼丹失败产物的内容定义。")
 	return Result.success()
@@ -108,7 +110,7 @@ func preview_alchemy(state: Dictionary, recipe_id: String, setup: Dictionary = {
 			return Result.failure("INVALID_SETUP", "所选符箓不存在。")
 		consumable = _db.get_item(selected.consumable_id)
 		consume[selected.consumable_id] = 1
-	var snapshot := Rules.calculate(recipe, state.rank, _db.get_item(selected.furnace_id), _db.get_item(selected.flame_id), consumable, selected.strategy)
+	var snapshot := Rules.calculate(recipe, state.rank, _db.get_item(selected.furnace_id), _db.get_item(selected.flame_id), consumable, selected.strategy, Talents.definitions(_db, state))
 	var missing: Dictionary = {}
 	var missing_consumables: Dictionary = {}
 	var refund: Dictionary = {}
