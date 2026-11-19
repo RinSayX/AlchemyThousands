@@ -24,7 +24,7 @@
     {
       "id": "talent_rush_3",
       "name": "烈火淬丹·3品",
-      "description": "选择冲击极品时降低成功率，将低品质权重转向极品。",
+      "description": "选择冲击极品时，向极品转移3点品质权重；不再额外降低成功率，冲品策略本身仍有风险。",
       "tier": 3,
       "tags": [
         "talent"
@@ -35,7 +35,7 @@
       },
       "choice_rank": 3,
       "style": "rush",
-      "success_bonus": -0.03,
+      "success_bonus": 0,
       "material_refund_bonus": 0,
       "legendary_transfer": 3,
       "research_discount": 0,
@@ -84,7 +84,7 @@
     {
       "id": "talent_rush_6",
       "name": "烈火淬丹·6品",
-      "description": "选择冲击极品时降低成功率，将低品质权重转向极品。",
+      "description": "选择冲击极品时，向极品转移4点品质权重；不再额外降低成功率，冲品策略本身仍有风险。",
       "tier": 6,
       "tags": [
         "talent"
@@ -95,7 +95,7 @@
       },
       "choice_rank": 6,
       "style": "rush",
-      "success_bonus": -0.04,
+      "success_bonus": 0,
       "material_refund_bonus": 0,
       "legendary_transfer": 4,
       "research_discount": 0,
@@ -144,7 +144,7 @@
     {
       "id": "talent_rush_9",
       "name": "烈火淬丹·9品",
-      "description": "选择冲击极品时降低成功率，将低品质权重转向极品。",
+      "description": "选择冲击极品时，向极品转移5点品质权重；不再额外降低成功率，冲品策略本身仍有风险。",
       "tier": 9,
       "tags": [
         "talent"
@@ -155,7 +155,7 @@
       },
       "choice_rank": 9,
       "style": "rush",
-      "success_bonus": -0.05,
+      "success_bonus": 0,
       "material_refund_bonus": 0,
       "legendary_transfer": 5,
       "research_discount": 0,

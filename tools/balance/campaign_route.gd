@@ -31,6 +31,7 @@ var spent := 0
 var support_furnaces := 0
 var liquidity_shortfalls := 0
 var consumable_skips := 0
+var jade_used := 0
 var ledger: Dictionary = {}
 var by_recipe: Dictionary = {}
 var stages: Array[Dictionary] = []
@@ -56,7 +57,7 @@ func run(seed_value: int, policy: String, loadout: Array = [], worlds: Array = [
 	max_exam_attempts = exam_cap
 	budget = command_budget
 	state = _start(seed_value, loadout, worlds)
-	if policy not in Probe.STYLES or stop_at < 1 or stop_at > 10 or exam_cap < 0 or budget < 1:
+	if (policy not in Probe.STYLES and policy != "recycle_smart") or stop_at < 1 or stop_at > 10 or exam_cap < 0 or budget < 1:
 		status = "invalid_experiment"
 		return result(seed_value, loadout, worlds)
 	var accepted: Dictionary = _quests.accept(state, "quest_juling_supply", _id())
@@ -90,7 +91,7 @@ func run(seed_value: int, policy: String, loadout: Array = [], worlds: Array = [
 			if not _ensure({"ore_tiejing": 2}) or not _event("event_earth_fire", "choice_ritual"): break
 		if not _accept(_growth.promote(state, target, _id()), "promotion"): break
 		if target in [3, 6, 9]:
-			if not _accept(_growth.choose_talent(state, "talent_%s_%d" % ["stable" if style == "recycle" else style, target], _id()), "talent"): break
+			if not _accept(_growth.choose_talent(state, "talent_%s_%d" % ["stable" if style in ["recycle", "recycle_smart"] else style, target], _id()), "talent"): break
 		if not _sell_surplus(): break
 		var after := _measure()
 		var stage := {"target": target, "recipe": current_exam.exam_recipe_id, "random_exam_attempts": attempts, "cash_end": state.spirit_stones}
@@ -167,7 +168,7 @@ func _fill_items(costs: Dictionary) -> bool:
 		while state.inventory.get(id, 0) < costs[id]:
 			var missing: int = costs[id] - state.inventory.get(id, 0)
 			if db.get_item(id).shop_available:
-				if not _purchase(id, missing, "materials"): return false
+				if not _purchase(id, missing, "consumables" if id in db.get_ids("consumables") else "materials"): return false
 			elif Probe.RARE_SOURCES.has(id):
 				var source: Array = Probe.RARE_SOURCES[id]
 				if not _event(source[0], source[1]): return false
@@ -246,6 +247,7 @@ func _brew(recipe_id: String, support: bool) -> bool:
 		if not selected.consumable_id.is_empty(): required[selected.consumable_id] = 1
 		if not _ensure(required): return false
 	if not _accept(_alchemy.execute_alchemy(state, recipe_id, selected, _id()), "furnace"): return false
+	if selected.consumable_id == "consumable_hulu": jade_used += 1
 	by_recipe[recipe_id] = by_recipe.get(recipe_id, 0) + 1
 	if support: support_furnaces += 1
 	return true
@@ -305,7 +307,7 @@ func _accept(outcome: Dictionary, category: String) -> bool:
 
 
 func _measure() -> Dictionary:
-	return {"furnaces": state.statistics.alchemy_attempts, "failures": state.statistics.alchemy_failures, "actions": state.action_count, "commands": commands, "support_furnaces": support_furnaces, "earned": earned, "spent": spent, "studies": state.research_crafts, "outings": state.resource_stats.explorations, "forages": state.resource_stats.forages, "rests": state.resource_stats.rests}
+	return {"furnaces": state.statistics.alchemy_attempts, "failures": state.statistics.alchemy_failures, "actions": state.action_count, "commands": commands, "support_furnaces": support_furnaces, "earned": earned, "spent": spent, "studies": state.research_crafts, "outings": state.resource_stats.explorations, "forages": state.resource_stats.forages, "rests": state.resource_stats.rests, "jade_used": jade_used}
 
 
 func result(seed_value: int, loadout: Array, worlds: Array) -> Dictionary:

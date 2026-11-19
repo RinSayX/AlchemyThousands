@@ -155,7 +155,7 @@ func _talents() -> void:
 	before = alchemy.preview_alchemy(state, "recipe_zhuji", {"strategy": "rush"})
 	progression.choose_talent(state, "talent_rush_3", "choose")
 	after = alchemy.preview_alchemy(state, "recipe_zhuji", {"strategy": "rush"})
-	_check.call(is_equal_approx(after.result.raw_success_rate - before.result.raw_success_rate, -0.03) and after.result.quality_weights.legendary == before.result.quality_weights.legendary + 3, "P6: Rush talent trades success for exactly the stated legendary weight")
+	_check.call(is_equal_approx(after.result.raw_success_rate, before.result.raw_success_rate) and after.result.quality_weights.legendary == before.result.quality_weights.legendary + 3, "P8: Rush talent adds exactly the stated legendary weight without another success penalty")
 	state = fixture(3)
 	state.inventory.erase("herb_lingzhi")
 	before = progression.preview_study(state)

@@ -16,6 +16,7 @@ const SaveTests := preload("res://tests/test_save_load.gd")
 const RebirthUITests := preload("res://tests/test_rebirth_ui.gd")
 const RebirthTests := preload("res://tests/test_rebirth.gd")
 const BalanceTests := preload("res://tests/test_balance.gd")
+const TuningTests := preload("res://tests/test_tuning.gd")
 
 var checks := 0
 var failures: Array[String] = []
@@ -50,6 +51,7 @@ func _run() -> void:
 		_check(RebirthTests.new().run(_check), "P7: Rebirth suite completed")
 	if selected.is_empty() or selected == "--balance-only":
 		_check(BalanceTests.new().run(_check), "P8: Balance analysis suite completed")
+		_check(TuningTests.new().run(_check), "P8: Tuning suite completed")
 	if not selected.is_empty() and selected != "--ui-only":
 		_finish()
 		return

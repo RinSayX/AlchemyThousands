@@ -1,6 +1,6 @@
 # 百炼成丹 · Alchemy Thousands
 
-单机、离线、2D UI 驱动的炼丹经营游戏。当前已完成 **P0～P7**，已打通丹童到大宗师、领取传承、轮回至下一世的完整流程，包含资源循环、天赋、永久图鉴、天地变数与统一跨世存档。P8 已新增经济模拟与首批平衡报告，正式内容和数值仍保留 P7 基线。
+单机、离线、2D UI 驱动的炼丹经营游戏。当前已完成 **P0～P7**，已打通丹童到大宗师、领取传承、轮回至下一世的完整流程，包含资源循环、天赋、永久图鉴、天地变数与统一跨世存档。P8 已完成首批模拟和首轮数值调优：冲品天赋不再额外扣成功率，赤炎炉对火丹加3个百分点；内容量仍待扩充。
 
 ## 引擎与启动
 
@@ -62,12 +62,12 @@ godot --headless --path . --script res://tests/test_runner.gd
 godot --headless --path . --quit-after 3
 ```
 
-测试入口无需测试框架，返回非零退出码表示检查失败；不写入真实用户偏好。可添加 `-- --content-only`、`-- --economy-only`、`-- --alchemy-only`、`-- --resources-only`、`-- --progression-only`、`-- --rebirth-only`、`-- --balance-only` 或 `-- --ui-only`，八种专项参数互斥。资源专项含零资源恢复和探索抽样；成长专项含真实通关和存档故障；轮回专项含两世通关、传承/变数、复现、迁移和保存故障；平衡专项核验成本、收益、回收取整、模拟确定性、真实事务和统计口径；UI 专项覆盖轮回确认/取消/失败重试及第二世重启。所有场景测试均禁用默认用户存档或使用隔离测试路径。最新全量结果为 **826 项检查，0 失败**，见 `docs/P8_REPORT.md`。
+测试入口无需测试框架，返回非零退出码表示检查失败；不写入真实用户偏好。可添加 `-- --content-only`、`-- --economy-only`、`-- --alchemy-only`、`-- --resources-only`、`-- --progression-only`、`-- --rebirth-only`、`-- --balance-only` 或 `-- --ui-only`，八种专项参数互斥。资源专项含零资源恢复和探索抽样；成长专项含真实通关和存档故障；轮回专项含两世通关、传承/变数、复现、迁移和保存故障；平衡专项核验成本、收益、回收取整、模拟确定性、真实事务和统计口径；UI 专项覆盖轮回确认/取消/失败重试及第二世重启。所有场景测试均禁用默认用户存档或使用隔离测试路径。最新全量结果为 **857 项检查，0 失败**，见 `docs/P8_TUNING_REPORT.md`。
 
 概率报告可重新生成：
 
 ```sh
-godot --headless --path . --script res://tools/alchemy_simulator.gd -- res://docs/P3_PROBABILITY_RESULTS.json
+godot --headless --path . --script res://tools/alchemy_simulator.gd -- res://docs/P8_TUNING_PROBABILITY_RESULTS.json
 ```
 
 每组 100000 炉、五组合计 500000 炉，使用与实际执行相同的结果抽样函数；不代表已经完成经济平衡或真人时长验证。
@@ -75,11 +75,13 @@ godot --headless --path . --script res://tools/alchemy_simulator.gd -- res://doc
 P8 独立经济实验可运行：
 
 ```sh
-godot --headless --path . --script res://tools/balance_simulator.gd -- --samples 10000 --seeds 8 --output res://docs/P8_BALANCE_RESULTS.json
-godot --headless --path . --script res://tools/balance_sensitivity.gd -- --output res://docs/P8_BUILD_SENSITIVITY.json
+godot --headless --path . --script res://tools/balance_candidates.gd -- --seeds 8 --samples 100000 --output res://docs/P8_TUNING_RESULTS.json
+godot --headless --path . --script res://tools/tuning_demo.gd
+# 当前配置的完整经济模拟使用新输出，保留原始报告
+godot --headless --path . --script res://tools/balance_simulator.gd -- --samples 10000 --seeds 8 --output res://test-output/p8-current.json
 ```
 
-包含首世、九传承、全部相容机会世界对和双传承的条件化场景；比较稳丹、冲品、回收与研究对照。实际通关事务与单炉期望探针分开，保留原始数据、现金收支、阶段指标、破产恢复及输入哈希。操作说明与假设见 `docs/P8_SIMULATOR.md`，结论和待确认提案见 `docs/P8_BALANCE_REPORT.md`。模拟不能代替真人时长。
+包含首世、九传承、全部相容机会世界对和双传承的条件化场景；比较稳丹、冲品、回收与研究对照。实际通关事务与单炉期望探针分开，保留原始数据、现金收支、阶段指标、破产恢复及输入哈希。首批方法见 `docs/P8_SIMULATOR.md`；当前调优、四组候选与按边际收益用玉的比较见 `docs/P8_TUNING_REPORT.md`。原始 `P8_BALANCE_REPORT.md` 与两份JSON属于提交638f4c5的历史基线，完整复现需使用该版本；当前模拟默认读取新配置。模拟不能代替真人时长。
 
 ## 目录与文档
 
@@ -93,7 +95,7 @@ godot --headless --path . --script res://tools/balance_sensitivity.gd -- --outpu
 - `tests/`：内容与无头菜单集成测试；临时数据写入被 Git 忽略的 `test-output/` 并在正常结束时清理。
 - `docs/CONTENT_SCHEMA.md`：字段格式、数值范围、接口和失败处理。
 - `docs/ECONOMY_API.md`：经济状态、交易接口、操作 ID、防溢出和丹药定价规则。
-- `docs/ALCHEMY_API.md`：炼丹接口、RNG 复现、快照、回收及统一结算；`docs/P3_PROBABILITY_RESULTS.json`：实际统计产物。
+- `docs/ALCHEMY_API.md`：炼丹接口、RNG 复现、快照、回收及统一结算；`docs/P3_PROBABILITY_RESULTS.json`：历史统计；`docs/P8_TUNING_PROBABILITY_RESULTS.json`：当前配置统计。
 - `docs/P4_UI.md`：炼丹操作、会话和动画边界；`docs/P5_RESOURCES.md`：资源操作、服务接口、委托实例和探索随机流。
 - `docs/P6_PROGRESSION.md`、`SAVE_API.md`：晋升、研制、天赋和存档接口/格式/恢复边界。
 - `docs/P7_REBIRTH.md`、`P7_REPORT.md`：永久档案、传承、世界生成、跨世事务及实际验收结果。
@@ -105,4 +107,4 @@ godot --headless --path . --script res://tools/balance_sensitivity.gd -- --outpu
 
 ## 后续阶段
 
-接下来继续 **P8 内容与平衡**：审阅本批报告的假设、风险与提案，确认依据后再调整配置、扩充内容并重新模拟。现有 12 张丹方已覆盖一至九品通关，仍未扩充至正式内容目标；隐藏结局、变异、首世 4～8 小时及后续 2～3 小时真人时长、最终美术音效和 Windows 导出尚未验证或完成。
+接下来继续 **P8 内容与平衡**：扩充高阶装备、丹方材料、试炼与其他结局，再验证资金消耗和流派目标。现有 12 张丹方已覆盖一至九品通关，仍未扩充至正式内容目标；隐藏结局、变异、首世 4～8 小时及后续 2～3 小时真人时长、最终美术音效和 Windows 导出尚未验证或完成。

@@ -61,7 +61,7 @@ func _test_rules() -> bool:
 	_check.call(is_equal_approx(wood.success_rate, 0.82) and wood.quality_weights.superior == 9, "P3: Fire furnace modifiers do not apply to wood recipes")
 	state.unlocked_recipes.append("recipe_cuiti")
 	var fire: Dictionary = _service.preview_alchemy(state, "recipe_cuiti", {"furnace_id": "furnace_chiyan"}).result
-	_check.call(is_equal_approx(fire.success_rate, 0.67) and fire.quality_weights.common == 57 and fire.quality_weights.superior == 17, "P3: Fire tag applies both the penalty and quality transfer")
+	_check.call(is_equal_approx(fire.success_rate, 0.73) and fire.quality_weights.common == 57 and fire.quality_weights.superior == 17, "P8: Fire tag applies the disclosed three-point success bonus and eight-point quality transfer")
 	var token: Dictionary = _service.preview_alchemy(state, "recipe_juling", {"consumable_id": "consumable_juling"}).result
 	_check.call(token.quality_weights.common == 55 and token.quality_weights.good == 30 and token.quality_weights.superior == 14, "P3: Quality token transfers weights without inflating their total")
 	var protected: Dictionary = _service.preview_alchemy(state, "recipe_juling", {"consumable_id": "consumable_hulu"}).result

@@ -1,0 +1,1850 @@
+{
+  "source_commit": "638f4c5",
+  "engine": "4.5.stable.official.876b29033",
+  "documents": {
+    "consumables": {
+      "schema_version": 1,
+      "items": [
+        {
+          "id": "consumable_wendan",
+          "name": "稳丹符",
+          "description": "本炉成功率增加 10 个百分点。",
+          "tier": 1,
+          "tags": [
+            "stable"
+          ],
+          "unlock": {
+            "type": "shop",
+            "required_rank": 0,
+            "price": 8
+          },
+          "success_bonus": 0.1,
+          "quality_transfers": {},
+          "material_refund_bonus": 0,
+          "extra_pill_chance": 0,
+          "effect_tags": [],
+          "effect_ids": [],
+          "effect_category": "success",
+          "shop_available": true,
+          "sell_price": 2
+        },
+        {
+          "id": "consumable_juling",
+          "name": "聚灵符",
+          "description": "本炉向良品与上品各转移 5 点品质权重。",
+          "tier": 1,
+          "tags": [
+            "quality"
+          ],
+          "unlock": {
+            "type": "shop",
+            "required_rank": 0,
+            "price": 8
+          },
+          "success_bonus": 0,
+          "quality_transfers": {
+            "good": 5,
+            "superior": 5
+          },
+          "material_refund_bonus": 0,
+          "extra_pill_chance": 0,
+          "effect_tags": [],
+          "effect_ids": [],
+          "effect_category": "quality",
+          "shop_available": true,
+          "sell_price": 2
+        },
+        {
+          "id": "consumable_hulu",
+          "name": "护炉玉",
+          "description": "本炉失败时，材料返还率增加 50 个百分点。",
+          "tier": 2,
+          "tags": [
+            "recovery"
+          ],
+          "unlock": {
+            "type": "shop",
+            "required_rank": 1,
+            "price": 12
+          },
+          "success_bonus": 0,
+          "quality_transfers": {},
+          "material_refund_bonus": 0.5,
+          "extra_pill_chance": 0,
+          "effect_tags": [],
+          "effect_ids": [],
+          "effect_category": "refund",
+          "shop_available": true,
+          "sell_price": 3
+        }
+      ]
+    },
+    "exploration_events": {
+      "schema_version": 1,
+      "items": [
+        {
+          "id": "event_qinglan",
+          "name": "青岚山谷",
+          "description": "沿谷寻药，坡上偶有百年灵芝。",
+          "tier": 1,
+          "tags": [
+            "exploration"
+          ],
+          "unlock": {
+            "type": "rank",
+            "required_rank": 0
+          },
+          "weight": 4,
+          "options": [
+            {
+              "id": "choice_gather",
+              "name": "沿谷采摘",
+              "description": "必得灵草×2、青花×1。",
+              "cost_stones": 0,
+              "cost_items": {},
+              "success_rate": 1,
+              "success_items": {
+                "herb_lingcao": 2,
+                "herb_qinghua": 1
+              },
+              "failure_items": {},
+              "success_stones": 0,
+              "failure_stones": 0,
+              "reward_flame": ""
+            },
+            {
+              "id": "choice_deep",
+              "name": "冒险深入",
+              "description": "成功得百年灵芝×1；失败得灵草×2。",
+              "cost_stones": 6,
+              "cost_items": {},
+              "success_rate": 0.3,
+              "success_items": {
+                "herb_lingzhi": 1
+              },
+              "failure_items": {
+                "herb_lingcao": 2
+              },
+              "success_stones": 0,
+              "failure_stones": 0,
+              "reward_flame": ""
+            }
+          ]
+        },
+        {
+          "id": "event_old_grove",
+          "name": "古木药圃",
+          "description": "以灵石向守圃人求取灵芝，或寻访深处野株。",
+          "tier": 1,
+          "tags": [
+            "exploration"
+          ],
+          "unlock": {
+            "type": "rank",
+            "required_rank": 0
+          },
+          "weight": 2,
+          "options": [
+            {
+              "id": "choice_trade",
+              "name": "求取灵芝",
+              "description": "必得百年灵芝×1，可重复获取。",
+              "cost_stones": 10,
+              "cost_items": {},
+              "success_rate": 1,
+              "success_items": {
+                "herb_lingzhi": 1
+              },
+              "failure_items": {},
+              "success_stones": 0,
+              "failure_stones": 0,
+              "reward_flame": ""
+            },
+            {
+              "id": "choice_search",
+              "name": "深入寻株",
+              "description": "成功得灵芝×2；失败得灵草×1。",
+              "cost_stones": 4,
+              "cost_items": {},
+              "success_rate": 0.4,
+              "success_items": {
+                "herb_lingzhi": 2
+              },
+              "failure_items": {
+                "herb_lingcao": 1
+              },
+              "success_stones": 0,
+              "failure_stones": 0,
+              "reward_flame": ""
+            }
+          ]
+        },
+        {
+          "id": "event_soul_spring",
+          "name": "养魂灵泉",
+          "description": "灵泉蕴露，供品可换取稳定收获。",
+          "tier": 1,
+          "tags": [
+            "exploration"
+          ],
+          "unlock": {
+            "type": "rank",
+            "required_rank": 0
+          },
+          "weight": 2,
+          "options": [
+            {
+              "id": "choice_offer",
+              "name": "献礼取露",
+              "description": "必得养魂露×1，可重复获取。",
+              "cost_stones": 12,
+              "cost_items": {},
+              "success_rate": 1,
+              "success_items": {
+                "essence_hunlu": 1
+              },
+              "failure_items": {},
+              "success_stones": 0,
+              "failure_stones": 0,
+              "reward_flame": ""
+            },
+            {
+              "id": "choice_dive",
+              "name": "潜入泉眼",
+              "description": "成功得养魂露×2；失败得青花×1。",
+              "cost_stones": 6,
+              "cost_items": {},
+              "success_rate": 0.4,
+              "success_items": {
+                "essence_hunlu": 2
+              },
+              "failure_items": {
+                "herb_qinghua": 1
+              },
+              "success_stones": 0,
+              "failure_stones": 0,
+              "reward_flame": ""
+            }
+          ]
+        },
+        {
+          "id": "event_mineral_vein",
+          "name": "赤岩矿脉",
+          "description": "地火温养赤血参，石隙藏有铁精砂。",
+          "tier": 2,
+          "tags": [
+            "exploration"
+          ],
+          "unlock": {
+            "type": "rank",
+            "required_rank": 1
+          },
+          "weight": 2,
+          "options": [
+            {
+              "id": "choice_mine",
+              "name": "稳妥采集",
+              "description": "必得铁精砂×2、赤血参×1。",
+              "cost_stones": 0,
+              "cost_items": {},
+              "success_rate": 1,
+              "success_items": {
+                "ore_tiejing": 2,
+                "herb_chixue": 1
+              },
+              "failure_items": {},
+              "success_stones": 0,
+              "failure_stones": 0,
+              "reward_flame": ""
+            },
+            {
+              "id": "choice_excavate",
+              "name": "深入开采",
+              "description": "成功得铁精砂×4、赤血参×2；失败得铁精砂×1。",
+              "cost_stones": 8,
+              "cost_items": {},
+              "success_rate": 0.35,
+              "success_items": {
+                "ore_tiejing": 4,
+                "herb_chixue": 2
+              },
+              "failure_items": {
+                "ore_tiejing": 1
+              },
+              "success_stones": 0,
+              "failure_stones": 0,
+              "reward_flame": ""
+            },
+            {
+              "id": "choice_furnace_trace",
+              "name": "循炉胚铸灵炉",
+              "description": "古炉寻踪传承：以铁精砂修复青木灵炉；已拥有时不会重复获得第二座。",
+              "cost_stones": 180,
+              "cost_items": {
+                "ore_tiejing": 4
+              },
+              "success_rate": 1,
+              "success_items": {},
+              "failure_items": {},
+              "success_stones": 0,
+              "failure_stones": 0,
+              "reward_flame": "",
+              "required_heritage": "heritage_tuolu",
+              "reward_furnace": "furnace_qingmu"
+            }
+          ]
+        },
+        {
+          "id": "event_earth_fire",
+          "name": "地心火窟",
+          "description": "备齐祭品可稳妥引火，也可冒险寻一缕野火。",
+          "tier": 2,
+          "tags": [
+            "exploration"
+          ],
+          "unlock": {
+            "type": "rank",
+            "required_rank": 1
+          },
+          "weight": 1,
+          "options": [
+            {
+              "id": "choice_ritual",
+              "name": "祭火收服",
+              "description": "必得地心灵火与百年灵芝×1；已拥有异火时仅得药材。",
+              "cost_stones": 30,
+              "cost_items": {
+                "ore_tiejing": 2
+              },
+              "success_rate": 1,
+              "success_items": {
+                "herb_lingzhi": 1
+              },
+              "failure_items": {},
+              "success_stones": 0,
+              "failure_stones": 0,
+              "reward_flame": "flame_earth"
+            },
+            {
+              "id": "choice_risk",
+              "name": "冒险引火",
+              "description": "成功得地心灵火与灵芝×1；失败得铁精砂×1。",
+              "cost_stones": 12,
+              "cost_items": {},
+              "success_rate": 0.25,
+              "success_items": {
+                "herb_lingzhi": 1
+              },
+              "failure_items": {
+                "ore_tiejing": 1
+              },
+              "success_stones": 0,
+              "failure_stones": 0,
+              "reward_flame": "flame_earth"
+            }
+          ]
+        }
+      ]
+    },
+    "flames": {
+      "schema_version": 1,
+      "items": [
+        {
+          "id": "flame_normal",
+          "name": "凡火",
+          "description": "寻常炉火，没有额外加成。",
+          "tier": 1,
+          "tags": [
+            "basic"
+          ],
+          "unlock": {
+            "type": "initial"
+          },
+          "success_bonus": 0,
+          "quality_transfers": {},
+          "material_refund_bonus": 0,
+          "extra_pill_chance": 0,
+          "effect_tags": [],
+          "effect_ids": []
+        },
+        {
+          "id": "flame_earth",
+          "name": "地心灵火",
+          "description": "温润而稳定的地火，成功率增加 5 个百分点。",
+          "tier": 2,
+          "tags": [
+            "fire",
+            "stable"
+          ],
+          "unlock": {
+            "type": "exploration",
+            "required_rank": 1
+          },
+          "success_bonus": 0.05,
+          "quality_transfers": {},
+          "material_refund_bonus": 0,
+          "extra_pill_chance": 0,
+          "effect_tags": [],
+          "effect_ids": []
+        }
+      ]
+    },
+    "furnaces": {
+      "schema_version": 1,
+      "items": [
+        {
+          "id": "furnace_basic",
+          "name": "凡铁丹炉",
+          "description": "一座陈旧的铁炉。虽无加成，仍可开启丹道。",
+          "tier": 1,
+          "tags": [
+            "basic"
+          ],
+          "unlock": {
+            "type": "initial"
+          },
+          "success_bonus": 0,
+          "quality_transfers": {},
+          "material_refund_bonus": 0,
+          "extra_pill_chance": 0,
+          "effect_tags": [],
+          "effect_ids": []
+        },
+        {
+          "id": "furnace_qingmu",
+          "name": "青木灵炉",
+          "description": "成功率增加 8 个百分点，适合稳妥炼制。",
+          "tier": 2,
+          "tags": [
+            "wood",
+            "stable"
+          ],
+          "unlock": {
+            "type": "shop",
+            "required_rank": 1,
+            "price": 220
+          },
+          "success_bonus": 0.08,
+          "quality_transfers": {},
+          "material_refund_bonus": 0,
+          "extra_pill_chance": 0,
+          "effect_tags": [],
+          "effect_ids": []
+        },
+        {
+          "id": "furnace_chiyan",
+          "name": "赤炎丹炉",
+          "description": "炼制火属性丹方时，成功率降低 3 个百分点，向上品转移 8 点品质权重。",
+          "tier": 2,
+          "tags": [
+            "fire",
+            "quality"
+          ],
+          "unlock": {
+            "type": "shop",
+            "required_rank": 1,
+            "price": 260
+          },
+          "success_bonus": -0.03,
+          "quality_transfers": {
+            "superior": 8
+          },
+          "material_refund_bonus": 0,
+          "extra_pill_chance": 0,
+          "effect_tags": [
+            "fire"
+          ],
+          "effect_ids": []
+        }
+      ]
+    },
+    "inheritances": {
+      "schema_version": 1,
+      "items": [
+        {
+          "id": "heritage_baicao",
+          "name": "百草通灵",
+          "description": "每世首次发现一种丹方品质时，额外研究心得+1。",
+          "tier": 1,
+          "tags": [
+            "inheritance"
+          ],
+          "unlock": {
+            "type": "rank",
+            "required_rank": 0
+          },
+          "effect": "discovery_research",
+          "amount": 1,
+          "min_completed_runs": 1
+        },
+        {
+          "id": "heritage_luyin",
+          "name": "本命炉印",
+          "description": "使用凡铁丹炉时成功率+3个百分点。",
+          "tier": 1,
+          "tags": [
+            "inheritance"
+          ],
+          "unlock": {
+            "type": "rank",
+            "required_rank": 0
+          },
+          "effect": "basic_furnace_success",
+          "amount": 0.03,
+          "min_completed_runs": 1
+        },
+        {
+          "id": "heritage_huozhong",
+          "name": "异火火种",
+          "description": "地火裂隙的确定性仪式灵石费用减半，物品费用不变。",
+          "tier": 1,
+          "tags": [
+            "inheritance"
+          ],
+          "unlock": {
+            "type": "rank",
+            "required_rank": 0
+          },
+          "effect": "ritual_discount",
+          "amount": 0.5,
+          "min_completed_runs": 1
+        },
+        {
+          "id": "heritage_wendan",
+          "name": "稳丹心法",
+          "description": "每世第一次交付宗门日常供丹，额外获得20灵石。",
+          "tier": 1,
+          "tags": [
+            "inheritance"
+          ],
+          "unlock": {
+            "type": "rank",
+            "required_rank": 0
+          },
+          "effect": "first_quest_stones",
+          "amount": 20,
+          "min_completed_runs": 1
+        },
+        {
+          "id": "heritage_jizhuan",
+          "name": "九转灵识",
+          "description": "冲击极品时成功率-2个百分点，向极品额外转移2点权重。",
+          "tier": 1,
+          "tags": [
+            "inheritance"
+          ],
+          "unlock": {
+            "type": "rank",
+            "required_rank": 0
+          },
+          "effect": "rush_transfer",
+          "amount": 2,
+          "min_completed_runs": 1
+        },
+        {
+          "id": "heritage_huishou",
+          "name": "残灰归元",
+          "description": "出售丹渣的单位灵石收益翻倍。",
+          "tier": 1,
+          "tags": [
+            "inheritance"
+          ],
+          "unlock": {
+            "type": "rank",
+            "required_rank": 0
+          },
+          "effect": "residue_multiplier",
+          "amount": 2,
+          "min_completed_runs": 1
+        },
+        {
+          "id": "heritage_tuolu",
+          "name": "古炉寻踪",
+          "description": "赤岩矿脉增加确定性的青木灵炉寻踪选项，消耗180灵石与铁精砂×4。",
+          "tier": 1,
+          "tags": [
+            "inheritance"
+          ],
+          "unlock": {
+            "type": "rank",
+            "required_rank": 0
+          },
+          "effect": "furnace_trace",
+          "amount": 1,
+          "min_completed_runs": 1
+        },
+        {
+          "id": "heritage_yandan",
+          "name": "丹眼识真",
+          "description": "宗门委托最低品质降低一档，最低为凡品；奖励不减。",
+          "tier": 1,
+          "tags": [
+            "inheritance"
+          ],
+          "unlock": {
+            "type": "rank",
+            "required_rank": 0
+          },
+          "effect": "quest_quality",
+          "amount": 1,
+          "min_completed_runs": 1
+        },
+        {
+          "id": "heritage_yuanqi",
+          "name": "元气初复",
+          "description": "每世首次缺少基础药材时，免费采药优先用传承补给，不消耗当趟机会。",
+          "tier": 1,
+          "tags": [
+            "inheritance"
+          ],
+          "unlock": {
+            "type": "rank",
+            "required_rank": 0
+          },
+          "effect": "shortage_supply",
+          "amount": 1,
+          "min_completed_runs": 1
+        }
+      ]
+    },
+    "materials": {
+      "schema_version": 1,
+      "items": [
+        {
+          "id": "herb_lingcao",
+          "name": "灵草",
+          "description": "常见的入门灵药，是聚灵丹的主药。",
+          "tier": 1,
+          "tags": [
+            "wood"
+          ],
+          "unlock": {
+            "type": "rank",
+            "required_rank": 0
+          },
+          "category": "herb",
+          "buy_price": 4,
+          "sell_price": 1,
+          "shop_available": true,
+          "sources": [
+            "shop",
+            "forage",
+            "exploration"
+          ],
+          "repeatable": true
+        },
+        {
+          "id": "herb_qinghua",
+          "name": "青花",
+          "description": "性情温和的辅药，用于聚合灵气。",
+          "tier": 1,
+          "tags": [
+            "wood"
+          ],
+          "unlock": {
+            "type": "rank",
+            "required_rank": 0
+          },
+          "category": "herb",
+          "buy_price": 6,
+          "sell_price": 2,
+          "shop_available": true,
+          "sources": [
+            "shop",
+            "forage"
+          ],
+          "repeatable": true
+        },
+        {
+          "id": "herb_zhixue",
+          "name": "止血草",
+          "description": "用于炼制止血丹的常见药草。",
+          "tier": 1,
+          "tags": [
+            "wood"
+          ],
+          "unlock": {
+            "type": "rank",
+            "required_rank": 0
+          },
+          "category": "herb",
+          "buy_price": 5,
+          "sell_price": 1,
+          "shop_available": true,
+          "sources": [
+            "shop",
+            "forage"
+          ],
+          "repeatable": true
+        },
+        {
+          "id": "herb_ningshen",
+          "name": "凝神花",
+          "description": "安神定志，常用于滋养神识的丹药。",
+          "tier": 2,
+          "tags": [
+            "wood",
+            "soul"
+          ],
+          "unlock": {
+            "type": "rank",
+            "required_rank": 1
+          },
+          "category": "herb",
+          "buy_price": 10,
+          "sell_price": 3,
+          "shop_available": true,
+          "sources": [
+            "shop",
+            "exploration"
+          ],
+          "repeatable": true
+        },
+        {
+          "id": "herb_chixue",
+          "name": "赤血参",
+          "description": "蕴含温热灵力，是淬体丹的主药。",
+          "tier": 2,
+          "tags": [
+            "fire"
+          ],
+          "unlock": {
+            "type": "rank",
+            "required_rank": 1
+          },
+          "category": "herb",
+          "buy_price": 12,
+          "sell_price": 3,
+          "shop_available": true,
+          "sources": [
+            "shop",
+            "exploration"
+          ],
+          "repeatable": true
+        },
+        {
+          "id": "ore_tiejing",
+          "name": "铁精砂",
+          "description": "经地火淬炼的细砂，可辅以强健筋骨。",
+          "tier": 2,
+          "tags": [
+            "earth",
+            "fire"
+          ],
+          "unlock": {
+            "type": "rank",
+            "required_rank": 1
+          },
+          "category": "mineral",
+          "buy_price": 8,
+          "sell_price": 2,
+          "shop_available": true,
+          "sources": [
+            "shop",
+            "exploration"
+          ],
+          "repeatable": true
+        },
+        {
+          "id": "herb_lingzhi",
+          "name": "百年灵芝",
+          "description": "灵气充盈的筑基药材，可在秘境中反复获得。",
+          "tier": 3,
+          "tags": [
+            "wood"
+          ],
+          "unlock": {
+            "type": "rank",
+            "required_rank": 2
+          },
+          "category": "herb",
+          "buy_price": 0,
+          "sell_price": 6,
+          "shop_available": false,
+          "sources": [
+            "exploration",
+            "quest",
+            "research"
+          ],
+          "repeatable": true
+        },
+        {
+          "id": "essence_hunlu",
+          "name": "养魂露",
+          "description": "凝聚山间灵韵的露液，可用于滋养魂魄。",
+          "tier": 3,
+          "tags": [
+            "water",
+            "soul"
+          ],
+          "unlock": {
+            "type": "rank",
+            "required_rank": 2
+          },
+          "category": "spirit",
+          "buy_price": 0,
+          "sell_price": 8,
+          "shop_available": false,
+          "sources": [
+            "exploration",
+            "quest",
+            "research"
+          ],
+          "repeatable": true
+        },
+        {
+          "id": "material_danzha",
+          "name": "丹渣",
+          "description": "炼丹失败留下的残渣，可出售；后续可用于研究兑换。",
+          "tier": 1,
+          "tags": [
+            "residue"
+          ],
+          "unlock": {
+            "type": "initial"
+          },
+          "category": "spirit",
+          "buy_price": 0,
+          "sell_price": 3,
+          "shop_available": false,
+          "sources": [
+            "alchemy"
+          ],
+          "repeatable": true
+        }
+      ]
+    },
+    "quests": {
+      "schema_version": 1,
+      "items": [
+        {
+          "id": "quest_juling_supply",
+          "name": "宗门日常供丹",
+          "description": "交付聚灵丹，换取灵石与下一炉的基础药材。",
+          "tier": 1,
+          "tags": [
+            "commission"
+          ],
+          "unlock": {
+            "type": "rank",
+            "required_rank": 0
+          },
+          "required_recipe_id": "recipe_juling",
+          "min_quality": "common",
+          "quantity": 1,
+          "reward_spirit_stones": 40,
+          "reward_exp": 6,
+          "reward_items": {
+            "herb_lingcao": 2,
+            "herb_qinghua": 1
+          },
+          "reward_flame": "",
+          "repeatable": true
+        },
+        {
+          "id": "quest_zhixue_supply",
+          "name": "山门止血药",
+          "description": "为外出弟子备好两枚止血丹。",
+          "tier": 1,
+          "tags": [
+            "commission"
+          ],
+          "unlock": {
+            "type": "rank",
+            "required_rank": 0
+          },
+          "required_recipe_id": "recipe_zhixue",
+          "min_quality": "common",
+          "quantity": 2,
+          "reward_spirit_stones": 72,
+          "reward_exp": 12,
+          "reward_items": {
+            "herb_zhixue": 2,
+            "herb_lingcao": 1
+          },
+          "reward_flame": "",
+          "repeatable": true
+        },
+        {
+          "id": "quest_juling_elite",
+          "name": "清灵上品",
+          "description": "长老求一枚上品以上聚灵丹，此委托每世仅结算一次。",
+          "tier": 1,
+          "tags": [
+            "commission"
+          ],
+          "unlock": {
+            "type": "rank",
+            "required_rank": 0
+          },
+          "required_recipe_id": "recipe_juling",
+          "min_quality": "superior",
+          "quantity": 1,
+          "reward_spirit_stones": 110,
+          "reward_exp": 15,
+          "reward_items": {
+            "consumable_juling": 1
+          },
+          "reward_flame": "",
+          "repeatable": false
+        },
+        {
+          "id": "quest_ningshen_supply",
+          "name": "养神之托",
+          "description": "交付良品以上凝神丹，获赠可重复获取的百年灵芝。",
+          "tier": 2,
+          "tags": [
+            "commission"
+          ],
+          "unlock": {
+            "type": "rank",
+            "required_rank": 1
+          },
+          "required_recipe_id": "recipe_ningshen",
+          "min_quality": "good",
+          "quantity": 2,
+          "reward_spirit_stones": 185,
+          "reward_exp": 20,
+          "reward_items": {
+            "herb_lingzhi": 1
+          },
+          "reward_flame": "",
+          "repeatable": true
+        },
+        {
+          "id": "quest_fire_trial",
+          "name": "地火凭证",
+          "description": "交付三枚淬体丹，以丹道修为换取地心灵火。",
+          "tier": 2,
+          "tags": [
+            "commission"
+          ],
+          "unlock": {
+            "type": "rank",
+            "required_rank": 1
+          },
+          "required_recipe_id": "recipe_cuiti",
+          "min_quality": "common",
+          "quantity": 3,
+          "reward_spirit_stones": 80,
+          "reward_exp": 20,
+          "reward_items": {
+            "ore_tiejing": 2
+          },
+          "reward_flame": "flame_earth",
+          "repeatable": false
+        }
+      ]
+    },
+    "ranks": {
+      "schema_version": 1,
+      "items": [
+        {
+          "id": "rank_0",
+          "name": "丹童",
+          "description": "入门修行，从一炉聚灵丹起步。",
+          "tier": 1,
+          "tags": [
+            "progression"
+          ],
+          "unlock": {
+            "type": "rank",
+            "required_rank": 0
+          },
+          "rank_index": 0,
+          "exp_required": 0,
+          "exam_recipe_id": "",
+          "min_quality": "common",
+          "quantity": 0,
+          "research_cost": 0,
+          "required_quest_id": "",
+          "required_flame": ""
+        },
+        {
+          "id": "rank_1",
+          "name": "一品丹师",
+          "description": "积累历练、掌握考核丹方并交付合格丹药，通过认证。",
+          "tier": 1,
+          "tags": [
+            "progression"
+          ],
+          "unlock": {
+            "type": "rank",
+            "required_rank": 0
+          },
+          "rank_index": 1,
+          "exp_required": 16,
+          "exam_recipe_id": "recipe_juling",
+          "min_quality": "common",
+          "quantity": 1,
+          "research_cost": 8,
+          "required_quest_id": "quest_juling_supply",
+          "required_flame": ""
+        },
+        {
+          "id": "rank_2",
+          "name": "二品丹师",
+          "description": "积累历练、掌握考核丹方并交付合格丹药，通过认证。",
+          "tier": 2,
+          "tags": [
+            "progression"
+          ],
+          "unlock": {
+            "type": "rank",
+            "required_rank": 1
+          },
+          "rank_index": 2,
+          "exp_required": 60,
+          "exam_recipe_id": "recipe_ningshen",
+          "min_quality": "common",
+          "quantity": 1,
+          "research_cost": 12,
+          "required_quest_id": "",
+          "required_flame": ""
+        },
+        {
+          "id": "rank_3",
+          "name": "三品丹师",
+          "description": "积累历练、掌握考核丹方并交付合格丹药，通过认证。",
+          "tier": 3,
+          "tags": [
+            "progression"
+          ],
+          "unlock": {
+            "type": "rank",
+            "required_rank": 2
+          },
+          "rank_index": 3,
+          "exp_required": 110,
+          "exam_recipe_id": "recipe_zhuji",
+          "min_quality": "good",
+          "quantity": 1,
+          "research_cost": 18,
+          "required_quest_id": "",
+          "required_flame": ""
+        },
+        {
+          "id": "rank_4",
+          "name": "四品丹师",
+          "description": "积累历练、掌握考核丹方并交付合格丹药，通过认证。",
+          "tier": 4,
+          "tags": [
+            "progression"
+          ],
+          "unlock": {
+            "type": "rank",
+            "required_rank": 3
+          },
+          "rank_index": 4,
+          "exp_required": 180,
+          "exam_recipe_id": "recipe_tongmai",
+          "min_quality": "good",
+          "quantity": 1,
+          "research_cost": 24,
+          "required_quest_id": "",
+          "required_flame": ""
+        },
+        {
+          "id": "rank_5",
+          "name": "五品丹师",
+          "description": "积累历练、掌握考核丹方并交付合格丹药，通过认证。",
+          "tier": 5,
+          "tags": [
+            "progression"
+          ],
+          "unlock": {
+            "type": "rank",
+            "required_rank": 4
+          },
+          "rank_index": 5,
+          "exp_required": 270,
+          "exam_recipe_id": "recipe_pojing",
+          "min_quality": "good",
+          "quantity": 1,
+          "research_cost": 30,
+          "required_quest_id": "",
+          "required_flame": ""
+        },
+        {
+          "id": "rank_6",
+          "name": "六品丹师",
+          "description": "积累历练、掌握考核丹方并交付合格丹药，通过认证。",
+          "tier": 6,
+          "tags": [
+            "progression"
+          ],
+          "unlock": {
+            "type": "rank",
+            "required_rank": 5
+          },
+          "rank_index": 6,
+          "exp_required": 380,
+          "exam_recipe_id": "recipe_huaying",
+          "min_quality": "superior",
+          "quantity": 1,
+          "research_cost": 40,
+          "required_quest_id": "",
+          "required_flame": "flame_earth"
+        },
+        {
+          "id": "rank_7",
+          "name": "七品丹师",
+          "description": "积累历练、掌握考核丹方并交付合格丹药，通过认证。",
+          "tier": 7,
+          "tags": [
+            "progression"
+          ],
+          "unlock": {
+            "type": "rank",
+            "required_rank": 6
+          },
+          "rank_index": 7,
+          "exp_required": 520,
+          "exam_recipe_id": "recipe_xuanyuan",
+          "min_quality": "superior",
+          "quantity": 1,
+          "research_cost": 50,
+          "required_quest_id": "",
+          "required_flame": ""
+        },
+        {
+          "id": "rank_8",
+          "name": "八品丹师",
+          "description": "积累历练、掌握考核丹方并交付合格丹药，通过认证。",
+          "tier": 8,
+          "tags": [
+            "progression"
+          ],
+          "unlock": {
+            "type": "rank",
+            "required_rank": 7
+          },
+          "rank_index": 8,
+          "exp_required": 680,
+          "exam_recipe_id": "recipe_dujie",
+          "min_quality": "superior",
+          "quantity": 1,
+          "research_cost": 65,
+          "required_quest_id": "",
+          "required_flame": ""
+        },
+        {
+          "id": "rank_9",
+          "name": "九品丹师",
+          "description": "积累历练、掌握考核丹方并交付合格丹药，通过认证。",
+          "tier": 9,
+          "tags": [
+            "progression"
+          ],
+          "unlock": {
+            "type": "rank",
+            "required_rank": 8
+          },
+          "rank_index": 9,
+          "exp_required": 860,
+          "exam_recipe_id": "recipe_taichu",
+          "min_quality": "superior",
+          "quantity": 1,
+          "research_cost": 80,
+          "required_quest_id": "",
+          "required_flame": ""
+        },
+        {
+          "id": "rank_10",
+          "name": "炼丹大宗师",
+          "description": "积累历练、掌握考核丹方并交付合格丹药，通过认证。",
+          "tier": 9,
+          "tags": [
+            "progression"
+          ],
+          "unlock": {
+            "type": "rank",
+            "required_rank": 9
+          },
+          "rank_index": 10,
+          "exp_required": 1100,
+          "exam_recipe_id": "recipe_taichu",
+          "min_quality": "superior",
+          "quantity": 1,
+          "research_cost": 100,
+          "required_quest_id": "",
+          "required_flame": ""
+        }
+      ]
+    },
+    "recipes": {
+      "schema_version": 1,
+      "items": [
+        {
+          "id": "recipe_juling",
+          "name": "聚灵丹",
+          "description": "用于初学者修行的基础丹药。",
+          "tier": 1,
+          "tags": [
+            "wood"
+          ],
+          "unlock": {
+            "type": "initial"
+          },
+          "required_rank": 0,
+          "base_success_rate": 0.8,
+          "materials": {
+            "herb_lingcao": 2,
+            "herb_qinghua": 1
+          },
+          "quality_weights": {
+            "common": 65,
+            "good": 25,
+            "superior": 9,
+            "legendary": 1
+          },
+          "base_sell_price": 26,
+          "special_rules": []
+        },
+        {
+          "id": "recipe_zhixue",
+          "name": "止血丹",
+          "description": "敛创止血的常用丹药。",
+          "tier": 1,
+          "tags": [
+            "wood"
+          ],
+          "unlock": {
+            "type": "shop",
+            "required_rank": 0,
+            "price": 40
+          },
+          "required_rank": 0,
+          "base_success_rate": 0.8,
+          "materials": {
+            "herb_zhixue": 2,
+            "herb_lingcao": 1
+          },
+          "quality_weights": {
+            "common": 65,
+            "good": 25,
+            "superior": 9,
+            "legendary": 1
+          },
+          "base_sell_price": 26,
+          "special_rules": []
+        },
+        {
+          "id": "recipe_ningshen",
+          "name": "凝神丹",
+          "description": "以清和药性滋养神识。",
+          "tier": 2,
+          "tags": [
+            "wood",
+            "soul"
+          ],
+          "unlock": {
+            "type": "rank",
+            "required_rank": 1
+          },
+          "required_rank": 1,
+          "base_success_rate": 0.7,
+          "materials": {
+            "herb_ningshen": 2,
+            "herb_qinghua": 1
+          },
+          "quality_weights": {
+            "common": 65,
+            "good": 25,
+            "superior": 9,
+            "legendary": 1
+          },
+          "base_sell_price": 52,
+          "special_rules": []
+        },
+        {
+          "id": "recipe_cuiti",
+          "name": "淬体丹",
+          "description": "借火性药力锤炼筋骨。",
+          "tier": 2,
+          "tags": [
+            "fire",
+            "earth"
+          ],
+          "unlock": {
+            "type": "shop",
+            "required_rank": 1,
+            "price": 100
+          },
+          "required_rank": 1,
+          "base_success_rate": 0.7,
+          "materials": {
+            "herb_chixue": 2,
+            "ore_tiejing": 1
+          },
+          "quality_weights": {
+            "common": 65,
+            "good": 25,
+            "superior": 9,
+            "legendary": 1
+          },
+          "base_sell_price": 62,
+          "special_rules": []
+        },
+        {
+          "id": "recipe_zhuji",
+          "name": "筑基丹",
+          "description": "调和经脉灵气，稳固修行根基。",
+          "tier": 3,
+          "tags": [
+            "wood",
+            "earth"
+          ],
+          "unlock": {
+            "type": "rank",
+            "required_rank": 2
+          },
+          "required_rank": 2,
+          "base_success_rate": 0.6,
+          "materials": {
+            "herb_lingzhi": 1,
+            "herb_ningshen": 2,
+            "herb_lingcao": 2
+          },
+          "quality_weights": {
+            "common": 65,
+            "good": 25,
+            "superior": 9,
+            "legendary": 1
+          },
+          "base_sell_price": 110,
+          "special_rules": []
+        },
+        {
+          "id": "recipe_yanghun",
+          "name": "养魂丹",
+          "description": "以灵露配合凝神药材，温养魂魄。",
+          "tier": 3,
+          "tags": [
+            "water",
+            "soul"
+          ],
+          "unlock": {
+            "type": "shop",
+            "required_rank": 2,
+            "price": 240
+          },
+          "required_rank": 2,
+          "base_success_rate": 0.6,
+          "materials": {
+            "essence_hunlu": 1,
+            "herb_ningshen": 2,
+            "herb_qinghua": 2
+          },
+          "quality_weights": {
+            "common": 65,
+            "good": 25,
+            "superior": 9,
+            "legendary": 1
+          },
+          "base_sell_price": 120,
+          "special_rules": []
+        },
+        {
+          "id": "recipe_tongmai",
+          "name": "通脉丹",
+          "description": "通脉丹的古方，可概率炼制，也可在丹师考核中消耗心得定式研制。",
+          "tier": 4,
+          "tags": [
+            "wood",
+            "earth"
+          ],
+          "unlock": {
+            "type": "rank",
+            "required_rank": 3
+          },
+          "required_rank": 3,
+          "base_success_rate": 0.55,
+          "materials": {
+            "herb_ningshen": 2,
+            "ore_tiejing": 2,
+            "herb_lingzhi": 1
+          },
+          "quality_weights": {
+            "common": 65,
+            "good": 25,
+            "superior": 9,
+            "legendary": 1
+          },
+          "base_sell_price": 180,
+          "special_rules": []
+        },
+        {
+          "id": "recipe_pojing",
+          "name": "破境丹",
+          "description": "破境丹的古方，可概率炼制，也可在丹师考核中消耗心得定式研制。",
+          "tier": 5,
+          "tags": [
+            "fire",
+            "earth"
+          ],
+          "unlock": {
+            "type": "rank",
+            "required_rank": 4
+          },
+          "required_rank": 4,
+          "base_success_rate": 0.5,
+          "materials": {
+            "herb_chixue": 3,
+            "ore_tiejing": 2,
+            "herb_lingzhi": 1
+          },
+          "quality_weights": {
+            "common": 65,
+            "good": 25,
+            "superior": 9,
+            "legendary": 1
+          },
+          "base_sell_price": 260,
+          "special_rules": []
+        },
+        {
+          "id": "recipe_huaying",
+          "name": "化婴丹",
+          "description": "化婴丹的古方，可概率炼制，也可在丹师考核中消耗心得定式研制。",
+          "tier": 6,
+          "tags": [
+            "wood",
+            "soul"
+          ],
+          "unlock": {
+            "type": "rank",
+            "required_rank": 5
+          },
+          "required_rank": 5,
+          "base_success_rate": 0.4,
+          "materials": {
+            "herb_ningshen": 3,
+            "herb_lingzhi": 2,
+            "essence_hunlu": 1
+          },
+          "quality_weights": {
+            "common": 65,
+            "good": 25,
+            "superior": 9,
+            "legendary": 1
+          },
+          "base_sell_price": 380,
+          "special_rules": []
+        },
+        {
+          "id": "recipe_xuanyuan",
+          "name": "玄元丹",
+          "description": "玄元丹的古方，可概率炼制，也可在丹师考核中消耗心得定式研制。",
+          "tier": 7,
+          "tags": [
+            "fire",
+            "soul"
+          ],
+          "unlock": {
+            "type": "rank",
+            "required_rank": 6
+          },
+          "required_rank": 6,
+          "base_success_rate": 0.35,
+          "materials": {
+            "herb_chixue": 3,
+            "herb_lingzhi": 2,
+            "essence_hunlu": 2
+          },
+          "quality_weights": {
+            "common": 65,
+            "good": 25,
+            "superior": 9,
+            "legendary": 1
+          },
+          "base_sell_price": 540,
+          "special_rules": []
+        },
+        {
+          "id": "recipe_dujie",
+          "name": "渡劫丹",
+          "description": "渡劫丹的古方，可概率炼制，也可在丹师考核中消耗心得定式研制。",
+          "tier": 8,
+          "tags": [
+            "earth",
+            "soul"
+          ],
+          "unlock": {
+            "type": "rank",
+            "required_rank": 7
+          },
+          "required_rank": 7,
+          "base_success_rate": 0.25,
+          "materials": {
+            "ore_tiejing": 4,
+            "herb_lingzhi": 3,
+            "essence_hunlu": 2
+          },
+          "quality_weights": {
+            "common": 65,
+            "good": 25,
+            "superior": 9,
+            "legendary": 1
+          },
+          "base_sell_price": 760,
+          "special_rules": []
+        },
+        {
+          "id": "recipe_taichu",
+          "name": "太初造化丹",
+          "description": "太初造化丹的古方，可概率炼制，也可在丹师考核中消耗心得定式研制。",
+          "tier": 9,
+          "tags": [
+            "wood",
+            "fire",
+            "soul"
+          ],
+          "unlock": {
+            "type": "rank",
+            "required_rank": 8
+          },
+          "required_rank": 8,
+          "base_success_rate": 0.1,
+          "materials": {
+            "herb_lingzhi": 4,
+            "essence_hunlu": 4,
+            "herb_chixue": 4
+          },
+          "quality_weights": {
+            "common": 65,
+            "good": 25,
+            "superior": 9,
+            "legendary": 1
+          },
+          "base_sell_price": 1100,
+          "special_rules": []
+        }
+      ]
+    },
+    "talents": {
+      "schema_version": 1,
+      "items": [
+        {
+          "id": "talent_stable_3",
+          "name": "丹心稳固·3品",
+          "description": "选择稳妥策略时提高成功率并降低失败损失。",
+          "tier": 3,
+          "tags": [
+            "talent"
+          ],
+          "unlock": {
+            "type": "rank",
+            "required_rank": 3
+          },
+          "choice_rank": 3,
+          "style": "stable",
+          "success_bonus": 0.03,
+          "material_refund_bonus": 0.1,
+          "legendary_transfer": 0,
+          "research_discount": 0,
+          "substitution_ratio": 0
+        },
+        {
+          "id": "talent_rush_3",
+          "name": "烈火淬丹·3品",
+          "description": "选择冲击极品时降低成功率，将低品质权重转向极品。",
+          "tier": 3,
+          "tags": [
+            "talent"
+          ],
+          "unlock": {
+            "type": "rank",
+            "required_rank": 3
+          },
+          "choice_rank": 3,
+          "style": "rush",
+          "success_bonus": -0.03,
+          "material_refund_bonus": 0,
+          "legendary_transfer": 3,
+          "research_discount": 0,
+          "substitution_ratio": 0
+        },
+        {
+          "id": "talent_research_3",
+          "name": "百草衍化·3品",
+          "description": "降低定式研制心得成本，缺少不可购素材时可用灵草替代。",
+          "tier": 3,
+          "tags": [
+            "talent"
+          ],
+          "unlock": {
+            "type": "rank",
+            "required_rank": 3
+          },
+          "choice_rank": 3,
+          "style": "research",
+          "success_bonus": 0,
+          "material_refund_bonus": 0,
+          "legendary_transfer": 0,
+          "research_discount": 0.2,
+          "substitution_ratio": 3
+        },
+        {
+          "id": "talent_stable_6",
+          "name": "丹心稳固·6品",
+          "description": "选择稳妥策略时提高成功率并降低失败损失。",
+          "tier": 6,
+          "tags": [
+            "talent"
+          ],
+          "unlock": {
+            "type": "rank",
+            "required_rank": 6
+          },
+          "choice_rank": 6,
+          "style": "stable",
+          "success_bonus": 0.04,
+          "material_refund_bonus": 0.15,
+          "legendary_transfer": 0,
+          "research_discount": 0,
+          "substitution_ratio": 0
+        },
+        {
+          "id": "talent_rush_6",
+          "name": "烈火淬丹·6品",
+          "description": "选择冲击极品时降低成功率，将低品质权重转向极品。",
+          "tier": 6,
+          "tags": [
+            "talent"
+          ],
+          "unlock": {
+            "type": "rank",
+            "required_rank": 6
+          },
+          "choice_rank": 6,
+          "style": "rush",
+          "success_bonus": -0.04,
+          "material_refund_bonus": 0,
+          "legendary_transfer": 4,
+          "research_discount": 0,
+          "substitution_ratio": 0
+        },
+        {
+          "id": "talent_research_6",
+          "name": "百草衍化·6品",
+          "description": "降低定式研制心得成本，缺少不可购素材时可用灵草替代。",
+          "tier": 6,
+          "tags": [
+            "talent"
+          ],
+          "unlock": {
+            "type": "rank",
+            "required_rank": 6
+          },
+          "choice_rank": 6,
+          "style": "research",
+          "success_bonus": 0,
+          "material_refund_bonus": 0,
+          "legendary_transfer": 0,
+          "research_discount": 0.25,
+          "substitution_ratio": 3
+        },
+        {
+          "id": "talent_stable_9",
+          "name": "丹心稳固·9品",
+          "description": "选择稳妥策略时提高成功率并降低失败损失。",
+          "tier": 9,
+          "tags": [
+            "talent"
+          ],
+          "unlock": {
+            "type": "rank",
+            "required_rank": 9
+          },
+          "choice_rank": 9,
+          "style": "stable",
+          "success_bonus": 0.05,
+          "material_refund_bonus": 0.2,
+          "legendary_transfer": 0,
+          "research_discount": 0,
+          "substitution_ratio": 0
+        },
+        {
+          "id": "talent_rush_9",
+          "name": "烈火淬丹·9品",
+          "description": "选择冲击极品时降低成功率，将低品质权重转向极品。",
+          "tier": 9,
+          "tags": [
+            "talent"
+          ],
+          "unlock": {
+            "type": "rank",
+            "required_rank": 9
+          },
+          "choice_rank": 9,
+          "style": "rush",
+          "success_bonus": -0.05,
+          "material_refund_bonus": 0,
+          "legendary_transfer": 5,
+          "research_discount": 0,
+          "substitution_ratio": 0
+        },
+        {
+          "id": "talent_research_9",
+          "name": "百草衍化·9品",
+          "description": "降低定式研制心得成本，缺少不可购素材时可用灵草替代。",
+          "tier": 9,
+          "tags": [
+            "talent"
+          ],
+          "unlock": {
+            "type": "rank",
+            "required_rank": 9
+          },
+          "choice_rank": 9,
+          "style": "research",
+          "success_bonus": 0,
+          "material_refund_bonus": 0,
+          "legendary_transfer": 0,
+          "research_discount": 0.3,
+          "substitution_ratio": 3
+        }
+      ]
+    },
+    "world_modifiers": {
+      "schema_version": 1,
+      "items": [
+        {
+          "id": "world_lingqi",
+          "name": "灵气复苏",
+          "description": "所有概率炼丹成功率+3个百分点。",
+          "tier": 1,
+          "tags": [
+            "world"
+          ],
+          "unlock": {
+            "type": "rank",
+            "required_rank": 0
+          },
+          "weight": 1,
+          "min_run_number": 2,
+          "opportunity": true,
+          "exclusive_with": [
+            "world_kucao",
+            "world_jinhuo"
+          ],
+          "changes": {
+            "success_bonus": 0.03
+          }
+        },
+        {
+          "id": "world_kucao",
+          "name": "灵草枯竭",
+          "description": "商店草药单价×1.25向上取整；秘境选项的草药奖励每种+1。免费基础采药不变。",
+          "tier": 1,
+          "tags": [
+            "world"
+          ],
+          "unlock": {
+            "type": "rank",
+            "required_rank": 0
+          },
+          "weight": 1,
+          "min_run_number": 2,
+          "opportunity": false,
+          "exclusive_with": [
+            "world_lingqi"
+          ],
+          "changes": {
+            "herb_buy_multiplier": 1.25,
+            "exploration_herb_bonus": 1
+          }
+        },
+        {
+          "id": "world_huoling",
+          "name": "火灵躁动",
+          "description": "火属性丹方成功率-3个百分点，向极品转移3点权重。",
+          "tier": 1,
+          "tags": [
+            "world"
+          ],
+          "unlock": {
+            "type": "rank",
+            "required_rank": 0
+          },
+          "weight": 1,
+          "min_run_number": 2,
+          "opportunity": false,
+          "exclusive_with": [
+            "world_jinhuo"
+          ],
+          "changes": {
+            "fire_success_bonus": -0.03,
+            "fire_legendary_transfer": 3
+          }
+        },
+        {
+          "id": "world_dansheng",
+          "name": "丹道盛世",
+          "description": "委托灵石奖励×1.25向下取整；除基础供丹外，最低品质提高一档。",
+          "tier": 1,
+          "tags": [
+            "world"
+          ],
+          "unlock": {
+            "type": "rank",
+            "required_rank": 0
+          },
+          "weight": 1,
+          "min_run_number": 2,
+          "opportunity": true,
+          "exclusive_with": [],
+          "changes": {
+            "quest_stones_multiplier": 1.25,
+            "quest_quality_shift": 1
+          }
+        },
+        {
+          "id": "world_yiji",
+          "name": "上古遗迹",
+          "description": "每次概率开炉的基础研究心得额外+1，失败同样获得。",
+          "tier": 1,
+          "tags": [
+            "world"
+          ],
+          "unlock": {
+            "type": "rank",
+            "required_rank": 0
+          },
+          "weight": 1,
+          "min_run_number": 2,
+          "opportunity": true,
+          "exclusive_with": [],
+          "changes": {
+            "research_per_attempt": 1
+          }
+        },
+        {
+          "id": "world_jinhuo",
+          "name": "天地禁火",
+          "description": "异火可正常收服但炼丹加成失效；使用凡火时成功率+5个百分点，主线异火认证不受影响。",
+          "tier": 1,
+          "tags": [
+            "world"
+          ],
+          "unlock": {
+            "type": "rank",
+            "required_rank": 0
+          },
+          "weight": 1,
+          "min_run_number": 2,
+          "opportunity": false,
+          "exclusive_with": [
+            "world_lingqi",
+            "world_huoling"
+          ],
+          "changes": {
+            "suppress_special_flames": true,
+            "normal_flame_success": 0.05
+          }
+        }
+      ]
+    }
+  }
+}

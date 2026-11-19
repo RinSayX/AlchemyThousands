@@ -2,6 +2,8 @@
 
 Godot `4.5.stable.official.876b29033`，当前存档 schema 2，兼容读取 P6 schema 1。默认 `user://run_save.json`，上一有效修订为 `.bak`，设置独立放在 settings.cfg。macOS 用户目录为 `~/Library/Application Support/AlchemyThousands/`。
 
+P8首轮调优沿用schema2。装备和天赋ID不变，旧库存/永久档/RNG照常读取，不重算已结算炉次或补发奖励；历史快照保留其JSON精度下的原值，未来开炉使用当前内容。引擎版本相同不代表跨两套数值配置仍生成相同未来结果，复现须同时固定内容版本。
+
 ## 封套与内容
 
 主文件是 JSON 对象：

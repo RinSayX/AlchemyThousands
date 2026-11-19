@@ -1,4 +1,4 @@
-# 炼丹引擎接口（P3～P7）
+# 炼丹引擎接口（P3～P8）
 
 引擎固定为本机 `4.5.stable.official.876b29033`。纯业务炼丹与 UI 分离；GameSession 协调成长、传承、天地变数和保存。
 
@@ -88,9 +88,13 @@ P7 上古遗迹在每次概率开炉的基础研究再加 1，成功失败都生
 ```sh
 godot --headless --path . --script res://tools/alchemy_demo.gd
 godot --headless --path . --script res://tests/test_runner.gd -- --alchemy-only
-godot --headless --path . --script res://tools/alchemy_simulator.gd -- res://docs/P3_PROBABILITY_RESULTS.json
+godot --headless --path . --script res://tools/alchemy_simulator.gd -- res://docs/P8_TUNING_PROBABILITY_RESULTS.json
 ```
 
 模拟以执行引擎相同的 Rules.roll 为入口，每构筑十万炉，覆盖普通、稳妥、火属性冲品、回收及正多丹概率测试夹具。统计的是概率规则，不运行五十万次完整背包/日志事务，也不替代 P8 经济模拟或人工时长测试。
 
 已测试 RNG 的 JSON 往返、临时检查点和 P6 实际存档恢复后继续开炉。SaveManager 的封套、备份及失败保护见 SAVE_API.md；自动保存失败仍保留 needs_save，UI 显示失败而非成功。P6 定式研制走独立显式命令，不修改概率炼丹的显示/抽样，也不计入 alchemy_attempts。
+
+## P8首轮调优
+
+冲品天赋仅增加3/4/5点极品转移，不再额外降低成功率；rush策略自身−15个百分点不变。赤炎炉只对火丹增加3个百分点成功率并转移8点上品权重，仍须持有。实际预览与结算共用现有规则，未新增隐藏保底或改动5%～95%限幅。正式字段与候选证据见P8_TUNING_REPORT.md。旧炉次保留原回执，旧档未来炉次使用新内容，跨数值版本不承诺结果一致。

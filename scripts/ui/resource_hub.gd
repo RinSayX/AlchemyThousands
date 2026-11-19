@@ -312,6 +312,8 @@ func _progression(state: Dictionary) -> void:
 func _talent_text(talent: Dictionary) -> String:
 	if talent.style == "research":
 		return "定式研制心得成本减少 %.0f%%（各层相加，最多75%%）；缺少的不可购素材每份可用灵草×%d替代。" % [talent.research_discount * 100, talent.substitution_ratio]
+	if talent.style == "rush" and is_zero_approx(talent.success_bonus):
+		return "仅在冲击极品时生效：向极品转移 %.0f 点权重，不额外降低成功率；冲品策略自身的风险仍然保留。" % talent.legendary_transfer
 	return "仅在%s时生效：成功率 %+.0f 个百分点；失败材料返还率 +%.0f 个百分点；向极品转移 %.0f 点权重。" % ["稳妥炼制" if talent.style == "stable" else "冲击极品", talent.success_bonus * 100, talent.material_refund_bonus * 100, talent.legendary_transfer]
 
 

@@ -43,7 +43,7 @@
     {
       "id": "furnace_chiyan",
       "name": "赤炎丹炉",
-      "description": "炼制火属性丹方时，成功率降低 3 个百分点，向上品转移 8 点品质权重。",
+      "description": "炼制火属性丹方时，成功率增加3个百分点，向上品转移8点品质权重。",
       "tier": 2,
       "tags": [
         "fire",
@@ -54,7 +54,7 @@
         "required_rank": 1,
         "price": 260
       },
-      "success_bonus": -0.03,
+      "success_bonus": 0.03,
       "quality_transfers": {
         "superior": 8
       },
