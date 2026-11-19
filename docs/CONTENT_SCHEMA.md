@@ -176,3 +176,7 @@ godot --headless --path . --script res://tests/test_runner.gd -- --content-only
 ## P8 消耗品与委托事件扩充
 
 0.1.11共144条，消耗品8/委托20/事件20，其余数量保持0.1.10。仅消耗品可选 research_bonus，有限整数0～5，缺省0；ContentDB转为int。标签/策略条件匹配才向本炉基础研究心得加该值，不重复计算首次发现或多丹奖励。分类新增extra/research，不放宽每炉一件规则。新委托和事件使用既有字段，详情见 P8_CONTRACTS_REPORT.md。
+
+## 独立结局试炼规则
+
+`data/ending_trials.json`不加入历史通用表计数（仍11表144条），由EndingTrialDefinition单独验证，GameSession启动和validate_content入口同时检查。字段恰含schema_version=1、固定注册id=ending_jiuzhuan、name/description、required_rank=10、requirements、study。requirements为两种不重复有效九品recipe_id、quality=legendary、整数quantity 1～2；study覆盖同两方且不重复，research_cost整数1～10000、material_multiplier整数1～4，乘后材料数量不得溢出。拒绝未知字段、非整数/布尔费用与任意脚本。当前费用及字段语义见 P8_ENDINGS_REPORT.md。

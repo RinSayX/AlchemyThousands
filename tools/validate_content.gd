@@ -2,6 +2,7 @@ extends SceneTree
 ## Run with --headless --path . --script res://tools/validate_content.gd
 
 const Database := preload("res://scripts/core/content_db.gd")
+const EndingTrial := preload("res://scripts/core/ending_trial_definition.gd")
 
 
 func _initialize() -> void:
@@ -12,7 +13,13 @@ func _initialize() -> void:
 		directory = args[0]
 	var result := db.load_directory(directory)
 	if result.ok:
+		var trial := EndingTrial.read(db)
+		if not trial.ok:
+			printerr(trial.message)
+			quit(1)
+			return
 		print("Content valid: ", result.counts)
+		print("Ending trial valid: ", trial.result.definition.id)
 		quit(0)
 	else:
 		for error in result.errors:

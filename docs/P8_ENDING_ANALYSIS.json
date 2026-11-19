@@ -1,0 +1,55 @@
+{
+	"definition_sha256": "7e79879ed54388943c8321b11d73806a5bd68113f9244f816a03789c00d8c27d",
+	"engine": "4.5.stable.official.876b29033",
+	"rows": [
+		{
+			"material_value": 1616.0,
+			"materials": {
+				"essence_daoyun": 4,
+				"essence_hunlu": 8,
+				"essence_leisui": 4,
+				"herb_chixue": 8,
+				"herb_jiuye": 4,
+				"herb_lingzhi": 8,
+				"ore_xuanhuang": 4
+			},
+			"research_cost": 420,
+			"worlds": []
+		},
+		{
+			"material_value": 1400.0,
+			"materials": {
+				"essence_daoyun": 4,
+				"essence_hunlu": 8,
+				"essence_leisui": 4,
+				"herb_chixue": 8,
+				"herb_jiuye": 4,
+				"herb_lingzhi": 8,
+				"ore_xuanhuang": 4
+			},
+			"research_cost": 420,
+			"worlds": [
+				"world_kucao",
+				"world_yiji"
+			]
+		},
+		{
+			"material_value": 1616.0,
+			"materials": {
+				"essence_daoyun": 4,
+				"essence_hunlu": 8,
+				"essence_leisui": 4,
+				"herb_chixue": 8,
+				"herb_jiuye": 4,
+				"herb_lingzhi": 8,
+				"ore_xuanhuang": 4
+			},
+			"research_cost": 420,
+			"worlds": [
+				"world_yiji",
+				"world_jinhuo"
+			]
+		}
+	],
+	"scope": "Exact deterministic recipe costs using repeatable source unit values; excludes recipe unlock/equipment investment, whole-outing rounding and research acquisition time. Public route separately verifies actual cash and commands."
+}

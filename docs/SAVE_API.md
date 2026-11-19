@@ -67,3 +67,9 @@ godot --path . -- --save-path res://test-output/p7-demo/first-ending.json
 ## P8 新消耗品与委托
 
 0.1.11沿用schema2；研究香库存沿用普通堆叠，实际已结算基础研究与快照保存，不在读档时重算或补发奖励。新委托使用原实例结构，重复/一次性限制读回仍成立；轮回清除本世实例与消耗品，永久图鉴/传承/结局继续保留。
+
+## P8 可选特殊结局归档
+
+0.1.12仍使用schema2。标准run.ending六字段不变；meta.records每世原9字段记录可选增加optional_endings数组，当前最多1项，包含id=ending_jiuzhuan、action_count/alchemy_attempts/research_crafts/quests_completed/exp五统计及consumed极品扣丹映射。新条目不改变该世原ending、reward、next_run。旧记录省略该字段照常读取，不自动认证；新记录校验引用、品质、数量、重复和统计边界。永久unlocked_endings及jiuzhuan_saint从归档派生。
+
+认证/神丹精研由GameSession先保存完整候选再替换run/meta；任何保存失败保留旧资源和档案，可重试。旧action或旧run_number不能重复交丹，轮回保留档案但新世需重新达到资格；认证不增加传承次数。永久discovered_pills容量改为有效丹方数×4，当前100项，旧48项以内档案不受影响。已完成特殊认证的新档不兼容旧版本应用的严格元记录校验，旧版会拒读而非默默丢弃该字段。

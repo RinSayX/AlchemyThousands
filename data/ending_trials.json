@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "ending_jiuzhuan",
+  "name": "九转丹圣",
+  "description": "大宗师认证后，交付本世各一枚极品太初造化丹与极品九转还真丹，留名丹圣；标准结局与本世唯一传承奖励保留。",
+  "required_rank": 10,
+  "requirements": [
+    {"recipe_id": "recipe_taichu", "quality": "legendary", "quantity": 1},
+    {"recipe_id": "recipe_jiuzhuan", "quality": "legendary", "quantity": 1}
+  ],
+  "study": [
+    {"recipe_id": "recipe_taichu", "research_cost": 180, "material_multiplier": 2},
+    {"recipe_id": "recipe_jiuzhuan", "research_cost": 240, "material_multiplier": 2}
+  ]
+}

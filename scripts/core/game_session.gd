@@ -15,6 +15,8 @@ const Quests := preload("res://scripts/services/quest_service.gd")
 const Exploration := preload("res://scripts/services/exploration_service.gd")
 const Forage := preload("res://scripts/services/forage_service.gd")
 const MaterialSources := preload("res://scripts/core/material_sources.gd")
+const EndingTrial := preload("res://scripts/services/ending_trial_service.gd")
+var _ending_trial: RefCounted
 var content := Database.new()
 var startup: Dictionary
 var _alchemy: Alchemy
@@ -46,6 +48,8 @@ func _init(path: String = "") -> void:
 	_exploration = Exploration.new(content)
 	_forage = Forage.new(content)
 	_progression = Progression.new(content)
+	_ending_trial = EndingTrial.new(content)
+	if not _ending_trial.startup.ok: startup = _ending_trial.startup.duplicate(true)
 	save_path = path
 	if not path.is_empty():
 		_saves = Saves.new(content, path)
@@ -356,6 +360,24 @@ func rebirth_status() -> Dictionary:
 	return _rebirth.preview(_state, _meta)
 
 
+func ending_trial() -> Dictionary:
+	return _ending_trial.preview(_state, _meta)
+
+
+func ending_study_preview(recipe_id: String) -> Dictionary:
+	return _ending_trial.preview_study(_state, _meta, recipe_id)
+
+
+func study_ending(source_run: int, recipe_id: String) -> Dictionary:
+	if is_busy(): return Result.failure("BUSY", "请先结束当前炼制或事件。")
+	return _commit_profile_plan(_ending_trial.plan_study(_state, _meta, source_run, recipe_id, _next_id()))
+
+
+func certify_ending(source_run: int) -> Dictionary:
+	if is_busy(): return Result.failure("BUSY", "请先结束当前炼制或事件。")
+	return _commit_profile_plan(_ending_trial.plan_certify(_state, _meta, source_run, _next_id()))
+
+
 func preview_rebirth(loadout: Variant) -> Dictionary:
 	return _rebirth.preview_next(_state, _meta, loadout)
 
@@ -381,7 +403,7 @@ func _commit_profile_plan(plan: Dictionary) -> Dictionary:
 	if _saves != null:
 		save_status = _saves.save_run(next, records, permanent)
 		if not save_status.ok:
-			return Result.failure(save_status.error_code, "轮回事务尚未提交：" + save_status.message + " 原周目与永久记录仍保留，可重试。")
+			return Result.failure(save_status.error_code, "进度事务尚未提交：" + save_status.message + " 原周目与永久记录仍保留，可重试。")
 		next.needs_save = false
 	_state = next
 	_meta = permanent

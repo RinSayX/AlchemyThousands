@@ -7,6 +7,7 @@ const Context := preload("res://scripts/core/rng_context.gd")
 const Pills := preload("res://scripts/core/pill_stack.gd")
 const Talents := preload("res://scripts/core/talent_rules.gd")
 const Result := preload("res://scripts/core/transaction_result.gd")
+const EndingTrial := preload("res://scripts/core/ending_trial_definition.gd")
 var db: RefCounted
 var runs: Run
 
@@ -75,10 +76,14 @@ func sync(run: Dictionary, source: Dictionary) -> Dictionary:
 	meta.heritage_slots = 2 if count >= 2 else 1
 	meta.tutorial_completed = count > 0
 	meta.unlocked_endings = ["ending_grandmaster"] if count > 0 else []
+	for record in meta.records:
+		for ending in record.get("optional_endings", []):
+			if ending.id not in meta.unlocked_endings: meta.unlocked_endings.append(ending.id)
 	meta.quality_of_life_unlocks = ["skip_prologue", "quick_reveal"] if count > 0 else []
 	meta.achievements = []
 	if count > 0: meta.achievements.append("first_ending")
 	if count >= 2: meta.achievements.append("two_endings")
+	if EndingTrial.ID in meta.unlocked_endings: meta.achievements.append("jiuzhuan_saint")
 	if meta.unlocked_inheritances.size() == db.get_ids("inheritances").size(): meta.achievements.append("all_inheritances")
 	meta.best_records = {}
 	for record in meta.records:
@@ -114,7 +119,7 @@ func validate(run: Dictionary, value: Variant) -> Dictionary:
 	for id in db.get_ids("recipes"):
 		for quality in Pills.QUALITIES:
 			pill_ids.append(Pills.key(id, quality))
-	for pair in [["discovered_pills", pill_ids, 48], ["unlocked_inheritances", db.get_ids("inheritances"), 9], ["unlocked_endings", ["ending_grandmaster"], 1], ["achievements", ["first_ending", "two_endings", "all_inheritances"], 3], ["quality_of_life_unlocks", ["skip_prologue", "quick_reveal"], 2]]:
+	for pair in [["discovered_pills", pill_ids, pill_ids.size()], ["unlocked_inheritances", db.get_ids("inheritances"), 9], ["unlocked_endings", ["ending_grandmaster", EndingTrial.ID], 2], ["achievements", ["first_ending", "two_endings", "all_inheritances", "jiuzhuan_saint"], 4], ["quality_of_life_unlocks", ["skip_prologue", "quick_reveal"], 2]]:
 		if not _ids(meta[pair[0]], pair[1], pair[2]):
 			return Result.failure("INVALID_META", "永久引用或重复条目不合法：" + pair[0])
 	if run.equipped_inheritances.size() > meta.heritage_slots:
@@ -132,8 +137,10 @@ func validate(run: Dictionary, value: Variant) -> Dictionary:
 	var fallback := 0
 	for i in range(count):
 		var record: Variant = meta.records[i]
-		if not record is Dictionary or record.size() != 9 or not Economy.valid_integer(record.get("run_number"), 1) or record.run_number != i + 1 or not record.get("run_id") is String or record.run_id != "run_%d" % (i + 1) or not _seed(record.get("seed")) or not _ending(record.get("ending")) or not _worlds(record.get("world_modifiers"), i + 1) or not _ids(record.get("equipped_inheritances"), db.get_ids("inheritances"), 2) or not record.get("reward") is String or not Economy.valid_integer(record.get("next_run"), 0):
+		if not record is Dictionary or record.size() != (10 if record.has("optional_endings") else 9) or not Economy.valid_integer(record.get("run_number"), 1) or record.run_number != i + 1 or not record.get("run_id") is String or record.run_id != "run_%d" % (i + 1) or not _seed(record.get("seed")) or not _ending(record.get("ending")) or not _worlds(record.get("world_modifiers"), i + 1) or not _ids(record.get("equipped_inheritances"), db.get_ids("inheritances"), 2) or not record.get("reward") is String or not Economy.valid_integer(record.get("next_run"), 0):
 			return Result.failure("INVALID_META", "历史周目记录不合法。")
+		if not _optional_endings(record, run):
+			return Result.failure("INVALID_META", "特殊结局归档不合法。")
 		if not record.get("talents") is Array or record.talents.size() != 3 or not Talents.valid_choices(db, {"rank": 10, "talent_choices": record.talents}):
 			return Result.failure("INVALID_META", "历史天赋记录不合法。")
 		if record.run_number < run.run_number and (record.next_run != record.run_number + 1 or record.reward.is_empty()):
@@ -191,6 +198,23 @@ func _ending(value: Variant) -> bool:
 		return false
 	for field in ["action_count", "alchemy_attempts", "research_crafts", "quests_completed", "exp"]:
 		if not Economy.valid_integer(value.get(field), 0): return false
+	return true
+
+
+func _optional_endings(record: Dictionary, run: Dictionary) -> bool:
+	var entries: Variant = record.get("optional_endings", [])
+	if not entries is Array or entries.size() > 1: return false
+	for entry in entries:
+		if not entry is Dictionary or entry.size() != 7 or not entry.get("id") is String or entry.id != EndingTrial.ID or not entry.get("consumed") is Dictionary or entry.consumed.size() != 2: return false
+		for field in ["action_count", "alchemy_attempts", "research_crafts", "quests_completed", "exp"]:
+			if not Economy.valid_integer(entry.get(field), 0) or entry[field] < record.ending[field]: return false
+			if record.run_number == run.run_number:
+				var maximum: int = run.statistics.alchemy_attempts if field == "alchemy_attempts" else run.resource_stats.quests_completed if field == "quests_completed" else run[field]
+				if entry[field] > maximum: return false
+		for key in entry.consumed:
+			if not key is String: return false
+			var parts: PackedStringArray = key.split("|", true)
+			if parts.size() != 3 or parts[0] not in db.get_ids("recipes") or parts[1] != "legendary" or parts[2] != "" or not Economy.valid_integer(entry.consumed[key], 1, 2): return false
 	return true
 
 

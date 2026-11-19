@@ -36,6 +36,10 @@ var inheritance_buttons: Dictionary = {}
 var loadout_buttons: Dictionary = {}
 var rebirth_button: Button
 var confirm_rebirth_button: Button
+var ending_button: Button
+var confirm_ending_button: Button
+var ending_study_buttons: Dictionary = {}
+var _confirm_ending := false
 var _confirm_rebirth := false
 var _loadout: Array = []
 var _confirm_load := false
@@ -103,6 +107,7 @@ func _ready() -> void:
 func open_tab(index: int) -> void:
 	_confirm_load = false
 	_confirm_rebirth = false
+	_confirm_ending = false
 	_loadout = session.state().get("equipped_inheritances", []).duplicate()
 	scroll.scroll_vertical = 0
 	_building = true
@@ -122,6 +127,7 @@ func _tab_changed(index: int) -> void:
 		return
 	_confirm_load = false
 	_confirm_rebirth = false
+	_confirm_ending = false
 	scroll.scroll_vertical = 0
 	message.text = HINTS[index]
 	refresh()
@@ -149,6 +155,7 @@ func refresh() -> void:
 	talent_buttons.clear()
 	inheritance_buttons.clear()
 	loadout_buttons.clear()
+	ending_study_buttons.clear()
 	match tabs.current_tab:
 		0: _shop(state)
 		1: _quests()
@@ -301,6 +308,7 @@ func _progression(state: Dictionary) -> void:
 本世结算：行动 %d 次，概率开炉 %d 次，定式研制 %d 次，交付委托 %d 单，历练 %d。
 
 可返回丹房继续收集图鉴。可在轮回传承页选择奖励并主动开启下一世。" % [state.ending.action_count, state.ending.alchemy_attempts, state.ending.research_crafts, state.ending.quests_completed, state.ending.exp], 17, MUTED, true)
+		_ending_trial(state)
 		return
 	if not view.result.talents.is_empty():
 		_label(body, "%d品天赋抉择 · 三选一，不可重选" % state.pending_talent_rank, 20, GOLD)
@@ -335,6 +343,47 @@ func _progression(state: Dictionary) -> void:
 		study_button = _button(body, "定式研制考核丹 · 心得 %d" % study.result.research_cost, _study.bind(target.rank_index))
 		study_button.disabled = _locked or not study.result.can_execute
 		study_button.tooltip_text = "尚缺药材：%s；心得 %d。请先习得丹方。" % [_names(study.result.missing_items), study.result.missing_points] if not study.result.can_execute else "消耗上述药材与心得，确定性获得考核所需丹药。"
+
+
+func _ending_trial(state: Dictionary) -> void:
+	var view := session.ending_trial()
+	if not view.ok:
+		_label(body, view.message, 15, GOLD, true)
+		return
+	var trial: Dictionary = view.result
+	_label(body, "特殊结局 · " + trial.definition.name, 23, GOLD)
+	_label(body, trial.definition.description, 15, MUTED, true)
+	if trial.completed:
+		_label(body, "本世已认证九转丹圣 · 永久记录已保存。仍仅能领取本世一次传承奖励。", 17, GOLD, true)
+		return
+	for row in trial.requirements:
+		_label(body, "交付极品 %s×%d · 本世持有 %d" % [session.content.get_item(row.recipe_id).name, row.quantity, row.owned], 16, GOLD, true)
+	if _confirm_ending:
+		_label(body, "确认交付以上两枚极品神丹？认证会消耗丹药并追加永久结局记录，保留标准通关快照，不增加本世传承奖励。", 15, GOLD, true)
+		confirm_ending_button = _button(body, "确认交丹 · 认证九转丹圣", _certify_ending.bind(state.run_number))
+		confirm_ending_button.disabled = _locked or not trial.can_certify
+		_button(body, "取消 · 保留丹药", func(): _confirm_ending = false; refresh())
+	else:
+		ending_button = _button(body, "准备认证九转丹圣 · 查看交付确认", func(): _confirm_ending = true; refresh())
+		ending_button.disabled = _locked or not trial.can_certify
+	_label(body, "神丹精研 · 确定性极品路径", 19, GOLD)
+	_label(body, "也可正常开炉取得极品。精研仅限以下两方，固定消耗心得与双份药材，不抽随机流；不使用天赋材料替换或折扣，不额外发心得。", 14, MUTED, true)
+	for rule in trial.definition.study:
+		var study: Dictionary = session.ending_study_preview(rule.recipe_id).result
+		_label(body, "%s · 心得 %d · 药材：%s
+必得极品一枚；尚缺心得 %d、药材：%s%s" % [session.content.get_item(rule.recipe_id).name, study.research_cost, _names(study.cost_items), study.missing_points, _names(study.missing_items), "；请先在坊市习得此丹方" if not study.available else ""], 14, MUTED, true)
+		var button := _button(body, "精研极品 · " + session.content.get_item(rule.recipe_id).name, _study_ending.bind(state.run_number, rule.recipe_id))
+		button.disabled = _locked or not study.can_execute
+		ending_study_buttons[rule.recipe_id] = button
+
+
+func _study_ending(source_run: int, recipe_id: String) -> void:
+	_perform(func(): return session.study_ending(source_run, recipe_id), "精研完成，极品神丹已入库；随机流未改变。")
+
+
+func _certify_ending(source_run: int) -> void:
+	_confirm_ending = false
+	_perform(func(): return session.certify_ending(source_run), "九转丹圣已认证并归档；本世传承奖励仍只有一次。")
 
 
 func _talent_text(talent: Dictionary) -> String:
@@ -409,7 +458,7 @@ func _rebirth() -> void:
 	var state := session.state()
 	var meta := session.meta()
 	_label(body, "轮回丹经 · 第%d世" % state.run_number, 23, GOLD)
-	_label(body, "已完成 %d 世 · 传承栏 %d · 永久发现 %d/48 · 最佳行动 %s" % [meta.records.size(), meta.heritage_slots, meta.discovered_pills.size(), str(meta.best_records.get("fewest_actions", "尚无"))], 15, MUTED, true)
+	_label(body, "已完成 %d 世 · 传承栏 %d · 永久发现 %d/%d · 最佳行动 %s" % [meta.records.size(), meta.heritage_slots, meta.discovered_pills.size(), session.content.get_ids("recipes").size() * 4, str(meta.best_records.get("fewest_actions", "尚无"))], 15, MUTED, true)
 	_label(body, "本世携带：" + _definition_names(state.equipped_inheritances), 15, GOLD, true)
 	if state.world_modifiers.is_empty():
 		_label(body, "首世标准世界 · 无天地变数。", 15, MUTED)
@@ -464,6 +513,8 @@ func _rebirth() -> void:
 			_label(body, preview.message, 16, GOLD, true)
 	_label(body, "历史周目成绩", 19, GOLD)
 	for record in meta.records:
+		if not record.get("optional_endings", []).is_empty():
+			_label(body, "第%d世 · 九转丹圣已归档" % record.run_number, 15, GOLD, true)
 		_label(body, "第%d世 · 大宗师 · 行动%d / 概率开炉%d / 研制%d · %s" % [record.run_number, record.ending.action_count, record.ending.alchemy_attempts, record.ending.research_crafts, "已转生" if record.next_run > 0 else "留世中"], 14, MUTED, true)
 	if meta.records.is_empty():
 		_label(body, "尚无通关成绩，继续本世修行。", 14, MUTED)

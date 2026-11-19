@@ -23,6 +23,8 @@ const CatalogTests := preload("res://tests/test_catalog.gd")
 const CatalogUITests := preload("res://tests/test_catalog_ui.gd")
 const ContractsTests := preload("res://tests/test_contracts.gd")
 const ContractsUITests := preload("res://tests/test_contracts_ui.gd")
+const EndingTests := preload("res://tests/test_endings.gd")
+const EndingUITests := preload("res://tests/test_endings_ui.gd")
 
 var checks := 0
 var failures: Array[String] = []
@@ -35,7 +37,7 @@ func _initialize() -> void:
 func _run() -> void:
 	var args := OS.get_cmdline_user_args()
 	var selected := ""
-	for flag in ["--content-only", "--economy-only", "--alchemy-only", "--resources-only", "--progression-only", "--rebirth-only", "--balance-only", "--equipment-only", "--catalog-only", "--contracts-only", "--ui-only"]:
+	for flag in ["--content-only", "--economy-only", "--alchemy-only", "--resources-only", "--progression-only", "--rebirth-only", "--balance-only", "--equipment-only", "--catalog-only", "--contracts-only", "--endings-only", "--ui-only"]:
 		if args.has(flag):
 			if not selected.is_empty():
 				_check(false, "Choose one focused test suite at a time")
@@ -64,6 +66,8 @@ func _run() -> void:
 		_check(CatalogTests.new().run(_check), "P8: Catalog suite completed")
 	if selected.is_empty() or selected == "--contracts-only":
 		_check(ContractsTests.new().run(_check), "P8: Contracts suite completed")
+	if selected.is_empty() or selected == "--endings-only":
+		_check(EndingTests.new().run(_check), "P8: Ending trial suite completed")
 	if not selected.is_empty() and selected != "--ui-only":
 		_finish()
 		return
@@ -127,6 +131,7 @@ func _run() -> void:
 	_check(await EquipmentUITests.new().run(self, _check), "P8: Equipment UI suite completed")
 	_check(await CatalogUITests.new().run(self, _check), "P8: Catalog UI suite completed")
 	_check(await ContractsUITests.new().run(self, _check), "P8: Contracts UI suite completed")
+	_check(await EndingUITests.new().run(self, _check), "P8: Ending trial UI suite completed")
 	_finish()
 
 

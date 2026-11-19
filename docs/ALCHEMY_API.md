@@ -102,3 +102,7 @@ godot --headless --path . --script res://tools/alchemy_simulator.gd -- res://doc
 ## P8 新消耗品补充
 
 消耗品可有整数research_bonus（0～5，缺省0）；calculate快照披露实际激活值，AlchemyService将其加入research_rewards.base。研究香+2，成功失败均生效一次；new_quality仍独立，世界/传承按原规则叠加，多丹不重复发成长。缺物品、重复action和奖励溢出均回滚。分类extra/research不改变setup形状，每炉仍只能一个consumable_id，数组拒绝。双生符与九龙概率相加为45%时也只抽一次多丹判定，最多两枚同品质丹。界面公开额外成丹概率及基础/首次发现心得。
+
+## 通关后精研与概率开炉的边界
+
+九转丹圣所需的两方可通过EndingTrialService确定性精研：不调用AlchemyRules.roll，不装备消耗品，不触发多丹/失败返还/发现心得；仅消耗公开心得和双份配方材料，产一枚极品、历练tier×10、research_crafts/action_count各+1并登记发现。概率statistics及三条RNG保持不变，不作为一条概率开炉历史。预览/执行/保存接口及限制见 P8_ENDINGS_REPORT.md。
