@@ -1,0 +1,267 @@
+{
+	"costs": [
+		{
+			"certify_research": 120,
+			"study_material_value": 576.0,
+			"study_research": 180,
+			"worlds": []
+		},
+		{
+			"certify_research": 120,
+			"study_material_value": 531.0,
+			"study_research": 180,
+			"worlds": [
+				"world_kucao",
+				"world_yiji"
+			]
+		},
+		{
+			"certify_research": 120,
+			"study_material_value": 576.0,
+			"study_research": 180,
+			"worlds": [
+				"world_yiji",
+				"world_jinhuo"
+			]
+		}
+	],
+	"definition_sha256": "c2d2886bae31541e90e4fabdee982c8baa0f56212033749e6ae28f8536c9e89d",
+	"engine": "4.5.stable.official.876b29033",
+	"errors": [],
+	"groups": [
+		{
+			"combined_check": {
+				"passed": true
+			},
+			"enabled": false,
+			"mutant_extra": 0,
+			"mutants": 0,
+			"mutation_check": {
+				"actual": 0.0,
+				"count": 0,
+				"expected": 0.0,
+				"name": "mutation_given_success",
+				"passed": true,
+				"samples": 39899,
+				"tolerance": 0.0000250632847941051
+			},
+			"probability": {
+				"checks": [
+					{
+						"actual": 0.39899,
+						"expected": 0.4,
+						"name": "success",
+						"passed": true,
+						"tolerance": 0.01
+					},
+					{
+						"actual": 0.47878392942179,
+						"count": 19103,
+						"expected": 0.48,
+						"name": "common",
+						"passed": true,
+						"samples": 39899,
+						"tolerance": 0.0150069534498482
+					},
+					{
+						"actual": 0.180555903656733,
+						"count": 7204,
+						"expected": 0.18,
+						"name": "good",
+						"passed": true,
+						"samples": 39899,
+						"tolerance": 0.0115402023414651
+					},
+					{
+						"actual": 0.104664277300183,
+						"count": 4176,
+						"expected": 0.1,
+						"name": "superior",
+						"passed": true,
+						"samples": 39899,
+						"tolerance": 0.00901138406311154
+					},
+					{
+						"actual": 0.235995889621294,
+						"count": 9416,
+						"expected": 0.24,
+						"name": "legendary",
+						"passed": true,
+						"samples": 39899,
+						"tolerance": 0.01282870037346
+					},
+					{
+						"actual": 0.09416,
+						"count": 9416,
+						"expected": 0.096,
+						"name": "legendary_per_attempt",
+						"passed": true,
+						"samples": 100000,
+						"tolerance": 0.0055894758251557
+					},
+					{
+						"actual": 0.448056342264217,
+						"count": 17877,
+						"expected": 0.45,
+						"name": "extra_given_success",
+						"passed": true,
+						"samples": 39899,
+						"tolerance": 0.0149436898895646
+					}
+				],
+				"extra_actual": 0.448056342264217,
+				"extra_count": 17877,
+				"extra_expected": 0.45,
+				"name": "mutation_off",
+				"passed": true,
+				"quality_actual": {
+					"common": 0.47878392942179,
+					"good": 0.180555903656733,
+					"legendary": 0.235995889621294,
+					"superior": 0.104664277300183
+				},
+				"quality_counts": {
+					"common": 19103,
+					"good": 7204,
+					"legendary": 9416,
+					"superior": 4176
+				},
+				"quality_expected": {
+					"common": 0.48,
+					"good": 0.18,
+					"legendary": 0.24,
+					"superior": 0.1
+				},
+				"samples": 100000,
+				"seed": 261119,
+				"success_actual": 0.39899,
+				"success_expected": 0.4,
+				"successes": 39899
+			},
+			"samples": 100000,
+			"seed": 261119,
+			"success": 39899
+		},
+		{
+			"combined_check": {
+				"actual": 0.452770381640675,
+				"count": 3571,
+				"expected": 0.45,
+				"name": "extra_given_mutation",
+				"passed": true,
+				"samples": 7887,
+				"tolerance": 0.0336111159137972
+			},
+			"enabled": true,
+			"mutant_extra": 3571,
+			"mutants": 7887,
+			"mutation_check": {
+				"actual": 0.198305340440511,
+				"count": 7887,
+				"expected": 0.2,
+				"name": "mutation_given_success",
+				"passed": true,
+				"samples": 39772,
+				"tolerance": 0.0120343469029553
+			},
+			"probability": {
+				"checks": [
+					{
+						"actual": 0.39772,
+						"expected": 0.4,
+						"name": "success",
+						"passed": true,
+						"tolerance": 0.01
+					},
+					{
+						"actual": 0.478854470481746,
+						"count": 19045,
+						"expected": 0.48,
+						"name": "common",
+						"passed": true,
+						"samples": 39772,
+						"tolerance": 0.0150308944641976
+					},
+					{
+						"actual": 0.181962184451373,
+						"count": 7237,
+						"expected": 0.18,
+						"name": "good",
+						"passed": true,
+						"samples": 39772,
+						"tolerance": 0.0115586127503982
+					},
+					{
+						"actual": 0.101679573569345,
+						"count": 4044,
+						"expected": 0.1,
+						"name": "superior",
+						"passed": true,
+						"samples": 39772,
+						"tolerance": 0.00902576017721647
+					},
+					{
+						"actual": 0.237503771497536,
+						"count": 9446,
+						"expected": 0.24,
+						"name": "legendary",
+						"passed": true,
+						"samples": 39772,
+						"tolerance": 0.0128491663594944
+					},
+					{
+						"actual": 0.09446,
+						"count": 9446,
+						"expected": 0.096,
+						"name": "legendary_per_attempt",
+						"passed": true,
+						"samples": 100000,
+						"tolerance": 0.0055894758251557
+					},
+					{
+						"actual": 0.451121391934024,
+						"count": 17942,
+						"expected": 0.45,
+						"name": "extra_given_success",
+						"passed": true,
+						"samples": 39772,
+						"tolerance": 0.0149675299777794
+					}
+				],
+				"extra_actual": 0.451121391934024,
+				"extra_count": 17942,
+				"extra_expected": 0.45,
+				"name": "mutation_on",
+				"passed": true,
+				"quality_actual": {
+					"common": 0.478854470481746,
+					"good": 0.181962184451373,
+					"legendary": 0.237503771497536,
+					"superior": 0.101679573569345
+				},
+				"quality_counts": {
+					"common": 19045,
+					"good": 7237,
+					"legendary": 9446,
+					"superior": 4044
+				},
+				"quality_expected": {
+					"common": 0.48,
+					"good": 0.18,
+					"legendary": 0.24,
+					"superior": 0.1
+				},
+				"samples": 100000,
+				"seed": 261119,
+				"success_actual": 0.39772,
+				"success_expected": 0.4,
+				"successes": 39772
+			},
+			"samples": 100000,
+			"seed": 261119,
+			"success": 39772
+		}
+	],
+	"ok": true,
+	"scope": "Two on/off profiles each sampled twice at 100000 using production preview/shared sampler, conditional frequency bounds, deterministic study costs. No play-time or full policy optimality claim."
+}

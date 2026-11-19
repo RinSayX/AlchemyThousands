@@ -90,8 +90,11 @@ static func roll(snapshot: Dictionary, rng: Context) -> Dictionary:
 	if rng.next_float() >= snapshot.success_rate:
 		return {"success": false, "quality": "", "quantity": 0, "mutation_id": "", "extra_pill": false}
 	var quality := pick_quality(snapshot.quality_weights, rng.next_float())
+	var mutation := ""
+	if snapshot.get("mutation_chance", 0.0) > 0 and rng.next_float() < snapshot.mutation_chance:
+		mutation = snapshot.mutation_id
 	var extra: bool = snapshot.extra_pill_chance > 0 and rng.next_float() < snapshot.extra_pill_chance
-	return {"success": true, "quality": quality, "quantity": 2 if extra else 1, "mutation_id": "", "extra_pill": extra}
+	return {"success": true, "quality": quality, "quantity": 2 if extra else 1, "mutation_id": mutation, "extra_pill": extra}
 
 
 static func pick_quality(weights: Dictionary, draw: float) -> String:

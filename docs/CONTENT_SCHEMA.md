@@ -180,3 +180,13 @@ godot --headless --path . --script res://tests/test_runner.gd -- --content-only
 ## 独立结局试炼规则
 
 `data/ending_trials.json`不加入历史通用表计数（仍11表144条），由EndingTrialDefinition单独验证，GameSession启动和validate_content入口同时检查。字段恰含schema_version=1、固定注册id=ending_jiuzhuan、name/description、required_rank=10、requirements、study。requirements为两种不重复有效九品recipe_id、quality=legendary、整数quantity 1～2；study覆盖同两方且不重复，research_cost整数1～10000、material_multiplier整数1～4，乘后材料数量不得溢出。拒绝未知字段、非整数/布尔费用与任意脚本。当前费用及字段语义见 P8_ENDINGS_REPORT.md。
+
+## 百草与注册异变规则（0.1.13）
+
+`data/baicao_trial.json`独立于11表144条，原表及九转规则不变，由BaicaoDefinition、会话启动和validate_content校验。根字段恰为schema_version=1、mutation、ending，不接受脚本或未知字段。
+
+mutation恰含id/name/recipe_id/flame_id/strategy/required_rank/chance。当前固定注册mutation_qingling、recipe_niepan、flame_zixiao、rush、境界6；name非空，chance为有限数值(0,1]，拒绝布尔值。配方/异火必须实际存在。
+
+ending恰含id/name/required_rank/material_count/research_crafts/research_cost/study_research_cost/study_material_multiplier。固定ending_baicao、境界10；材料门槛为25～材料总数的整数，研制/两项心得费用为1～10000整数，材料倍数1～4且乘后不溢出。当前配置为25种材料、12次研制、120认证心得、180复现心得、三份药材。
+
+运行时PillStack仅接受空/null普通标记，或recipe_niepan的mutation_qingling；四品质各自堆叠，其他配方/变异组合拒绝。注册引用与有界数据规则共同控制行为；不从内容加载可执行脚本。详情见 P8_BAICAO_REPORT.md。

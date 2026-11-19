@@ -40,6 +40,10 @@ var ending_button: Button
 var confirm_ending_button: Button
 var ending_study_buttons: Dictionary = {}
 var _confirm_ending := false
+var _confirm_baicao := false
+var baicao_button: Button
+var baicao_confirm_button: Button
+var mutation_study_button: Button
 var _confirm_rebirth := false
 var _loadout: Array = []
 var _confirm_load := false
@@ -108,6 +112,7 @@ func open_tab(index: int) -> void:
 	_confirm_load = false
 	_confirm_rebirth = false
 	_confirm_ending = false
+	_confirm_baicao = false
 	_loadout = session.state().get("equipped_inheritances", []).duplicate()
 	scroll.scroll_vertical = 0
 	_building = true
@@ -128,6 +133,7 @@ func _tab_changed(index: int) -> void:
 	_confirm_load = false
 	_confirm_rebirth = false
 	_confirm_ending = false
+	_confirm_baicao = false
 	scroll.scroll_vertical = 0
 	message.text = HINTS[index]
 	refresh()
@@ -309,6 +315,7 @@ func _progression(state: Dictionary) -> void:
 
 可返回丹房继续收集图鉴。可在轮回传承页选择奖励并主动开启下一世。" % [state.ending.action_count, state.ending.alchemy_attempts, state.ending.research_crafts, state.ending.quests_completed, state.ending.exp], 17, MUTED, true)
 		_ending_trial(state)
+		_baicao_trial(state)
 		return
 	if not view.result.talents.is_empty():
 		_label(body, "%d品天赋抉择 · 三选一，不可重选" % state.pending_talent_rank, 20, GOLD)
@@ -377,12 +384,48 @@ func _ending_trial(state: Dictionary) -> void:
 		ending_study_buttons[rule.recipe_id] = button
 
 
+func _baicao_trial(state: Dictionary) -> void:
+	var view := session.baicao_trial()
+	if not view.ok:
+		_label(body, view.message, 15, GOLD, true)
+		return
+	var trial: Dictionary = view.result
+	_label(body, "特殊结局 · 百草药祖", 23, GOLD)
+	if trial.completed:
+		_label(body, "本世已认证百草药祖 · 材料、研究与异变证据已永久归档。", 17, GOLD, true)
+		return
+	_label(body, "需本世发现材料 %d/%d、累计研制 %d/%d、心得 %d/%d，并交付一枚任意品质青灵异变涅槃丹。" % [trial.materials.size(), trial.definition.ending.material_count, state.research_crafts, trial.definition.ending.research_crafts, state.research_points, trial.definition.ending.research_cost], 15, MUTED, true)
+	_label(body, "尚未接触：" + _definition_names(trial.missing_materials) + ("；缺少青灵异变成品" if trial.proof_key.is_empty() else "；异变成品已备齐"), 14, GOLD, true)
+	if _confirm_baicao:
+		_label(body, "确认消耗心得%d与一枚青灵异变涅槃丹？永久追加百草药祖，不覆盖其他结局，不增加传承奖励。" % trial.definition.ending.research_cost, 15, GOLD, true)
+		baicao_confirm_button = _button(body, "确认交丹 · 认证百草药祖", _certify_baicao.bind(state.run_number))
+		baicao_confirm_button.disabled = _locked or not trial.can_certify
+		_button(body, "取消 · 保留异变丹", func(): _confirm_baicao = false; refresh())
+	else:
+		baicao_button = _button(body, "准备认证百草药祖 · 查看交付确认", func(): _confirm_baicao = true; refresh())
+		baicao_button.disabled = _locked or not trial.can_certify
+	var study: Dictionary = session.mutation_study_preview().result
+	_label(body, "异变定式复现 · 心得%d，药材：%s。必得上品青灵异变涅槃丹1枚，不掷骰、不加心得；需要本世持有紫霄雷火并习得涅槃丹。禁火世界也可研究复现。" % [study.research_cost, _names(study.cost_items)], 14, MUTED, true)
+	mutation_study_button = _button(body, "复现青灵异变 · 心得%d" % study.research_cost, _study_mutation.bind(state.run_number))
+	mutation_study_button.disabled = _locked or not study.can_execute
+
+
+func _study_mutation(source_run: int) -> void:
+	_perform(func(): return session.study_mutation(source_run), "青灵异变已复现并登记图鉴。")
+
+
+func _certify_baicao(source_run: int) -> void:
+	_confirm_baicao = false
+	_perform(func(): return session.certify_baicao(source_run), "百草药祖已认证；已有结局档案均保留。")
+
+
 func _study_ending(source_run: int, recipe_id: String) -> void:
 	_perform(func(): return session.study_ending(source_run, recipe_id), "精研完成，极品神丹已入库；随机流未改变。")
 
 
 func _certify_ending(source_run: int) -> void:
 	_confirm_ending = false
+	_confirm_baicao = false
 	_perform(func(): return session.certify_ending(source_run), "九转丹圣已认证并归档；本世传承奖励仍只有一次。")
 
 
@@ -400,6 +443,18 @@ func _collection() -> void:
 		_label(body, view.message, 16, GOLD)
 		return
 	_label(body, "永久丹道图鉴 · %d / %d" % [view.result.discovered, view.result.total], 23, GOLD)
+	var current: Array = view.result.material_journal.get(view.result.run_id, [])
+	var permanent: Array = []
+	for found in view.result.material_journal.values():
+		for id in found:
+			if id not in permanent: permanent.append(id)
+	_label(body, "药材见闻 · 本世%d/%d · 历世%d/%d" % [current.size(), session.content.get_ids("materials").size(), permanent.size(), session.content.get_ids("materials").size()], 20, GOLD)
+	for item in session.content.get_items("materials"):
+		_label(body, "%s · 本世%s · 历世%s" % [item.name, "已接触" if item.id in current else "未接触", "已发现" if item.id in permanent else "未发现"], 14, MUTED, true)
+	_label(body, "青灵异变图鉴 · %d/4" % view.result.mutation_discoveries.size(), 20, GOLD)
+	for key in view.result.mutation_discoveries:
+		var parts: PackedStringArray = key.split("|", true)
+		_label(body, "青灵异变涅槃丹 · " + QUALITY[parts[1]], 15, MUTED)
 	for row in view.result.rows:
 		_label(body, row.recipe.name + (" · 已习得" if row.learned else " · 未习得"), 17, GOLD)
 		var names: Array[String] = []
@@ -513,8 +568,8 @@ func _rebirth() -> void:
 			_label(body, preview.message, 16, GOLD, true)
 	_label(body, "历史周目成绩", 19, GOLD)
 	for record in meta.records:
-		if not record.get("optional_endings", []).is_empty():
-			_label(body, "第%d世 · 九转丹圣已归档" % record.run_number, 15, GOLD, true)
+		for ending in record.get("optional_endings", []):
+			_label(body, "第%d世 · %s已归档" % [record.run_number, "百草药祖" if ending.id == "ending_baicao" else "九转丹圣"], 15, GOLD, true)
 		_label(body, "第%d世 · 大宗师 · 行动%d / 概率开炉%d / 研制%d · %s" % [record.run_number, record.ending.action_count, record.ending.alchemy_attempts, record.ending.research_crafts, "已转生" if record.next_run > 0 else "留世中"], 14, MUTED, true)
 	if meta.records.is_empty():
 		_label(body, "尚无通关成绩，继续本世修行。", 14, MUTED)

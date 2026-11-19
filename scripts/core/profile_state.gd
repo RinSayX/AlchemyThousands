@@ -7,6 +7,7 @@ const Context := preload("res://scripts/core/rng_context.gd")
 const Pills := preload("res://scripts/core/pill_stack.gd")
 const Talents := preload("res://scripts/core/talent_rules.gd")
 const Result := preload("res://scripts/core/transaction_result.gd")
+const Baicao := preload("res://scripts/core/baicao_definition.gd")
 const EndingTrial := preload("res://scripts/core/ending_trial_definition.gd")
 var db: RefCounted
 var runs: Run
@@ -56,11 +57,21 @@ func upgrade(state: Dictionary, meta: Variant = null) -> Dictionary:
 	var checked := validate(run, meta)
 	if not checked.ok:
 		return checked
-	return Result.success({}, {"state": run, "meta": meta})
+	return Result.success({}, {"state": run, "meta": sync(run, meta)})
 
 
 func sync(run: Dictionary, source: Dictionary) -> Dictionary:
 	var meta := source.duplicate(true)
+	var journal: Dictionary = meta.get("material_journal", {}).duplicate(true)
+	var seen: Array = journal.get(run.run_id, []).duplicate()
+	for id in run.inventory:
+		if id in db.get_ids("materials") and run.inventory[id] > 0 and id not in seen: seen.append(id)
+	journal[run.run_id] = seen
+	meta["material_journal"] = journal
+	var mutations: Array = meta.get("mutation_discoveries", []).duplicate()
+	for key in run.pills:
+		if run.pills[key].get("mutation_id", "") == Pills.MUTATION_ID and key not in mutations: mutations.append(key)
+	meta["mutation_discoveries"] = mutations
 	for key in run.alchemy_discoveries:
 		if key not in meta.discovered_pills:
 			meta.discovered_pills.append(key)
@@ -84,6 +95,7 @@ func sync(run: Dictionary, source: Dictionary) -> Dictionary:
 	if count > 0: meta.achievements.append("first_ending")
 	if count >= 2: meta.achievements.append("two_endings")
 	if EndingTrial.ID in meta.unlocked_endings: meta.achievements.append("jiuzhuan_saint")
+	if Baicao.ID in meta.unlocked_endings: meta.achievements.append("baicao_ancestor")
 	if meta.unlocked_inheritances.size() == db.get_ids("inheritances").size(): meta.achievements.append("all_inheritances")
 	meta.best_records = {}
 	for record in meta.records:
@@ -107,7 +119,7 @@ func validate(run: Dictionary, value: Variant) -> Dictionary:
 		return Result.failure("INVALID_PROFILE", "本世开局时尚未解锁这些携带栏位。")
 	if not _worlds(run.world_modifiers, run.run_number) or not _ids(run.equipped_inheritances, db.get_ids("inheritances"), 2) or not Economy.valid_integer(run.resource_stats.get("heritage_supplies"), 0, 1):
 		return Result.failure("INVALID_PROFILE", "本世传承、世界规则或补给计数不合法。")
-	if not value is Dictionary or value.size() != empty_meta().size():
+	if not value is Dictionary or value.size() != empty_meta().size() + (1 if value.has("material_journal") else 0) + (1 if value.has("mutation_discoveries") else 0):
 		return Result.failure("INVALID_META", "永久记录结构不完整。")
 	for field in empty_meta():
 		if not value.has(field):
@@ -119,9 +131,10 @@ func validate(run: Dictionary, value: Variant) -> Dictionary:
 	for id in db.get_ids("recipes"):
 		for quality in Pills.QUALITIES:
 			pill_ids.append(Pills.key(id, quality))
-	for pair in [["discovered_pills", pill_ids, pill_ids.size()], ["unlocked_inheritances", db.get_ids("inheritances"), 9], ["unlocked_endings", ["ending_grandmaster", EndingTrial.ID], 2], ["achievements", ["first_ending", "two_endings", "all_inheritances", "jiuzhuan_saint"], 4], ["quality_of_life_unlocks", ["skip_prologue", "quick_reveal"], 2]]:
+	for pair in [["discovered_pills", pill_ids, pill_ids.size()], ["unlocked_inheritances", db.get_ids("inheritances"), 9], ["unlocked_endings", ["ending_grandmaster", EndingTrial.ID, Baicao.ID], 3], ["achievements", ["first_ending", "two_endings", "all_inheritances", "jiuzhuan_saint", "baicao_ancestor"], 5], ["quality_of_life_unlocks", ["skip_prologue", "quick_reveal"], 2]]:
 		if not _ids(meta[pair[0]], pair[1], pair[2]):
 			return Result.failure("INVALID_META", "永久引用或重复条目不合法：" + pair[0])
+	if not _journal_valid(run, meta): return Result.failure("INVALID_META", "材料日志或变异图鉴不合法。")
 	if run.equipped_inheritances.size() > meta.heritage_slots:
 		return Result.failure("INVALID_PROFILE", "携带传承超出永久栏位。")
 	for id in run.equipped_inheritances:
@@ -203,9 +216,16 @@ func _ending(value: Variant) -> bool:
 
 func _optional_endings(record: Dictionary, run: Dictionary) -> bool:
 	var entries: Variant = record.get("optional_endings", [])
-	if not entries is Array or entries.size() > 1: return false
+	if not entries is Array or entries.size() > 2: return false
+	var seen: Array = []
 	for entry in entries:
-		if not entry is Dictionary or entry.size() != 7 or not entry.get("id") is String or entry.id != EndingTrial.ID or not entry.get("consumed") is Dictionary or entry.consumed.size() != 2: return false
+		if not entry is Dictionary or not entry.get("id") is String or entry.id not in [EndingTrial.ID, Baicao.ID] or entry.id in seen or not entry.get("consumed") is Dictionary: return false
+		seen.append(entry.id)
+		var baicao: bool = entry.id == Baicao.ID
+		if entry.size() != (8 if baicao else 7) or entry.consumed.size() != (1 if baicao else 2): return false
+		if baicao:
+			var evidence: Variant = entry.get("evidence")
+			if not evidence is Dictionary or evidence.size() != 2 or not _ids(evidence.get("materials"), db.get_ids("materials"), db.get_ids("materials").size()) or evidence.materials.size() < 25 or not Economy.valid_integer(evidence.get("research_cost"), 1, 10000): return false
 		for field in ["action_count", "alchemy_attempts", "research_crafts", "quests_completed", "exp"]:
 			if not Economy.valid_integer(entry.get(field), 0) or entry[field] < record.ending[field]: return false
 			if record.run_number == run.run_number:
@@ -214,8 +234,24 @@ func _optional_endings(record: Dictionary, run: Dictionary) -> bool:
 		for key in entry.consumed:
 			if not key is String: return false
 			var parts: PackedStringArray = key.split("|", true)
-			if parts.size() != 3 or parts[0] not in db.get_ids("recipes") or parts[1] != "legendary" or parts[2] != "" or not Economy.valid_integer(entry.consumed[key], 1, 2): return false
+			if parts.size() != 3 or parts[0] not in db.get_ids("recipes") or parts[1] not in Pills.QUALITIES or not Economy.valid_integer(entry.consumed[key], 1, 2): return false
+			if baicao:
+				if parts[0] != Pills.MUTATION_RECIPE or parts[2] != Pills.MUTATION_ID: return false
+			elif parts[1] != "legendary" or parts[2] != "": return false
 	return true
+
+
+func _journal_valid(run: Dictionary, meta: Dictionary) -> bool:
+	var journal: Variant = meta.get("material_journal", {})
+	if not journal is Dictionary: return false
+	for key in journal:
+		if not key is String or not key.begins_with("run_"): return false
+		var number_text: String = key.trim_prefix("run_")
+		if not number_text.is_valid_int() or str(number_text.to_int()) != number_text or number_text.to_int() < 1 or number_text.to_int() > run.run_number or not _ids(journal[key], db.get_ids("materials"), db.get_ids("materials").size()): return false
+	var allowed: Array = []
+	if Pills.MUTATION_RECIPE in db.get_ids("recipes"):
+		for quality in Pills.QUALITIES: allowed.append(Pills.key(Pills.MUTATION_RECIPE, quality, Pills.MUTATION_ID))
+	return _ids(meta.get("mutation_discoveries", []), allowed, 4)
 
 
 func _ids(value: Variant, allowed: Array, maximum: int) -> bool:

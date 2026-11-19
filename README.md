@@ -1,6 +1,6 @@
 # 百炼成丹 · Alchemy Thousands
 
-单机、离线、2D UI 驱动的炼丹经营游戏。当前已完成 **P0～P7**，已打通丹童到大宗师、领取传承、轮回至下一世的完整流程，包含资源循环、天赋、永久图鉴、天地变数与统一跨世存档。P8 已完成首批模拟和首轮数值调优：冲品天赋不再额外扣成功率，赤炎炉对火丹加3个百分点；已补齐6种丹炉、5种异火及4处资源试炼；目录已达到25张丹方、25种材料；已补齐8种消耗品、20项委托和20个秘境事件；本批接入可选九转丹圣结局、确定性神丹精研及永久归档。
+单机、离线、2D UI 驱动的炼丹经营游戏。当前已完成 **P0～P7**，已打通丹童到大宗师、领取传承、轮回至下一世的完整流程，包含资源循环、天赋、永久图鉴、天地变数与统一跨世存档。P8 已完成首批模拟和首轮数值调优：冲品天赋不再额外扣成功率，赤炎炉对火丹加3个百分点；已补齐6种丹炉、5种异火及4处资源试炼；目录已达到25张丹方、25种材料；已补齐8种消耗品、20项委托和20个秘境事件；已接入九转丹圣与百草药祖两个可选结局、确定性精研/异变复现、材料见闻及永久归档。
 
 ## 引擎与启动
 
@@ -44,9 +44,11 @@ open -na /Applications/Godot.app --args --path "$PWD"
 - 完成大宗师认证展示标准结局和固定通关统计，可留在本世继续图鉴收集；交付与出售不清除品质发现。
 - 结局永久归档，每世选择一项新传承；第一世后可携带一项，完成两世后可携带两项。九项全部解锁后领取永久心得，后续开局最多额外 10 点。
 - 标准通关后可交付本世极品太初造化丹和九转还真丹，认证九转丹圣；可概率炼成，也可按公开心得/双份药材确定性精研。确认才扣丹并保存独立永久档案，保留标准通关快照，每世传承奖励仍只有一次。永久图鉴容量动态支持25配方的100项品质发现。
+- 材料见闻按本世和历世显示25种材料（含丹渣），交付/出售后仍保留。涅槃丹在紫霄雷火与冲品策略下可主动启用青灵异变，成功后20%，默认关闭；普通与异变丹分开堆叠，额外成丹沿用同一品质及异变。
+- 百草药祖需标准通关、本世接触25种材料、累计研制12次，并交付120心得与一枚青灵异变涅槃丹。可用180心得及三份药材确定性复现一枚上品异变丹；认证追加独立永久证据，保留标准与九转记录，每世传承奖励仍一次。
 - 第一世固定标准世界；第二世起生成两条相容变数，至少一条机会规则。预览与取消不消耗实际随机流，刷新和切换传承不会重抽世界。
 - 轮回明确确认后重置灵石、背包、境界、临时天赋、丹方权限和本世记录，保留永久图鉴、传承、成就、历史成绩及跳过序章/快速揭晓便利；保存完整新旧世关系成功后才切换。
-- 业务层支持材料/消耗品堆叠、丹药分品质堆叠、购买出售和批量交易；包含境界校验、操作防重放和失败不改状态的事务边界。
+- 业务层支持材料/消耗品堆叠、丹药分品质/变异堆叠、购买出售和批量交易；包含境界校验、操作防重放和失败不改状态的事务边界。
 - 炼丹服务提供概率/缺口预览、三种策略、装备/符箓效果、成功后品质与多丹、失败回收和丹渣、经验/研究/统计。RNG 三流独立，支持种子和状态快照；失败事务不消耗实际随机流。
 
 中文使用操作系统字体：macOS 苹方/宋体、Windows 微软雅黑/宋体，另提供 Noto 字体候选。目标平台为 Windows/macOS；尚未验证 Windows 排版及导出。
@@ -66,9 +68,19 @@ godot --headless --path . --script res://tests/test_runner.gd
 godot --headless --path . --quit-after 3
 ```
 
-测试入口无需测试框架，返回非零退出码表示检查失败；不写入真实用户偏好。可添加 `-- --content-only`、`-- --economy-only`、`-- --alchemy-only`、`-- --resources-only`、`-- --progression-only`、`-- --rebirth-only`、`-- --balance-only`、`-- --equipment-only`、`-- --catalog-only`、`-- --contracts-only`、`-- --endings-only` 或 `-- --ui-only`，十二种专项参数互斥。资源专项含零资源恢复和探索抽样；成长专项含真实通关和存档故障；轮回专项含两世通关、传承/变数、复现、迁移和保存故障；平衡专项核验成本、收益、回收取整、模拟确定性、真实事务和统计口径；UI 专项覆盖轮回确认/取消/失败重试及第二世重启。所有场景测试均禁用默认用户存档或使用隔离测试路径。最新全量结果为 **1294 项检查，0 失败**，见 `docs/P8_ENDINGS_REPORT.md`。
+测试入口无需测试框架，返回非零退出码表示检查失败；不写入真实用户偏好。可添加 `-- --content-only`、`-- --economy-only`、`-- --alchemy-only`、`-- --resources-only`、`-- --progression-only`、`-- --rebirth-only`、`-- --balance-only`、`-- --equipment-only`、`-- --catalog-only`、`-- --contracts-only`、`-- --endings-only`、`-- --baicao-only` 或 `-- --ui-only`，十三种专项参数互斥。资源专项含零资源恢复和探索抽样；成长专项含真实通关和存档故障；轮回专项含两世通关、传承/变数、复现、迁移和保存故障；平衡专项核验成本、收益、回收取整、模拟确定性、真实事务和统计口径；UI 专项覆盖轮回确认/取消/失败重试及第二世重启。所有场景测试均禁用默认用户存档或使用隔离测试路径。最新全量结果为 **1358 项检查，0 失败**，见 `docs/P8_BAICAO_REPORT.md`。
 
-本批特殊结局验证与隔离演示：
+材料、异变及三结局验证与隔离演示：
+
+```sh
+godot --headless --path . --script res://tools/baicao_analysis.gd
+godot --headless --path . --script res://tools/baicao_demo.gd
+godot --path . -- --save-path res://test-output/p8-baicao/before_mutation_study.json
+```
+
+演示公开操作完成标准及九转结局，再取齐本世材料、筹足心得、复现异变并认证百草药祖，生成复现前/交付前/完成后存档。概率、费用、兼容和限制见 `docs/P8_BAICAO_REPORT.md`、`docs/P8_BAICAO_ANALYSIS.json`。
+
+九转结局单独验证与隔离演示：
 
 ```sh
 godot --headless --path . --script res://tools/ending_analysis.gd
@@ -134,9 +146,9 @@ godot --headless --path . --script res://tools/balance_simulator.gd -- --samples
 - `scripts/main/game_shell.gd`：场景切换；`scripts/core/game_session.gd`：持有本次状态、调用服务并返回界面用副本。
 - `scripts/autoload/app_settings.gd`：唯一 Autoload，只管理呈现偏好。
 - `scripts/core/content_db.gd`、`content_validator.gd`：由调用方显式持有的内容库与纯校验器，不依赖 UI。
-- `scripts/services/`：货币、背包和商店服务；`scripts/core/transaction_result.gd`、`pill_stack.gd`：统一结果与普通丹药堆叠格式。
+- `scripts/services/`：货币、背包和商店服务；`scripts/core/transaction_result.gd`、`pill_stack.gd`：统一结果与丹药品质/变异堆叠格式。
 - `themes/`、`assets/icons/`：基础主题与原创矢量图标。
-- `data/`：十一张 schema-v1 JSON 表；`tools/validate_content.gd`：独立内容校验入口。
+- `data/`：十一张 schema-v1 JSON 表及独立九转/百草规则；`tools/validate_content.gd`：独立内容校验入口。
 - `tests/`：内容与无头菜单集成测试；临时数据写入被 Git 忽略的 `test-output/` 并在正常结束时清理。
 - `docs/CONTENT_SCHEMA.md`：字段格式、数值范围、接口和失败处理。
 - `docs/ECONOMY_API.md`：经济状态、交易接口、操作 ID、防溢出和丹药定价规则。
@@ -152,4 +164,4 @@ godot --headless --path . --script res://tools/balance_simulator.gd -- --samples
 
 ## 后续阶段
 
-接下来继续 **P8 内容与平衡**：接入材料发现、变异与百草药祖，继续验证整体资金消耗和流派目标。现有道具/任务/事件已达到本批数量目标，标准及九转丹圣共两个结局已接入；正式双消耗品装配、第三结局、变异、首世 4～8 小时及后续 2～3 小时真人时长、最终美术音效和 Windows 导出尚未验证或完成。
+接下来继续 **P8 内容与平衡**：正式双消耗品装配及整体经济/流派目标验证。现有道具/任务/事件达到本批数量目标，标准、九转丹圣、百草药祖三个结局均已接入；首世 4～8 小时及后续 2～3 小时真人时长、最终美术音效和 Windows 导出尚未验证或完成。

@@ -64,10 +64,12 @@ if loaded.ok:
 
 - `change_stones(state, delta, action_id)`：非零整数加减，支持扣至零；不足或溢出时拒绝。
 - `add_items(state, quantities, action_id)` / `consume_items(...)`：`quantities` 为非空的 ID → 正整数对象；整批成功或整批失败。
-- `add_pill(state, recipe_id, quality, quantity, action_id, mutation_id = "")` / `consume_pill(...)`：同丹方/品质堆叠，品质仅支持 common、good、superior、legendary。
+- `add_pill(state, recipe_id, quality, quantity, action_id, mutation_id = "")` / `consume_pill(...)`：同丹方/品质/变异堆叠，品质仅支持 common、good、superior、legendary。
 - `plan_items(state, quantities, remove = false)` / `plan_pill(state, recipe_id, quality, quantity, remove = false, mutation_id = "")`：只生成独立候选状态，返回在 `result.candidate`，不实际提交或消耗 ID，供可信服务组合事务。
 
-普通丹药对象保持设计字段：`recipe_id`、`quality`、`mutation_id`、`quantity`。P2 的无变异堆叠键为 `recipe_id|quality|`，输入 `null` 或空字符串都表示无变异，新增/合并后保存为空字符串。未注册的非空变异 ID 返回 `UNSUPPORTED_MUTATION`，不会被静默按普通丹药出售。
+丹药对象保持设计字段：`recipe_id`、`quality`、`mutation_id`、`quantity`。无变异堆叠键为 `recipe_id|quality|`，输入 `null` 或空字符串都表示无变异，新增/合并后保存为空字符串。0.1.13仅注册涅槃丹的mutation_qingling，键为`recipe_niepan|quality|mutation_qingling`；普通和异变库存独立，按既有品质价格出售，无变异溢价。其他配方/非空变异组合返回 `UNSUPPORTED_MUTATION`。
+
+普通委托和晋升考核仍只选择普通丹药，不自动消耗异变证明；百草认证显式消耗任意品质青灵异变涅槃丹一枚，优先最低品质。丹房“出售全部”包含异变丹，提示可保留作百草试炼证明；交付/出售不会清除永久异变发现。
 
 持有和内部奖励不受商店境界限制，因此未来委托可发放稀有材料；商店的购买资格独立验证。P2 的内部增减方法是后续业务服务的基础，不是面向玩家的任意发奖界面。
 
@@ -95,7 +97,7 @@ if loaded.ok:
 - `shop_available: false` 的材料即使 `buy_price: 0` 也不可购买；探索火焰、初始物品、晋升奖励不能误作免费商品。
 - 普通材料/消耗品按 `sell_price` 出售；出售持有物不受购买境界限制。永久物品不允许出售。
 
-丹药单位售价按设计倍率 1、1.5、2.5、6 计算，**每枚先向下取整，再乘数量**。例如凡品基价 25 的良品单位售价 37，卖 2 枚共 74；批量与逐枚结果一致。普通丹药目前没有变异加价。
+丹药单位售价按设计倍率 1、1.5、2.5、6 计算，**每枚先向下取整，再乘数量**。例如凡品基价 25 的良品单位售价 37，卖 2 枚共 74；批量与逐枚结果一致。普通与注册异变丹均使用同一品质价格。
 
 所有单价、数量、行小计、清单总价和结算余额都检查上限。先检查单位售价，再乘数量，避免极高基价乘品质倍率和极大数量时发生 int64 溢出。任何溢出都拒绝整个交易，不截断收益、不消耗物品。
 

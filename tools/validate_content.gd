@@ -3,6 +3,7 @@ extends SceneTree
 
 const Database := preload("res://scripts/core/content_db.gd")
 const EndingTrial := preload("res://scripts/core/ending_trial_definition.gd")
+const Baicao := preload("res://scripts/core/baicao_definition.gd")
 
 
 func _initialize() -> void:
@@ -20,6 +21,12 @@ func _initialize() -> void:
 			return
 		print("Content valid: ", result.counts)
 		print("Ending trial valid: ", trial.result.definition.id)
+		var baicao := Baicao.read(db)
+		if not baicao.ok:
+			printerr(baicao.message)
+			quit(1)
+			return
+		print("Baicao and mutation valid")
 		quit(0)
 	else:
 		for error in result.errors:

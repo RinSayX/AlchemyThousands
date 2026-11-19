@@ -85,12 +85,13 @@ func plan_pill(state: Dictionary, recipe_id: String, quality: String, quantity: 
 		return Result.failure("UNKNOWN_RECIPE", "丹方不存在。")
 	if quality not in Pills.QUALITIES:
 		return Result.failure("INVALID_QUALITY", "丹药品质不合法。")
-	if mutation_id != null and not (mutation_id is String and mutation_id.is_empty()):
+	if not Pills.valid_mutation(recipe_id, mutation_id):
 		return Result.failure("UNSUPPORTED_MUTATION", "尚未定义此变异类型。")
 	if not Economy.valid_integer(quantity):
 		return Result.failure("INVALID_QUANTITY", "丹药数量须为范围内的正整数。")
 	var next := state.duplicate(true)
-	var key := Pills.key(recipe_id, quality)
+	var normalized: String = "" if mutation_id == null else mutation_id
+	var key := Pills.key(recipe_id, quality, normalized)
 	var owned: int = next.pills.get(key, {}).get("quantity", 0)
 	if remove and owned < quantity:
 		return Result.failure("INSUFFICIENT_PILLS", "该品质丹药数量不足。")
@@ -100,5 +101,5 @@ func plan_pill(state: Dictionary, recipe_id: String, quality: String, quantity: 
 	if count == 0:
 		next.pills.erase(key)
 	else:
-		next.pills[key] = Pills.create(recipe_id, quality, count)
+		next.pills[key] = Pills.create(recipe_id, quality, count, normalized)
 	return Result.success({}, {"candidate": next})

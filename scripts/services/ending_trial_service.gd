@@ -26,7 +26,9 @@ func preview(run: Dictionary, meta: Dictionary) -> Dictionary:
 		requirements.append({"recipe_id": item.recipe_id, "quality": item.quality, "quantity": item.quantity, "owned": owned})
 	var completed := false
 	for record in meta.records:
-		if record.run_number == run.run_number: completed = not record.get("optional_endings", []).is_empty()
+		if record.run_number == run.run_number:
+			for ending in record.get("optional_endings", []):
+				if ending.id == definition.id: completed = true
 	var available: bool = run.rank >= definition.required_rank and not run.ending.is_empty()
 	return Result.success({}, {"definition": definition, "run_number": run.run_number, "completed": completed, "available": available, "can_certify": available and not completed and missing.is_empty(), "requirements": requirements, "missing": missing})
 
@@ -87,7 +89,8 @@ func plan_certify(run: Dictionary, meta: Dictionary, source_run: int, action_id:
 	next.action_count += 1
 	var archive := {"id": definition.id, "action_count": next.action_count, "alchemy_attempts": next.statistics.alchemy_attempts, "research_crafts": next.research_crafts, "quests_completed": next.resource_stats.quests_completed, "exp": next.exp, "consumed": consumed}
 	var permanent := meta.duplicate(true)
-	permanent.records[-1]["optional_endings"] = [archive]
+	if not permanent.records[-1].has("optional_endings"): permanent.records[-1]["optional_endings"] = []
+	permanent.records[-1].optional_endings.append(archive)
 	return _finish(next, permanent, action_id, {"certified": archive})
 
 func _check(run: Dictionary, meta: Dictionary) -> Dictionary:

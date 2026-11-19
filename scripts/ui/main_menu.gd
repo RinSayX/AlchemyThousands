@@ -183,6 +183,15 @@ func show_collection() -> void:
 			var rows := VBoxContainer.new()
 			rows.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 			scroll.add_child(rows)
+			var materials: Array = []
+			for found in result.result.get("material_journal", {}).values():
+				for id in found:
+					if id not in materials: materials.append(id)
+			var mutants: Array = result.result.get("mutation_discoveries", [])
+			_label(rows, "历世材料 %d/%d · 异变品质 %d/4" % [materials.size(), result.result.get("material_total", 25), mutants.size()], 16, GOLD)
+			for key in mutants:
+				var parts: PackedStringArray = key.split("|", true)
+				_label(rows, "青灵异变涅槃丹 · " + {"common": "凡品", "good": "良品", "superior": "上品", "legendary": "极品"}[parts[1]], 16, GOLD)
 			for row in result.result.rows:
 				var names: Array[String] = []
 				for quality in row.qualities:

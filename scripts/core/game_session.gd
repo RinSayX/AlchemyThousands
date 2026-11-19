@@ -16,6 +16,8 @@ const Exploration := preload("res://scripts/services/exploration_service.gd")
 const Forage := preload("res://scripts/services/forage_service.gd")
 const MaterialSources := preload("res://scripts/core/material_sources.gd")
 const EndingTrial := preload("res://scripts/services/ending_trial_service.gd")
+const BaicaoTrial := preload("res://scripts/services/baicao_service.gd")
+var _baicao: RefCounted
 var _ending_trial: RefCounted
 var content := Database.new()
 var startup: Dictionary
@@ -50,6 +52,8 @@ func _init(path: String = "") -> void:
 	_progression = Progression.new(content)
 	_ending_trial = EndingTrial.new(content)
 	if not _ending_trial.startup.ok: startup = _ending_trial.startup.duplicate(true)
+	_baicao = BaicaoTrial.new(content)
+	if not _baicao.startup.ok: startup = _baicao.startup.duplicate(true)
 	save_path = path
 	if not path.is_empty():
 		_saves = Saves.new(content, path)
@@ -304,7 +308,13 @@ func collection() -> Dictionary:
 			permanent = saved.result.meta
 	if not run.is_empty():
 		run.alchemy_discoveries = permanent.discovered_pills.duplicate()
-	return _progression.collection(run)
+	var result := _progression.collection(run)
+	if result.ok:
+		result.result["mutation_discoveries"] = permanent.get("mutation_discoveries", []).duplicate()
+		result.result["material_journal"] = permanent.get("material_journal", {}).duplicate(true)
+		result.result["run_id"] = run.get("run_id", "")
+		result.result["material_total"] = content.get_ids("materials").size()
+	return result
 
 
 func meta() -> Dictionary:
@@ -362,6 +372,24 @@ func rebirth_status() -> Dictionary:
 
 func ending_trial() -> Dictionary:
 	return _ending_trial.preview(_state, _meta)
+
+
+func baicao_trial() -> Dictionary:
+	return _baicao.preview(_state, _meta)
+
+
+func mutation_study_preview() -> Dictionary:
+	return _baicao.preview_study(_state, _meta)
+
+
+func study_mutation(source_run: int) -> Dictionary:
+	if is_busy(): return Result.failure("BUSY", "请先结束当前炼制或事件。")
+	return _commit_profile_plan(_baicao.plan_study(_state, _meta, source_run, _next_id()))
+
+
+func certify_baicao(source_run: int) -> Dictionary:
+	if is_busy(): return Result.failure("BUSY", "请先结束当前炼制或事件。")
+	return _commit_profile_plan(_baicao.plan_certify(_state, _meta, source_run, _next_id()))
 
 
 func ending_study_preview(recipe_id: String) -> Dictionary:

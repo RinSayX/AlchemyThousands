@@ -25,7 +25,7 @@ if loaded.ok:
 - `preview_alchemy(state, recipe_id, setup = {})`：纯计算，不读取或抽取 RNG、不消耗资源、不改变存档脏标记。
 - `execute_alchemy(state, recipe_id, setup, action_id)`：重新计算并冻结快照，一炉一操作 ID，完整结算后一次提交。
 
-`setup` 仅允许 `furnace_id`、`flame_id`、`consumable_id`、`strategy`。装备默认来自状态的 `equipped_furnace` / `equipped_flame`，消耗品默认为空，策略默认 normal。每炉至多选择一个消耗品 ID；不接受数组、调用方自报概率或额外加成。选择本炉装备不修改永久装备选择。
+`setup` 仅允许 `furnace_id`、`flame_id`、`consumable_id`、`strategy`、可选 `mutation_id`。装备默认来自状态的 `equipped_furnace` / `equipped_flame`，消耗品默认为空，策略默认 normal，mutation_id省略或空字符串表示关闭。每炉至多选择一个消耗品 ID；不接受数组、调用方自报概率或额外加成。选择本炉装备不修改永久装备选择。
 
 ## 状态与概率
 
@@ -61,11 +61,12 @@ normal 无策略修正；stable 成功率 +0.10；rush -0.15。装备 `effect_ta
 
 抽样用 `randi() / 2^32` 得到 [0,1)，所有概率判断使用 `<`：
 
-1. 一次成功抽取；失败后停止抽取品质和多丹。
+1. 一次成功抽取；失败后停止抽取品质、变异和多丹。
 2. 成功后一次品质抽取，四档按固定顺序及半开区间判定，跳过零权重。
-3. 额外成丹率 > 0 时，再抽一次；额外一枚沿用同一品质。
+3. 主动启用的有效变异率 > 0 时抽一次变异；关闭时不抽。
+4. 额外成丹率 > 0 时，再抽一次；额外一枚沿用同一品质及变异标记。
 
-当前未定义变异内容，预览 mutation_chance 明确为 0，不消耗变异抽样，也不声称已接入变异系统。P8九龙神炉正式启用20%多丹，仅火/魂丹激活；成功后多得一枚同品质丹药，材料仅扣一批，经验、心得、首次发现和炉次各只结算一次。实际事务、精确重放及每组十万炉检查见 P8_EQUIPMENT_REPORT.md。
+0.1.13注册青灵异变，见下节；默认关闭，mutation_chance为0且不消耗变异抽样，保留既有普通开炉RNG顺序。P8九龙神炉正式启用20%多丹，仅火/魂丹激活；成功后多得一枚同品质丹药，材料仅扣一批，经验、心得、首次发现和炉次各只结算一次。实际事务、精确重放及每组十万炉检查见 P8_EQUIPMENT_REPORT.md。
 
 服务不接受 UI 传入的已抽结果或可变 RNG。执行从 `state.rng_states` 恢复局部 RNG，只有完整结果验证通过才把新快照提交。即使抽样后才发现输出堆叠或奖励溢出，也不会推进实际状态中的 RNG。
 
@@ -106,3 +107,11 @@ godot --headless --path . --script res://tools/alchemy_simulator.gd -- res://doc
 ## 通关后精研与概率开炉的边界
 
 九转丹圣所需的两方可通过EndingTrialService确定性精研：不调用AlchemyRules.roll，不装备消耗品，不触发多丹/失败返还/发现心得；仅消耗公开心得和双份配方材料，产一枚极品、历练tier×10、research_crafts/action_count各+1并登记发现。概率statistics及三条RNG保持不变，不作为一条概率开炉历史。预览/执行/保存接口及限制见 P8_ENDINGS_REPORT.md。
+
+## 青灵异变与确定性复现
+
+仅`recipe_niepan`可请求`mutation_id="mutation_qingling"`：境界至少6、使用紫霄雷火、rush策略且世界未禁火。预览`snapshot.mutation_available`披露资格；有效请求的mutation_chance=0.2。未知ID/错误类型为INVALID_SETUP，已注册但不满足条件为MUTATION_UNAVAILABLE，均不花资源或推进RNG。UI默认关闭，切换到不合格构筑会关闭开关。
+
+20%是成功后的条件概率，单炉异变率=最终成功率×20%，不修改成功率或四档品质分布。成功后依次抽品质、异变、额外成丹；最多两枚，沿用同一品质/异变。普通与异变堆叠独立；首次品质心得仍按无变异的基础品质键防重，不另发异变心得。
+
+大宗师标准通关、习得涅槃丹且本世持有紫霄雷火后，可通过BaicaoService确定性复现：消耗180心得、三份涅槃配方药材，产上品青灵异变涅槃丹1枚，历练+60、研制/行动各+1。无概率、符箓、天赋折扣、材料替换或研究奖励，RNG不变；禁火世界仍可研究复现。该操作先保存完整候选后切换，失败不扣费。接口和费用见 P8_BAICAO_REPORT.md。

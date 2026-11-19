@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "mutation": {
+    "id": "mutation_qingling",
+    "name": "青灵异变",
+    "recipe_id": "recipe_niepan",
+    "flame_id": "flame_zixiao",
+    "strategy": "rush",
+    "required_rank": 6,
+    "chance": 0.2
+  },
+  "ending": {
+    "id": "ending_baicao",
+    "name": "百草药祖",
+    "required_rank": 10,
+    "material_count": 25,
+    "research_crafts": 12,
+    "research_cost": 120,
+    "study_research_cost": 180,
+    "study_material_multiplier": 3
+  }
+}

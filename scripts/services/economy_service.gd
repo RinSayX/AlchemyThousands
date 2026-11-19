@@ -47,9 +47,9 @@ func validate_state(state: Dictionary) -> Dictionary:
 			return Result.failure("INVALID_STATE", "丹药堆叠结构不合法。")
 		if not key is String or not pill.get("recipe_id") is String or not pill.get("quality") is String or pill.get("recipe_id") not in _db.get_ids("recipes") or pill.get("quality") not in Pills.QUALITIES:
 			return Result.failure("INVALID_STATE", "丹药引用或品质不合法。")
-		if not pill.has("mutation_id") or (pill.mutation_id != null and not (pill.mutation_id is String and pill.mutation_id.is_empty())):
+		if not pill.has("mutation_id") or not Pills.valid_mutation(pill.recipe_id, pill.mutation_id):
 			return Result.failure("INVALID_STATE", "尚不支持此变异丹药。")
-		if not valid_integer(pill.get("quantity"), 1, MAX_VALUE) or key != Pills.key(pill.recipe_id, pill.quality):
+		if not valid_integer(pill.get("quantity"), 1, MAX_VALUE) or key != Pills.key(pill.recipe_id, pill.quality, "" if pill.mutation_id == null else pill.mutation_id):
 			return Result.failure("INVALID_STATE", "丹药数量或堆叠键不合法。")
 	for field in OWNERSHIP:
 		if not _valid_ids(state[field], _db.get_ids(OWNERSHIP[field])):

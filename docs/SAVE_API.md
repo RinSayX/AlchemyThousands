@@ -70,6 +70,18 @@ godot --path . -- --save-path res://test-output/p7-demo/first-ending.json
 
 ## P8 可选特殊结局归档
 
-0.1.12仍使用schema2。标准run.ending六字段不变；meta.records每世原9字段记录可选增加optional_endings数组，当前最多1项，包含id=ending_jiuzhuan、action_count/alchemy_attempts/research_crafts/quests_completed/exp五统计及consumed极品扣丹映射。新条目不改变该世原ending、reward、next_run。旧记录省略该字段照常读取，不自动认证；新记录校验引用、品质、数量、重复和统计边界。永久unlocked_endings及jiuzhuan_saint从归档派生。
+0.1.12引入schema2可选结局归档。标准run.ending六字段不变；meta.records每世原9字段记录可选增加optional_endings数组，九转条目包含id=ending_jiuzhuan、action_count/alchemy_attempts/research_crafts/quests_completed/exp五统计及consumed极品扣丹映射。新条目不改变该世原ending、reward、next_run。旧记录省略该字段照常读取，不自动认证；新记录校验引用、品质、数量、重复和统计边界。永久unlocked_endings及jiuzhuan_saint从归档派生。
+
+## 材料日志、异变与第三结局（0.1.13）
+
+继续使用schema2，无新增run必需字段。meta可选增加`material_journal: {run_1: [material_id, ...], ...}`及`mutation_discoveries: [recipe_niepan|quality|mutation_qingling, ...]`。日志按世保存去重的材料接触记录（含丹渣）；历世发现为各世并集，只有本世列表计入百草要求。成功公共操作后同步，出售/消耗不移除。变异发现独立于原100项基础品质图鉴，上限4项。
+
+读取缺少这些字段的旧档时，先验证完整原payload，再仅把当前正数材料库存和已持有的注册异变丹补入内存日志，不猜测已消耗材料或过去周目，不写原文件、不补发研究奖励。下一次成功保存才写入扩展字段。拒绝未来/非规范周目键、未知/重复材料和异变引用；轮回保留旧日志/异变发现，为新世登记初始两种材料。
+
+丹药仍存recipe_id/quality/mutation_id/quantity，注册异变键为`recipe_niepan|quality|mutation_qingling`，与普通键分开；历史炉次允许该配方的注册mutation_id，旧回执无需增加字段。未知变异仍拒绝。
+
+optional_endings现最多2项，允许九转与百草任意认证顺序，各ID每世唯一。百草条目id=ending_baicao，具有上述五统计及consumed一项异变涅槃丹映射，并增加`evidence: {materials: [material_id, ...], research_cost: int}`记录认证时至少25种材料及所付心得。两种档案追加互不覆盖，标准统计与本世唯一传承奖励保持原值；派生解锁加入ending_baicao/baicao_ancestor。
+
+异变复现和百草认证使用与轮回/九转相同的先保存后切换复合提交；写入/替换失败不改变run、meta、RNG、操作号或历史，可重试。普通概率开炉沿用原自动保存边界。完整兼容、反序认证及故障检查见 P8_BAICAO_REPORT.md。
 
 认证/神丹精研由GameSession先保存完整候选再替换run/meta；任何保存失败保留旧资源和档案，可重试。旧action或旧run_number不能重复交丹，轮回保留档案但新世需重新达到资格；认证不增加传承次数。永久discovered_pills容量改为有效丹方数×4，当前100项，旧48项以内档案不受影响。已完成特殊认证的新档不兼容旧版本应用的严格元记录校验，旧版会拒读而非默默丢弃该字段。

@@ -130,6 +130,7 @@ func _read(file_path: String) -> Dictionary:
 	var checked := _validate_payload(data)
 	if not checked.ok:
 		return checked
+	data.meta = _profile.sync(data.run, data.meta)
 	return Result.success({}, {"state": data.run, "history": data.history, "meta": data.meta, "migrated": migrated, "saved_at": envelope.saved_at})
 
 
@@ -144,6 +145,8 @@ func _validate_payload(data: Variant) -> Dictionary:
 			return Result.failure("INVALID_SAVE", "炼丹记录引用不合法。")
 		if not record.get("quality") is String or not Economy.valid_integer(record.get("quantity"), 0, 2) or (record.success and (record.get("quality") not in Pills.QUALITIES or record.quantity == 0)) or (not record.success and (record.get("quality") != "" or record.quantity != 0)):
 			return Result.failure("INVALID_SAVE", "炼丹记录品质或数量不合法。")
+		if not Pills.valid_mutation(record.snapshot.recipe_id, record.get("mutation_id", "")):
+			return Result.failure("INVALID_SAVE", "炼丹记录变异引用不合法。")
 		for field in ["exp_gained", "research_gained"]:
 			if not Economy.valid_integer(record.get(field), 0):
 				return Result.failure("INVALID_SAVE", "炼丹记录奖励不合法。")

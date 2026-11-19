@@ -84,6 +84,7 @@ func plan_rebirth(run: Dictionary, meta: Dictionary, source_run: int, loadout: V
 	var next_run: Dictionary = generated.result.state
 	var next_meta := meta.duplicate(true)
 	next_meta.records[-1].next_run = next_run.run_number
+	next_meta = _profile.sync(next_run, next_meta)
 	checked = _profile.validate(next_run, next_meta)
 	if not checked.ok:
 		return checked

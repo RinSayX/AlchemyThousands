@@ -6,6 +6,7 @@ signal back_requested
 const Session := preload("res://scripts/core/game_session.gd")
 const FurnaceArt := preload("res://scripts/ui/furnace_art.gd")
 const ResourceHub := preload("res://scripts/ui/resource_hub.gd")
+const Pills := preload("res://scripts/core/pill_stack.gd")
 const GOLD := Color("d4c28e")
 const MUTED := Color("92a394")
 const QUALITY_NAMES := {"common": "凡品", "good": "良品", "superior": "上品", "legendary": "极品"}
@@ -23,6 +24,7 @@ var batches: SpinBox
 var buy_button: Button
 var unlock_button: Button
 var selectors: Dictionary = {}
+var mutation_toggle: CheckButton
 var token_button: Button
 var brew_button: Button
 var back_button: Button
@@ -304,6 +306,12 @@ func _build_configuration(column: VBoxContainer) -> void:
 			if not _refreshing:
 				refresh()
 		)
+	mutation_toggle = CheckButton.new()
+	mutation_toggle.text = "主动启用青灵异变"
+	mutation_toggle.tooltip_text = "需六品、涅槃丹、紫霄雷火、冲品策略且无禁火压制；成功后再按公开概率判定。"
+	contents.add_child(mutation_toggle)
+	mutation_toggle.toggled.connect(func(_pressed: bool):
+		if not _refreshing: refresh())
 	token_button = _button(contents, "购买所选符箓", buy_token)
 	rate = _label(contents, "80.0%", 36, GOLD)
 	rate.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -375,6 +383,14 @@ func refresh() -> void:
 	materials.text = "\n".join(lines)
 	_populate_equipment(state)
 	var setup := current_setup()
+	var plain_setup := setup.duplicate()
+	plain_setup.erase("mutation_id")
+	var eligible := session.preview(selected_recipe, plain_setup)
+	var can_mutate: bool = eligible.ok and eligible.result.get("mutation_available", false)
+	if not can_mutate:
+		mutation_toggle.set_pressed_no_signal(false)
+		setup.erase("mutation_id")
+	mutation_toggle.disabled = phase != "idle" or _trade_lock or not can_mutate
 	var preview: Dictionary = {"ok": true, "result": _brewing_preview} if phase == "brewing" else session.preview(selected_recipe, setup)
 	var idle: bool = phase == "idle" and not _trade_lock
 	if preview.ok:
@@ -389,6 +405,8 @@ func refresh() -> void:
 			costs.text += "\n成功后额外成丹：%.1f%%（同品质一枚）" % (view.extra_pill_chance * 100)
 		if view.get("research_bonus", 0) > 0:
 			costs.text += "\n本炉基础心得 +%d；新发现另 +%d" % [view.research_rewards.base, view.research_rewards.new_quality]
+		if view.mutation_chance > 0:
+			costs.text += "\n成功后青灵异变：%.1f%%；单炉 %.2f%%" % [view.mutation_chance * 100, view.mutation_chance * view.success_rate * 100]
 		refunds.text = "失败返还：%s\n另得丹渣×1、历练+%d、心得+%d" % [_names(view.failure_returns), view.exp_rewards.failure, view.research_rewards.base]
 		brew_button.disabled = not idle or not view.can_execute
 		brew_button.tooltip_text = "材料或符箓不足，请先补充。" if not view.can_execute else "扣除本炉材料，按公开概率炼制。"
@@ -433,7 +451,7 @@ func refresh() -> void:
 	var sale_text := "出售全部产物 · %d 灵石" % products.result.total if products.ok else "暂无丹药或丹渣可售"
 	sell_button.text = sale_text
 	sell_button.disabled = not idle or not products.ok
-	sell_button.tooltip_text = "出售背包内全部丹药与丹渣，不出售药材或符箓。"
+	sell_button.tooltip_text = "出售背包内全部丹药（含变异丹）与丹渣，不出售药材或符箓；百草试炼可留用异变丹。"
 	result_sell.text = sale_text
 	result_sell.disabled = phase != "result" or _trade_lock or not products.ok
 	recent.clear()
@@ -443,6 +461,7 @@ func refresh() -> void:
 	for record in history:
 		var pill_name: String = session.content.get_item(record.snapshot.recipe_id).name
 		var summary := "%s · %s×%d" % [pill_name, QUALITY_NAMES[record.quality], record.quantity] if record.success else pill_name + " · 未成丹，丹渣×1"
+		if record.get("mutation_id", "") == Pills.MUTATION_ID: summary += " · 青灵异变"
 		recent.add_item(summary)
 		recent.set_item_tooltip(recent.item_count - 1, "消耗：%s\n返还：%s\n历练+%d / 心得+%d" % [_names(record.consumed), _names(record.returned), record.exp_gained, record.research_gained])
 	_refreshing = false
@@ -508,6 +527,7 @@ func current_setup() -> Dictionary:
 	for field in selectors:
 		var option: OptionButton = selectors[field]
 		setup[field] = option.get_item_metadata(option.selected)
+	if is_instance_valid(mutation_toggle) and mutation_toggle.button_pressed: setup["mutation_id"] = Pills.MUTATION_ID
 	return setup
 
 
@@ -559,6 +579,7 @@ func finish_brew() -> void:
 	var record := _current_result
 	var name_text: String = session.content.get_item(record.snapshot.recipe_id).name
 	result_title.text = "%s · %s ×%d" % [name_text, QUALITY_NAMES[record.quality], record.quantity] if record.success else "火候未成 · 丹渣 ×1"
+	if record.get("mutation_id", "") == Pills.MUTATION_ID: result_title.text += " · 青灵异变"
 	result_body.text = "消耗：%s\n返还：%s\n\n历练 +%d     研究心得 +%d%s\n\n可留丹交付宗门委托，也可出售全部丹药与丹渣。" % [_names(record.consumed), _names(record.returned), record.exp_gained, record.research_gained, "\n首次发现此丹方与品质，额外心得已计入。" if record.new_quality else ""]
 	phase_label.text = "丹成留香" if record.success else "失败亦有心得，再修一炉。"
 	refresh()
