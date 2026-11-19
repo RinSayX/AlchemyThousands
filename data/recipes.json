@@ -345,6 +345,390 @@
       },
       "base_sell_price": 1100,
       "special_rules": []
+    },
+    {
+      "id": "recipe_huiling",
+      "name": "回灵丹",
+      "description": "品质偏向良品的入门支线，可售丹或收集图鉴。",
+      "tier": 1,
+      "tags": [
+        "wood",
+        "water"
+      ],
+      "unlock": {
+        "type": "shop",
+        "required_rank": 0,
+        "price": 50
+      },
+      "required_rank": 0,
+      "base_success_rate": 0.78,
+      "materials": {
+        "herb_gancao": 2,
+        "herb_qinghua": 1
+      },
+      "quality_weights": {
+        "common": 58,
+        "good": 32,
+        "superior": 10,
+        "legendary": 0
+      },
+      "base_sell_price": 28,
+      "special_rules": []
+    },
+    {
+      "id": "recipe_yangqi",
+      "name": "养气丹",
+      "description": "以常备药材炼制，适合青莲木属性构筑。",
+      "tier": 2,
+      "tags": [
+        "wood"
+      ],
+      "unlock": {
+        "type": "shop",
+        "required_rank": 1,
+        "price": 130
+      },
+      "required_rank": 1,
+      "base_success_rate": 0.72,
+      "materials": {
+        "herb_yangyuan": 2,
+        "herb_gancao": 2
+      },
+      "quality_weights": {
+        "common": 58,
+        "good": 32,
+        "superior": 10,
+        "legendary": 0
+      },
+      "base_sell_price": 68,
+      "special_rules": []
+    },
+    {
+      "id": "recipe_qingxin",
+      "name": "清心丹",
+      "description": "水魂支线，可尝试品质与成功率的取舍。",
+      "tier": 2,
+      "tags": [
+        "water",
+        "soul"
+      ],
+      "unlock": {
+        "type": "shop",
+        "required_rank": 1,
+        "price": 150
+      },
+      "required_rank": 1,
+      "base_success_rate": 0.68,
+      "materials": {
+        "herb_yangyuan": 2,
+        "herb_ningshen": 1
+      },
+      "quality_weights": {
+        "common": 65,
+        "good": 25,
+        "superior": 9,
+        "legendary": 1
+      },
+      "base_sell_price": 76,
+      "special_rules": []
+    },
+    {
+      "id": "recipe_gushen",
+      "name": "固神丹",
+      "description": "月华露可在月华泽稳定换取，适合温养神识的支线炼制。",
+      "tier": 3,
+      "tags": [
+        "water",
+        "soul"
+      ],
+      "unlock": {
+        "type": "shop",
+        "required_rank": 2,
+        "price": 280
+      },
+      "required_rank": 2,
+      "base_success_rate": 0.62,
+      "materials": {
+        "essence_yuelu": 1,
+        "herb_bingxin": 2,
+        "herb_ningshen": 1
+      },
+      "quality_weights": {
+        "common": 60,
+        "good": 30,
+        "superior": 9,
+        "legendary": 1
+      },
+      "base_sell_price": 146,
+      "special_rules": []
+    },
+    {
+      "id": "recipe_chiyang",
+      "name": "赤阳丹",
+      "description": "火属性支线，与赤炎炉和冲品策略配合。",
+      "tier": 3,
+      "tags": [
+        "fire",
+        "earth"
+      ],
+      "unlock": {
+        "type": "shop",
+        "required_rank": 2,
+        "price": 300
+      },
+      "required_rank": 2,
+      "base_success_rate": 0.58,
+      "materials": {
+        "beast_linggu": 1,
+        "herb_chixue": 2,
+        "herb_yangyuan": 1
+      },
+      "quality_weights": {
+        "common": 70,
+        "good": 18,
+        "superior": 10,
+        "legendary": 2
+      },
+      "base_sell_price": 155,
+      "special_rules": []
+    },
+    {
+      "id": "recipe_bingxin",
+      "name": "冰心丹",
+      "description": "更多良品权重，较高用料量使回收取整更明显。",
+      "tier": 4,
+      "tags": [
+        "water"
+      ],
+      "unlock": {
+        "type": "shop",
+        "required_rank": 3,
+        "price": 420
+      },
+      "required_rank": 3,
+      "base_success_rate": 0.56,
+      "materials": {
+        "herb_bingxin": 3,
+        "essence_yuelu": 2,
+        "herb_gancao": 2
+      },
+      "quality_weights": {
+        "common": 52,
+        "good": 36,
+        "superior": 12,
+        "legendary": 0
+      },
+      "base_sell_price": 200,
+      "special_rules": []
+    },
+    {
+      "id": "recipe_hupo",
+      "name": "护魄丹",
+      "description": "以矿晶、兽骨温养魂魄，材料均可重复取得。",
+      "tier": 4,
+      "tags": [
+        "earth",
+        "soul"
+      ],
+      "unlock": {
+        "type": "shop",
+        "required_rank": 3,
+        "price": 440
+      },
+      "required_rank": 3,
+      "base_success_rate": 0.53,
+      "materials": {
+        "ore_yunmu": 2,
+        "beast_linggu": 2,
+        "essence_hunlu": 1
+      },
+      "quality_weights": {
+        "common": 65,
+        "good": 25,
+        "superior": 9,
+        "legendary": 1
+      },
+      "base_sell_price": 210,
+      "special_rules": []
+    },
+    {
+      "id": "recipe_yanshou",
+      "name": "延寿丹",
+      "description": "木属性高成本支线，青莲与回收构筑各有取舍。",
+      "tier": 5,
+      "tags": [
+        "wood"
+      ],
+      "unlock": {
+        "type": "shop",
+        "required_rank": 4,
+        "price": 650
+      },
+      "required_rank": 4,
+      "base_success_rate": 0.48,
+      "materials": {
+        "herb_shouxian": 2,
+        "herb_jinyang": 2,
+        "herb_lingzhi": 1
+      },
+      "quality_weights": {
+        "common": 58,
+        "good": 32,
+        "superior": 10,
+        "legendary": 0
+      },
+      "base_sell_price": 300,
+      "special_rules": []
+    },
+    {
+      "id": "recipe_lianhun",
+      "name": "炼魂丹",
+      "description": "高价素材魂属性丹，可配九龙炉增加成功后的产量。",
+      "tier": 6,
+      "tags": [
+        "water",
+        "soul"
+      ],
+      "unlock": {
+        "type": "shop",
+        "required_rank": 5,
+        "price": 900
+      },
+      "required_rank": 5,
+      "base_success_rate": 0.4,
+      "materials": {
+        "essence_hanpo": 2,
+        "ore_zilei": 2,
+        "essence_hunlu": 2
+      },
+      "quality_weights": {
+        "common": 65,
+        "good": 25,
+        "superior": 9,
+        "legendary": 1
+      },
+      "base_sell_price": 440,
+      "special_rules": []
+    },
+    {
+      "id": "recipe_niepan",
+      "name": "涅槃丹",
+      "description": "偏向冲品的火木支线，成功率与极品回报需一并查看。",
+      "tier": 6,
+      "tags": [
+        "fire",
+        "wood"
+      ],
+      "unlock": {
+        "type": "shop",
+        "required_rank": 5,
+        "price": 960
+      },
+      "required_rank": 5,
+      "base_success_rate": 0.38,
+      "materials": {
+        "herb_jinyang": 3,
+        "herb_shouxian": 2,
+        "ore_zilei": 1
+      },
+      "quality_weights": {
+        "common": 70,
+        "good": 18,
+        "superior": 10,
+        "legendary": 2
+      },
+      "base_sell_price": 460,
+      "special_rules": []
+    },
+    {
+      "id": "recipe_leijie",
+      "name": "雷劫丹",
+      "description": "雷鸣山隘供应两种核心素材，适合比较雷装与多丹构筑。",
+      "tier": 7,
+      "tags": [
+        "fire",
+        "soul"
+      ],
+      "unlock": {
+        "type": "shop",
+        "required_rank": 6,
+        "price": 1300
+      },
+      "required_rank": 6,
+      "base_success_rate": 0.32,
+      "materials": {
+        "herb_tianluo": 2,
+        "beast_hunhe": 2,
+        "essence_leisui": 1
+      },
+      "quality_weights": {
+        "common": 70,
+        "good": 18,
+        "superior": 10,
+        "legendary": 2
+      },
+      "base_sell_price": 690,
+      "special_rules": []
+    },
+    {
+      "id": "recipe_xuanhuang",
+      "name": "玄黄丹",
+      "description": "地属性高消耗支线；九龙火魂加成不适用，可考虑逐材料回收。",
+      "tier": 8,
+      "tags": [
+        "earth"
+      ],
+      "unlock": {
+        "type": "shop",
+        "required_rank": 7,
+        "price": 1800
+      },
+      "required_rank": 7,
+      "base_success_rate": 0.26,
+      "materials": {
+        "ore_xuanhuang": 4,
+        "beast_hunhe": 2,
+        "herb_tianluo": 2
+      },
+      "quality_weights": {
+        "common": 58,
+        "good": 32,
+        "superior": 10,
+        "legendary": 0
+      },
+      "base_sell_price": 920,
+      "special_rules": []
+    },
+    {
+      "id": "recipe_jiuzhuan",
+      "name": "九转还真丹",
+      "description": "太古灵台可稳定取得核心药材的终局收藏丹，不作为考核前置。",
+      "tier": 9,
+      "tags": [
+        "wood",
+        "soul"
+      ],
+      "unlock": {
+        "type": "shop",
+        "required_rank": 8,
+        "price": 2600
+      },
+      "required_rank": 8,
+      "base_success_rate": 0.18,
+      "materials": {
+        "herb_jiuye": 2,
+        "essence_daoyun": 2,
+        "essence_leisui": 2,
+        "ore_xuanhuang": 2
+      },
+      "quality_weights": {
+        "common": 65,
+        "good": 25,
+        "superior": 9,
+        "legendary": 1
+      },
+      "base_sell_price": 1450,
+      "special_rules": []
     }
   ]
 }

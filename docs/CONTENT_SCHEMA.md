@@ -168,3 +168,7 @@ godot --headless --path . --script res://tests/test_runner.gd -- --content-only
 ```
 
 后续导出游戏时须将 `data/*.json` 作为非资源文件纳入导出包；P1 未配置或验证发布导出。
+
+## P8 丹方材料目录批次
+
+0.1.10共117条：25丹方、25材料（含丹渣）、6炉、5火、3消耗品、5委托、13事件、11品阶、9天赋、9传承、6变数。没有新增静态字段或变更schema。新增13张丹方使用shop解锁且购买境界等于炼制要求；新增材料均为repeatable，8种在shop供应、8种在exploration固定付费取得。素材用途与最低境界可达性由目录专项回归审计，原84条保持不变。详细列表、成本和统计见 P8_CATALOG_REPORT.md。

@@ -25,7 +25,7 @@ func run(tree: SceneTree, check: Callable) -> bool:
 	var room: Control = main.room
 	_check.call(room != null and room.is_visible_in_tree() and not menu.visible and main.session.has_run(), "P4: Entering the alchemy room creates one session")
 	var session: Session = main.session
-	_check.call(room.brew_button.disabled == false and room.recipe_list.item_count == 12 and room.rate.text == "80.0%", "P4: First recipe and engine probability are ready at startup")
+	_check.call(room.brew_button.disabled == false and room.recipe_list.item_count == 25 and room.rate.text == "80.0%", "P4: First recipe and engine probability are ready at startup")
 	var before: Dictionary = session.state()
 	room.buy_button.pressed.emit()
 	room.buy_button.pressed.emit()
@@ -85,7 +85,7 @@ func run(tree: SceneTree, check: Callable) -> bool:
 	room.search.text_changed.emit("")
 	room.tier_filter.select(2)
 	room.tier_filter.item_selected.emit(2)
-	_check.call(room.recipe_list.item_count == 2, "P4: Tier filter selects the two second-tier recipes")
+	_check.call(room.recipe_list.item_count == 4, "P4: Tier filter selects the four second-tier recipes")
 	room.tier_filter.select(0)
 	room.tier_filter.item_selected.emit(0)
 	_select_recipe(room, "recipe_cuiti")

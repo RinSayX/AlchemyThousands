@@ -432,6 +432,194 @@
           "reward_furnace": "furnace_jiulong"
         }
       ]
+    },
+    {
+      "id": "event_moon_marsh",
+      "name": "月华泽",
+      "description": "向守境人支付公开费用换取稀有炼丹素材，无需等待随机掉落。",
+      "tier": 3,
+      "tags": [
+        "exploration",
+        "supply"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 2
+      },
+      "weight": 1,
+      "options": [
+        {
+          "id": "choice_yuelu",
+          "name": "求取月华露",
+          "description": "支付20灵石，必得月华露一份，可重复选择；卖出后仍可再次获取。",
+          "cost_stones": 20,
+          "cost_items": {},
+          "success_rate": 1,
+          "success_items": {
+            "essence_yuelu": 1
+          },
+          "failure_items": {},
+          "success_stones": 0,
+          "failure_stones": 0,
+          "reward_flame": ""
+        },
+        {
+          "id": "choice_linggu",
+          "name": "求取灵兽骨",
+          "description": "支付24灵石，必得灵兽骨一份，可重复选择；卖出后仍可再次获取。",
+          "cost_stones": 24,
+          "cost_items": {},
+          "success_rate": 1,
+          "success_items": {
+            "beast_linggu": 1
+          },
+          "failure_items": {},
+          "success_stones": 0,
+          "failure_stones": 0,
+          "reward_flame": ""
+        }
+      ]
+    },
+    {
+      "id": "event_frost_garden",
+      "name": "寒玉药园",
+      "description": "向守境人支付公开费用换取稀有炼丹素材，无需等待随机掉落。",
+      "tier": 5,
+      "tags": [
+        "exploration",
+        "supply"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 4
+      },
+      "weight": 1,
+      "options": [
+        {
+          "id": "choice_shouxian",
+          "name": "求取寿仙芝",
+          "description": "支付36灵石，必得寿仙芝一份，可重复选择；卖出后仍可再次获取。",
+          "cost_stones": 36,
+          "cost_items": {},
+          "success_rate": 1,
+          "success_items": {
+            "herb_shouxian": 1
+          },
+          "failure_items": {},
+          "success_stones": 0,
+          "failure_stones": 0,
+          "reward_flame": ""
+        },
+        {
+          "id": "choice_hanpo",
+          "name": "求取寒魄晶露",
+          "description": "支付40灵石，必得寒魄晶露一份，可重复选择；卖出后仍可再次获取。",
+          "cost_stones": 40,
+          "cost_items": {},
+          "success_rate": 1,
+          "success_items": {
+            "essence_hanpo": 1
+          },
+          "failure_items": {},
+          "success_stones": 0,
+          "failure_stones": 0,
+          "reward_flame": ""
+        }
+      ]
+    },
+    {
+      "id": "event_thunder_ridge",
+      "name": "雷鸣山隘",
+      "description": "向守境人支付公开费用换取稀有炼丹素材，无需等待随机掉落。",
+      "tier": 7,
+      "tags": [
+        "exploration",
+        "supply"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 6
+      },
+      "weight": 1,
+      "options": [
+        {
+          "id": "choice_hunhe",
+          "name": "求取魂鹤羽",
+          "description": "支付60灵石，必得魂鹤羽一份，可重复选择；卖出后仍可再次获取。",
+          "cost_stones": 60,
+          "cost_items": {},
+          "success_rate": 1,
+          "success_items": {
+            "beast_hunhe": 1
+          },
+          "failure_items": {},
+          "success_stones": 0,
+          "failure_stones": 0,
+          "reward_flame": ""
+        },
+        {
+          "id": "choice_leisui",
+          "name": "求取雷髓液",
+          "description": "支付64灵石，必得雷髓液一份，可重复选择；卖出后仍可再次获取。",
+          "cost_stones": 64,
+          "cost_items": {},
+          "success_rate": 1,
+          "success_items": {
+            "essence_leisui": 1
+          },
+          "failure_items": {},
+          "success_stones": 0,
+          "failure_stones": 0,
+          "reward_flame": ""
+        }
+      ]
+    },
+    {
+      "id": "event_ancient_terrace",
+      "name": "太古灵台",
+      "description": "向守境人支付公开费用换取稀有炼丹素材，无需等待随机掉落。",
+      "tier": 9,
+      "tags": [
+        "exploration",
+        "supply"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 8
+      },
+      "weight": 1,
+      "options": [
+        {
+          "id": "choice_jiuye",
+          "name": "求取九叶仙芝",
+          "description": "支付100灵石，必得九叶仙芝一份，可重复选择；卖出后仍可再次获取。",
+          "cost_stones": 100,
+          "cost_items": {},
+          "success_rate": 1,
+          "success_items": {
+            "herb_jiuye": 1
+          },
+          "failure_items": {},
+          "success_stones": 0,
+          "failure_stones": 0,
+          "reward_flame": ""
+        },
+        {
+          "id": "choice_daoyun",
+          "name": "求取道蕴灵液",
+          "description": "支付120灵石，必得道蕴灵液一份，可重复选择；卖出后仍可再次获取。",
+          "cost_stones": 120,
+          "cost_items": {},
+          "success_rate": 1,
+          "success_items": {
+            "essence_daoyun": 1
+          },
+          "failure_items": {},
+          "success_stones": 0,
+          "failure_stones": 0,
+          "reward_flame": ""
+        }
+      ]
     }
   ]
 }

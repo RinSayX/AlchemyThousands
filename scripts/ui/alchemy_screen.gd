@@ -18,6 +18,7 @@ var search: LineEdit
 var tier_filter: OptionButton
 var description: Label
 var materials: Label
+var recipe_details: ScrollContainer
 var batches: SpinBox
 var buy_button: Button
 var unlock_button: Button
@@ -201,11 +202,21 @@ func _build_recipes(column: VBoxContainer) -> void:
 		if phase != "idle" or _trade_lock:
 			return
 		selected_recipe = recipe_list.get_item_metadata(index)
+		recipe_details.scroll_vertical = 0
 		refresh()
 	)
-	description = _label(column, "", 15, MUTED, true)
-	_label(column, "药材  ·  持有 / 所需", 14, GOLD)
-	materials = _label(column, "", 15, Color("d5ddcb"), true)
+	recipe_details = ScrollContainer.new()
+	recipe_details.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	recipe_details.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	recipe_details.custom_minimum_size.y = 120
+	column.add_child(recipe_details)
+	var details := VBoxContainer.new()
+	details.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	details.add_theme_constant_override("separation", 8)
+	recipe_details.add_child(details)
+	description = _label(details, "", 15, MUTED, true)
+	_label(details, "药材  ·  持有 / 所需", 14, GOLD)
+	materials = _label(details, "", 15, Color("d5ddcb"), true)
 	var buy_row := HBoxContainer.new()
 	buy_row.add_theme_constant_override("separation", 8)
 	column.add_child(buy_row)
@@ -356,6 +367,11 @@ func refresh() -> void:
 		var owned: int = state.inventory.get(id, 0)
 		var required: int = recipe.materials[id]
 		lines.append("%s   %d / %d%s" % [session.content.get_item(id).name, owned, required, "  不足" if owned < required else ""])
+		if not session.content.get_item(id).shop_available:
+			var sources := session.material_sources(id)
+			if not sources.is_empty():
+				var source: Dictionary = sources[0]
+				lines.append("  来源：%s · %d品" % [source.event_name, source.required_rank])
 	materials.text = "\n".join(lines)
 	_populate_equipment(state)
 	var setup := current_setup()

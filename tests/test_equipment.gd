@@ -31,8 +31,8 @@ func _content() -> void:
 	var expected: RefCounted = Model.database()
 	var matches := expected != null
 	for category in Model.documents():
-		matches = matches and Equivalent.new()._equivalent(db.get_items(category), expected.get_items(category))
-	ok(matches, "All 84 shipping definitions match the independently analyzed proposal")
+		matches = matches and Equivalent.new()._equivalent(db.get_items(category).slice(0, expected.get_items(category).size()), expected.get_items(category))
+	ok(matches, "All 84 pre-catalog definitions retain the independently analyzed equipment proposal")
 	var mutations := [
 		["furnaces", 4, "effect_strategy", "impossible"],
 		["furnaces", 4, "effect_strategy", 1],
@@ -53,7 +53,7 @@ func _content() -> void:
 	for changes in trials:
 		var docs := Model.documents()
 		docs.exploration_events.items[5].options[0].merge(changes, true)
-		ok(not db.load_documents(docs).ok and db.get_counts().exploration_events == 9, "Invalid once-per-life trial rejected: " + str(changes))
+		ok(not db.load_documents(docs).ok and db.get_counts().exploration_events == 13, "Invalid once-per-life trial rejected: " + str(changes))
 
 func _effects() -> void:
 	var service := Alchemy.new(db)

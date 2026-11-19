@@ -8,6 +8,7 @@ const Rules := preload("res://scripts/core/alchemy_rules.gd")
 const Context := preload("res://scripts/core/rng_context.gd")
 const Shop := preload("res://scripts/services/shop_service.gd")
 const Pills := preload("res://scripts/core/pill_stack.gd")
+const Sources := preload("res://scripts/core/material_sources.gd")
 const STYLES := ["stable", "rush", "recycle", "research"]
 const RARE_SOURCES := {"herb_lingzhi": ["event_old_grove", "choice_trade"], "essence_hunlu": ["event_soul_spring", "choice_offer"]}
 
@@ -59,6 +60,9 @@ static func unit_basis(db: RefCounted, state: Dictionary, id: String) -> Diction
 	if item.get("shop_available", false):
 		return {"stones": float(Lineage.buy_price(db, state, item, item.buy_price)), "outings": 0.0}
 	if not RARE_SOURCES.has(id):
+		var source := Sources.cheapest(db, state, id)
+		if not source.is_empty():
+			return {"stones": float(source.cost_stones) / source.quantity, "outings": 1.0 / source.quantity}
 		return {"stones": null, "outings": null}
 	var source: Array = RARE_SOURCES[id]
 	for original in db.get_item(source[0]).options:

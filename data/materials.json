@@ -202,6 +202,348 @@
         "alchemy"
       ],
       "repeatable": true
+    },
+    {
+      "id": "herb_gancao",
+      "name": "甘露草",
+      "description": "坊市在0品开放的常备炼丹辅材，按公开单价购买。",
+      "tier": 1,
+      "tags": [
+        "wood",
+        "water"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 0
+      },
+      "category": "herb",
+      "buy_price": 5,
+      "sell_price": 1,
+      "shop_available": true,
+      "sources": [
+        "shop"
+      ],
+      "repeatable": true
+    },
+    {
+      "id": "herb_yangyuan",
+      "name": "养元叶",
+      "description": "坊市在1品开放的常备炼丹辅材，按公开单价购买。",
+      "tier": 2,
+      "tags": [
+        "wood"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 1
+      },
+      "category": "herb",
+      "buy_price": 12,
+      "sell_price": 3,
+      "shop_available": true,
+      "sources": [
+        "shop"
+      ],
+      "repeatable": true
+    },
+    {
+      "id": "herb_bingxin",
+      "name": "冰心草",
+      "description": "坊市在2品开放的常备炼丹辅材，按公开单价购买。",
+      "tier": 3,
+      "tags": [
+        "water"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 2
+      },
+      "category": "herb",
+      "buy_price": 18,
+      "sell_price": 4,
+      "shop_available": true,
+      "sources": [
+        "shop"
+      ],
+      "repeatable": true
+    },
+    {
+      "id": "ore_yunmu",
+      "name": "云母晶",
+      "description": "坊市在3品开放的常备炼丹辅材，按公开单价购买。",
+      "tier": 4,
+      "tags": [
+        "earth"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 3
+      },
+      "category": "mineral",
+      "buy_price": 22,
+      "sell_price": 5,
+      "shop_available": true,
+      "sources": [
+        "shop"
+      ],
+      "repeatable": true
+    },
+    {
+      "id": "herb_jinyang",
+      "name": "金阳花",
+      "description": "坊市在4品开放的常备炼丹辅材，按公开单价购买。",
+      "tier": 5,
+      "tags": [
+        "fire"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 4
+      },
+      "category": "herb",
+      "buy_price": 28,
+      "sell_price": 7,
+      "shop_available": true,
+      "sources": [
+        "shop"
+      ],
+      "repeatable": true
+    },
+    {
+      "id": "ore_zilei",
+      "name": "紫雷砂",
+      "description": "坊市在5品开放的常备炼丹辅材，按公开单价购买。",
+      "tier": 6,
+      "tags": [
+        "fire",
+        "earth"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 5
+      },
+      "category": "mineral",
+      "buy_price": 36,
+      "sell_price": 9,
+      "shop_available": true,
+      "sources": [
+        "shop"
+      ],
+      "repeatable": true
+    },
+    {
+      "id": "herb_tianluo",
+      "name": "天罗藤",
+      "description": "坊市在6品开放的常备炼丹辅材，按公开单价购买。",
+      "tier": 7,
+      "tags": [
+        "wood",
+        "soul"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 6
+      },
+      "category": "herb",
+      "buy_price": 44,
+      "sell_price": 11,
+      "shop_available": true,
+      "sources": [
+        "shop"
+      ],
+      "repeatable": true
+    },
+    {
+      "id": "ore_xuanhuang",
+      "name": "玄黄髓",
+      "description": "坊市在7品开放的常备炼丹辅材，按公开单价购买。",
+      "tier": 8,
+      "tags": [
+        "earth"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 7
+      },
+      "category": "mineral",
+      "buy_price": 52,
+      "sell_price": 13,
+      "shop_available": true,
+      "sources": [
+        "shop"
+      ],
+      "repeatable": true
+    },
+    {
+      "id": "essence_yuelu",
+      "name": "月华露",
+      "description": "可在月华泽以20灵石确定换取，可重复获取；轮回后需要重新收集。",
+      "tier": 3,
+      "tags": [
+        "water",
+        "soul"
+      ],
+      "unlock": {
+        "type": "exploration",
+        "required_rank": 2
+      },
+      "category": "spirit",
+      "buy_price": 0,
+      "sell_price": 6,
+      "shop_available": false,
+      "sources": [
+        "exploration"
+      ],
+      "repeatable": true
+    },
+    {
+      "id": "beast_linggu",
+      "name": "灵兽骨",
+      "description": "可在月华泽以24灵石确定换取，可重复获取；轮回后需要重新收集。",
+      "tier": 3,
+      "tags": [
+        "earth"
+      ],
+      "unlock": {
+        "type": "exploration",
+        "required_rank": 2
+      },
+      "category": "beast",
+      "buy_price": 0,
+      "sell_price": 7,
+      "shop_available": false,
+      "sources": [
+        "exploration"
+      ],
+      "repeatable": true
+    },
+    {
+      "id": "herb_shouxian",
+      "name": "寿仙芝",
+      "description": "可在寒玉药园以36灵石确定换取，可重复获取；轮回后需要重新收集。",
+      "tier": 5,
+      "tags": [
+        "wood"
+      ],
+      "unlock": {
+        "type": "exploration",
+        "required_rank": 4
+      },
+      "category": "herb",
+      "buy_price": 0,
+      "sell_price": 10,
+      "shop_available": false,
+      "sources": [
+        "exploration"
+      ],
+      "repeatable": true
+    },
+    {
+      "id": "essence_hanpo",
+      "name": "寒魄晶露",
+      "description": "可在寒玉药园以40灵石确定换取，可重复获取；轮回后需要重新收集。",
+      "tier": 5,
+      "tags": [
+        "water"
+      ],
+      "unlock": {
+        "type": "exploration",
+        "required_rank": 4
+      },
+      "category": "spirit",
+      "buy_price": 0,
+      "sell_price": 12,
+      "shop_available": false,
+      "sources": [
+        "exploration"
+      ],
+      "repeatable": true
+    },
+    {
+      "id": "beast_hunhe",
+      "name": "魂鹤羽",
+      "description": "可在雷鸣山隘以60灵石确定换取，可重复获取；轮回后需要重新收集。",
+      "tier": 7,
+      "tags": [
+        "soul"
+      ],
+      "unlock": {
+        "type": "exploration",
+        "required_rank": 6
+      },
+      "category": "beast",
+      "buy_price": 0,
+      "sell_price": 18,
+      "shop_available": false,
+      "sources": [
+        "exploration"
+      ],
+      "repeatable": true
+    },
+    {
+      "id": "essence_leisui",
+      "name": "雷髓液",
+      "description": "可在雷鸣山隘以64灵石确定换取，可重复获取；轮回后需要重新收集。",
+      "tier": 7,
+      "tags": [
+        "fire",
+        "soul"
+      ],
+      "unlock": {
+        "type": "exploration",
+        "required_rank": 6
+      },
+      "category": "spirit",
+      "buy_price": 0,
+      "sell_price": 20,
+      "shop_available": false,
+      "sources": [
+        "exploration"
+      ],
+      "repeatable": true
+    },
+    {
+      "id": "herb_jiuye",
+      "name": "九叶仙芝",
+      "description": "可在太古灵台以100灵石确定换取，可重复获取；轮回后需要重新收集。",
+      "tier": 9,
+      "tags": [
+        "wood",
+        "soul"
+      ],
+      "unlock": {
+        "type": "exploration",
+        "required_rank": 8
+      },
+      "category": "herb",
+      "buy_price": 0,
+      "sell_price": 30,
+      "shop_available": false,
+      "sources": [
+        "exploration"
+      ],
+      "repeatable": true
+    },
+    {
+      "id": "essence_daoyun",
+      "name": "道蕴灵液",
+      "description": "可在太古灵台以120灵石确定换取，可重复获取；轮回后需要重新收集。",
+      "tier": 9,
+      "tags": [
+        "soul"
+      ],
+      "unlock": {
+        "type": "exploration",
+        "required_rank": 8
+      },
+      "category": "spirit",
+      "buy_price": 0,
+      "sell_price": 36,
+      "shop_available": false,
+      "sources": [
+        "exploration"
+      ],
+      "repeatable": true
     }
   ]
 }

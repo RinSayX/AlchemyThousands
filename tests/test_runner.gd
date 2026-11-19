@@ -19,6 +19,8 @@ const BalanceTests := preload("res://tests/test_balance.gd")
 const TuningTests := preload("res://tests/test_tuning.gd")
 const EquipmentTests := preload("res://tests/test_equipment.gd")
 const EquipmentUITests := preload("res://tests/test_equipment_ui.gd")
+const CatalogTests := preload("res://tests/test_catalog.gd")
+const CatalogUITests := preload("res://tests/test_catalog_ui.gd")
 
 var checks := 0
 var failures: Array[String] = []
@@ -31,7 +33,7 @@ func _initialize() -> void:
 func _run() -> void:
 	var args := OS.get_cmdline_user_args()
 	var selected := ""
-	for flag in ["--content-only", "--economy-only", "--alchemy-only", "--resources-only", "--progression-only", "--rebirth-only", "--balance-only", "--equipment-only", "--ui-only"]:
+	for flag in ["--content-only", "--economy-only", "--alchemy-only", "--resources-only", "--progression-only", "--rebirth-only", "--balance-only", "--equipment-only", "--catalog-only", "--ui-only"]:
 		if args.has(flag):
 			if not selected.is_empty():
 				_check(false, "Choose one focused test suite at a time")
@@ -56,6 +58,8 @@ func _run() -> void:
 		_check(TuningTests.new().run(_check), "P8: Tuning suite completed")
 	if selected.is_empty() or selected == "--equipment-only":
 		_check(EquipmentTests.new().run(_check), "P8: Equipment suite completed")
+	if selected.is_empty() or selected == "--catalog-only":
+		_check(CatalogTests.new().run(_check), "P8: Catalog suite completed")
 	if not selected.is_empty() and selected != "--ui-only":
 		_finish()
 		return
@@ -117,6 +121,7 @@ func _run() -> void:
 	_check(await ProgressionUITests.new().run(self, _check), "P6: Progression UI suite completed")
 	_check(await RebirthUITests.new().run(self, _check), "P7: Rebirth UI suite completed")
 	_check(await EquipmentUITests.new().run(self, _check), "P8: Equipment UI suite completed")
+	_check(await CatalogUITests.new().run(self, _check), "P8: Catalog UI suite completed")
 	_finish()
 
 

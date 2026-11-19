@@ -14,6 +14,7 @@ const Saves := preload("res://scripts/services/save_manager.gd")
 const Quests := preload("res://scripts/services/quest_service.gd")
 const Exploration := preload("res://scripts/services/exploration_service.gd")
 const Forage := preload("res://scripts/services/forage_service.gd")
+const MaterialSources := preload("res://scripts/core/material_sources.gd")
 var content := Database.new()
 var startup: Dictionary
 var _alchemy: Alchemy
@@ -237,6 +238,10 @@ func rest() -> Dictionary:
 
 func destinations() -> Dictionary:
 	return _exploration.destinations(_state)
+
+
+func material_sources(item_id: String) -> Array[Dictionary]:
+	return MaterialSources.entries(content, _state, item_id)
 
 
 func enter_event(event_id: String = "") -> Dictionary:

@@ -171,7 +171,9 @@ func _shop(state: Dictionary) -> void:
 		var owned: int = state.inventory.get(item.id, 0)
 		_label(text, item.name + ("  ·  持有 %d" % owned if category in ["materials", "consumables"] else ""), 17, GOLD)
 		_label(text, item.description, 14, MUTED, true)
-		if item.unlock.type == "exploration":
+		if category == "materials" and not item.shop_available:
+			_label(text, _material_source(item.id), 14, MUTED, true)
+		elif item.unlock.type == "exploration":
 			_label(text, _equipment_source(item.id), 14, MUTED, true)
 		var quote := session.quote_shop(item.id, q)
 		var buy := _button(row, "购买 %d · %d 灵石" % [q, quote.result.total] if quote.ok else "不可购买", _buy.bind(item.id, q))
@@ -261,6 +263,13 @@ func _equipment_source(id: String) -> String:
 			if option.success_rate == 1 and id in [option.get("reward_flame", ""), option.get("reward_furnace", "")]:
 				sources.append("%d品 · %s / %s" % [event.unlock.required_rank, event.name, option.name])
 	return "稳定获取：" + "；".join(sources) if not sources.is_empty() else "获取途径请查看秘境与委托。"
+
+
+func _material_source(id: String) -> String:
+	var sources: Array[String] = []
+	for row in session.material_sources(id):
+		sources.append("%d品 · %s / %s：%d灵石 → %s×%d%s" % [row.required_rank, row.event_name, row.option_name, row.cost_stones, session.content.get_item(id).name, row.quantity, "（尚未开放）" if not row.unlocked else ""])
+	return "稳定获取：" + "；".join(sources) if not sources.is_empty() else "获取途径请查看委托与炼丹。"
 
 
 func _forage() -> void:

@@ -56,3 +56,11 @@ godot --headless --path . --script res://tests/test_runner.gd -- --ui-only
 ```
 
 资源专项包含非法内容、领取/交付、品质/数量、实例防重放、溢出回滚、独立 RNG、稳定稀有素材/异火、连续失败恢复和十万次分布抽样。UI 专项以真实场景和信号检查四页行为、焦点、重复点击、状态保护与窗口边界。完整命令及实际结果见 P5_REPORT.md。
+
+## P8 稀有素材稳定来源
+
+0.1.10新增月华泽（二品）、寒玉药园（四品）、雷鸣山隘（六品）、太古灵台（八品）。每处两项固定灵石费用的100%成功素材交换，允许反复获取，不采用装备试炼的一次性规则；未到境界和付不起费用时保持原子失败。
+
+`GameSession.material_sources(item_id) -> Array[Dictionary]` 在已有修行中纯查询，底层 MaterialSources.entries 接收有效内容与状态；每行含 event_id/event_name、option_id/option_name、required_rank、cost_stones、quantity、unlocked。只接受材料ID，未知/其他类别返回空数组；返回内容为副本，不收费、不入境、不改变RNG。它扫描无物品费用、无灵石返还/装备奖励、非一次性且成功率100%的事件，按当前世界变换后的实际数量说明稳定供给。cheapest 仅从已开放项按每份灵石成本选择最便宜来源，用于分析和可达性工具，不替玩家自动执行。
+
+坊市显示来源费用/数量与资格，丹方材料栏给出地点及境界；混有不可购材料的整批商店报价仍会失败，不跳过费用或自动兑换。实际获取继续调用 enter_event / resolve_event，并沿用防重放与存档事务边界。完整清单见 P8_CATALOG_REPORT.md。
