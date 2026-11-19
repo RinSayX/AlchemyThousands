@@ -12,6 +12,7 @@ static func calculate(recipe: Dictionary, rank: int, furnace: Dictionary, flame:
 	var bonuses := {"base": recipe.base_success_rate, "rank": minf(maxi(rank - recipe.required_rank, 0) * 0.02, 0.10), "furnace": 0.0, "flame": 0.0, "consumable": 0.0, "material": 0.0, "world": 0.0, "strategy": STRATEGIES[strategy]}
 	var refund := 0.0
 	var extra := 0.0
+	var research_bonus := 0
 	var transfers: Array[Dictionary] = []
 	var equipment := {"furnace": furnace, "flame": flame, "consumable": consumable}
 	for source in ["furnace", "flame", "consumable"]:
@@ -25,6 +26,7 @@ static func calculate(recipe: Dictionary, rank: int, furnace: Dictionary, flame:
 		bonuses[source] = item.success_bonus
 		refund += item.material_refund_bonus
 		extra += item.extra_pill_chance
+		if source == "consumable": research_bonus = item.get("research_bonus", 0)
 		for target in ["good", "superior", "legendary"]:
 			if item.quality_transfers.has(target):
 				var amount: float = item.quality_transfers[target]
@@ -58,7 +60,7 @@ static func calculate(recipe: Dictionary, rank: int, furnace: Dictionary, flame:
 	for quality in QUALITIES:
 		distribution[quality] = float(weights[quality]) / total
 	var success := clampf(raw, 0.05, 0.95)
-	return {"raw_success_rate": raw, "success_rate": success, "success_breakdown": bonuses, "quality_weights": weights, "quality_probabilities": distribution, "legendary_per_attempt": success * distribution.legendary, "quality_transfers": transfers, "material_refund_rate": clampf(refund, 0, 1), "extra_pill_chance": clampf(extra, 0, 1), "mutation_chance": 0.0}
+	return {"raw_success_rate": raw, "success_rate": success, "success_breakdown": bonuses, "quality_weights": weights, "quality_probabilities": distribution, "legendary_per_attempt": success * distribution.legendary, "quality_transfers": transfers, "material_refund_rate": clampf(refund, 0, 1), "extra_pill_chance": clampf(extra, 0, 1), "mutation_chance": 0.0, "research_bonus": research_bonus}
 
 
 static func transfer_up(weights: Dictionary, target: String, amount: float) -> float:

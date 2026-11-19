@@ -66,6 +66,8 @@ func _normalize_item(category: String, source: Dictionary) -> Dictionary:
 	if category == "recipes":
 		for id in item.materials:
 			item.materials[id] = int(item.materials[id])
+	if category == "consumables" and item.has("research_bonus"):
+		item.research_bonus = int(item.research_bonus)
 	if category == "quests":
 		_normalize_quantities(item.reward_items)
 	if category == "exploration_events":

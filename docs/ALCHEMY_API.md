@@ -98,3 +98,7 @@ godot --headless --path . --script res://tools/alchemy_simulator.gd -- res://doc
 ## P8首轮调优
 
 冲品天赋仅增加3/4/5点极品转移，不再额外降低成功率；rush策略自身−15个百分点不变。赤炎炉只对火丹增加3个百分点成功率并转移8点上品权重，仍须持有。实际预览与结算共用现有规则，未新增隐藏保底或改动5%～95%限幅。正式字段与候选证据见P8_TUNING_REPORT.md。旧炉次保留原回执，旧档未来炉次使用新内容，跨数值版本不承诺结果一致。
+
+## P8 新消耗品补充
+
+消耗品可有整数research_bonus（0～5，缺省0）；calculate快照披露实际激活值，AlchemyService将其加入research_rewards.base。研究香+2，成功失败均生效一次；new_quality仍独立，世界/传承按原规则叠加，多丹不重复发成长。缺物品、重复action和奖励溢出均回滚。分类extra/research不改变setup形状，每炉仍只能一个consumable_id，数组拒绝。双生符与九龙概率相加为45%时也只抽一次多丹判定，最多两枚同品质丹。界面公开额外成丹概率及基础/首次发现心得。

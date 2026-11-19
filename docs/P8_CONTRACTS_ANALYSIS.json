@@ -1,0 +1,6069 @@
+{
+	"baseline": "da25c8b",
+	"content_sha256": "8c4217b8e3f59af9d6c6a7b0e7f66657ce62f4b4f21f22a4b8203d712bb1da9f",
+	"counts": {
+		"consumables": 8,
+		"exploration_events": 20,
+		"flames": 5,
+		"furnaces": 6,
+		"inheritances": 9,
+		"materials": 25,
+		"quests": 20,
+		"ranks": 11,
+		"recipes": 25,
+		"talents": 9,
+		"world_modifiers": 6
+	},
+	"economy_pairs": [
+		{
+			"consumable": "consumable_shuangsheng",
+			"expected_net_delta": 21.867125,
+			"style": "stable",
+			"with": {
+				"conditional_quality_counts": {
+					"common": 51708,
+					"good": 25433,
+					"legendary": 0,
+					"superior": 7636
+				},
+				"eligible_probability": 0.3315,
+				"expected_attempts_for_exam_pill": 3.01659125188537,
+				"expected_net": 115.785625,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 84.0,
+				"loss_frequency": 0.15223,
+				"mean_tolerance": 14.9477470795933,
+				"mean_within_bound": true,
+				"net_p10": -81.0,
+				"net_p50": 62.0,
+				"net_p90": 281.0,
+				"no_exam_pill_after_8": 0.0398851557950202,
+				"observed_eligible": 0.33069,
+				"observed_net": 115.49484,
+				"observed_success": 0.84777,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.61,
+					"good": 0.3,
+					"legendary": 0.0,
+					"superior": 0.09
+				},
+				"rank": 2,
+				"rare_outings_per_attempt": 1.0,
+				"recipe": "recipe_gushen",
+				"sample_sd": 137.169278825014,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "consumable_shuangsheng",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "stable"
+				},
+				"style": "stable",
+				"success_probability": 0.85
+			},
+			"without": {
+				"conditional_quality_counts": {
+					"common": 51712,
+					"good": 25546,
+					"legendary": 0,
+					"superior": 7737
+				},
+				"eligible_probability": 0.3315,
+				"expected_attempts_for_exam_pill": 3.01659125188537,
+				"expected_net": 93.9185,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 66.0,
+				"loss_frequency": 0.15005,
+				"mean_tolerance": 7.48664939200144,
+				"mean_within_bound": true,
+				"net_p10": -63.0,
+				"net_p50": 80.0,
+				"net_p90": 153.0,
+				"no_exam_pill_after_8": 0.0398851557950202,
+				"observed_eligible": 0.33283,
+				"observed_net": 94.13546,
+				"observed_success": 0.84995,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.61,
+					"good": 0.3,
+					"legendary": 0.0,
+					"superior": 0.09
+				},
+				"rank": 2,
+				"rare_outings_per_attempt": 1.0,
+				"recipe": "recipe_gushen",
+				"sample_sd": 89.1103256115048,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "stable"
+				},
+				"style": "stable",
+				"success_probability": 0.85
+			},
+			"worlds": []
+		},
+		{
+			"consumable": "consumable_shuangsheng",
+			"expected_net_delta": 16.7115,
+			"style": "rush",
+			"with": {
+				"conditional_quality_counts": {
+					"common": 33087,
+					"good": 18013,
+					"legendary": 3563,
+					"superior": 5466
+				},
+				"eligible_probability": 0.27,
+				"expected_attempts_for_exam_pill": 3.7037037037037,
+				"expected_net": 90.7575,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 84.0,
+				"loss_frequency": 0.39871,
+				"mean_tolerance": 14.9477470795933,
+				"mean_within_bound": true,
+				"net_p10": -81.0,
+				"net_p50": 62.0,
+				"net_p90": 281.0,
+				"no_exam_pill_after_8": 0.0806460091894081,
+				"observed_eligible": 0.27042,
+				"observed_net": 90.48353,
+				"observed_success": 0.60129,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.55,
+					"good": 0.3,
+					"legendary": 0.06,
+					"superior": 0.09
+				},
+				"rank": 2,
+				"rare_outings_per_attempt": 1.0,
+				"recipe": "recipe_gushen",
+				"sample_sd": 238.922737027557,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "consumable_shuangsheng",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "rush"
+				},
+				"style": "rush",
+				"success_probability": 0.6
+			},
+			"without": {
+				"conditional_quality_counts": {
+					"common": 32895,
+					"good": 18021,
+					"legendary": 3614,
+					"superior": 5355
+				},
+				"eligible_probability": 0.27,
+				"expected_attempts_for_exam_pill": 3.7037037037037,
+				"expected_net": 74.046,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 66.0,
+				"loss_frequency": 0.40115,
+				"mean_tolerance": 7.48664939200144,
+				"mean_within_bound": true,
+				"net_p10": -63.0,
+				"net_p50": 80.0,
+				"net_p90": 153.0,
+				"no_exam_pill_after_8": 0.0806460091894081,
+				"observed_eligible": 0.2699,
+				"observed_net": 73.90053,
+				"observed_success": 0.59885,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.55,
+					"good": 0.3,
+					"legendary": 0.06,
+					"superior": 0.09
+				},
+				"rank": 2,
+				"rare_outings_per_attempt": 1.0,
+				"recipe": "recipe_gushen",
+				"sample_sd": 175.936265322756,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "rush"
+				},
+				"style": "rush",
+				"success_probability": 0.6
+			},
+			"worlds": []
+		},
+		{
+			"consumable": "consumable_shuangsheng",
+			"expected_net_delta": 21.867125,
+			"style": "recycle",
+			"with": {
+				"conditional_quality_counts": {
+					"common": 51979,
+					"good": 25396,
+					"legendary": 0,
+					"superior": 7491
+				},
+				"eligible_probability": 0.3315,
+				"expected_attempts_for_exam_pill": 3.01659125188537,
+				"expected_net": 115.785625,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 84.0,
+				"loss_frequency": 0.15134,
+				"mean_tolerance": 14.9477470795933,
+				"mean_within_bound": true,
+				"net_p10": -81.0,
+				"net_p50": 62.0,
+				"net_p90": 281.0,
+				"no_exam_pill_after_8": 0.0398851557950202,
+				"observed_eligible": 0.32887,
+				"observed_net": 115.02716,
+				"observed_success": 0.84866,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.61,
+					"good": 0.3,
+					"legendary": 0.0,
+					"superior": 0.09
+				},
+				"rank": 2,
+				"rare_outings_per_attempt": 1.0,
+				"recipe": "recipe_gushen",
+				"sample_sd": 135.939282484256,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "consumable_shuangsheng",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "stable"
+				},
+				"style": "recycle",
+				"success_probability": 0.85
+			},
+			"without": {
+				"conditional_quality_counts": {
+					"common": 52061,
+					"good": 25346,
+					"legendary": 0,
+					"superior": 7463
+				},
+				"eligible_probability": 0.3315,
+				"expected_attempts_for_exam_pill": 3.01659125188537,
+				"expected_net": 93.9185,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 66.0,
+				"loss_frequency": 0.1513,
+				"mean_tolerance": 7.48664939200144,
+				"mean_within_bound": true,
+				"net_p10": -63.0,
+				"net_p50": 80.0,
+				"net_p90": 153.0,
+				"no_exam_pill_after_8": 0.0398851557950202,
+				"observed_eligible": 0.32809,
+				"observed_net": 93.21065,
+				"observed_success": 0.8487,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.61,
+					"good": 0.3,
+					"legendary": 0.0,
+					"superior": 0.09
+				},
+				"rank": 2,
+				"rare_outings_per_attempt": 1.0,
+				"recipe": "recipe_gushen",
+				"sample_sd": 88.5970100882502,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "stable"
+				},
+				"style": "recycle",
+				"success_probability": 0.85
+			},
+			"worlds": []
+		},
+		{
+			"consumable": "consumable_shuangsheng",
+			"expected_net_delta": 21.867125,
+			"style": "stable",
+			"with": {
+				"conditional_quality_counts": {
+					"common": 51776,
+					"good": 25579,
+					"legendary": 0,
+					"superior": 7648
+				},
+				"eligible_probability": 0.3315,
+				"expected_attempts_for_exam_pill": 3.01659125188537,
+				"expected_net": 102.785625,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 97.0,
+				"loss_frequency": 0.14997,
+				"mean_tolerance": 14.9477470795933,
+				"mean_within_bound": true,
+				"net_p10": -94.0,
+				"net_p50": 49.0,
+				"net_p90": 268.0,
+				"no_exam_pill_after_8": 0.0398851557950202,
+				"observed_eligible": 0.33227,
+				"observed_net": 102.39827,
+				"observed_success": 0.85003,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.61,
+					"good": 0.3,
+					"legendary": 0.0,
+					"superior": 0.09
+				},
+				"rank": 2,
+				"rare_outings_per_attempt": 1.0,
+				"recipe": "recipe_gushen",
+				"sample_sd": 135.897947339197,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "consumable_shuangsheng",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "stable"
+				},
+				"style": "stable",
+				"success_probability": 0.85
+			},
+			"without": {
+				"conditional_quality_counts": {
+					"common": 51993,
+					"good": 25508,
+					"legendary": 0,
+					"superior": 7614
+				},
+				"eligible_probability": 0.3315,
+				"expected_attempts_for_exam_pill": 3.01659125188537,
+				"expected_net": 80.9185,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 79.0,
+				"loss_frequency": 0.14885,
+				"mean_tolerance": 7.48664939200144,
+				"mean_within_bound": true,
+				"net_p10": -76.0,
+				"net_p50": 67.0,
+				"net_p90": 140.0,
+				"no_exam_pill_after_8": 0.0398851557950202,
+				"observed_eligible": 0.33122,
+				"observed_net": 81.00995,
+				"observed_success": 0.85115,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.61,
+					"good": 0.3,
+					"legendary": 0.0,
+					"superior": 0.09
+				},
+				"rank": 2,
+				"rare_outings_per_attempt": 1.0,
+				"recipe": "recipe_gushen",
+				"sample_sd": 88.648896276251,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "stable"
+				},
+				"style": "stable",
+				"success_probability": 0.85
+			},
+			"worlds": [
+				"world_kucao",
+				"world_yiji"
+			]
+		},
+		{
+			"consumable": "consumable_shuangsheng",
+			"expected_net_delta": 16.7115,
+			"style": "rush",
+			"with": {
+				"conditional_quality_counts": {
+					"common": 32907,
+					"good": 17776,
+					"legendary": 3673,
+					"superior": 5436
+				},
+				"eligible_probability": 0.27,
+				"expected_attempts_for_exam_pill": 3.7037037037037,
+				"expected_net": 77.7575,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 97.0,
+				"loss_frequency": 0.40208,
+				"mean_tolerance": 14.9477470795933,
+				"mean_within_bound": true,
+				"net_p10": -94.0,
+				"net_p50": 49.0,
+				"net_p90": 268.0,
+				"no_exam_pill_after_8": 0.0806460091894081,
+				"observed_eligible": 0.26885,
+				"observed_net": 77.64767,
+				"observed_success": 0.59792,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.55,
+					"good": 0.3,
+					"legendary": 0.06,
+					"superior": 0.09
+				},
+				"rank": 2,
+				"rare_outings_per_attempt": 1.0,
+				"recipe": "recipe_gushen",
+				"sample_sd": 241.209160177575,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "consumable_shuangsheng",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "rush"
+				},
+				"style": "rush",
+				"success_probability": 0.6
+			},
+			"without": {
+				"conditional_quality_counts": {
+					"common": 32926,
+					"good": 17894,
+					"legendary": 3734,
+					"superior": 5361
+				},
+				"eligible_probability": 0.27,
+				"expected_attempts_for_exam_pill": 3.7037037037037,
+				"expected_net": 61.046,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 79.0,
+				"loss_frequency": 0.40085,
+				"mean_tolerance": 7.48664939200144,
+				"mean_within_bound": true,
+				"net_p10": -76.0,
+				"net_p50": 67.0,
+				"net_p90": 140.0,
+				"no_exam_pill_after_8": 0.0806460091894081,
+				"observed_eligible": 0.26989,
+				"observed_net": 61.73986,
+				"observed_success": 0.59915,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.55,
+					"good": 0.3,
+					"legendary": 0.06,
+					"superior": 0.09
+				},
+				"rank": 2,
+				"rare_outings_per_attempt": 1.0,
+				"recipe": "recipe_gushen",
+				"sample_sd": 177.742957799122,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "rush"
+				},
+				"style": "rush",
+				"success_probability": 0.6
+			},
+			"worlds": [
+				"world_kucao",
+				"world_yiji"
+			]
+		},
+		{
+			"consumable": "consumable_shuangsheng",
+			"expected_net_delta": 21.867125,
+			"style": "recycle",
+			"with": {
+				"conditional_quality_counts": {
+					"common": 51764,
+					"good": 25364,
+					"legendary": 0,
+					"superior": 7657
+				},
+				"eligible_probability": 0.3315,
+				"expected_attempts_for_exam_pill": 3.01659125188537,
+				"expected_net": 102.785625,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 97.0,
+				"loss_frequency": 0.15215,
+				"mean_tolerance": 14.9477470795933,
+				"mean_within_bound": true,
+				"net_p10": -94.0,
+				"net_p50": 49.0,
+				"net_p90": 268.0,
+				"no_exam_pill_after_8": 0.0398851557950202,
+				"observed_eligible": 0.33021,
+				"observed_net": 102.3705,
+				"observed_success": 0.84785,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.61,
+					"good": 0.3,
+					"legendary": 0.0,
+					"superior": 0.09
+				},
+				"rank": 2,
+				"rare_outings_per_attempt": 1.0,
+				"recipe": "recipe_gushen",
+				"sample_sd": 136.822036272488,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "consumable_shuangsheng",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "stable"
+				},
+				"style": "recycle",
+				"success_probability": 0.85
+			},
+			"without": {
+				"conditional_quality_counts": {
+					"common": 51725,
+					"good": 25531,
+					"legendary": 0,
+					"superior": 7826
+				},
+				"eligible_probability": 0.3315,
+				"expected_attempts_for_exam_pill": 3.01659125188537,
+				"expected_net": 80.9185,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 79.0,
+				"loss_frequency": 0.14918,
+				"mean_tolerance": 7.48664939200144,
+				"mean_within_bound": true,
+				"net_p10": -76.0,
+				"net_p50": 67.0,
+				"net_p90": 140.0,
+				"no_exam_pill_after_8": 0.0398851557950202,
+				"observed_eligible": 0.33357,
+				"observed_net": 81.44383,
+				"observed_success": 0.85082,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.61,
+					"good": 0.3,
+					"legendary": 0.0,
+					"superior": 0.09
+				},
+				"rank": 2,
+				"rare_outings_per_attempt": 1.0,
+				"recipe": "recipe_gushen",
+				"sample_sd": 89.1960337959659,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "stable"
+				},
+				"style": "recycle",
+				"success_probability": 0.85
+			},
+			"worlds": [
+				"world_kucao",
+				"world_yiji"
+			]
+		},
+		{
+			"consumable": "consumable_shuangsheng",
+			"expected_net_delta": 19.522,
+			"style": "stable",
+			"with": {
+				"conditional_quality_counts": {
+					"common": 48715,
+					"good": 23952,
+					"legendary": 0,
+					"superior": 7272
+				},
+				"eligible_probability": 0.312,
+				"expected_attempts_for_exam_pill": 3.20512820512821,
+				"expected_net": 104.21,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 84.0,
+				"loss_frequency": 0.20061,
+				"mean_tolerance": 14.9477470795933,
+				"mean_within_bound": true,
+				"net_p10": -81.0,
+				"net_p50": 62.0,
+				"net_p90": 281.0,
+				"no_exam_pill_after_8": 0.0502004379413944,
+				"observed_eligible": 0.31224,
+				"observed_net": 103.91326,
+				"observed_success": 0.79939,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.61,
+					"good": 0.3,
+					"legendary": 0.0,
+					"superior": 0.09
+				},
+				"rank": 2,
+				"rare_outings_per_attempt": 1.0,
+				"recipe": "recipe_gushen",
+				"sample_sd": 140.036733952818,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "consumable_shuangsheng",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "stable"
+				},
+				"style": "stable",
+				"success_probability": 0.8
+			},
+			"without": {
+				"conditional_quality_counts": {
+					"common": 48843,
+					"good": 23825,
+					"legendary": 0,
+					"superior": 7124
+				},
+				"eligible_probability": 0.312,
+				"expected_attempts_for_exam_pill": 3.20512820512821,
+				"expected_net": 84.688,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 66.0,
+				"loss_frequency": 0.20208,
+				"mean_tolerance": 7.48664939200144,
+				"mean_within_bound": true,
+				"net_p10": -63.0,
+				"net_p50": 80.0,
+				"net_p90": 153.0,
+				"no_exam_pill_after_8": 0.0502004379413944,
+				"observed_eligible": 0.30949,
+				"observed_net": 84.09637,
+				"observed_success": 0.79792,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.61,
+					"good": 0.3,
+					"legendary": 0.0,
+					"superior": 0.09
+				},
+				"rank": 2,
+				"rare_outings_per_attempt": 1.0,
+				"recipe": "recipe_gushen",
+				"sample_sd": 93.8185992371614,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "stable"
+				},
+				"style": "stable",
+				"success_probability": 0.8
+			},
+			"worlds": [
+				"world_yiji",
+				"world_jinhuo"
+			]
+		},
+		{
+			"consumable": "consumable_shuangsheng",
+			"expected_net_delta": 13.818875,
+			"style": "rush",
+			"with": {
+				"conditional_quality_counts": {
+					"common": 30164,
+					"good": 16468,
+					"legendary": 3279,
+					"superior": 4877
+				},
+				"eligible_probability": 0.2475,
+				"expected_attempts_for_exam_pill": 4.04040404040404,
+				"expected_net": 76.444375,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 84.0,
+				"loss_frequency": 0.45212,
+				"mean_tolerance": 14.9477470795933,
+				"mean_within_bound": true,
+				"net_p10": -81.0,
+				"net_p50": 62.0,
+				"net_p90": 281.0,
+				"no_exam_pill_after_8": 0.102813947522758,
+				"observed_eligible": 0.24624,
+				"observed_net": 75.50283,
+				"observed_success": 0.54788,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.55,
+					"good": 0.3,
+					"legendary": 0.06,
+					"superior": 0.09
+				},
+				"rank": 2,
+				"rare_outings_per_attempt": 1.0,
+				"recipe": "recipe_gushen",
+				"sample_sd": 234.23695172195,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "consumable_shuangsheng",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "rush"
+				},
+				"style": "rush",
+				"success_probability": 0.55
+			},
+			"without": {
+				"conditional_quality_counts": {
+					"common": 30163,
+					"good": 16331,
+					"legendary": 3384,
+					"superior": 4894
+				},
+				"eligible_probability": 0.2475,
+				"expected_attempts_for_exam_pill": 4.04040404040404,
+				"expected_net": 62.6255,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 66.0,
+				"loss_frequency": 0.45228,
+				"mean_tolerance": 7.48664939200144,
+				"mean_within_bound": true,
+				"net_p10": -63.0,
+				"net_p50": 80.0,
+				"net_p90": 153.0,
+				"no_exam_pill_after_8": 0.102813947522758,
+				"observed_eligible": 0.24609,
+				"observed_net": 62.66665,
+				"observed_success": 0.54772,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.55,
+					"good": 0.3,
+					"legendary": 0.06,
+					"superior": 0.09
+				},
+				"rank": 2,
+				"rare_outings_per_attempt": 1.0,
+				"recipe": "recipe_gushen",
+				"sample_sd": 173.778753096509,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "rush"
+				},
+				"style": "rush",
+				"success_probability": 0.55
+			},
+			"worlds": [
+				"world_yiji",
+				"world_jinhuo"
+			]
+		},
+		{
+			"consumable": "consumable_shuangsheng",
+			"expected_net_delta": 19.522,
+			"style": "recycle",
+			"with": {
+				"conditional_quality_counts": {
+					"common": 48783,
+					"good": 23900,
+					"legendary": 0,
+					"superior": 7126
+				},
+				"eligible_probability": 0.312,
+				"expected_attempts_for_exam_pill": 3.20512820512821,
+				"expected_net": 104.21,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 84.0,
+				"loss_frequency": 0.20191,
+				"mean_tolerance": 14.9477470795933,
+				"mean_within_bound": true,
+				"net_p10": -81.0,
+				"net_p50": 62.0,
+				"net_p90": 281.0,
+				"no_exam_pill_after_8": 0.0502004379413944,
+				"observed_eligible": 0.31026,
+				"observed_net": 103.43828,
+				"observed_success": 0.79809,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.61,
+					"good": 0.3,
+					"legendary": 0.0,
+					"superior": 0.09
+				},
+				"rank": 2,
+				"rare_outings_per_attempt": 1.0,
+				"recipe": "recipe_gushen",
+				"sample_sd": 140.011191804947,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "consumable_shuangsheng",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "stable"
+				},
+				"style": "recycle",
+				"success_probability": 0.8
+			},
+			"without": {
+				"conditional_quality_counts": {
+					"common": 48908,
+					"good": 23865,
+					"legendary": 0,
+					"superior": 7198
+				},
+				"eligible_probability": 0.312,
+				"expected_attempts_for_exam_pill": 3.20512820512821,
+				"expected_net": 84.688,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 66.0,
+				"loss_frequency": 0.20029,
+				"mean_tolerance": 7.48664939200144,
+				"mean_within_bound": true,
+				"net_p10": -63.0,
+				"net_p50": 80.0,
+				"net_p90": 153.0,
+				"no_exam_pill_after_8": 0.0502004379413944,
+				"observed_eligible": 0.31063,
+				"observed_net": 84.5436,
+				"observed_success": 0.79971,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.61,
+					"good": 0.3,
+					"legendary": 0.0,
+					"superior": 0.09
+				},
+				"rank": 2,
+				"rare_outings_per_attempt": 1.0,
+				"recipe": "recipe_gushen",
+				"sample_sd": 93.8034356462491,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "stable"
+				},
+				"style": "recycle",
+				"success_probability": 0.8
+			},
+			"worlds": [
+				"world_yiji",
+				"world_jinhuo"
+			]
+		},
+		{
+			"consumable": "consumable_jiuzhuan",
+			"expected_net_delta": -48.0,
+			"style": "stable",
+			"with": {
+				"conditional_quality_counts": {
+					"common": 43802,
+					"good": 11055,
+					"legendary": 646,
+					"superior": 6201
+				},
+				"eligible_probability": 0.1798,
+				"expected_attempts_for_exam_pill": 5.56173526140156,
+				"expected_net": 233.002,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 320.0,
+				"loss_frequency": 0.38296,
+				"mean_tolerance": 35.286903789604,
+				"mean_within_bound": true,
+				"net_p10": -317.0,
+				"net_p50": 370.0,
+				"net_p90": 715.0,
+				"no_exam_pill_after_8": 0.20481328327202,
+				"observed_eligible": 0.17902,
+				"observed_net": 231.51358,
+				"observed_success": 0.61704,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.71,
+					"good": 0.18,
+					"legendary": 0.01,
+					"superior": 0.1
+				},
+				"rank": 6,
+				"rare_outings_per_attempt": 3.0,
+				"recipe": "recipe_leijie",
+				"sample_sd": 563.951935643086,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "consumable_jiuzhuan",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "stable"
+				},
+				"style": "stable",
+				"success_probability": 0.62
+			},
+			"without": {
+				"conditional_quality_counts": {
+					"common": 43802,
+					"good": 11055,
+					"legendary": 646,
+					"superior": 6201
+				},
+				"eligible_probability": 0.1798,
+				"expected_attempts_for_exam_pill": 5.56173526140156,
+				"expected_net": 281.002,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 272.0,
+				"loss_frequency": 0.38296,
+				"mean_tolerance": 35.286903789604,
+				"mean_within_bound": true,
+				"net_p10": -269.0,
+				"net_p50": 418.0,
+				"net_p90": 763.0,
+				"no_exam_pill_after_8": 0.20481328327202,
+				"observed_eligible": 0.17902,
+				"observed_net": 279.51358,
+				"observed_success": 0.61704,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.71,
+					"good": 0.18,
+					"legendary": 0.01,
+					"superior": 0.1
+				},
+				"rank": 6,
+				"rare_outings_per_attempt": 3.0,
+				"recipe": "recipe_leijie",
+				"sample_sd": 563.951935643086,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "stable"
+				},
+				"style": "stable",
+				"success_probability": 0.62
+			},
+			"worlds": []
+		},
+		{
+			"consumable": "consumable_jiuzhuan",
+			"expected_net_delta": 22.3799999999999,
+			"style": "rush",
+			"with": {
+				"conditional_quality_counts": {
+					"common": 3496,
+					"good": 3011,
+					"legendary": 8733,
+					"superior": 1658
+				},
+				"eligible_probability": 0.1343,
+				"expected_attempts_for_exam_pill": 7.44601638123604,
+				"expected_net": 127.057,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 320.0,
+				"loss_frequency": 0.83102,
+				"mean_tolerance": 35.286903789604,
+				"mean_within_bound": true,
+				"net_p10": -317.0,
+				"net_p50": -317.0,
+				"net_p90": 1405.0,
+				"no_exam_pill_after_8": 0.315456398047664,
+				"observed_eligible": 0.13402,
+				"observed_net": 127.92601,
+				"observed_success": 0.16898,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.21,
+					"good": 0.18,
+					"legendary": 0.51,
+					"superior": 0.1
+				},
+				"rank": 6,
+				"rare_outings_per_attempt": 3.0,
+				"recipe": "recipe_leijie",
+				"sample_sd": 1180.84966866891,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "consumable_jiuzhuan",
+					"flame_id": "flame_zixiao",
+					"furnace_id": "furnace_zixiao",
+					"strategy": "rush"
+				},
+				"style": "rush",
+				"success_probability": 0.17
+			},
+			"without": {
+				"conditional_quality_counts": {
+					"common": 5541,
+					"good": 2956,
+					"legendary": 6692,
+					"superior": 1709
+				},
+				"eligible_probability": 0.1139,
+				"expected_attempts_for_exam_pill": 8.77963125548727,
+				"expected_net": 104.677,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 272.0,
+				"loss_frequency": 0.83102,
+				"mean_tolerance": 35.286903789604,
+				"mean_within_bound": true,
+				"net_p10": -269.0,
+				"net_p50": -269.0,
+				"net_p90": 763.0,
+				"no_exam_pill_after_8": 0.380068513651383,
+				"observed_eligible": 0.11357,
+				"observed_net": 105.84961,
+				"observed_success": 0.16898,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.33,
+					"good": 0.18,
+					"legendary": 0.39,
+					"superior": 0.1
+				},
+				"rank": 6,
+				"rare_outings_per_attempt": 3.0,
+				"recipe": "recipe_leijie",
+				"sample_sd": 1055.04441927951,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "",
+					"flame_id": "flame_zixiao",
+					"furnace_id": "furnace_zixiao",
+					"strategy": "rush"
+				},
+				"style": "rush",
+				"success_probability": 0.17
+			},
+			"worlds": []
+		},
+		{
+			"consumable": "consumable_jiuzhuan",
+			"expected_net_delta": -48.0,
+			"style": "recycle",
+			"with": {
+				"conditional_quality_counts": {
+					"common": 34541,
+					"good": 8847,
+					"legendary": 453,
+					"superior": 4943
+				},
+				"eligible_probability": 0.1421,
+				"expected_attempts_for_exam_pill": 7.03729767769176,
+				"expected_net": 170.719,
+				"failure_material_value": 104.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 320.0,
+				"loss_frequency": 0.51216,
+				"mean_tolerance": 36.1726962091355,
+				"mean_within_bound": true,
+				"net_p10": -213.0,
+				"net_p50": -213.0,
+				"net_p90": 715.0,
+				"no_exam_pill_after_8": 0.293422452427783,
+				"observed_eligible": 0.14243,
+				"observed_net": 168.72142,
+				"observed_success": 0.48784,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.71,
+					"good": 0.18,
+					"legendary": 0.01,
+					"superior": 0.1
+				},
+				"rank": 6,
+				"rare_outings_per_attempt": 2.49,
+				"recipe": "recipe_leijie",
+				"sample_sd": 500.962675229586,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "consumable_jiuzhuan",
+					"flame_id": "flame_hansui",
+					"furnace_id": "furnace_xuanbing",
+					"strategy": "stable"
+				},
+				"style": "recycle",
+				"success_probability": 0.49
+			},
+			"without": {
+				"conditional_quality_counts": {
+					"common": 34541,
+					"good": 8847,
+					"legendary": 453,
+					"superior": 4943
+				},
+				"eligible_probability": 0.1421,
+				"expected_attempts_for_exam_pill": 7.03729767769176,
+				"expected_net": 218.719,
+				"failure_material_value": 104.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 272.0,
+				"loss_frequency": 0.51216,
+				"mean_tolerance": 36.1726962091355,
+				"mean_within_bound": true,
+				"net_p10": -165.0,
+				"net_p50": -165.0,
+				"net_p90": 763.0,
+				"no_exam_pill_after_8": 0.293422452427783,
+				"observed_eligible": 0.14243,
+				"observed_net": 216.72142,
+				"observed_success": 0.48784,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.71,
+					"good": 0.18,
+					"legendary": 0.01,
+					"superior": 0.1
+				},
+				"rank": 6,
+				"rare_outings_per_attempt": 2.49,
+				"recipe": "recipe_leijie",
+				"sample_sd": 500.962675229586,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "",
+					"flame_id": "flame_hansui",
+					"furnace_id": "furnace_xuanbing",
+					"strategy": "stable"
+				},
+				"style": "recycle",
+				"success_probability": 0.49
+			},
+			"worlds": []
+		},
+		{
+			"consumable": "consumable_jiuzhuan",
+			"expected_net_delta": -48.0,
+			"style": "stable",
+			"with": {
+				"conditional_quality_counts": {
+					"common": 43929,
+					"good": 11209,
+					"legendary": 619,
+					"superior": 6252
+				},
+				"eligible_probability": 0.1798,
+				"expected_attempts_for_exam_pill": 5.56173526140156,
+				"expected_net": 211.002,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 342.0,
+				"loss_frequency": 0.37991,
+				"mean_tolerance": 35.286903789604,
+				"mean_within_bound": true,
+				"net_p10": -339.0,
+				"net_p50": 348.0,
+				"net_p90": 693.0,
+				"no_exam_pill_after_8": 0.20481328327202,
+				"observed_eligible": 0.1808,
+				"observed_net": 211.73658,
+				"observed_success": 0.62009,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.71,
+					"good": 0.18,
+					"legendary": 0.01,
+					"superior": 0.1
+				},
+				"rank": 6,
+				"rare_outings_per_attempt": 3.0,
+				"recipe": "recipe_leijie",
+				"sample_sd": 561.007127771033,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "consumable_jiuzhuan",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "stable"
+				},
+				"style": "stable",
+				"success_probability": 0.62
+			},
+			"without": {
+				"conditional_quality_counts": {
+					"common": 43929,
+					"good": 11209,
+					"legendary": 619,
+					"superior": 6252
+				},
+				"eligible_probability": 0.1798,
+				"expected_attempts_for_exam_pill": 5.56173526140156,
+				"expected_net": 259.002,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 294.0,
+				"loss_frequency": 0.37991,
+				"mean_tolerance": 35.286903789604,
+				"mean_within_bound": true,
+				"net_p10": -291.0,
+				"net_p50": 396.0,
+				"net_p90": 741.0,
+				"no_exam_pill_after_8": 0.20481328327202,
+				"observed_eligible": 0.1808,
+				"observed_net": 259.73658,
+				"observed_success": 0.62009,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.71,
+					"good": 0.18,
+					"legendary": 0.01,
+					"superior": 0.1
+				},
+				"rank": 6,
+				"rare_outings_per_attempt": 3.0,
+				"recipe": "recipe_leijie",
+				"sample_sd": 561.007127771033,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "stable"
+				},
+				"style": "stable",
+				"success_probability": 0.62
+			},
+			"worlds": [
+				"world_kucao",
+				"world_yiji"
+			]
+		},
+		{
+			"consumable": "consumable_jiuzhuan",
+			"expected_net_delta": 22.3799999999999,
+			"style": "rush",
+			"with": {
+				"conditional_quality_counts": {
+					"common": 3716,
+					"good": 3024,
+					"legendary": 8532,
+					"superior": 1676
+				},
+				"eligible_probability": 0.1343,
+				"expected_attempts_for_exam_pill": 7.44601638123604,
+				"expected_net": 105.057,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 342.0,
+				"loss_frequency": 0.83052,
+				"mean_tolerance": 35.286903789604,
+				"mean_within_bound": true,
+				"net_p10": -339.0,
+				"net_p50": -339.0,
+				"net_p90": 1383.0,
+				"no_exam_pill_after_8": 0.315456398047664,
+				"observed_eligible": 0.13232,
+				"observed_net": 99.56616,
+				"observed_success": 0.16948,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.21,
+					"good": 0.18,
+					"legendary": 0.51,
+					"superior": 0.1
+				},
+				"rank": 6,
+				"rare_outings_per_attempt": 3.0,
+				"recipe": "recipe_leijie",
+				"sample_sd": 1169.3308633671,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "consumable_jiuzhuan",
+					"flame_id": "flame_zixiao",
+					"furnace_id": "furnace_zixiao",
+					"strategy": "rush"
+				},
+				"style": "rush",
+				"success_probability": 0.17
+			},
+			"without": {
+				"conditional_quality_counts": {
+					"common": 5733,
+					"good": 3007,
+					"legendary": 6507,
+					"superior": 1701
+				},
+				"eligible_probability": 0.1139,
+				"expected_attempts_for_exam_pill": 8.77963125548727,
+				"expected_net": 82.6770000000002,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 294.0,
+				"loss_frequency": 0.83052,
+				"mean_tolerance": 35.286903789604,
+				"mean_within_bound": true,
+				"net_p10": -291.0,
+				"net_p50": -291.0,
+				"net_p90": 741.0,
+				"no_exam_pill_after_8": 0.380068513651383,
+				"observed_eligible": 0.11215,
+				"observed_net": 77.90376,
+				"observed_success": 0.16948,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.33,
+					"good": 0.18,
+					"legendary": 0.39,
+					"superior": 0.1
+				},
+				"rank": 6,
+				"rare_outings_per_attempt": 3.0,
+				"recipe": "recipe_leijie",
+				"sample_sd": 1042.63645149106,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "",
+					"flame_id": "flame_zixiao",
+					"furnace_id": "furnace_zixiao",
+					"strategy": "rush"
+				},
+				"style": "rush",
+				"success_probability": 0.17
+			},
+			"worlds": [
+				"world_kucao",
+				"world_yiji"
+			]
+		},
+		{
+			"consumable": "consumable_jiuzhuan",
+			"expected_net_delta": -48.0,
+			"style": "recycle",
+			"with": {
+				"conditional_quality_counts": {
+					"common": 34706,
+					"good": 8935,
+					"legendary": 480,
+					"superior": 4880
+				},
+				"eligible_probability": 0.1421,
+				"expected_attempts_for_exam_pill": 7.03729767769176,
+				"expected_net": 154.329,
+				"failure_material_value": 115.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 342.0,
+				"loss_frequency": 0.50999,
+				"mean_tolerance": 36.2663857919705,
+				"mean_within_bound": true,
+				"net_p10": -224.0,
+				"net_p50": -224.0,
+				"net_p90": 693.0,
+				"no_exam_pill_after_8": 0.293422452427783,
+				"observed_eligible": 0.14295,
+				"observed_net": 154.17947,
+				"observed_success": 0.49001,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.71,
+					"good": 0.18,
+					"legendary": 0.01,
+					"superior": 0.1
+				},
+				"rank": 6,
+				"rare_outings_per_attempt": 2.49,
+				"recipe": "recipe_leijie",
+				"sample_sd": 499.336393687181,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "consumable_jiuzhuan",
+					"flame_id": "flame_hansui",
+					"furnace_id": "furnace_xuanbing",
+					"strategy": "stable"
+				},
+				"style": "recycle",
+				"success_probability": 0.49
+			},
+			"without": {
+				"conditional_quality_counts": {
+					"common": 34706,
+					"good": 8935,
+					"legendary": 480,
+					"superior": 4880
+				},
+				"eligible_probability": 0.1421,
+				"expected_attempts_for_exam_pill": 7.03729767769176,
+				"expected_net": 202.329,
+				"failure_material_value": 115.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 294.0,
+				"loss_frequency": 0.50999,
+				"mean_tolerance": 36.2663857919705,
+				"mean_within_bound": true,
+				"net_p10": -176.0,
+				"net_p50": -176.0,
+				"net_p90": 741.0,
+				"no_exam_pill_after_8": 0.293422452427783,
+				"observed_eligible": 0.14295,
+				"observed_net": 202.17947,
+				"observed_success": 0.49001,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.71,
+					"good": 0.18,
+					"legendary": 0.01,
+					"superior": 0.1
+				},
+				"rank": 6,
+				"rare_outings_per_attempt": 2.49,
+				"recipe": "recipe_leijie",
+				"sample_sd": 499.336393687181,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "",
+					"flame_id": "flame_hansui",
+					"furnace_id": "furnace_xuanbing",
+					"strategy": "stable"
+				},
+				"style": "recycle",
+				"success_probability": 0.49
+			},
+			"worlds": [
+				"world_kucao",
+				"world_yiji"
+			]
+		},
+		{
+			"consumable": "consumable_jiuzhuan",
+			"expected_net_delta": -48.0,
+			"style": "stable",
+			"with": {
+				"conditional_quality_counts": {
+					"common": 40492,
+					"good": 10208,
+					"legendary": 521,
+					"superior": 5777
+				},
+				"eligible_probability": 0.1653,
+				"expected_attempts_for_exam_pill": 6.04960677555959,
+				"expected_net": 188.647,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 320.0,
+				"loss_frequency": 0.43002,
+				"mean_tolerance": 35.286903789604,
+				"mean_within_bound": true,
+				"net_p10": -317.0,
+				"net_p50": 370.0,
+				"net_p90": 715.0,
+				"no_exam_pill_after_8": 0.235636904022981,
+				"observed_eligible": 0.16506,
+				"observed_net": 187.56031,
+				"observed_success": 0.56998,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.71,
+					"good": 0.18,
+					"legendary": 0.01,
+					"superior": 0.1
+				},
+				"rank": 6,
+				"rare_outings_per_attempt": 3.0,
+				"recipe": "recipe_leijie",
+				"sample_sd": 552.918288848094,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "consumable_jiuzhuan",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "stable"
+				},
+				"style": "stable",
+				"success_probability": 0.57
+			},
+			"without": {
+				"conditional_quality_counts": {
+					"common": 40492,
+					"good": 10208,
+					"legendary": 521,
+					"superior": 5777
+				},
+				"eligible_probability": 0.1653,
+				"expected_attempts_for_exam_pill": 6.04960677555959,
+				"expected_net": 236.647,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 272.0,
+				"loss_frequency": 0.43002,
+				"mean_tolerance": 35.286903789604,
+				"mean_within_bound": true,
+				"net_p10": -269.0,
+				"net_p50": 418.0,
+				"net_p90": 763.0,
+				"no_exam_pill_after_8": 0.235636904022981,
+				"observed_eligible": 0.16506,
+				"observed_net": 235.56031,
+				"observed_success": 0.56998,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.71,
+					"good": 0.18,
+					"legendary": 0.01,
+					"superior": 0.1
+				},
+				"rank": 6,
+				"rare_outings_per_attempt": 3.0,
+				"recipe": "recipe_leijie",
+				"sample_sd": 552.918288848094,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "stable"
+				},
+				"style": "stable",
+				"success_probability": 0.57
+			},
+			"worlds": [
+				"world_yiji",
+				"world_jinhuo"
+			]
+		},
+		{
+			"consumable": "consumable_jiuzhuan",
+			"expected_net_delta": 9.96000000000004,
+			"style": "rush",
+			"with": {
+				"conditional_quality_counts": {
+					"common": 4373,
+					"good": 2473,
+					"legendary": 5643,
+					"superior": 1389
+				},
+				"eligible_probability": 0.0966,
+				"expected_attempts_for_exam_pill": 10.351966873706,
+				"expected_net": 0.394000000000062,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 320.0,
+				"loss_frequency": 0.86122,
+				"mean_tolerance": 35.286903789604,
+				"mean_within_bound": true,
+				"net_p10": -317.0,
+				"net_p50": -317.0,
+				"net_p90": 370.0,
+				"no_exam_pill_after_8": 0.443650208341516,
+				"observed_eligible": 0.09505,
+				"observed_net": -4.06664,
+				"observed_success": 0.13878,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.31,
+					"good": 0.18,
+					"legendary": 0.41,
+					"superior": 0.1
+				},
+				"rank": 6,
+				"rare_outings_per_attempt": 3.0,
+				"recipe": "recipe_leijie",
+				"sample_sd": 977.7648845807,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "consumable_jiuzhuan",
+					"flame_id": "flame_zixiao",
+					"furnace_id": "furnace_zixiao",
+					"strategy": "rush"
+				},
+				"style": "rush",
+				"success_probability": 0.14
+			},
+			"without": {
+				"conditional_quality_counts": {
+					"common": 6052,
+					"good": 2455,
+					"legendary": 3931,
+					"superior": 1440
+				},
+				"eligible_probability": 0.0798,
+				"expected_attempts_for_exam_pill": 12.531328320802,
+				"expected_net": -9.56599999999997,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 272.0,
+				"loss_frequency": 0.86122,
+				"mean_tolerance": 35.286903789604,
+				"mean_within_bound": true,
+				"net_p10": -269.0,
+				"net_p50": -269.0,
+				"net_p90": 418.0,
+				"no_exam_pill_after_8": 0.51411210711249,
+				"observed_eligible": 0.07826,
+				"observed_net": -14.66489,
+				"observed_success": 0.13878,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.43,
+					"good": 0.18,
+					"legendary": 0.29,
+					"superior": 0.1
+				},
+				"rank": 6,
+				"rare_outings_per_attempt": 3.0,
+				"recipe": "recipe_leijie",
+				"sample_sd": 839.943577802276,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "",
+					"flame_id": "flame_zixiao",
+					"furnace_id": "furnace_zixiao",
+					"strategy": "rush"
+				},
+				"style": "rush",
+				"success_probability": 0.14
+			},
+			"worlds": [
+				"world_yiji",
+				"world_jinhuo"
+			]
+		},
+		{
+			"consumable": "consumable_jiuzhuan",
+			"expected_net_delta": -48.0,
+			"style": "recycle",
+			"with": {
+				"conditional_quality_counts": {
+					"common": 34679,
+					"good": 8675,
+					"legendary": 484,
+					"superior": 5051
+				},
+				"eligible_probability": 0.1421,
+				"expected_attempts_for_exam_pill": 7.03729767769176,
+				"expected_net": 170.719,
+				"failure_material_value": 104.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 320.0,
+				"loss_frequency": 0.51111,
+				"mean_tolerance": 36.1726962091355,
+				"mean_within_bound": true,
+				"net_p10": -213.0,
+				"net_p50": -213.0,
+				"net_p90": 715.0,
+				"no_exam_pill_after_8": 0.293422452427783,
+				"observed_eligible": 0.1421,
+				"observed_net": 170.92747,
+				"observed_success": 0.48889,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.71,
+					"good": 0.18,
+					"legendary": 0.01,
+					"superior": 0.1
+				},
+				"rank": 6,
+				"rare_outings_per_attempt": 2.49,
+				"recipe": "recipe_leijie",
+				"sample_sd": 506.094742206831,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "consumable_jiuzhuan",
+					"flame_id": "flame_hansui",
+					"furnace_id": "furnace_xuanbing",
+					"strategy": "stable"
+				},
+				"style": "recycle",
+				"success_probability": 0.49
+			},
+			"without": {
+				"conditional_quality_counts": {
+					"common": 34679,
+					"good": 8675,
+					"legendary": 484,
+					"superior": 5051
+				},
+				"eligible_probability": 0.1421,
+				"expected_attempts_for_exam_pill": 7.03729767769176,
+				"expected_net": 218.719,
+				"failure_material_value": 104.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 272.0,
+				"loss_frequency": 0.51111,
+				"mean_tolerance": 36.1726962091355,
+				"mean_within_bound": true,
+				"net_p10": -165.0,
+				"net_p50": -165.0,
+				"net_p90": 763.0,
+				"no_exam_pill_after_8": 0.293422452427783,
+				"observed_eligible": 0.1421,
+				"observed_net": 218.92747,
+				"observed_success": 0.48889,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.71,
+					"good": 0.18,
+					"legendary": 0.01,
+					"superior": 0.1
+				},
+				"rank": 6,
+				"rare_outings_per_attempt": 2.49,
+				"recipe": "recipe_leijie",
+				"sample_sd": 506.094742206831,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "",
+					"flame_id": "flame_hansui",
+					"furnace_id": "furnace_xuanbing",
+					"strategy": "stable"
+				},
+				"style": "recycle",
+				"success_probability": 0.49
+			},
+			"worlds": [
+				"world_yiji",
+				"world_jinhuo"
+			]
+		},
+		{
+			"consumable": "consumable_wenhuo",
+			"expected_net_delta": 3.04820000000007,
+			"style": "stable",
+			"with": {
+				"conditional_quality_counts": {
+					"common": 51624,
+					"good": 27576,
+					"legendary": 0,
+					"superior": 11854
+				},
+				"eligible_probability": 0.3913,
+				"expected_attempts_for_exam_pill": 2.55558395093279,
+				"expected_net": 96.9667,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 82.0,
+				"loss_frequency": 0.08946,
+				"mean_tolerance": 7.48664939200144,
+				"mean_within_bound": true,
+				"net_p10": 64.0,
+				"net_p50": 64.0,
+				"net_p90": 283.0,
+				"no_exam_pill_after_8": 0.0188463136252939,
+				"observed_eligible": 0.3943,
+				"observed_net": 97.29796,
+				"observed_success": 0.91054,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.57,
+					"good": 0.3,
+					"legendary": 0.0,
+					"superior": 0.13
+				},
+				"rank": 2,
+				"rare_outings_per_attempt": 1.0,
+				"recipe": "recipe_gushen",
+				"sample_sd": 88.7436498000753,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "consumable_wenhuo",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "stable"
+				},
+				"style": "stable",
+				"success_probability": 0.91
+			},
+			"without": {
+				"conditional_quality_counts": {
+					"common": 51852,
+					"good": 25553,
+					"legendary": 0,
+					"superior": 7614
+				},
+				"eligible_probability": 0.3315,
+				"expected_attempts_for_exam_pill": 3.01659125188537,
+				"expected_net": 93.9185,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 66.0,
+				"loss_frequency": 0.14981,
+				"mean_tolerance": 7.48664939200144,
+				"mean_within_bound": true,
+				"net_p10": -63.0,
+				"net_p50": 80.0,
+				"net_p90": 153.0,
+				"no_exam_pill_after_8": 0.0398851557950202,
+				"observed_eligible": 0.33167,
+				"observed_net": 93.90552,
+				"observed_success": 0.85019,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.61,
+					"good": 0.3,
+					"legendary": 0.0,
+					"superior": 0.09
+				},
+				"rank": 2,
+				"rare_outings_per_attempt": 1.0,
+				"recipe": "recipe_gushen",
+				"sample_sd": 88.78947636702,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "stable"
+				},
+				"style": "stable",
+				"success_probability": 0.85
+			},
+			"worlds": []
+		},
+		{
+			"consumable": "consumable_wenhuo",
+			"expected_net_delta": -16.0,
+			"style": "rush",
+			"with": {
+				"conditional_quality_counts": {
+					"common": 32962,
+					"good": 17957,
+					"legendary": 3603,
+					"superior": 5383
+				},
+				"eligible_probability": 0.27,
+				"expected_attempts_for_exam_pill": 3.7037037037037,
+				"expected_net": 58.046,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 82.0,
+				"loss_frequency": 0.40095,
+				"mean_tolerance": 7.48664939200144,
+				"mean_within_bound": true,
+				"net_p10": -79.0,
+				"net_p50": 64.0,
+				"net_p90": 137.0,
+				"no_exam_pill_after_8": 0.0806460091894081,
+				"observed_eligible": 0.26943,
+				"observed_net": 57.86343,
+				"observed_success": 0.59905,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.55,
+					"good": 0.3,
+					"legendary": 0.06,
+					"superior": 0.09
+				},
+				"rank": 2,
+				"rare_outings_per_attempt": 1.0,
+				"recipe": "recipe_gushen",
+				"sample_sd": 175.785167800458,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "consumable_wenhuo",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "rush"
+				},
+				"style": "rush",
+				"success_probability": 0.6
+			},
+			"without": {
+				"conditional_quality_counts": {
+					"common": 32962,
+					"good": 17957,
+					"legendary": 3603,
+					"superior": 5383
+				},
+				"eligible_probability": 0.27,
+				"expected_attempts_for_exam_pill": 3.7037037037037,
+				"expected_net": 74.046,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 66.0,
+				"loss_frequency": 0.40095,
+				"mean_tolerance": 7.48664939200144,
+				"mean_within_bound": true,
+				"net_p10": -63.0,
+				"net_p50": 80.0,
+				"net_p90": 153.0,
+				"no_exam_pill_after_8": 0.0806460091894081,
+				"observed_eligible": 0.26943,
+				"observed_net": 73.86343,
+				"observed_success": 0.59905,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.55,
+					"good": 0.3,
+					"legendary": 0.06,
+					"superior": 0.09
+				},
+				"rank": 2,
+				"rare_outings_per_attempt": 1.0,
+				"recipe": "recipe_gushen",
+				"sample_sd": 175.785167800458,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "rush"
+				},
+				"style": "rush",
+				"success_probability": 0.6
+			},
+			"worlds": []
+		},
+		{
+			"consumable": "consumable_wenhuo",
+			"expected_net_delta": 3.04820000000007,
+			"style": "recycle",
+			"with": {
+				"conditional_quality_counts": {
+					"common": 51807,
+					"good": 27374,
+					"legendary": 0,
+					"superior": 11715
+				},
+				"eligible_probability": 0.3913,
+				"expected_attempts_for_exam_pill": 2.55558395093279,
+				"expected_net": 96.9667,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 82.0,
+				"loss_frequency": 0.09104,
+				"mean_tolerance": 7.48664939200144,
+				"mean_within_bound": true,
+				"net_p10": 64.0,
+				"net_p50": 64.0,
+				"net_p90": 283.0,
+				"no_exam_pill_after_8": 0.0188463136252939,
+				"observed_eligible": 0.39089,
+				"observed_net": 96.62015,
+				"observed_success": 0.90896,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.57,
+					"good": 0.3,
+					"legendary": 0.0,
+					"superior": 0.13
+				},
+				"rank": 2,
+				"rare_outings_per_attempt": 1.0,
+				"recipe": "recipe_gushen",
+				"sample_sd": 88.7411651037865,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "consumable_wenhuo",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "stable"
+				},
+				"style": "recycle",
+				"success_probability": 0.91
+			},
+			"without": {
+				"conditional_quality_counts": {
+					"common": 51762,
+					"good": 25560,
+					"legendary": 0,
+					"superior": 7613
+				},
+				"eligible_probability": 0.3315,
+				"expected_attempts_for_exam_pill": 3.01659125188537,
+				"expected_net": 93.9185,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 66.0,
+				"loss_frequency": 0.15065,
+				"mean_tolerance": 7.48664939200144,
+				"mean_within_bound": true,
+				"net_p10": -63.0,
+				"net_p50": 80.0,
+				"net_p90": 153.0,
+				"no_exam_pill_after_8": 0.0398851557950202,
+				"observed_eligible": 0.33173,
+				"observed_net": 93.78832,
+				"observed_success": 0.84935,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.61,
+					"good": 0.3,
+					"legendary": 0.0,
+					"superior": 0.09
+				},
+				"rank": 2,
+				"rare_outings_per_attempt": 1.0,
+				"recipe": "recipe_gushen",
+				"sample_sd": 88.9038098822407,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "stable"
+				},
+				"style": "recycle",
+				"success_probability": 0.85
+			},
+			"worlds": []
+		},
+		{
+			"consumable": "consumable_wenhuo",
+			"expected_net_delta": 3.04820000000007,
+			"style": "stable",
+			"with": {
+				"conditional_quality_counts": {
+					"common": 51883,
+					"good": 27317,
+					"legendary": 0,
+					"superior": 11815
+				},
+				"eligible_probability": 0.3913,
+				"expected_attempts_for_exam_pill": 2.55558395093279,
+				"expected_net": 83.9667,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 95.0,
+				"loss_frequency": 0.08985,
+				"mean_tolerance": 7.48664939200144,
+				"mean_within_bound": true,
+				"net_p10": 51.0,
+				"net_p50": 51.0,
+				"net_p90": 270.0,
+				"no_exam_pill_after_8": 0.0188463136252939,
+				"observed_eligible": 0.39132,
+				"observed_net": 83.96771,
+				"observed_success": 0.91015,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.57,
+					"good": 0.3,
+					"legendary": 0.0,
+					"superior": 0.13
+				},
+				"rank": 2,
+				"rare_outings_per_attempt": 1.0,
+				"recipe": "recipe_gushen",
+				"sample_sd": 88.7287316902248,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "consumable_wenhuo",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "stable"
+				},
+				"style": "stable",
+				"success_probability": 0.91
+			},
+			"without": {
+				"conditional_quality_counts": {
+					"common": 51875,
+					"good": 25439,
+					"legendary": 0,
+					"superior": 7593
+				},
+				"eligible_probability": 0.3315,
+				"expected_attempts_for_exam_pill": 3.01659125188537,
+				"expected_net": 80.9185,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 79.0,
+				"loss_frequency": 0.15093,
+				"mean_tolerance": 7.48664939200144,
+				"mean_within_bound": true,
+				"net_p10": -76.0,
+				"net_p50": 67.0,
+				"net_p90": 140.0,
+				"no_exam_pill_after_8": 0.0398851557950202,
+				"observed_eligible": 0.33032,
+				"observed_net": 80.61615,
+				"observed_success": 0.84907,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.61,
+					"good": 0.3,
+					"legendary": 0.0,
+					"superior": 0.09
+				},
+				"rank": 2,
+				"rare_outings_per_attempt": 1.0,
+				"recipe": "recipe_gushen",
+				"sample_sd": 88.8723301662418,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "stable"
+				},
+				"style": "stable",
+				"success_probability": 0.85
+			},
+			"worlds": [
+				"world_kucao",
+				"world_yiji"
+			]
+		},
+		{
+			"consumable": "consumable_wenhuo",
+			"expected_net_delta": -16.0,
+			"style": "rush",
+			"with": {
+				"conditional_quality_counts": {
+					"common": 32944,
+					"good": 18004,
+					"legendary": 3575,
+					"superior": 5482
+				},
+				"eligible_probability": 0.27,
+				"expected_attempts_for_exam_pill": 3.7037037037037,
+				"expected_net": 45.046,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 95.0,
+				"loss_frequency": 0.39995,
+				"mean_tolerance": 7.48664939200144,
+				"mean_within_bound": true,
+				"net_p10": -92.0,
+				"net_p50": 51.0,
+				"net_p90": 124.0,
+				"no_exam_pill_after_8": 0.0806460091894081,
+				"observed_eligible": 0.27061,
+				"observed_net": 45.05315,
+				"observed_success": 0.60005,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.55,
+					"good": 0.3,
+					"legendary": 0.06,
+					"superior": 0.09
+				},
+				"rank": 2,
+				"rare_outings_per_attempt": 1.0,
+				"recipe": "recipe_gushen",
+				"sample_sd": 175.450969518773,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "consumable_wenhuo",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "rush"
+				},
+				"style": "rush",
+				"success_probability": 0.6
+			},
+			"without": {
+				"conditional_quality_counts": {
+					"common": 32944,
+					"good": 18004,
+					"legendary": 3575,
+					"superior": 5482
+				},
+				"eligible_probability": 0.27,
+				"expected_attempts_for_exam_pill": 3.7037037037037,
+				"expected_net": 61.046,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 79.0,
+				"loss_frequency": 0.39995,
+				"mean_tolerance": 7.48664939200144,
+				"mean_within_bound": true,
+				"net_p10": -76.0,
+				"net_p50": 67.0,
+				"net_p90": 140.0,
+				"no_exam_pill_after_8": 0.0806460091894081,
+				"observed_eligible": 0.27061,
+				"observed_net": 61.05315,
+				"observed_success": 0.60005,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.55,
+					"good": 0.3,
+					"legendary": 0.06,
+					"superior": 0.09
+				},
+				"rank": 2,
+				"rare_outings_per_attempt": 1.0,
+				"recipe": "recipe_gushen",
+				"sample_sd": 175.450969518773,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "rush"
+				},
+				"style": "rush",
+				"success_probability": 0.6
+			},
+			"worlds": [
+				"world_kucao",
+				"world_yiji"
+			]
+		},
+		{
+			"consumable": "consumable_wenhuo",
+			"expected_net_delta": 3.04820000000007,
+			"style": "recycle",
+			"with": {
+				"conditional_quality_counts": {
+					"common": 51937,
+					"good": 27326,
+					"legendary": 0,
+					"superior": 11836
+				},
+				"eligible_probability": 0.3913,
+				"expected_attempts_for_exam_pill": 2.55558395093279,
+				"expected_net": 83.9667,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 95.0,
+				"loss_frequency": 0.08901,
+				"mean_tolerance": 7.48664939200144,
+				"mean_within_bound": true,
+				"net_p10": 51.0,
+				"net_p50": 51.0,
+				"net_p90": 270.0,
+				"no_exam_pill_after_8": 0.0188463136252939,
+				"observed_eligible": 0.39162,
+				"observed_net": 84.14039,
+				"observed_success": 0.91099,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.57,
+					"good": 0.3,
+					"legendary": 0.0,
+					"superior": 0.13
+				},
+				"rank": 2,
+				"rare_outings_per_attempt": 1.0,
+				"recipe": "recipe_gushen",
+				"sample_sd": 88.627007963983,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "consumable_wenhuo",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "stable"
+				},
+				"style": "recycle",
+				"success_probability": 0.91
+			},
+			"without": {
+				"conditional_quality_counts": {
+					"common": 51756,
+					"good": 25601,
+					"legendary": 0,
+					"superior": 7712
+				},
+				"eligible_probability": 0.3315,
+				"expected_attempts_for_exam_pill": 3.01659125188537,
+				"expected_net": 80.9185,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 79.0,
+				"loss_frequency": 0.14931,
+				"mean_tolerance": 7.48664939200144,
+				"mean_within_bound": true,
+				"net_p10": -76.0,
+				"net_p50": 67.0,
+				"net_p90": 140.0,
+				"no_exam_pill_after_8": 0.0398851557950202,
+				"observed_eligible": 0.33313,
+				"observed_net": 81.22668,
+				"observed_success": 0.85069,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.61,
+					"good": 0.3,
+					"legendary": 0.0,
+					"superior": 0.09
+				},
+				"rank": 2,
+				"rare_outings_per_attempt": 1.0,
+				"recipe": "recipe_gushen",
+				"sample_sd": 88.9599425369509,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "stable"
+				},
+				"style": "recycle",
+				"success_probability": 0.85
+			},
+			"worlds": [
+				"world_kucao",
+				"world_yiji"
+			]
+		},
+		{
+			"consumable": "consumable_wenhuo",
+			"expected_net_delta": 2.61020000000002,
+			"style": "stable",
+			"with": {
+				"conditional_quality_counts": {
+					"common": 49056,
+					"good": 25552,
+					"legendary": 0,
+					"superior": 11239
+				},
+				"eligible_probability": 0.3698,
+				"expected_attempts_for_exam_pill": 2.70416441319632,
+				"expected_net": 87.2982,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 82.0,
+				"loss_frequency": 0.14153,
+				"mean_tolerance": 7.48664939200144,
+				"mean_within_bound": true,
+				"net_p10": -79.0,
+				"net_p50": 64.0,
+				"net_p90": 283.0,
+				"no_exam_pill_after_8": 0.0248786717877801,
+				"observed_eligible": 0.36791,
+				"observed_net": 87.02758,
+				"observed_success": 0.85847,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.57,
+					"good": 0.3,
+					"legendary": 0.0,
+					"superior": 0.13
+				},
+				"rank": 2,
+				"rare_outings_per_attempt": 1.0,
+				"recipe": "recipe_gushen",
+				"sample_sd": 95.4771197687886,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "consumable_wenhuo",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "stable"
+				},
+				"style": "stable",
+				"success_probability": 0.86
+			},
+			"without": {
+				"conditional_quality_counts": {
+					"common": 48865,
+					"good": 23865,
+					"legendary": 0,
+					"superior": 7157
+				},
+				"eligible_probability": 0.312,
+				"expected_attempts_for_exam_pill": 3.20512820512821,
+				"expected_net": 84.688,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 66.0,
+				"loss_frequency": 0.20113,
+				"mean_tolerance": 7.48664939200144,
+				"mean_within_bound": true,
+				"net_p10": -63.0,
+				"net_p50": 80.0,
+				"net_p90": 153.0,
+				"no_exam_pill_after_8": 0.0502004379413944,
+				"observed_eligible": 0.31022,
+				"observed_net": 84.33369,
+				"observed_success": 0.79887,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.61,
+					"good": 0.3,
+					"legendary": 0.0,
+					"superior": 0.09
+				},
+				"rank": 2,
+				"rare_outings_per_attempt": 1.0,
+				"recipe": "recipe_gushen",
+				"sample_sd": 93.8001125851345,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "stable"
+				},
+				"style": "stable",
+				"success_probability": 0.8
+			},
+			"worlds": [
+				"world_yiji",
+				"world_jinhuo"
+			]
+		},
+		{
+			"consumable": "consumable_wenhuo",
+			"expected_net_delta": -16.0,
+			"style": "rush",
+			"with": {
+				"conditional_quality_counts": {
+					"common": 30178,
+					"good": 16580,
+					"legendary": 3178,
+					"superior": 4931
+				},
+				"eligible_probability": 0.2475,
+				"expected_attempts_for_exam_pill": 4.04040404040404,
+				"expected_net": 46.6255,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 82.0,
+				"loss_frequency": 0.45133,
+				"mean_tolerance": 7.48664939200144,
+				"mean_within_bound": true,
+				"net_p10": -79.0,
+				"net_p50": 64.0,
+				"net_p90": 137.0,
+				"no_exam_pill_after_8": 0.102813947522758,
+				"observed_eligible": 0.24689,
+				"observed_net": 45.5615,
+				"observed_success": 0.54867,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.55,
+					"good": 0.3,
+					"legendary": 0.06,
+					"superior": 0.09
+				},
+				"rank": 2,
+				"rare_outings_per_attempt": 1.0,
+				"recipe": "recipe_gushen",
+				"sample_sd": 170.509049606612,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "consumable_wenhuo",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "rush"
+				},
+				"style": "rush",
+				"success_probability": 0.55
+			},
+			"without": {
+				"conditional_quality_counts": {
+					"common": 30178,
+					"good": 16580,
+					"legendary": 3178,
+					"superior": 4931
+				},
+				"eligible_probability": 0.2475,
+				"expected_attempts_for_exam_pill": 4.04040404040404,
+				"expected_net": 62.6255,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 66.0,
+				"loss_frequency": 0.45133,
+				"mean_tolerance": 7.48664939200144,
+				"mean_within_bound": true,
+				"net_p10": -63.0,
+				"net_p50": 80.0,
+				"net_p90": 153.0,
+				"no_exam_pill_after_8": 0.102813947522758,
+				"observed_eligible": 0.24689,
+				"observed_net": 61.5615,
+				"observed_success": 0.54867,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.55,
+					"good": 0.3,
+					"legendary": 0.06,
+					"superior": 0.09
+				},
+				"rank": 2,
+				"rare_outings_per_attempt": 1.0,
+				"recipe": "recipe_gushen",
+				"sample_sd": 170.509049606612,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "rush"
+				},
+				"style": "rush",
+				"success_probability": 0.55
+			},
+			"worlds": [
+				"world_yiji",
+				"world_jinhuo"
+			]
+		},
+		{
+			"consumable": "consumable_wenhuo",
+			"expected_net_delta": 2.61020000000002,
+			"style": "recycle",
+			"with": {
+				"conditional_quality_counts": {
+					"common": 48974,
+					"good": 25753,
+					"legendary": 0,
+					"superior": 11290
+				},
+				"eligible_probability": 0.3698,
+				"expected_attempts_for_exam_pill": 2.70416441319632,
+				"expected_net": 87.2982,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 82.0,
+				"loss_frequency": 0.13983,
+				"mean_tolerance": 7.48664939200144,
+				"mean_within_bound": true,
+				"net_p10": -79.0,
+				"net_p50": 64.0,
+				"net_p90": 283.0,
+				"no_exam_pill_after_8": 0.0248786717877801,
+				"observed_eligible": 0.37043,
+				"observed_net": 87.5291,
+				"observed_success": 0.86017,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.57,
+					"good": 0.3,
+					"legendary": 0.0,
+					"superior": 0.13
+				},
+				"rank": 2,
+				"rare_outings_per_attempt": 1.0,
+				"recipe": "recipe_gushen",
+				"sample_sd": 95.356905325152,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "consumable_wenhuo",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "stable"
+				},
+				"style": "recycle",
+				"success_probability": 0.86
+			},
+			"without": {
+				"conditional_quality_counts": {
+					"common": 48600,
+					"good": 24138,
+					"legendary": 0,
+					"superior": 7296
+				},
+				"eligible_probability": 0.312,
+				"expected_attempts_for_exam_pill": 3.20512820512821,
+				"expected_net": 84.688,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 66.0,
+				"loss_frequency": 0.19966,
+				"mean_tolerance": 7.48664939200144,
+				"mean_within_bound": true,
+				"net_p10": -63.0,
+				"net_p50": 80.0,
+				"net_p90": 153.0,
+				"no_exam_pill_after_8": 0.0502004379413944,
+				"observed_eligible": 0.31434,
+				"observed_net": 85.0476,
+				"observed_success": 0.80034,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.61,
+					"good": 0.3,
+					"legendary": 0.0,
+					"superior": 0.09
+				},
+				"rank": 2,
+				"rare_outings_per_attempt": 1.0,
+				"recipe": "recipe_gushen",
+				"sample_sd": 94.0367888341579,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "stable"
+				},
+				"style": "recycle",
+				"success_probability": 0.8
+			},
+			"worlds": [
+				"world_yiji",
+				"world_jinhuo"
+			]
+		},
+		{
+			"consumable": "consumable_bingpo",
+			"expected_net_delta": -14.24,
+			"style": "stable",
+			"with": {
+				"conditional_quality_counts": {
+					"common": 43542,
+					"good": 30415,
+					"legendary": 0,
+					"superior": 10020
+				},
+				"eligible_probability": 0.4032,
+				"expected_attempts_for_exam_pill": 2.48015873015873,
+				"expected_net": 110.72,
+				"failure_material_value": 61.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 128.0,
+				"loss_frequency": 0.16023,
+				"mean_tolerance": 10.7657847912285,
+				"mean_within_bound": true,
+				"net_p10": -64.0,
+				"net_p50": 72.0,
+				"net_p90": 372.0,
+				"no_exam_pill_after_8": 0.0160927593053181,
+				"observed_eligible": 0.40435,
+				"observed_net": 110.68372,
+				"observed_success": 0.83977,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.52,
+					"good": 0.36,
+					"legendary": 0.0,
+					"superior": 0.12
+				},
+				"rank": 4,
+				"rare_outings_per_attempt": 1.84,
+				"recipe": "recipe_bingxin",
+				"sample_sd": 116.304272866312,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "consumable_bingpo",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "stable"
+				},
+				"style": "stable",
+				"success_probability": 0.84
+			},
+			"without": {
+				"conditional_quality_counts": {
+					"common": 43542,
+					"good": 30415,
+					"legendary": 0,
+					"superior": 10020
+				},
+				"eligible_probability": 0.4032,
+				"expected_attempts_for_exam_pill": 2.48015873015873,
+				"expected_net": 124.96,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 104.0,
+				"loss_frequency": 0.16023,
+				"mean_tolerance": 10.246233468234,
+				"mean_within_bound": true,
+				"net_p10": -101.0,
+				"net_p50": 96.0,
+				"net_p90": 396.0,
+				"no_exam_pill_after_8": 0.0160927593053181,
+				"observed_eligible": 0.40435,
+				"observed_net": 124.90969,
+				"observed_success": 0.83977,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.52,
+					"good": 0.36,
+					"legendary": 0.0,
+					"superior": 0.12
+				},
+				"rank": 4,
+				"rare_outings_per_attempt": 2.0,
+				"recipe": "recipe_bingxin",
+				"sample_sd": 132.068527265598,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "stable"
+				},
+				"style": "stable",
+				"success_probability": 0.84
+			},
+			"worlds": []
+		},
+		{
+			"consumable": "consumable_bingpo",
+			"expected_net_delta": 2.84,
+			"style": "rush",
+			"with": {
+				"conditional_quality_counts": {
+					"common": 24565,
+					"good": 20184,
+					"legendary": 4502,
+					"superior": 6798
+				},
+				"eligible_probability": 0.3136,
+				"expected_attempts_for_exam_pill": 3.18877551020408,
+				"expected_net": 97.28,
+				"failure_material_value": 61.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 128.0,
+				"loss_frequency": 0.43951,
+				"mean_tolerance": 10.7657847912285,
+				"mean_within_bound": true,
+				"net_p10": -64.0,
+				"net_p50": 72.0,
+				"net_p90": 372.0,
+				"no_exam_pill_after_8": 0.0492740430629857,
+				"observed_eligible": 0.31484,
+				"observed_net": 97.82464,
+				"observed_success": 0.56049,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.44,
+					"good": 0.36,
+					"legendary": 0.08,
+					"superior": 0.12
+				},
+				"rank": 4,
+				"rare_outings_per_attempt": 1.56,
+				"recipe": "recipe_bingxin",
+				"sample_sd": 246.208986287809,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "consumable_bingpo",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "rush"
+				},
+				"style": "rush",
+				"success_probability": 0.56
+			},
+			"without": {
+				"conditional_quality_counts": {
+					"common": 24565,
+					"good": 20184,
+					"legendary": 4502,
+					"superior": 6798
+				},
+				"eligible_probability": 0.3136,
+				"expected_attempts_for_exam_pill": 3.18877551020408,
+				"expected_net": 94.44,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 104.0,
+				"loss_frequency": 0.43951,
+				"mean_tolerance": 10.246233468234,
+				"mean_within_bound": true,
+				"net_p10": -101.0,
+				"net_p50": 96.0,
+				"net_p90": 396.0,
+				"no_exam_pill_after_8": 0.0492740430629857,
+				"observed_eligible": 0.31484,
+				"observed_net": 95.01453,
+				"observed_success": 0.56049,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.44,
+					"good": 0.36,
+					"legendary": 0.08,
+					"superior": 0.12
+				},
+				"rank": 4,
+				"rare_outings_per_attempt": 2.0,
+				"recipe": "recipe_bingxin",
+				"sample_sd": 264.976550733983,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "rush"
+				},
+				"style": "rush",
+				"success_probability": 0.56
+			},
+			"worlds": []
+		},
+		{
+			"consumable": "consumable_bingpo",
+			"expected_net_delta": -6.31,
+			"style": "recycle",
+			"with": {
+				"conditional_quality_counts": {
+					"common": 36793,
+					"good": 25880,
+					"legendary": 0,
+					"superior": 8531
+				},
+				"eligible_probability": 0.3408,
+				"expected_attempts_for_exam_pill": 2.93427230046948,
+				"expected_net": 96.15,
+				"failure_material_value": 104.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 128.0,
+				"loss_frequency": 0.28796,
+				"mean_tolerance": 11.1320258877655,
+				"mean_within_bound": true,
+				"net_p10": -21.0,
+				"net_p50": 72.0,
+				"net_p90": 172.0,
+				"no_exam_pill_after_8": 0.0356564079156335,
+				"observed_eligible": 0.34411,
+				"observed_net": 96.69272,
+				"observed_success": 0.71204,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.52,
+					"good": 0.36,
+					"legendary": 0.0,
+					"superior": 0.12
+				},
+				"rank": 4,
+				"rare_outings_per_attempt": 1.42,
+				"recipe": "recipe_bingxin",
+				"sample_sd": 110.212229897601,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "consumable_bingpo",
+					"flame_id": "flame_hansui",
+					"furnace_id": "furnace_xuanbing",
+					"strategy": "stable"
+				},
+				"style": "recycle",
+				"success_probability": 0.71
+			},
+			"without": {
+				"conditional_quality_counts": {
+					"common": 36793,
+					"good": 25880,
+					"legendary": 0,
+					"superior": 8531
+				},
+				"eligible_probability": 0.3408,
+				"expected_attempts_for_exam_pill": 2.93427230046948,
+				"expected_net": 102.46,
+				"failure_material_value": 43.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 104.0,
+				"loss_frequency": 0.28796,
+				"mean_tolerance": 10.6124745647711,
+				"mean_within_bound": true,
+				"net_p10": -58.0,
+				"net_p50": 96.0,
+				"net_p90": 196.0,
+				"no_exam_pill_after_8": 0.0356564079156335,
+				"observed_eligible": 0.34411,
+				"observed_net": 103.12716,
+				"observed_success": 0.71204,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.52,
+					"good": 0.36,
+					"legendary": 0.0,
+					"superior": 0.12
+				},
+				"rank": 4,
+				"rare_outings_per_attempt": 1.71,
+				"recipe": "recipe_bingxin",
+				"sample_sd": 130.554061408806,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "",
+					"flame_id": "flame_hansui",
+					"furnace_id": "furnace_xuanbing",
+					"strategy": "stable"
+				},
+				"style": "recycle",
+				"success_probability": 0.71
+			},
+			"worlds": []
+		},
+		{
+			"consumable": "consumable_bingpo",
+			"expected_net_delta": -12.32,
+			"style": "stable",
+			"with": {
+				"conditional_quality_counts": {
+					"common": 43721,
+					"good": 30339,
+					"legendary": 0,
+					"superior": 9998
+				},
+				"eligible_probability": 0.4032,
+				"expected_attempts_for_exam_pill": 2.48015873015873,
+				"expected_net": 93.64,
+				"failure_material_value": 73.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 147.0,
+				"loss_frequency": 0.15942,
+				"mean_tolerance": 10.8679916088667,
+				"mean_within_bound": true,
+				"net_p10": -71.0,
+				"net_p50": 53.0,
+				"net_p90": 153.0,
+				"no_exam_pill_after_8": 0.0160927593053181,
+				"observed_eligible": 0.40337,
+				"observed_net": 93.56492,
+				"observed_success": 0.84058,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.52,
+					"good": 0.36,
+					"legendary": 0.0,
+					"superior": 0.12
+				},
+				"rank": 4,
+				"rare_outings_per_attempt": 1.84,
+				"recipe": "recipe_bingxin",
+				"sample_sd": 113.30414460819,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "consumable_bingpo",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "stable"
+				},
+				"style": "stable",
+				"success_probability": 0.84
+			},
+			"without": {
+				"conditional_quality_counts": {
+					"common": 43721,
+					"good": 30339,
+					"legendary": 0,
+					"superior": 9998
+				},
+				"eligible_probability": 0.4032,
+				"expected_attempts_for_exam_pill": 2.48015873015873,
+				"expected_net": 105.96,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 123.0,
+				"loss_frequency": 0.15942,
+				"mean_tolerance": 10.246233468234,
+				"mean_within_bound": true,
+				"net_p10": -120.0,
+				"net_p50": 77.0,
+				"net_p90": 177.0,
+				"no_exam_pill_after_8": 0.0160927593053181,
+				"observed_eligible": 0.40337,
+				"observed_net": 105.92726,
+				"observed_success": 0.84058,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.52,
+					"good": 0.36,
+					"legendary": 0.0,
+					"superior": 0.12
+				},
+				"rank": 4,
+				"rare_outings_per_attempt": 2.0,
+				"recipe": "recipe_bingxin",
+				"sample_sd": 131.841740010106,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "stable"
+				},
+				"style": "stable",
+				"success_probability": 0.84
+			},
+			"worlds": [
+				"world_kucao",
+				"world_yiji"
+			]
+		},
+		{
+			"consumable": "consumable_bingpo",
+			"expected_net_delta": 8.12,
+			"style": "rush",
+			"with": {
+				"conditional_quality_counts": {
+					"common": 24671,
+					"good": 20161,
+					"legendary": 4514,
+					"superior": 6701
+				},
+				"eligible_probability": 0.3136,
+				"expected_attempts_for_exam_pill": 3.18877551020408,
+				"expected_net": 83.56,
+				"failure_material_value": 73.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 147.0,
+				"loss_frequency": 0.43953,
+				"mean_tolerance": 10.8679916088667,
+				"mean_within_bound": true,
+				"net_p10": -71.0,
+				"net_p50": 53.0,
+				"net_p90": 353.0,
+				"no_exam_pill_after_8": 0.0492740430629857,
+				"observed_eligible": 0.31376,
+				"observed_net": 83.90228,
+				"observed_success": 0.56047,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.44,
+					"good": 0.36,
+					"legendary": 0.08,
+					"superior": 0.12
+				},
+				"rank": 4,
+				"rare_outings_per_attempt": 1.56,
+				"recipe": "recipe_bingxin",
+				"sample_sd": 242.8791106102,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "consumable_bingpo",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "rush"
+				},
+				"style": "rush",
+				"success_probability": 0.56
+			},
+			"without": {
+				"conditional_quality_counts": {
+					"common": 24671,
+					"good": 20161,
+					"legendary": 4514,
+					"superior": 6701
+				},
+				"eligible_probability": 0.3136,
+				"expected_attempts_for_exam_pill": 3.18877551020408,
+				"expected_net": 75.44,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 123.0,
+				"loss_frequency": 0.43953,
+				"mean_tolerance": 10.246233468234,
+				"mean_within_bound": true,
+				"net_p10": -120.0,
+				"net_p50": 77.0,
+				"net_p90": 377.0,
+				"no_exam_pill_after_8": 0.0492740430629857,
+				"observed_eligible": 0.31376,
+				"observed_net": 75.81659,
+				"observed_success": 0.56047,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.44,
+					"good": 0.36,
+					"legendary": 0.08,
+					"superior": 0.12
+				},
+				"rank": 4,
+				"rare_outings_per_attempt": 2.0,
+				"recipe": "recipe_bingxin",
+				"sample_sd": 265.034562483409,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "rush"
+				},
+				"style": "rush",
+				"success_probability": 0.56
+			},
+			"worlds": [
+				"world_kucao",
+				"world_yiji"
+			]
+		},
+		{
+			"consumable": "consumable_bingpo",
+			"expected_net_delta": -2.83000000000001,
+			"style": "recycle",
+			"with": {
+				"conditional_quality_counts": {
+					"common": 36882,
+					"good": 25623,
+					"legendary": 0,
+					"superior": 8444
+				},
+				"eligible_probability": 0.3408,
+				"expected_attempts_for_exam_pill": 2.93427230046948,
+				"expected_net": 82.66,
+				"failure_material_value": 123.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 147.0,
+				"loss_frequency": 0.29051,
+				"mean_tolerance": 11.2938533490261,
+				"mean_within_bound": true,
+				"net_p10": -21.0,
+				"net_p50": 53.0,
+				"net_p90": 153.0,
+				"no_exam_pill_after_8": 0.0356564079156335,
+				"observed_eligible": 0.34067,
+				"observed_net": 82.45726,
+				"observed_success": 0.70949,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.52,
+					"good": 0.36,
+					"legendary": 0.0,
+					"superior": 0.12
+				},
+				"rank": 4,
+				"rare_outings_per_attempt": 1.42,
+				"recipe": "recipe_bingxin",
+				"sample_sd": 104.331215814311,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "consumable_bingpo",
+					"flame_id": "flame_hansui",
+					"furnace_id": "furnace_xuanbing",
+					"strategy": "stable"
+				},
+				"style": "recycle",
+				"success_probability": 0.71
+			},
+			"without": {
+				"conditional_quality_counts": {
+					"common": 36882,
+					"good": 25623,
+					"legendary": 0,
+					"superior": 8444
+				},
+				"eligible_probability": 0.3408,
+				"expected_attempts_for_exam_pill": 2.93427230046948,
+				"expected_net": 85.49,
+				"failure_material_value": 50.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 123.0,
+				"loss_frequency": 0.29051,
+				"mean_tolerance": 10.6720952083934,
+				"mean_within_bound": true,
+				"net_p10": -70.0,
+				"net_p50": 77.0,
+				"net_p90": 177.0,
+				"no_exam_pill_after_8": 0.0356564079156335,
+				"observed_eligible": 0.34067,
+				"observed_net": 85.25003,
+				"observed_success": 0.70949,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.52,
+					"good": 0.36,
+					"legendary": 0.0,
+					"superior": 0.12
+				},
+				"rank": 4,
+				"rare_outings_per_attempt": 1.71,
+				"recipe": "recipe_bingxin",
+				"sample_sd": 127.951035927808,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "",
+					"flame_id": "flame_hansui",
+					"furnace_id": "furnace_xuanbing",
+					"strategy": "stable"
+				},
+				"style": "recycle",
+				"success_probability": 0.71
+			},
+			"worlds": [
+				"world_kucao",
+				"world_yiji"
+			]
+		},
+		{
+			"consumable": "consumable_bingpo",
+			"expected_net_delta": -11.19,
+			"style": "stable",
+			"with": {
+				"conditional_quality_counts": {
+					"common": 41010,
+					"good": 28653,
+					"legendary": 0,
+					"superior": 9298
+				},
+				"eligible_probability": 0.3792,
+				"expected_attempts_for_exam_pill": 2.63713080168776,
+				"expected_net": 100.32,
+				"failure_material_value": 61.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 128.0,
+				"loss_frequency": 0.21039,
+				"mean_tolerance": 10.7657847912285,
+				"mean_within_bound": true,
+				"net_p10": -64.0,
+				"net_p50": 72.0,
+				"net_p90": 172.0,
+				"no_exam_pill_after_8": 0.0220604143844857,
+				"observed_eligible": 0.37951,
+				"observed_net": 99.93396,
+				"observed_success": 0.78961,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.52,
+					"good": 0.36,
+					"legendary": 0.0,
+					"superior": 0.12
+				},
+				"rank": 4,
+				"rare_outings_per_attempt": 1.79,
+				"recipe": "recipe_bingxin",
+				"sample_sd": 119.768807786996,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "consumable_bingpo",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "stable"
+				},
+				"style": "stable",
+				"success_probability": 0.79
+			},
+			"without": {
+				"conditional_quality_counts": {
+					"common": 41010,
+					"good": 28653,
+					"legendary": 0,
+					"superior": 9298
+				},
+				"eligible_probability": 0.3792,
+				"expected_attempts_for_exam_pill": 2.63713080168776,
+				"expected_net": 111.51,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 104.0,
+				"loss_frequency": 0.21039,
+				"mean_tolerance": 10.246233468234,
+				"mean_within_bound": true,
+				"net_p10": -101.0,
+				"net_p50": 96.0,
+				"net_p90": 196.0,
+				"no_exam_pill_after_8": 0.0220604143844857,
+				"observed_eligible": 0.37951,
+				"observed_net": 111.10017,
+				"observed_success": 0.78961,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.52,
+					"good": 0.36,
+					"legendary": 0.0,
+					"superior": 0.12
+				},
+				"rank": 4,
+				"rare_outings_per_attempt": 2.0,
+				"recipe": "recipe_bingxin",
+				"sample_sd": 138.457612199442,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "stable"
+				},
+				"style": "stable",
+				"success_probability": 0.79
+			},
+			"worlds": [
+				"world_yiji",
+				"world_jinhuo"
+			]
+		},
+		{
+			"consumable": "consumable_bingpo",
+			"expected_net_delta": 5.88999999999999,
+			"style": "rush",
+			"with": {
+				"conditional_quality_counts": {
+					"common": 22485,
+					"good": 18335,
+					"legendary": 4033,
+					"superior": 6173
+				},
+				"eligible_probability": 0.2856,
+				"expected_attempts_for_exam_pill": 3.50140056022409,
+				"expected_net": 82.88,
+				"failure_material_value": 61.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 128.0,
+				"loss_frequency": 0.48974,
+				"mean_tolerance": 10.7657847912285,
+				"mean_within_bound": true,
+				"net_p10": -64.0,
+				"net_p50": 72.0,
+				"net_p90": 372.0,
+				"no_exam_pill_after_8": 0.0678471433948228,
+				"observed_eligible": 0.28541,
+				"observed_net": 82.57936,
+				"observed_success": 0.51026,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.44,
+					"good": 0.36,
+					"legendary": 0.08,
+					"superior": 0.12
+				},
+				"rank": 4,
+				"rare_outings_per_attempt": 1.51,
+				"recipe": "recipe_bingxin",
+				"sample_sd": 238.045180967795,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "consumable_bingpo",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "rush"
+				},
+				"style": "rush",
+				"success_probability": 0.51
+			},
+			"without": {
+				"conditional_quality_counts": {
+					"common": 22485,
+					"good": 18335,
+					"legendary": 4033,
+					"superior": 6173
+				},
+				"eligible_probability": 0.2856,
+				"expected_attempts_for_exam_pill": 3.50140056022409,
+				"expected_net": 76.99,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 104.0,
+				"loss_frequency": 0.48974,
+				"mean_tolerance": 10.246233468234,
+				"mean_within_bound": true,
+				"net_p10": -101.0,
+				"net_p50": 96.0,
+				"net_p90": 396.0,
+				"no_exam_pill_after_8": 0.0678471433948228,
+				"observed_eligible": 0.28541,
+				"observed_net": 76.70522,
+				"observed_success": 0.51026,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.44,
+					"good": 0.36,
+					"legendary": 0.08,
+					"superior": 0.12
+				},
+				"rank": 4,
+				"rare_outings_per_attempt": 2.0,
+				"recipe": "recipe_bingxin",
+				"sample_sd": 257.591209331281,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "rush"
+				},
+				"style": "rush",
+				"success_probability": 0.51
+			},
+			"worlds": [
+				"world_yiji",
+				"world_jinhuo"
+			]
+		},
+		{
+			"consumable": "consumable_bingpo",
+			"expected_net_delta": 0.939999999999998,
+			"style": "recycle",
+			"with": {
+				"conditional_quality_counts": {
+					"common": 36821,
+					"good": 25459,
+					"legendary": 0,
+					"superior": 8592
+				},
+				"eligible_probability": 0.3408,
+				"expected_attempts_for_exam_pill": 2.93427230046948,
+				"expected_net": 96.15,
+				"failure_material_value": 104.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 128.0,
+				"loss_frequency": 0.29128,
+				"mean_tolerance": 11.1320258877655,
+				"mean_within_bound": true,
+				"net_p10": -21.0,
+				"net_p50": 72.0,
+				"net_p90": 172.0,
+				"no_exam_pill_after_8": 0.0356564079156335,
+				"observed_eligible": 0.34051,
+				"observed_net": 96.14596,
+				"observed_success": 0.70872,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.52,
+					"good": 0.36,
+					"legendary": 0.0,
+					"superior": 0.12
+				},
+				"rank": 4,
+				"rare_outings_per_attempt": 1.42,
+				"recipe": "recipe_bingxin",
+				"sample_sd": 110.521280012848,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "consumable_bingpo",
+					"flame_id": "flame_hansui",
+					"furnace_id": "furnace_xuanbing",
+					"strategy": "stable"
+				},
+				"style": "recycle",
+				"success_probability": 0.71
+			},
+			"without": {
+				"conditional_quality_counts": {
+					"common": 36821,
+					"good": 25459,
+					"legendary": 0,
+					"superior": 8592
+				},
+				"eligible_probability": 0.3408,
+				"expected_attempts_for_exam_pill": 2.93427230046948,
+				"expected_net": 95.21,
+				"failure_material_value": 18.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 104.0,
+				"loss_frequency": 0.29128,
+				"mean_tolerance": 10.3995436946914,
+				"mean_within_bound": true,
+				"net_p10": -83.0,
+				"net_p50": 96.0,
+				"net_p90": 196.0,
+				"no_exam_pill_after_8": 0.0356564079156335,
+				"observed_eligible": 0.34051,
+				"observed_net": 95.09588,
+				"observed_success": 0.70872,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.52,
+					"good": 0.36,
+					"legendary": 0.0,
+					"superior": 0.12
+				},
+				"rank": 4,
+				"rare_outings_per_attempt": 2.0,
+				"recipe": "recipe_bingxin",
+				"sample_sd": 140.038512727841,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "",
+					"flame_id": "flame_hansui",
+					"furnace_id": "furnace_xuanbing",
+					"strategy": "stable"
+				},
+				"style": "recycle",
+				"success_probability": 0.71
+			},
+			"worlds": [
+				"world_yiji",
+				"world_jinhuo"
+			]
+		},
+		{
+			"consumable": "consumable_yanjiu",
+			"expected_net_delta": -22.0,
+			"style": "stable",
+			"with": {
+				"conditional_quality_counts": {
+					"common": 42596,
+					"good": 29324,
+					"legendary": 0,
+					"superior": 9704
+				},
+				"eligible_probability": 0.3936,
+				"expected_attempts_for_exam_pill": 2.54065040650406,
+				"expected_net": 97.58,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 126.0,
+				"loss_frequency": 0.18376,
+				"mean_tolerance": 10.246233468234,
+				"mean_within_bound": true,
+				"net_p10": -123.0,
+				"net_p50": 74.0,
+				"net_p90": 174.0,
+				"no_exam_pill_after_8": 0.0182840980259216,
+				"observed_eligible": 0.39028,
+				"observed_net": 96.23528,
+				"observed_success": 0.81624,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.52,
+					"good": 0.36,
+					"legendary": 0.0,
+					"superior": 0.12
+				},
+				"rank": 3,
+				"rare_outings_per_attempt": 2.0,
+				"recipe": "recipe_bingxin",
+				"sample_sd": 135.289076289705,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "consumable_yanjiu",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "stable"
+				},
+				"style": "stable",
+				"success_probability": 0.82
+			},
+			"without": {
+				"conditional_quality_counts": {
+					"common": 42596,
+					"good": 29324,
+					"legendary": 0,
+					"superior": 9704
+				},
+				"eligible_probability": 0.3936,
+				"expected_attempts_for_exam_pill": 2.54065040650406,
+				"expected_net": 119.58,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 104.0,
+				"loss_frequency": 0.18376,
+				"mean_tolerance": 10.246233468234,
+				"mean_within_bound": true,
+				"net_p10": -101.0,
+				"net_p50": 96.0,
+				"net_p90": 196.0,
+				"no_exam_pill_after_8": 0.0182840980259216,
+				"observed_eligible": 0.39028,
+				"observed_net": 118.23528,
+				"observed_success": 0.81624,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.52,
+					"good": 0.36,
+					"legendary": 0.0,
+					"superior": 0.12
+				},
+				"rank": 3,
+				"rare_outings_per_attempt": 2.0,
+				"recipe": "recipe_bingxin",
+				"sample_sd": 135.289076289705,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "stable"
+				},
+				"style": "stable",
+				"success_probability": 0.82
+			},
+			"worlds": []
+		},
+		{
+			"consumable": "consumable_yanjiu",
+			"expected_net_delta": -22.0,
+			"style": "rush",
+			"with": {
+				"conditional_quality_counts": {
+					"common": 23788,
+					"good": 19419,
+					"legendary": 4293,
+					"superior": 6312
+				},
+				"eligible_probability": 0.3024,
+				"expected_attempts_for_exam_pill": 3.30687830687831,
+				"expected_net": 65.46,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 126.0,
+				"loss_frequency": 0.46188,
+				"mean_tolerance": 10.246233468234,
+				"mean_within_bound": true,
+				"net_p10": -123.0,
+				"net_p50": 74.0,
+				"net_p90": 374.0,
+				"no_exam_pill_after_8": 0.056085652316427,
+				"observed_eligible": 0.30024,
+				"observed_net": 64.29464,
+				"observed_success": 0.53812,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.44,
+					"good": 0.36,
+					"legendary": 0.08,
+					"superior": 0.12
+				},
+				"rank": 3,
+				"rare_outings_per_attempt": 2.0,
+				"recipe": "recipe_bingxin",
+				"sample_sd": 261.502594456098,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "consumable_yanjiu",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "rush"
+				},
+				"style": "rush",
+				"success_probability": 0.54
+			},
+			"without": {
+				"conditional_quality_counts": {
+					"common": 23788,
+					"good": 19419,
+					"legendary": 4293,
+					"superior": 6312
+				},
+				"eligible_probability": 0.3024,
+				"expected_attempts_for_exam_pill": 3.30687830687831,
+				"expected_net": 87.46,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 104.0,
+				"loss_frequency": 0.46188,
+				"mean_tolerance": 10.246233468234,
+				"mean_within_bound": true,
+				"net_p10": -101.0,
+				"net_p50": 96.0,
+				"net_p90": 396.0,
+				"no_exam_pill_after_8": 0.056085652316427,
+				"observed_eligible": 0.30024,
+				"observed_net": 86.29464,
+				"observed_success": 0.53812,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.44,
+					"good": 0.36,
+					"legendary": 0.08,
+					"superior": 0.12
+				},
+				"rank": 3,
+				"rare_outings_per_attempt": 2.0,
+				"recipe": "recipe_bingxin",
+				"sample_sd": 261.502594456098,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "rush"
+				},
+				"style": "rush",
+				"success_probability": 0.54
+			},
+			"worlds": []
+		},
+		{
+			"consumable": "consumable_yanjiu",
+			"expected_net_delta": -22.0,
+			"style": "recycle",
+			"with": {
+				"conditional_quality_counts": {
+					"common": 42346,
+					"good": 29597,
+					"legendary": 0,
+					"superior": 9899
+				},
+				"eligible_probability": 0.3936,
+				"expected_attempts_for_exam_pill": 2.54065040650406,
+				"expected_net": 97.58,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 126.0,
+				"loss_frequency": 0.18158,
+				"mean_tolerance": 10.246233468234,
+				"mean_within_bound": true,
+				"net_p10": -123.0,
+				"net_p50": 74.0,
+				"net_p90": 174.0,
+				"no_exam_pill_after_8": 0.0182840980259216,
+				"observed_eligible": 0.39496,
+				"observed_net": 97.52274,
+				"observed_success": 0.81842,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.52,
+					"good": 0.36,
+					"legendary": 0.0,
+					"superior": 0.12
+				},
+				"rank": 3,
+				"rare_outings_per_attempt": 2.0,
+				"recipe": "recipe_bingxin",
+				"sample_sd": 135.508003169158,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "consumable_yanjiu",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "stable"
+				},
+				"style": "recycle",
+				"success_probability": 0.82
+			},
+			"without": {
+				"conditional_quality_counts": {
+					"common": 42346,
+					"good": 29597,
+					"legendary": 0,
+					"superior": 9899
+				},
+				"eligible_probability": 0.3936,
+				"expected_attempts_for_exam_pill": 2.54065040650406,
+				"expected_net": 119.58,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 104.0,
+				"loss_frequency": 0.18158,
+				"mean_tolerance": 10.246233468234,
+				"mean_within_bound": true,
+				"net_p10": -101.0,
+				"net_p50": 96.0,
+				"net_p90": 196.0,
+				"no_exam_pill_after_8": 0.0182840980259216,
+				"observed_eligible": 0.39496,
+				"observed_net": 119.52274,
+				"observed_success": 0.81842,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.52,
+					"good": 0.36,
+					"legendary": 0.0,
+					"superior": 0.12
+				},
+				"rank": 3,
+				"rare_outings_per_attempt": 2.0,
+				"recipe": "recipe_bingxin",
+				"sample_sd": 135.508003169158,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "stable"
+				},
+				"style": "recycle",
+				"success_probability": 0.82
+			},
+			"worlds": []
+		},
+		{
+			"consumable": "consumable_yanjiu",
+			"expected_net_delta": -22.0,
+			"style": "stable",
+			"with": {
+				"conditional_quality_counts": {
+					"common": 42885,
+					"good": 29390,
+					"legendary": 0,
+					"superior": 9803
+				},
+				"eligible_probability": 0.3936,
+				"expected_attempts_for_exam_pill": 2.54065040650406,
+				"expected_net": 78.58,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 145.0,
+				"loss_frequency": 0.17922,
+				"mean_tolerance": 10.246233468234,
+				"mean_within_bound": true,
+				"net_p10": -142.0,
+				"net_p50": 55.0,
+				"net_p90": 155.0,
+				"no_exam_pill_after_8": 0.0182840980259216,
+				"observed_eligible": 0.39193,
+				"observed_net": 78.49266,
+				"observed_success": 0.82078,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.52,
+					"good": 0.36,
+					"legendary": 0.0,
+					"superior": 0.12
+				},
+				"rank": 3,
+				"rare_outings_per_attempt": 2.0,
+				"recipe": "recipe_bingxin",
+				"sample_sd": 134.778128441244,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "consumable_yanjiu",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "stable"
+				},
+				"style": "stable",
+				"success_probability": 0.82
+			},
+			"without": {
+				"conditional_quality_counts": {
+					"common": 42885,
+					"good": 29390,
+					"legendary": 0,
+					"superior": 9803
+				},
+				"eligible_probability": 0.3936,
+				"expected_attempts_for_exam_pill": 2.54065040650406,
+				"expected_net": 100.58,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 123.0,
+				"loss_frequency": 0.17922,
+				"mean_tolerance": 10.246233468234,
+				"mean_within_bound": true,
+				"net_p10": -120.0,
+				"net_p50": 77.0,
+				"net_p90": 177.0,
+				"no_exam_pill_after_8": 0.0182840980259216,
+				"observed_eligible": 0.39193,
+				"observed_net": 100.49266,
+				"observed_success": 0.82078,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.52,
+					"good": 0.36,
+					"legendary": 0.0,
+					"superior": 0.12
+				},
+				"rank": 3,
+				"rare_outings_per_attempt": 2.0,
+				"recipe": "recipe_bingxin",
+				"sample_sd": 134.778128441244,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "stable"
+				},
+				"style": "stable",
+				"success_probability": 0.82
+			},
+			"worlds": [
+				"world_kucao",
+				"world_yiji"
+			]
+		},
+		{
+			"consumable": "consumable_yanjiu",
+			"expected_net_delta": -22.0,
+			"style": "rush",
+			"with": {
+				"conditional_quality_counts": {
+					"common": 23668,
+					"good": 19348,
+					"legendary": 4382,
+					"superior": 6523
+				},
+				"eligible_probability": 0.3024,
+				"expected_attempts_for_exam_pill": 3.30687830687831,
+				"expected_net": 46.46,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 145.0,
+				"loss_frequency": 0.46079,
+				"mean_tolerance": 10.246233468234,
+				"mean_within_bound": true,
+				"net_p10": -142.0,
+				"net_p50": 55.0,
+				"net_p90": 355.0,
+				"no_exam_pill_after_8": 0.056085652316427,
+				"observed_eligible": 0.30253,
+				"observed_net": 46.96137,
+				"observed_success": 0.53921,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.44,
+					"good": 0.36,
+					"legendary": 0.08,
+					"superior": 0.12
+				},
+				"rank": 3,
+				"rare_outings_per_attempt": 2.0,
+				"recipe": "recipe_bingxin",
+				"sample_sd": 263.521687034906,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "consumable_yanjiu",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "rush"
+				},
+				"style": "rush",
+				"success_probability": 0.54
+			},
+			"without": {
+				"conditional_quality_counts": {
+					"common": 23668,
+					"good": 19348,
+					"legendary": 4382,
+					"superior": 6523
+				},
+				"eligible_probability": 0.3024,
+				"expected_attempts_for_exam_pill": 3.30687830687831,
+				"expected_net": 68.46,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 123.0,
+				"loss_frequency": 0.46079,
+				"mean_tolerance": 10.246233468234,
+				"mean_within_bound": true,
+				"net_p10": -120.0,
+				"net_p50": 77.0,
+				"net_p90": 377.0,
+				"no_exam_pill_after_8": 0.056085652316427,
+				"observed_eligible": 0.30253,
+				"observed_net": 68.96137,
+				"observed_success": 0.53921,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.44,
+					"good": 0.36,
+					"legendary": 0.08,
+					"superior": 0.12
+				},
+				"rank": 3,
+				"rare_outings_per_attempt": 2.0,
+				"recipe": "recipe_bingxin",
+				"sample_sd": 263.521687034906,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "rush"
+				},
+				"style": "rush",
+				"success_probability": 0.54
+			},
+			"worlds": [
+				"world_kucao",
+				"world_yiji"
+			]
+		},
+		{
+			"consumable": "consumable_yanjiu",
+			"expected_net_delta": -22.0,
+			"style": "recycle",
+			"with": {
+				"conditional_quality_counts": {
+					"common": 42906,
+					"good": 29604,
+					"legendary": 0,
+					"superior": 9698
+				},
+				"eligible_probability": 0.3936,
+				"expected_attempts_for_exam_pill": 2.54065040650406,
+				"expected_net": 78.58,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 145.0,
+				"loss_frequency": 0.17792,
+				"mean_tolerance": 10.246233468234,
+				"mean_within_bound": true,
+				"net_p10": -142.0,
+				"net_p50": 55.0,
+				"net_p90": 155.0,
+				"no_exam_pill_after_8": 0.0182840980259216,
+				"observed_eligible": 0.39302,
+				"observed_net": 78.64776,
+				"observed_success": 0.82208,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.52,
+					"good": 0.36,
+					"legendary": 0.0,
+					"superior": 0.12
+				},
+				"rank": 3,
+				"rare_outings_per_attempt": 2.0,
+				"recipe": "recipe_bingxin",
+				"sample_sd": 134.291774606572,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "consumable_yanjiu",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "stable"
+				},
+				"style": "recycle",
+				"success_probability": 0.82
+			},
+			"without": {
+				"conditional_quality_counts": {
+					"common": 42906,
+					"good": 29604,
+					"legendary": 0,
+					"superior": 9698
+				},
+				"eligible_probability": 0.3936,
+				"expected_attempts_for_exam_pill": 2.54065040650406,
+				"expected_net": 100.58,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 123.0,
+				"loss_frequency": 0.17792,
+				"mean_tolerance": 10.246233468234,
+				"mean_within_bound": true,
+				"net_p10": -120.0,
+				"net_p50": 77.0,
+				"net_p90": 177.0,
+				"no_exam_pill_after_8": 0.0182840980259216,
+				"observed_eligible": 0.39302,
+				"observed_net": 100.64776,
+				"observed_success": 0.82208,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.52,
+					"good": 0.36,
+					"legendary": 0.0,
+					"superior": 0.12
+				},
+				"rank": 3,
+				"rare_outings_per_attempt": 2.0,
+				"recipe": "recipe_bingxin",
+				"sample_sd": 134.291774606572,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "stable"
+				},
+				"style": "recycle",
+				"success_probability": 0.82
+			},
+			"worlds": [
+				"world_kucao",
+				"world_yiji"
+			]
+		},
+		{
+			"consumable": "consumable_yanjiu",
+			"expected_net_delta": -22.0,
+			"style": "stable",
+			"with": {
+				"conditional_quality_counts": {
+					"common": 39682,
+					"good": 28178,
+					"legendary": 0,
+					"superior": 9117
+				},
+				"eligible_probability": 0.3696,
+				"expected_attempts_for_exam_pill": 2.70562770562771,
+				"expected_net": 84.13,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 126.0,
+				"loss_frequency": 0.23023,
+				"mean_tolerance": 10.246233468234,
+				"mean_within_bound": true,
+				"net_p10": -123.0,
+				"net_p50": 74.0,
+				"net_p90": 174.0,
+				"no_exam_pill_after_8": 0.0249419058684671,
+				"observed_eligible": 0.37295,
+				"observed_net": 84.17369,
+				"observed_success": 0.76977,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.52,
+					"good": 0.36,
+					"legendary": 0.0,
+					"superior": 0.12
+				},
+				"rank": 3,
+				"rare_outings_per_attempt": 2.0,
+				"recipe": "recipe_bingxin",
+				"sample_sd": 140.906323853062,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "consumable_yanjiu",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "stable"
+				},
+				"style": "stable",
+				"success_probability": 0.77
+			},
+			"without": {
+				"conditional_quality_counts": {
+					"common": 39682,
+					"good": 28178,
+					"legendary": 0,
+					"superior": 9117
+				},
+				"eligible_probability": 0.3696,
+				"expected_attempts_for_exam_pill": 2.70562770562771,
+				"expected_net": 106.13,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 104.0,
+				"loss_frequency": 0.23023,
+				"mean_tolerance": 10.246233468234,
+				"mean_within_bound": true,
+				"net_p10": -101.0,
+				"net_p50": 96.0,
+				"net_p90": 196.0,
+				"no_exam_pill_after_8": 0.0249419058684671,
+				"observed_eligible": 0.37295,
+				"observed_net": 106.17369,
+				"observed_success": 0.76977,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.52,
+					"good": 0.36,
+					"legendary": 0.0,
+					"superior": 0.12
+				},
+				"rank": 3,
+				"rare_outings_per_attempt": 2.0,
+				"recipe": "recipe_bingxin",
+				"sample_sd": 140.906323853062,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "stable"
+				},
+				"style": "stable",
+				"success_probability": 0.77
+			},
+			"worlds": [
+				"world_yiji",
+				"world_jinhuo"
+			]
+		},
+		{
+			"consumable": "consumable_yanjiu",
+			"expected_net_delta": -22.0,
+			"style": "rush",
+			"with": {
+				"conditional_quality_counts": {
+					"common": 21731,
+					"good": 17629,
+					"legendary": 3839,
+					"superior": 5849
+				},
+				"eligible_probability": 0.2744,
+				"expected_attempts_for_exam_pill": 3.64431486880467,
+				"expected_net": 48.01,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 126.0,
+				"loss_frequency": 0.50952,
+				"mean_tolerance": 10.246233468234,
+				"mean_within_bound": true,
+				"net_p10": -123.0,
+				"net_p50": -123.0,
+				"net_p90": 174.0,
+				"no_exam_pill_after_8": 0.076838378664836,
+				"observed_eligible": 0.27317,
+				"observed_net": 47.19056,
+				"observed_success": 0.49048,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.44,
+					"good": 0.36,
+					"legendary": 0.08,
+					"superior": 0.12
+				},
+				"rank": 3,
+				"rare_outings_per_attempt": 2.0,
+				"recipe": "recipe_bingxin",
+				"sample_sd": 253.91379562144,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "consumable_yanjiu",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "rush"
+				},
+				"style": "rush",
+				"success_probability": 0.49
+			},
+			"without": {
+				"conditional_quality_counts": {
+					"common": 21731,
+					"good": 17629,
+					"legendary": 3839,
+					"superior": 5849
+				},
+				"eligible_probability": 0.2744,
+				"expected_attempts_for_exam_pill": 3.64431486880467,
+				"expected_net": 70.01,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 104.0,
+				"loss_frequency": 0.50952,
+				"mean_tolerance": 10.246233468234,
+				"mean_within_bound": true,
+				"net_p10": -101.0,
+				"net_p50": -101.0,
+				"net_p90": 196.0,
+				"no_exam_pill_after_8": 0.076838378664836,
+				"observed_eligible": 0.27317,
+				"observed_net": 69.19056,
+				"observed_success": 0.49048,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.44,
+					"good": 0.36,
+					"legendary": 0.08,
+					"superior": 0.12
+				},
+				"rank": 3,
+				"rare_outings_per_attempt": 2.0,
+				"recipe": "recipe_bingxin",
+				"sample_sd": 253.91379562144,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "rush"
+				},
+				"style": "rush",
+				"success_probability": 0.49
+			},
+			"worlds": [
+				"world_yiji",
+				"world_jinhuo"
+			]
+		},
+		{
+			"consumable": "consumable_yanjiu",
+			"expected_net_delta": -22.0,
+			"style": "recycle",
+			"with": {
+				"conditional_quality_counts": {
+					"common": 40132,
+					"good": 27941,
+					"legendary": 0,
+					"superior": 9190
+				},
+				"eligible_probability": 0.3696,
+				"expected_attempts_for_exam_pill": 2.70562770562771,
+				"expected_net": 84.13,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 126.0,
+				"loss_frequency": 0.22737,
+				"mean_tolerance": 10.246233468234,
+				"mean_within_bound": true,
+				"net_p10": -123.0,
+				"net_p50": 74.0,
+				"net_p90": 174.0,
+				"no_exam_pill_after_8": 0.0249419058684671,
+				"observed_eligible": 0.37131,
+				"observed_net": 84.71911,
+				"observed_success": 0.77263,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.52,
+					"good": 0.36,
+					"legendary": 0.0,
+					"superior": 0.12
+				},
+				"rank": 3,
+				"rare_outings_per_attempt": 2.0,
+				"recipe": "recipe_bingxin",
+				"sample_sd": 140.620777308362,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "consumable_yanjiu",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "stable"
+				},
+				"style": "recycle",
+				"success_probability": 0.77
+			},
+			"without": {
+				"conditional_quality_counts": {
+					"common": 40132,
+					"good": 27941,
+					"legendary": 0,
+					"superior": 9190
+				},
+				"eligible_probability": 0.3696,
+				"expected_attempts_for_exam_pill": 2.70562770562771,
+				"expected_net": 106.13,
+				"failure_material_value": 0.0,
+				"frequencies_within_bounds": true,
+				"input_cost": 104.0,
+				"loss_frequency": 0.22737,
+				"mean_tolerance": 10.246233468234,
+				"mean_within_bound": true,
+				"net_p10": -101.0,
+				"net_p50": 96.0,
+				"net_p90": 196.0,
+				"no_exam_pill_after_8": 0.0249419058684671,
+				"observed_eligible": 0.37131,
+				"observed_net": 106.71911,
+				"observed_success": 0.77263,
+				"ok": true,
+				"quality_expected": {
+					"common": 0.52,
+					"good": 0.36,
+					"legendary": 0.0,
+					"superior": 0.12
+				},
+				"rank": 3,
+				"rare_outings_per_attempt": 2.0,
+				"recipe": "recipe_bingxin",
+				"sample_sd": 140.620777308362,
+				"samples": 100000,
+				"setup": {
+					"consumable_id": "",
+					"flame_id": "flame_earth",
+					"furnace_id": "furnace_qingmu",
+					"strategy": "stable"
+				},
+				"style": "recycle",
+				"success_probability": 0.77
+			},
+			"worlds": [
+				"world_yiji",
+				"world_jinhuo"
+			]
+		}
+	],
+	"engine": "4.5.stable.official.876b29033",
+	"errors": [],
+	"event_resale": [
+		{
+			"event": "event_misty_pass",
+			"expected_resale_net": -3.0,
+			"option": "choice_safe",
+			"passed": true,
+			"worlds": []
+		},
+		{
+			"event": "event_misty_pass",
+			"expected_resale_net": -2.6,
+			"option": "choice_risk",
+			"passed": true,
+			"worlds": []
+		},
+		{
+			"event": "event_cinder_shrine",
+			"expected_resale_net": -18.0,
+			"option": "choice_safe",
+			"passed": true,
+			"worlds": []
+		},
+		{
+			"event": "event_cinder_shrine",
+			"expected_resale_net": -4.5,
+			"option": "choice_risk",
+			"passed": true,
+			"worlds": []
+		},
+		{
+			"event": "event_formula_exchange",
+			"expected_resale_net": -21.0,
+			"option": "choice_safe",
+			"passed": true,
+			"worlds": []
+		},
+		{
+			"event": "event_formula_exchange",
+			"expected_resale_net": -7.6,
+			"option": "choice_risk",
+			"passed": true,
+			"worlds": []
+		},
+		{
+			"event": "event_frost_cache",
+			"expected_resale_net": -22.0,
+			"option": "choice_safe",
+			"passed": true,
+			"worlds": []
+		},
+		{
+			"event": "event_frost_cache",
+			"expected_resale_net": -7.2,
+			"option": "choice_risk",
+			"passed": true,
+			"worlds": []
+		},
+		{
+			"event": "event_wandering_master",
+			"expected_resale_net": -21.0,
+			"option": "choice_safe",
+			"passed": true,
+			"worlds": []
+		},
+		{
+			"event": "event_wandering_master",
+			"expected_resale_net": -6.8,
+			"option": "choice_risk",
+			"passed": true,
+			"worlds": []
+		},
+		{
+			"event": "event_thunder_stall",
+			"expected_resale_net": -42.0,
+			"option": "choice_safe",
+			"passed": true,
+			"worlds": []
+		},
+		{
+			"event": "event_thunder_stall",
+			"expected_resale_net": -10.1,
+			"option": "choice_risk",
+			"passed": true,
+			"worlds": []
+		},
+		{
+			"event": "event_celestial_forge",
+			"expected_resale_net": -48.0,
+			"option": "choice_safe",
+			"passed": true,
+			"worlds": []
+		},
+		{
+			"event": "event_celestial_forge",
+			"expected_resale_net": -8.25,
+			"option": "choice_risk",
+			"passed": true,
+			"worlds": []
+		},
+		{
+			"event": "event_misty_pass",
+			"expected_resale_net": -2.0,
+			"option": "choice_safe",
+			"passed": true,
+			"worlds": [
+				"world_kucao",
+				"world_yiji"
+			]
+		},
+		{
+			"event": "event_misty_pass",
+			"expected_resale_net": -1.3,
+			"option": "choice_risk",
+			"passed": true,
+			"worlds": [
+				"world_kucao",
+				"world_yiji"
+			]
+		},
+		{
+			"event": "event_cinder_shrine",
+			"expected_resale_net": -18.0,
+			"option": "choice_safe",
+			"passed": true,
+			"worlds": [
+				"world_kucao",
+				"world_yiji"
+			]
+		},
+		{
+			"event": "event_cinder_shrine",
+			"expected_resale_net": -3.6,
+			"option": "choice_risk",
+			"passed": true,
+			"worlds": [
+				"world_kucao",
+				"world_yiji"
+			]
+		},
+		{
+			"event": "event_formula_exchange",
+			"expected_resale_net": -21.0,
+			"option": "choice_safe",
+			"passed": true,
+			"worlds": [
+				"world_kucao",
+				"world_yiji"
+			]
+		},
+		{
+			"event": "event_formula_exchange",
+			"expected_resale_net": -6.95,
+			"option": "choice_risk",
+			"passed": true,
+			"worlds": [
+				"world_kucao",
+				"world_yiji"
+			]
+		},
+		{
+			"event": "event_frost_cache",
+			"expected_resale_net": -22.0,
+			"option": "choice_safe",
+			"passed": true,
+			"worlds": [
+				"world_kucao",
+				"world_yiji"
+			]
+		},
+		{
+			"event": "event_frost_cache",
+			"expected_resale_net": -4.8,
+			"option": "choice_risk",
+			"passed": true,
+			"worlds": [
+				"world_kucao",
+				"world_yiji"
+			]
+		},
+		{
+			"event": "event_wandering_master",
+			"expected_resale_net": -18.0,
+			"option": "choice_safe",
+			"passed": true,
+			"worlds": [
+				"world_kucao",
+				"world_yiji"
+			]
+		},
+		{
+			"event": "event_wandering_master",
+			"expected_resale_net": -2.8,
+			"option": "choice_risk",
+			"passed": true,
+			"worlds": [
+				"world_kucao",
+				"world_yiji"
+			]
+		},
+		{
+			"event": "event_thunder_stall",
+			"expected_resale_net": -42.0,
+			"option": "choice_safe",
+			"passed": true,
+			"worlds": [
+				"world_kucao",
+				"world_yiji"
+			]
+		},
+		{
+			"event": "event_thunder_stall",
+			"expected_resale_net": -10.1,
+			"option": "choice_risk",
+			"passed": true,
+			"worlds": [
+				"world_kucao",
+				"world_yiji"
+			]
+		},
+		{
+			"event": "event_celestial_forge",
+			"expected_resale_net": -48.0,
+			"option": "choice_safe",
+			"passed": true,
+			"worlds": [
+				"world_kucao",
+				"world_yiji"
+			]
+		},
+		{
+			"event": "event_celestial_forge",
+			"expected_resale_net": -8.25,
+			"option": "choice_risk",
+			"passed": true,
+			"worlds": [
+				"world_kucao",
+				"world_yiji"
+			]
+		},
+		{
+			"event": "event_misty_pass",
+			"expected_resale_net": -3.0,
+			"option": "choice_safe",
+			"passed": true,
+			"worlds": [
+				"world_yiji",
+				"world_jinhuo"
+			]
+		},
+		{
+			"event": "event_misty_pass",
+			"expected_resale_net": -2.6,
+			"option": "choice_risk",
+			"passed": true,
+			"worlds": [
+				"world_yiji",
+				"world_jinhuo"
+			]
+		},
+		{
+			"event": "event_cinder_shrine",
+			"expected_resale_net": -18.0,
+			"option": "choice_safe",
+			"passed": true,
+			"worlds": [
+				"world_yiji",
+				"world_jinhuo"
+			]
+		},
+		{
+			"event": "event_cinder_shrine",
+			"expected_resale_net": -4.5,
+			"option": "choice_risk",
+			"passed": true,
+			"worlds": [
+				"world_yiji",
+				"world_jinhuo"
+			]
+		},
+		{
+			"event": "event_formula_exchange",
+			"expected_resale_net": -21.0,
+			"option": "choice_safe",
+			"passed": true,
+			"worlds": [
+				"world_yiji",
+				"world_jinhuo"
+			]
+		},
+		{
+			"event": "event_formula_exchange",
+			"expected_resale_net": -7.6,
+			"option": "choice_risk",
+			"passed": true,
+			"worlds": [
+				"world_yiji",
+				"world_jinhuo"
+			]
+		},
+		{
+			"event": "event_frost_cache",
+			"expected_resale_net": -22.0,
+			"option": "choice_safe",
+			"passed": true,
+			"worlds": [
+				"world_yiji",
+				"world_jinhuo"
+			]
+		},
+		{
+			"event": "event_frost_cache",
+			"expected_resale_net": -7.2,
+			"option": "choice_risk",
+			"passed": true,
+			"worlds": [
+				"world_yiji",
+				"world_jinhuo"
+			]
+		},
+		{
+			"event": "event_wandering_master",
+			"expected_resale_net": -21.0,
+			"option": "choice_safe",
+			"passed": true,
+			"worlds": [
+				"world_yiji",
+				"world_jinhuo"
+			]
+		},
+		{
+			"event": "event_wandering_master",
+			"expected_resale_net": -6.8,
+			"option": "choice_risk",
+			"passed": true,
+			"worlds": [
+				"world_yiji",
+				"world_jinhuo"
+			]
+		},
+		{
+			"event": "event_thunder_stall",
+			"expected_resale_net": -42.0,
+			"option": "choice_safe",
+			"passed": true,
+			"worlds": [
+				"world_yiji",
+				"world_jinhuo"
+			]
+		},
+		{
+			"event": "event_thunder_stall",
+			"expected_resale_net": -10.1,
+			"option": "choice_risk",
+			"passed": true,
+			"worlds": [
+				"world_yiji",
+				"world_jinhuo"
+			]
+		},
+		{
+			"event": "event_celestial_forge",
+			"expected_resale_net": -48.0,
+			"option": "choice_safe",
+			"passed": true,
+			"worlds": [
+				"world_yiji",
+				"world_jinhuo"
+			]
+		},
+		{
+			"event": "event_celestial_forge",
+			"expected_resale_net": -8.25,
+			"option": "choice_risk",
+			"passed": true,
+			"worlds": [
+				"world_yiji",
+				"world_jinhuo"
+			]
+		},
+		{
+			"event": "event_misty_pass",
+			"expected_resale_net": -3.0,
+			"option": "choice_safe",
+			"passed": true,
+			"worlds": [
+				"world_huoling",
+				"world_dansheng"
+			]
+		},
+		{
+			"event": "event_misty_pass",
+			"expected_resale_net": -2.6,
+			"option": "choice_risk",
+			"passed": true,
+			"worlds": [
+				"world_huoling",
+				"world_dansheng"
+			]
+		},
+		{
+			"event": "event_cinder_shrine",
+			"expected_resale_net": -18.0,
+			"option": "choice_safe",
+			"passed": true,
+			"worlds": [
+				"world_huoling",
+				"world_dansheng"
+			]
+		},
+		{
+			"event": "event_cinder_shrine",
+			"expected_resale_net": -4.5,
+			"option": "choice_risk",
+			"passed": true,
+			"worlds": [
+				"world_huoling",
+				"world_dansheng"
+			]
+		},
+		{
+			"event": "event_formula_exchange",
+			"expected_resale_net": -21.0,
+			"option": "choice_safe",
+			"passed": true,
+			"worlds": [
+				"world_huoling",
+				"world_dansheng"
+			]
+		},
+		{
+			"event": "event_formula_exchange",
+			"expected_resale_net": -7.6,
+			"option": "choice_risk",
+			"passed": true,
+			"worlds": [
+				"world_huoling",
+				"world_dansheng"
+			]
+		},
+		{
+			"event": "event_frost_cache",
+			"expected_resale_net": -22.0,
+			"option": "choice_safe",
+			"passed": true,
+			"worlds": [
+				"world_huoling",
+				"world_dansheng"
+			]
+		},
+		{
+			"event": "event_frost_cache",
+			"expected_resale_net": -7.2,
+			"option": "choice_risk",
+			"passed": true,
+			"worlds": [
+				"world_huoling",
+				"world_dansheng"
+			]
+		},
+		{
+			"event": "event_wandering_master",
+			"expected_resale_net": -21.0,
+			"option": "choice_safe",
+			"passed": true,
+			"worlds": [
+				"world_huoling",
+				"world_dansheng"
+			]
+		},
+		{
+			"event": "event_wandering_master",
+			"expected_resale_net": -6.8,
+			"option": "choice_risk",
+			"passed": true,
+			"worlds": [
+				"world_huoling",
+				"world_dansheng"
+			]
+		},
+		{
+			"event": "event_thunder_stall",
+			"expected_resale_net": -42.0,
+			"option": "choice_safe",
+			"passed": true,
+			"worlds": [
+				"world_huoling",
+				"world_dansheng"
+			]
+		},
+		{
+			"event": "event_thunder_stall",
+			"expected_resale_net": -10.1,
+			"option": "choice_risk",
+			"passed": true,
+			"worlds": [
+				"world_huoling",
+				"world_dansheng"
+			]
+		},
+		{
+			"event": "event_celestial_forge",
+			"expected_resale_net": -48.0,
+			"option": "choice_safe",
+			"passed": true,
+			"worlds": [
+				"world_huoling",
+				"world_dansheng"
+			]
+		},
+		{
+			"event": "event_celestial_forge",
+			"expected_resale_net": -8.25,
+			"option": "choice_risk",
+			"passed": true,
+			"worlds": [
+				"world_huoling",
+				"world_dansheng"
+			]
+		}
+	],
+	"ok": true,
+	"probability": [
+		{
+			"checks": [
+				{
+					"actual": 0.84777,
+					"expected": 0.85,
+					"name": "success",
+					"passed": true,
+					"tolerance": 0.01
+				},
+				{
+					"actual": 0.609929579956828,
+					"count": 51708,
+					"expected": 0.61,
+					"name": "common",
+					"passed": true,
+					"samples": 84777,
+					"tolerance": 0.010051004081137
+				},
+				{
+					"actual": 0.299998820434788,
+					"count": 25433,
+					"expected": 0.3,
+					"name": "good",
+					"passed": true,
+					"samples": 84777,
+					"tolerance": 0.00944325844436467
+				},
+				{
+					"actual": 0.0900715996083843,
+					"count": 7636,
+					"expected": 0.09,
+					"name": "superior",
+					"passed": true,
+					"samples": 84777,
+					"tolerance": 0.00589731300834161
+				},
+				{
+					"actual": 0.0,
+					"count": 0,
+					"expected": 0.0,
+					"name": "legendary",
+					"passed": true,
+					"samples": 84777,
+					"tolerance": 0.0000117956521226276
+				},
+				{
+					"actual": 0.0,
+					"count": 0,
+					"expected": 0.0,
+					"name": "legendary_per_attempt",
+					"passed": true,
+					"samples": 100000,
+					"tolerance": 0.00001
+				},
+				{
+					"actual": 0.250846338039799,
+					"count": 21266,
+					"expected": 0.25,
+					"name": "extra_given_success",
+					"passed": true,
+					"samples": 84777,
+					"tolerance": 0.00892304050353557
+				}
+			],
+			"extra_actual": 0.250846338039799,
+			"extra_count": 21266,
+			"extra_expected": 0.25,
+			"name": "consumable_shuangsheng",
+			"passed": true,
+			"quality_actual": {
+				"common": 0.609929579956828,
+				"good": 0.299998820434788,
+				"legendary": 0.0,
+				"superior": 0.0900715996083843
+			},
+			"quality_counts": {
+				"common": 51708,
+				"good": 25433,
+				"legendary": 0,
+				"superior": 7636
+			},
+			"quality_expected": {
+				"common": 0.61,
+				"good": 0.3,
+				"legendary": 0.0,
+				"superior": 0.09
+			},
+			"samples": 100000,
+			"seed": 221001,
+			"success_actual": 0.84777,
+			"success_expected": 0.85,
+			"successes": 84777
+		},
+		{
+			"checks": [
+				{
+					"actual": 0.16898,
+					"expected": 0.17,
+					"name": "success",
+					"passed": true,
+					"tolerance": 0.01
+				},
+				{
+					"actual": 0.20688838915848,
+					"count": 3496,
+					"expected": 0.21,
+					"name": "common",
+					"passed": true,
+					"samples": 16898,
+					"tolerance": 0.0187999541680063
+				},
+				{
+					"actual": 0.178186767664812,
+					"count": 3011,
+					"expected": 0.18,
+					"name": "good",
+					"passed": true,
+					"samples": 16898,
+					"tolerance": 0.0177327779653546
+				},
+				{
+					"actual": 0.0981181204876317,
+					"count": 1658,
+					"expected": 0.1,
+					"name": "superior",
+					"passed": true,
+					"samples": 16898,
+					"tolerance": 0.013846973217924
+				},
+				{
+					"actual": 0.516806722689076,
+					"count": 8733,
+					"expected": 0.51,
+					"name": "legendary",
+					"passed": true,
+					"samples": 16898,
+					"tolerance": 0.0230736725771426
+				},
+				{
+					"actual": 0.08733,
+					"count": 8733,
+					"expected": 0.0867,
+					"name": "legendary_per_attempt",
+					"passed": true,
+					"samples": 100000,
+					"tolerance": 0.00533909351856661
+				},
+				{
+					"actual": 0.0,
+					"count": 0,
+					"expected": 0.0,
+					"name": "extra_given_success",
+					"passed": true,
+					"samples": 16898,
+					"tolerance": 0.0000591786010178719
+				}
+			],
+			"extra_actual": 0.0,
+			"extra_count": 0,
+			"extra_expected": 0.0,
+			"name": "consumable_jiuzhuan",
+			"passed": true,
+			"quality_actual": {
+				"common": 0.20688838915848,
+				"good": 0.178186767664812,
+				"legendary": 0.516806722689076,
+				"superior": 0.0981181204876317
+			},
+			"quality_counts": {
+				"common": 3496,
+				"good": 3011,
+				"legendary": 8733,
+				"superior": 1658
+			},
+			"quality_expected": {
+				"common": 0.21,
+				"good": 0.18,
+				"legendary": 0.51,
+				"superior": 0.1
+			},
+			"samples": 100000,
+			"seed": 221011,
+			"success_actual": 0.16898,
+			"success_expected": 0.17,
+			"successes": 16898
+		},
+		{
+			"checks": [
+				{
+					"actual": 0.91054,
+					"expected": 0.91,
+					"name": "success",
+					"passed": true,
+					"tolerance": 0.01
+				},
+				{
+					"actual": 0.566960265337053,
+					"count": 51624,
+					"expected": 0.57,
+					"name": "common",
+					"passed": true,
+					"samples": 91054,
+					"tolerance": 0.00984404049248331
+				},
+				{
+					"actual": 0.302853251916445,
+					"count": 27576,
+					"expected": 0.3,
+					"name": "good",
+					"passed": true,
+					"samples": 91054,
+					"tolerance": 0.00911195115876134
+				},
+				{
+					"actual": 0.130186482746502,
+					"count": 11854,
+					"expected": 0.13,
+					"name": "superior",
+					"passed": true,
+					"samples": 91054,
+					"tolerance": 0.00668702640808612
+				},
+				{
+					"actual": 0.0,
+					"count": 0,
+					"expected": 0.0,
+					"name": "legendary",
+					"passed": true,
+					"samples": 91054,
+					"tolerance": 0.0000109824939047159
+				},
+				{
+					"actual": 0.0,
+					"count": 0,
+					"expected": 0.0,
+					"name": "legendary_per_attempt",
+					"passed": true,
+					"samples": 100000,
+					"tolerance": 0.00001
+				},
+				{
+					"actual": 0.0,
+					"count": 0,
+					"expected": 0.0,
+					"name": "extra_given_success",
+					"passed": true,
+					"samples": 91054,
+					"tolerance": 0.0000109824939047159
+				}
+			],
+			"extra_actual": 0.0,
+			"extra_count": 0,
+			"extra_expected": 0.0,
+			"name": "consumable_wenhuo",
+			"passed": true,
+			"quality_actual": {
+				"common": 0.566960265337053,
+				"good": 0.302853251916445,
+				"legendary": 0.0,
+				"superior": 0.130186482746502
+			},
+			"quality_counts": {
+				"common": 51624,
+				"good": 27576,
+				"legendary": 0,
+				"superior": 11854
+			},
+			"quality_expected": {
+				"common": 0.57,
+				"good": 0.3,
+				"legendary": 0.0,
+				"superior": 0.13
+			},
+			"samples": 100000,
+			"seed": 221019,
+			"success_actual": 0.91054,
+			"success_expected": 0.91,
+			"successes": 91054
+		},
+		{
+			"checks": [
+				{
+					"actual": 0.83977,
+					"expected": 0.84,
+					"name": "success",
+					"passed": true,
+					"tolerance": 0.01
+				},
+				{
+					"actual": 0.518499112852329,
+					"count": 43542,
+					"expected": 0.52,
+					"name": "common",
+					"passed": true,
+					"samples": 83977,
+					"tolerance": 0.0103441155440844
+				},
+				{
+					"actual": 0.362182502351834,
+					"count": 30415,
+					"expected": 0.36,
+					"name": "good",
+					"passed": true,
+					"samples": 83977,
+					"tolerance": 0.00993830474892444
+				},
+				{
+					"actual": 0.119318384795837,
+					"count": 10020,
+					"expected": 0.12,
+					"name": "superior",
+					"passed": true,
+					"samples": 83977,
+					"tolerance": 0.00672826412143651
+				},
+				{
+					"actual": 0.0,
+					"count": 0,
+					"expected": 0.0,
+					"name": "legendary",
+					"passed": true,
+					"samples": 83977,
+					"tolerance": 0.0000119080224347143
+				},
+				{
+					"actual": 0.0,
+					"count": 0,
+					"expected": 0.0,
+					"name": "legendary_per_attempt",
+					"passed": true,
+					"samples": 100000,
+					"tolerance": 0.00001
+				},
+				{
+					"actual": 0.0,
+					"count": 0,
+					"expected": 0.0,
+					"name": "extra_given_success",
+					"passed": true,
+					"samples": 83977,
+					"tolerance": 0.0000119080224347143
+				}
+			],
+			"extra_actual": 0.0,
+			"extra_count": 0,
+			"extra_expected": 0.0,
+			"name": "consumable_bingpo",
+			"passed": true,
+			"quality_actual": {
+				"common": 0.518499112852329,
+				"good": 0.362182502351834,
+				"legendary": 0.0,
+				"superior": 0.119318384795837
+			},
+			"quality_counts": {
+				"common": 43542,
+				"good": 30415,
+				"legendary": 0,
+				"superior": 10020
+			},
+			"quality_expected": {
+				"common": 0.52,
+				"good": 0.36,
+				"legendary": 0.0,
+				"superior": 0.12
+			},
+			"samples": 100000,
+			"seed": 221028,
+			"success_actual": 0.83977,
+			"success_expected": 0.84,
+			"successes": 83977
+		},
+		{
+			"checks": [
+				{
+					"actual": 0.81624,
+					"expected": 0.82,
+					"name": "success",
+					"passed": true,
+					"tolerance": 0.01
+				},
+				{
+					"actual": 0.521856316769578,
+					"count": 42596,
+					"expected": 0.52,
+					"name": "common",
+					"passed": true,
+					"samples": 81624,
+					"tolerance": 0.0104921527361413
+				},
+				{
+					"actual": 0.359257081250613,
+					"count": 29324,
+					"expected": 0.36,
+					"name": "good",
+					"passed": true,
+					"samples": 81624,
+					"tolerance": 0.0100805342824758
+				},
+				{
+					"actual": 0.11888660197981,
+					"count": 9704,
+					"expected": 0.12,
+					"name": "superior",
+					"passed": true,
+					"samples": 81624,
+					"tolerance": 0.00682455397084025
+				},
+				{
+					"actual": 0.0,
+					"count": 0,
+					"expected": 0.0,
+					"name": "legendary",
+					"passed": true,
+					"samples": 81624,
+					"tolerance": 0.0000122512986376556
+				},
+				{
+					"actual": 0.0,
+					"count": 0,
+					"expected": 0.0,
+					"name": "legendary_per_attempt",
+					"passed": true,
+					"samples": 100000,
+					"tolerance": 0.00001
+				},
+				{
+					"actual": 0.0,
+					"count": 0,
+					"expected": 0.0,
+					"name": "extra_given_success",
+					"passed": true,
+					"samples": 81624,
+					"tolerance": 0.0000122512986376556
+				}
+			],
+			"extra_actual": 0.0,
+			"extra_count": 0,
+			"extra_expected": 0.0,
+			"name": "consumable_yanjiu",
+			"passed": true,
+			"quality_actual": {
+				"common": 0.521856316769578,
+				"good": 0.359257081250613,
+				"legendary": 0.0,
+				"superior": 0.11888660197981
+			},
+			"quality_counts": {
+				"common": 42596,
+				"good": 29324,
+				"legendary": 0,
+				"superior": 9704
+			},
+			"quality_expected": {
+				"common": 0.52,
+				"good": 0.36,
+				"legendary": 0.0,
+				"superior": 0.12
+			},
+			"samples": 100000,
+			"seed": 221037,
+			"success_actual": 0.81624,
+			"success_expected": 0.82,
+			"successes": 81624
+		}
+	],
+	"proposal_sha256": "96dcd112b67dbe00b539438610ac17dd12e68dccaf61cf0064bd8e7f1b6320fb",
+	"quest_opportunity_cost": [
+		{
+			"cash_premium": 5,
+			"cash_reward": 61,
+			"direct_minimum_sale": 56,
+			"quantity": 2,
+			"quest": "quest_huiling_order",
+			"repeatable": true,
+			"required_quality": "common",
+			"worlds": []
+		},
+		{
+			"cash_premium": 13,
+			"cash_reward": 149,
+			"direct_minimum_sale": 136,
+			"quantity": 2,
+			"quest": "quest_yangqi_order",
+			"repeatable": true,
+			"required_quality": "common",
+			"worlds": []
+		},
+		{
+			"cash_premium": 15,
+			"cash_reward": 167,
+			"direct_minimum_sale": 152,
+			"quantity": 2,
+			"quest": "quest_qingxin_order",
+			"repeatable": true,
+			"required_quality": "common",
+			"worlds": []
+		},
+		{
+			"cash_premium": 14,
+			"cash_reward": 160,
+			"direct_minimum_sale": 146,
+			"quantity": 1,
+			"quest": "quest_gushen_order",
+			"repeatable": true,
+			"required_quality": "common",
+			"worlds": []
+		},
+		{
+			"cash_premium": 15,
+			"cash_reward": 170,
+			"direct_minimum_sale": 155,
+			"quantity": 1,
+			"quest": "quest_chiyang_order",
+			"repeatable": true,
+			"required_quality": "common",
+			"worlds": []
+		},
+		{
+			"cash_premium": 40,
+			"cash_reward": 440,
+			"direct_minimum_sale": 400,
+			"quantity": 2,
+			"quest": "quest_bingxin_order",
+			"repeatable": true,
+			"required_quality": "common",
+			"worlds": []
+		},
+		{
+			"cash_premium": 21,
+			"cash_reward": 231,
+			"direct_minimum_sale": 210,
+			"quantity": 1,
+			"quest": "quest_hupo_order",
+			"repeatable": true,
+			"required_quality": "common",
+			"worlds": []
+		},
+		{
+			"cash_premium": 30,
+			"cash_reward": 330,
+			"direct_minimum_sale": 300,
+			"quantity": 1,
+			"quest": "quest_yanshou_order",
+			"repeatable": true,
+			"required_quality": "common",
+			"worlds": []
+		},
+		{
+			"cash_premium": 44,
+			"cash_reward": 484,
+			"direct_minimum_sale": 440,
+			"quantity": 1,
+			"quest": "quest_lianhun_order",
+			"repeatable": true,
+			"required_quality": "common",
+			"worlds": []
+		},
+		{
+			"cash_premium": 46,
+			"cash_reward": 506,
+			"direct_minimum_sale": 460,
+			"quantity": 1,
+			"quest": "quest_niepan_order",
+			"repeatable": true,
+			"required_quality": "common",
+			"worlds": []
+		},
+		{
+			"cash_premium": 69,
+			"cash_reward": 759,
+			"direct_minimum_sale": 690,
+			"quantity": 1,
+			"quest": "quest_leijie_order",
+			"repeatable": true,
+			"required_quality": "common",
+			"worlds": []
+		},
+		{
+			"cash_premium": 92,
+			"cash_reward": 1012,
+			"direct_minimum_sale": 920,
+			"quantity": 1,
+			"quest": "quest_xuanhuang_order",
+			"repeatable": true,
+			"required_quality": "common",
+			"worlds": []
+		},
+		{
+			"cash_premium": 145,
+			"cash_reward": 1595,
+			"direct_minimum_sale": 1450,
+			"quantity": 1,
+			"quest": "quest_jiuzhuan_order",
+			"repeatable": true,
+			"required_quality": "common",
+			"worlds": []
+		},
+		{
+			"cash_premium": 206,
+			"cash_reward": 1931,
+			"direct_minimum_sale": 1725,
+			"quantity": 1,
+			"quest": "quest_leijie_showcase",
+			"repeatable": false,
+			"required_quality": "superior",
+			"worlds": []
+		},
+		{
+			"cash_premium": 434,
+			"cash_reward": 4059,
+			"direct_minimum_sale": 3625,
+			"quantity": 1,
+			"quest": "quest_jiuzhuan_showcase",
+			"repeatable": false,
+			"required_quality": "superior",
+			"worlds": []
+		},
+		{
+			"cash_premium": 5,
+			"cash_reward": 61,
+			"direct_minimum_sale": 56,
+			"quantity": 2,
+			"quest": "quest_huiling_order",
+			"repeatable": true,
+			"required_quality": "common",
+			"worlds": [
+				"world_kucao",
+				"world_yiji"
+			]
+		},
+		{
+			"cash_premium": 13,
+			"cash_reward": 149,
+			"direct_minimum_sale": 136,
+			"quantity": 2,
+			"quest": "quest_yangqi_order",
+			"repeatable": true,
+			"required_quality": "common",
+			"worlds": [
+				"world_kucao",
+				"world_yiji"
+			]
+		},
+		{
+			"cash_premium": 15,
+			"cash_reward": 167,
+			"direct_minimum_sale": 152,
+			"quantity": 2,
+			"quest": "quest_qingxin_order",
+			"repeatable": true,
+			"required_quality": "common",
+			"worlds": [
+				"world_kucao",
+				"world_yiji"
+			]
+		},
+		{
+			"cash_premium": 14,
+			"cash_reward": 160,
+			"direct_minimum_sale": 146,
+			"quantity": 1,
+			"quest": "quest_gushen_order",
+			"repeatable": true,
+			"required_quality": "common",
+			"worlds": [
+				"world_kucao",
+				"world_yiji"
+			]
+		},
+		{
+			"cash_premium": 15,
+			"cash_reward": 170,
+			"direct_minimum_sale": 155,
+			"quantity": 1,
+			"quest": "quest_chiyang_order",
+			"repeatable": true,
+			"required_quality": "common",
+			"worlds": [
+				"world_kucao",
+				"world_yiji"
+			]
+		},
+		{
+			"cash_premium": 40,
+			"cash_reward": 440,
+			"direct_minimum_sale": 400,
+			"quantity": 2,
+			"quest": "quest_bingxin_order",
+			"repeatable": true,
+			"required_quality": "common",
+			"worlds": [
+				"world_kucao",
+				"world_yiji"
+			]
+		},
+		{
+			"cash_premium": 21,
+			"cash_reward": 231,
+			"direct_minimum_sale": 210,
+			"quantity": 1,
+			"quest": "quest_hupo_order",
+			"repeatable": true,
+			"required_quality": "common",
+			"worlds": [
+				"world_kucao",
+				"world_yiji"
+			]
+		},
+		{
+			"cash_premium": 30,
+			"cash_reward": 330,
+			"direct_minimum_sale": 300,
+			"quantity": 1,
+			"quest": "quest_yanshou_order",
+			"repeatable": true,
+			"required_quality": "common",
+			"worlds": [
+				"world_kucao",
+				"world_yiji"
+			]
+		},
+		{
+			"cash_premium": 44,
+			"cash_reward": 484,
+			"direct_minimum_sale": 440,
+			"quantity": 1,
+			"quest": "quest_lianhun_order",
+			"repeatable": true,
+			"required_quality": "common",
+			"worlds": [
+				"world_kucao",
+				"world_yiji"
+			]
+		},
+		{
+			"cash_premium": 46,
+			"cash_reward": 506,
+			"direct_minimum_sale": 460,
+			"quantity": 1,
+			"quest": "quest_niepan_order",
+			"repeatable": true,
+			"required_quality": "common",
+			"worlds": [
+				"world_kucao",
+				"world_yiji"
+			]
+		},
+		{
+			"cash_premium": 69,
+			"cash_reward": 759,
+			"direct_minimum_sale": 690,
+			"quantity": 1,
+			"quest": "quest_leijie_order",
+			"repeatable": true,
+			"required_quality": "common",
+			"worlds": [
+				"world_kucao",
+				"world_yiji"
+			]
+		},
+		{
+			"cash_premium": 92,
+			"cash_reward": 1012,
+			"direct_minimum_sale": 920,
+			"quantity": 1,
+			"quest": "quest_xuanhuang_order",
+			"repeatable": true,
+			"required_quality": "common",
+			"worlds": [
+				"world_kucao",
+				"world_yiji"
+			]
+		},
+		{
+			"cash_premium": 145,
+			"cash_reward": 1595,
+			"direct_minimum_sale": 1450,
+			"quantity": 1,
+			"quest": "quest_jiuzhuan_order",
+			"repeatable": true,
+			"required_quality": "common",
+			"worlds": [
+				"world_kucao",
+				"world_yiji"
+			]
+		},
+		{
+			"cash_premium": 206,
+			"cash_reward": 1931,
+			"direct_minimum_sale": 1725,
+			"quantity": 1,
+			"quest": "quest_leijie_showcase",
+			"repeatable": false,
+			"required_quality": "superior",
+			"worlds": [
+				"world_kucao",
+				"world_yiji"
+			]
+		},
+		{
+			"cash_premium": 434,
+			"cash_reward": 4059,
+			"direct_minimum_sale": 3625,
+			"quantity": 1,
+			"quest": "quest_jiuzhuan_showcase",
+			"repeatable": false,
+			"required_quality": "superior",
+			"worlds": [
+				"world_kucao",
+				"world_yiji"
+			]
+		},
+		{
+			"cash_premium": 5,
+			"cash_reward": 61,
+			"direct_minimum_sale": 56,
+			"quantity": 2,
+			"quest": "quest_huiling_order",
+			"repeatable": true,
+			"required_quality": "common",
+			"worlds": [
+				"world_yiji",
+				"world_jinhuo"
+			]
+		},
+		{
+			"cash_premium": 13,
+			"cash_reward": 149,
+			"direct_minimum_sale": 136,
+			"quantity": 2,
+			"quest": "quest_yangqi_order",
+			"repeatable": true,
+			"required_quality": "common",
+			"worlds": [
+				"world_yiji",
+				"world_jinhuo"
+			]
+		},
+		{
+			"cash_premium": 15,
+			"cash_reward": 167,
+			"direct_minimum_sale": 152,
+			"quantity": 2,
+			"quest": "quest_qingxin_order",
+			"repeatable": true,
+			"required_quality": "common",
+			"worlds": [
+				"world_yiji",
+				"world_jinhuo"
+			]
+		},
+		{
+			"cash_premium": 14,
+			"cash_reward": 160,
+			"direct_minimum_sale": 146,
+			"quantity": 1,
+			"quest": "quest_gushen_order",
+			"repeatable": true,
+			"required_quality": "common",
+			"worlds": [
+				"world_yiji",
+				"world_jinhuo"
+			]
+		},
+		{
+			"cash_premium": 15,
+			"cash_reward": 170,
+			"direct_minimum_sale": 155,
+			"quantity": 1,
+			"quest": "quest_chiyang_order",
+			"repeatable": true,
+			"required_quality": "common",
+			"worlds": [
+				"world_yiji",
+				"world_jinhuo"
+			]
+		},
+		{
+			"cash_premium": 40,
+			"cash_reward": 440,
+			"direct_minimum_sale": 400,
+			"quantity": 2,
+			"quest": "quest_bingxin_order",
+			"repeatable": true,
+			"required_quality": "common",
+			"worlds": [
+				"world_yiji",
+				"world_jinhuo"
+			]
+		},
+		{
+			"cash_premium": 21,
+			"cash_reward": 231,
+			"direct_minimum_sale": 210,
+			"quantity": 1,
+			"quest": "quest_hupo_order",
+			"repeatable": true,
+			"required_quality": "common",
+			"worlds": [
+				"world_yiji",
+				"world_jinhuo"
+			]
+		},
+		{
+			"cash_premium": 30,
+			"cash_reward": 330,
+			"direct_minimum_sale": 300,
+			"quantity": 1,
+			"quest": "quest_yanshou_order",
+			"repeatable": true,
+			"required_quality": "common",
+			"worlds": [
+				"world_yiji",
+				"world_jinhuo"
+			]
+		},
+		{
+			"cash_premium": 44,
+			"cash_reward": 484,
+			"direct_minimum_sale": 440,
+			"quantity": 1,
+			"quest": "quest_lianhun_order",
+			"repeatable": true,
+			"required_quality": "common",
+			"worlds": [
+				"world_yiji",
+				"world_jinhuo"
+			]
+		},
+		{
+			"cash_premium": 46,
+			"cash_reward": 506,
+			"direct_minimum_sale": 460,
+			"quantity": 1,
+			"quest": "quest_niepan_order",
+			"repeatable": true,
+			"required_quality": "common",
+			"worlds": [
+				"world_yiji",
+				"world_jinhuo"
+			]
+		},
+		{
+			"cash_premium": 69,
+			"cash_reward": 759,
+			"direct_minimum_sale": 690,
+			"quantity": 1,
+			"quest": "quest_leijie_order",
+			"repeatable": true,
+			"required_quality": "common",
+			"worlds": [
+				"world_yiji",
+				"world_jinhuo"
+			]
+		},
+		{
+			"cash_premium": 92,
+			"cash_reward": 1012,
+			"direct_minimum_sale": 920,
+			"quantity": 1,
+			"quest": "quest_xuanhuang_order",
+			"repeatable": true,
+			"required_quality": "common",
+			"worlds": [
+				"world_yiji",
+				"world_jinhuo"
+			]
+		},
+		{
+			"cash_premium": 145,
+			"cash_reward": 1595,
+			"direct_minimum_sale": 1450,
+			"quantity": 1,
+			"quest": "quest_jiuzhuan_order",
+			"repeatable": true,
+			"required_quality": "common",
+			"worlds": [
+				"world_yiji",
+				"world_jinhuo"
+			]
+		},
+		{
+			"cash_premium": 206,
+			"cash_reward": 1931,
+			"direct_minimum_sale": 1725,
+			"quantity": 1,
+			"quest": "quest_leijie_showcase",
+			"repeatable": false,
+			"required_quality": "superior",
+			"worlds": [
+				"world_yiji",
+				"world_jinhuo"
+			]
+		},
+		{
+			"cash_premium": 434,
+			"cash_reward": 4059,
+			"direct_minimum_sale": 3625,
+			"quantity": 1,
+			"quest": "quest_jiuzhuan_showcase",
+			"repeatable": false,
+			"required_quality": "superior",
+			"worlds": [
+				"world_yiji",
+				"world_jinhuo"
+			]
+		},
+		{
+			"cash_premium": -8,
+			"cash_reward": 76,
+			"direct_minimum_sale": 84,
+			"quantity": 2,
+			"quest": "quest_huiling_order",
+			"repeatable": true,
+			"required_quality": "good",
+			"worlds": [
+				"world_huoling",
+				"world_dansheng"
+			]
+		},
+		{
+			"cash_premium": -18,
+			"cash_reward": 186,
+			"direct_minimum_sale": 204,
+			"quantity": 2,
+			"quest": "quest_yangqi_order",
+			"repeatable": true,
+			"required_quality": "good",
+			"worlds": [
+				"world_huoling",
+				"world_dansheng"
+			]
+		},
+		{
+			"cash_premium": -20,
+			"cash_reward": 208,
+			"direct_minimum_sale": 228,
+			"quantity": 2,
+			"quest": "quest_qingxin_order",
+			"repeatable": true,
+			"required_quality": "good",
+			"worlds": [
+				"world_huoling",
+				"world_dansheng"
+			]
+		},
+		{
+			"cash_premium": -19,
+			"cash_reward": 200,
+			"direct_minimum_sale": 219,
+			"quantity": 1,
+			"quest": "quest_gushen_order",
+			"repeatable": true,
+			"required_quality": "good",
+			"worlds": [
+				"world_huoling",
+				"world_dansheng"
+			]
+		},
+		{
+			"cash_premium": -20,
+			"cash_reward": 212,
+			"direct_minimum_sale": 232,
+			"quantity": 1,
+			"quest": "quest_chiyang_order",
+			"repeatable": true,
+			"required_quality": "good",
+			"worlds": [
+				"world_huoling",
+				"world_dansheng"
+			]
+		},
+		{
+			"cash_premium": -50,
+			"cash_reward": 550,
+			"direct_minimum_sale": 600,
+			"quantity": 2,
+			"quest": "quest_bingxin_order",
+			"repeatable": true,
+			"required_quality": "good",
+			"worlds": [
+				"world_huoling",
+				"world_dansheng"
+			]
+		},
+		{
+			"cash_premium": -27,
+			"cash_reward": 288,
+			"direct_minimum_sale": 315,
+			"quantity": 1,
+			"quest": "quest_hupo_order",
+			"repeatable": true,
+			"required_quality": "good",
+			"worlds": [
+				"world_huoling",
+				"world_dansheng"
+			]
+		},
+		{
+			"cash_premium": -38,
+			"cash_reward": 412,
+			"direct_minimum_sale": 450,
+			"quantity": 1,
+			"quest": "quest_yanshou_order",
+			"repeatable": true,
+			"required_quality": "good",
+			"worlds": [
+				"world_huoling",
+				"world_dansheng"
+			]
+		},
+		{
+			"cash_premium": -55,
+			"cash_reward": 605,
+			"direct_minimum_sale": 660,
+			"quantity": 1,
+			"quest": "quest_lianhun_order",
+			"repeatable": true,
+			"required_quality": "good",
+			"worlds": [
+				"world_huoling",
+				"world_dansheng"
+			]
+		},
+		{
+			"cash_premium": -58,
+			"cash_reward": 632,
+			"direct_minimum_sale": 690,
+			"quantity": 1,
+			"quest": "quest_niepan_order",
+			"repeatable": true,
+			"required_quality": "good",
+			"worlds": [
+				"world_huoling",
+				"world_dansheng"
+			]
+		},
+		{
+			"cash_premium": -87,
+			"cash_reward": 948,
+			"direct_minimum_sale": 1035,
+			"quantity": 1,
+			"quest": "quest_leijie_order",
+			"repeatable": true,
+			"required_quality": "good",
+			"worlds": [
+				"world_huoling",
+				"world_dansheng"
+			]
+		},
+		{
+			"cash_premium": -115,
+			"cash_reward": 1265,
+			"direct_minimum_sale": 1380,
+			"quantity": 1,
+			"quest": "quest_xuanhuang_order",
+			"repeatable": true,
+			"required_quality": "good",
+			"worlds": [
+				"world_huoling",
+				"world_dansheng"
+			]
+		},
+		{
+			"cash_premium": -182,
+			"cash_reward": 1993,
+			"direct_minimum_sale": 2175,
+			"quantity": 1,
+			"quest": "quest_jiuzhuan_order",
+			"repeatable": true,
+			"required_quality": "good",
+			"worlds": [
+				"world_huoling",
+				"world_dansheng"
+			]
+		},
+		{
+			"cash_premium": -1727,
+			"cash_reward": 2413,
+			"direct_minimum_sale": 4140,
+			"quantity": 1,
+			"quest": "quest_leijie_showcase",
+			"repeatable": false,
+			"required_quality": "legendary",
+			"worlds": [
+				"world_huoling",
+				"world_dansheng"
+			]
+		},
+		{
+			"cash_premium": -3627,
+			"cash_reward": 5073,
+			"direct_minimum_sale": 8700,
+			"quantity": 1,
+			"quest": "quest_jiuzhuan_showcase",
+			"repeatable": false,
+			"required_quality": "legendary",
+			"worlds": [
+				"world_huoling",
+				"world_dansheng"
+			]
+		}
+	],
+	"samples_per_group": 100000,
+	"scope": "Conditioned builds compare one consumable against none; recurring costs, no equipment investment or time value. Event audit uses liquid resale, not utility. Quest comparison at minimum eligible quality only."
+}

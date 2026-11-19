@@ -129,7 +129,7 @@ func preview_alchemy(state: Dictionary, recipe_id: String, setup: Dictionary = {
 	var total_cost: Variant = null
 	if material_cost is int and consumable_cost is int and material_cost + consumable_cost <= Economy.MAX_VALUE:
 		total_cost = material_cost + consumable_cost
-	snapshot.merge({"recipe_id": recipe_id, "setup": selected, "materials": recipe.materials, "consumables": consume, "missing_materials": missing, "missing_consumables": missing_consumables, "can_execute": missing.is_empty() and missing_consumables.is_empty(), "failure_returns": refund, "failure_items": {RESIDUE: 1}, "material_shop_cost": material_cost, "consumable_shop_cost": consumable_cost, "total_shop_cost": total_cost, "exp_rewards": {"success": recipe.tier * 10, "failure": recipe.tier * 3}, "research_rewards": {"base": 1 + effects.base_research, "new_quality": 2 + effects.discovery_research}})
+	snapshot.merge({"recipe_id": recipe_id, "setup": selected, "materials": recipe.materials, "consumables": consume, "missing_materials": missing, "missing_consumables": missing_consumables, "can_execute": missing.is_empty() and missing_consumables.is_empty(), "failure_returns": refund, "failure_items": {RESIDUE: 1}, "material_shop_cost": material_cost, "consumable_shop_cost": consumable_cost, "total_shop_cost": total_cost, "exp_rewards": {"success": recipe.tier * 10, "failure": recipe.tier * 3}, "research_rewards": {"base": 1 + effects.base_research + snapshot.research_bonus, "new_quality": 2 + effects.discovery_research}})
 	return Result.success({}, snapshot)
 
 

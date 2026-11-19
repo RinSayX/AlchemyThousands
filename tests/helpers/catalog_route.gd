@@ -8,6 +8,7 @@ var gear := GearRoute.new()
 var error := ""
 var records: Array[Dictionary] = []
 var checkpoints: Dictionary = {}
+var on_recipe_completed: Callable
 
 func run(stop_at: int = 10) -> Dictionary:
 	var result := gear.driver.run("stable", stop_at, true, null, _milestone)
@@ -38,6 +39,9 @@ func _milestone(rank_value: int) -> bool:
 				break
 		if not succeeded:
 			error = "Recipe demonstration exceeded 64 attempts: " + recipe.id
+			return false
+		if on_recipe_completed.is_valid() and not on_recipe_completed.call(recipe.id):
+			error = "Side commission callback failed: " + recipe.id
 			return false
 		if gear.driver.session.quote_products().ok and not _accept(gear.driver.session.sell_products()): return false
 	checkpoints[rank_value] = _point()

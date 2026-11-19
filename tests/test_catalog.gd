@@ -33,8 +33,8 @@ func _content() -> void:
 	var candidate: RefCounted = Model.database()
 	var matches := candidate != null
 	for category in Model.documents():
-		matches = matches and Equivalent.new()._equivalent(db.get_items(category), candidate.get_items(category))
-	ok(matches, "All 117 live definitions match the independently analyzed proposal")
+		matches = matches and Equivalent.new()._equivalent(db.get_items(category).slice(0, candidate.get_items(category).size()), candidate.get_items(category))
+	ok(matches, "All 117 pre-contract definitions retain the independently analyzed catalog proposal")
 	var used: Array = []
 	for recipe in Model.proposal().recipes:
 		for id in recipe.materials:

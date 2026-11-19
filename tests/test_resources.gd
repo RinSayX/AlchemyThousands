@@ -89,7 +89,7 @@ func _test_content() -> void:
 		var diagnostic := false
 		for error in result.errors:
 			diagnostic = diagnostic or error.path.begins_with(expected_path)
-		_check.call(not result.ok and diagnostic and db.get_counts().quests == 5, "P5 content rejects invalid resource field %d" % i)
+		_check.call(not result.ok and diagnostic and db.get_counts().quests == 20, "P5 content rejects invalid resource field %d" % i)
 	var quest := db.get_item("quest_juling_supply")
 	_check.call(quest.quantity is int and quest.reward_items.herb_lingcao is int and db.get_item("event_qinglan").options[0].cost_stones is int, "P5: Resource JSON quantities normalize to runtime integers")
 	var state := _new()
@@ -104,7 +104,7 @@ func _test_quests() -> void:
 	var board := quests.board(state)
 	forage.preview(state)
 	explore.destinations(state)
-	_check.call(board.ok and board.result.rows.size() == 5 and board.result.rows[0].can_accept and before == var_to_bytes(state), "P5: Resource previews are pure and basic repeatable quest is available")
+	_check.call(board.ok and board.result.rows.size() == 20 and board.result.rows[0].can_accept and before == var_to_bytes(state), "P5: Resource previews are pure and basic repeatable quest is available")
 	_expect_failure(state, func() -> Dictionary: return quests.accept(state, "quest_missing", "bad"), "UNKNOWN_QUEST", "Unknown quest")
 	_expect_failure(state, func() -> Dictionary: return quests.accept(state, "quest_ningshen_supply", "locked"), "QUEST_LOCKED", "Quest rank and recipe gate")
 	var accepted := quests.accept(state, "quest_juling_supply", "accept")
@@ -160,7 +160,7 @@ func _test_exploration() -> void:
 	var state := _new()
 	var rng_before: Dictionary = state.rng_states.duplicate(true)
 	var offers: Array = explore.destinations(state).result.rows
-	_check.call(offers[0].encounter_probability == 0.5 and offers[1].encounter_probability == 0.25 and offers[3].encounter_probability == 0, "P5: Random encounter weights are renormalized over rank-eligible events")
+	_check.call(is_equal_approx(offers[0].encounter_probability, 4.0 / 9.0) and is_equal_approx(offers[1].encounter_probability, 2.0 / 9.0) and offers[3].encounter_probability == 0, "P5: Random encounter weights are renormalized over rank-eligible events")
 	_expect_failure(state, func() -> Dictionary: return explore.enter(state, "bad", "event_missing"), "UNKNOWN_EVENT", "Unknown destination")
 	_expect_failure(state, func() -> Dictionary: return explore.enter(state, "locked", "event_earth_fire"), "RANK_LOCKED", "Destination rank gate")
 	var entered := explore.enter(state, "enter", "event_qinglan")
@@ -187,7 +187,9 @@ func _test_exploration() -> void:
 	var second := explore.enter(mirror, "random")
 	_check.call(first == second and state == mirror, "P5: Same seed and action replay the same random destination")
 	var expected_rng := Context.new(55)
-	var eligible := db.get_items("exploration_events").slice(0, 3)
+	var eligible: Array = []
+	for offer in explore.destinations(state).result.rows:
+		if offer.unlocked: eligible.append(offer.event)
 	var expected_id := Rules.pick_event(eligible, expected_rng.next_float("exploration"))
 	_check.call(first.result.event.id == expected_id and state.rng_states == expected_rng.snapshot(), "P5: Actual random entry uses shared weighted rule and exactly one exploration draw")
 	var original_rng := Context.new(55).snapshot()

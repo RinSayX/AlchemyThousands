@@ -53,7 +53,7 @@ func _content() -> void:
 	for changes in trials:
 		var docs := Model.documents()
 		docs.exploration_events.items[5].options[0].merge(changes, true)
-		ok(not db.load_documents(docs).ok and db.get_counts().exploration_events == 13, "Invalid once-per-life trial rejected: " + str(changes))
+		ok(not db.load_documents(docs).ok and db.get_counts().exploration_events == 20, "Invalid once-per-life trial rejected: " + str(changes))
 
 func _effects() -> void:
 	var service := Alchemy.new(db)

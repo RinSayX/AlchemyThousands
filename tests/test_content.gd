@@ -16,7 +16,7 @@ func run(check: Callable) -> void:
 	if not result.ok:
 		printerr(result.errors)
 		return
-	_check.call(result.counts == {"recipes": 25, "materials": 25, "furnaces": 6, "flames": 5, "consumables": 3, "quests": 5, "exploration_events": 13, "ranks": 11, "talents": 9, "inheritances": 9, "world_modifiers": 6}, "P8: Content counts include 25 recipes, 25 materials and thirteen destinations")
+	_check.call(result.counts == {"recipes": 25, "materials": 25, "furnaces": 6, "flames": 5, "consumables": 8, "quests": 20, "exploration_events": 20, "ranks": 11, "talents": 9, "inheritances": 9, "world_modifiers": 6}, "P8: Content counts include eight consumables, twenty commissions and twenty destinations")
 	_check.call(db.get_item("recipe_juling").name == "聚灵丹", "P1: Stable ID resolves Chinese content")
 	_check.call(db.get_item("recipe_juling").materials == {"herb_lingcao": 2, "herb_qinghua": 1}, "P1: Juling material baseline is preserved")
 	_check.call(typeof(db.get_item("recipe_juling").tier) == TYPE_INT and typeof(db.get_item("recipe_juling").base_sell_price) == TYPE_INT and typeof(db.get_item("consumable_wendan").unlock.price) == TYPE_INT, "P1: Validated integral JSON values become runtime integers")

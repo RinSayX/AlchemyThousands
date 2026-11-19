@@ -385,6 +385,10 @@ func refresh() -> void:
 			quality_labels[quality].text = "%s  %.1f%%" % [QUALITY_NAMES[quality], view.quality_probabilities[quality] * 100]
 		legendary.text = "单炉极品概率  %.2f%%" % (view.legendary_per_attempt * 100)
 		costs.text = "本炉材料价值：%s\n符箓消耗：%s" % [_money(view.material_shop_cost), _names(view.consumables)]
+		if view.extra_pill_chance > 0:
+			costs.text += "\n成功后额外成丹：%.1f%%（同品质一枚）" % (view.extra_pill_chance * 100)
+		if view.get("research_bonus", 0) > 0:
+			costs.text += "\n本炉基础心得 +%d；新发现另 +%d" % [view.research_rewards.base, view.research_rewards.new_quality]
 		refunds.text = "失败返还：%s\n另得丹渣×1、历练+%d、心得+%d" % [_names(view.failure_returns), view.exp_rewards.failure, view.research_rewards.base]
 		brew_button.disabled = not idle or not view.can_execute
 		brew_button.tooltip_text = "材料或符箓不足，请先补充。" if not view.can_execute else "扣除本炉材料，按公开概率炼制。"

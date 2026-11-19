@@ -72,6 +72,131 @@
       "effect_category": "refund",
       "shop_available": true,
       "sell_price": 3
+    },
+    {
+      "id": "consumable_shuangsheng",
+      "name": "双生符",
+      "description": "本炉成功后25%概率额外获得同品质丹药一枚；每炉只消耗一张。",
+      "tier": 2,
+      "tags": [
+        "extra"
+      ],
+      "unlock": {
+        "type": "shop",
+        "required_rank": 2,
+        "price": 18
+      },
+      "success_bonus": 0,
+      "quality_transfers": {},
+      "material_refund_bonus": 0,
+      "extra_pill_chance": 0.25,
+      "effect_tags": [],
+      "effect_ids": [],
+      "effect_category": "extra",
+      "shop_available": true,
+      "sell_price": 4
+    },
+    {
+      "id": "consumable_jiuzhuan",
+      "name": "九转丹引",
+      "description": "仅冲击极品时向极品转移12点品质权重；不提高成功率。",
+      "tier": 6,
+      "tags": [
+        "quality"
+      ],
+      "unlock": {
+        "type": "shop",
+        "required_rank": 6,
+        "price": 48
+      },
+      "success_bonus": 0,
+      "quality_transfers": {
+        "legendary": 12
+      },
+      "material_refund_bonus": 0,
+      "extra_pill_chance": 0,
+      "effect_tags": [],
+      "effect_ids": [],
+      "effect_category": "quality",
+      "shop_available": true,
+      "sell_price": 12,
+      "effect_strategy": "rush"
+    },
+    {
+      "id": "consumable_wenhuo",
+      "name": "温火符",
+      "description": "仅稳妥炼制时成功率+6个百分点，向上品转移4点权重。",
+      "tier": 2,
+      "tags": [
+        "success"
+      ],
+      "unlock": {
+        "type": "shop",
+        "required_rank": 2,
+        "price": 16
+      },
+      "success_bonus": 0.06,
+      "quality_transfers": {
+        "superior": 4
+      },
+      "material_refund_bonus": 0,
+      "extra_pill_chance": 0,
+      "effect_tags": [],
+      "effect_ids": [],
+      "effect_category": "success",
+      "shop_available": true,
+      "sell_price": 4,
+      "effect_strategy": "stable"
+    },
+    {
+      "id": "consumable_bingpo",
+      "name": "冰魄玉",
+      "description": "水或地属性丹方失败返还率+70个百分点，逐材料向下取整。",
+      "tier": 4,
+      "tags": [
+        "refund"
+      ],
+      "unlock": {
+        "type": "shop",
+        "required_rank": 4,
+        "price": 24
+      },
+      "success_bonus": 0,
+      "quality_transfers": {},
+      "material_refund_bonus": 0.7,
+      "extra_pill_chance": 0,
+      "effect_tags": [
+        "water",
+        "earth"
+      ],
+      "effect_ids": [],
+      "effect_category": "refund",
+      "shop_available": true,
+      "sell_price": 6
+    },
+    {
+      "id": "consumable_yanjiu",
+      "name": "研究香",
+      "description": "本炉无论成功或失败，基础研究心得额外+2；不改变品质、经验或概率。",
+      "tier": 3,
+      "tags": [
+        "research"
+      ],
+      "unlock": {
+        "type": "shop",
+        "required_rank": 3,
+        "price": 22
+      },
+      "success_bonus": 0,
+      "quality_transfers": {},
+      "material_refund_bonus": 0,
+      "extra_pill_chance": 0,
+      "effect_tags": [],
+      "effect_ids": [],
+      "effect_category": "research",
+      "shop_available": true,
+      "sell_price": 5,
+      "research_bonus": 2
     }
   ]
 }

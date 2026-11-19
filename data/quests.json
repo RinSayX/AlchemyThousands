@@ -117,6 +117,366 @@
       },
       "reward_flame": "flame_earth",
       "repeatable": false
+    },
+    {
+      "id": "quest_huiling_order",
+      "name": "回灵丹·宗门订单",
+      "description": "交付本支线丹方的凡品或更高品质成品，换取灵石和下一炉辅助物；高品质也可直接出售后再决定是否接单。",
+      "tier": 1,
+      "tags": [
+        "commission",
+        "side"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 0
+      },
+      "required_recipe_id": "recipe_huiling",
+      "min_quality": "common",
+      "quantity": 2,
+      "reward_spirit_stones": 61,
+      "reward_exp": 4,
+      "reward_items": {
+        "consumable_wendan": 1
+      },
+      "reward_flame": "",
+      "repeatable": true
+    },
+    {
+      "id": "quest_yangqi_order",
+      "name": "养气丹·宗门订单",
+      "description": "交付本支线丹方的凡品或更高品质成品，换取灵石和下一炉辅助物；高品质也可直接出售后再决定是否接单。",
+      "tier": 2,
+      "tags": [
+        "commission",
+        "side"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 1
+      },
+      "required_recipe_id": "recipe_yangqi",
+      "min_quality": "common",
+      "quantity": 2,
+      "reward_spirit_stones": 149,
+      "reward_exp": 8,
+      "reward_items": {
+        "consumable_wendan": 1
+      },
+      "reward_flame": "",
+      "repeatable": true
+    },
+    {
+      "id": "quest_qingxin_order",
+      "name": "清心丹·宗门订单",
+      "description": "交付本支线丹方的凡品或更高品质成品，换取灵石和下一炉辅助物；高品质也可直接出售后再决定是否接单。",
+      "tier": 2,
+      "tags": [
+        "commission",
+        "side"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 1
+      },
+      "required_recipe_id": "recipe_qingxin",
+      "min_quality": "common",
+      "quantity": 2,
+      "reward_spirit_stones": 167,
+      "reward_exp": 8,
+      "reward_items": {
+        "consumable_wendan": 1
+      },
+      "reward_flame": "",
+      "repeatable": true
+    },
+    {
+      "id": "quest_gushen_order",
+      "name": "固神丹·宗门订单",
+      "description": "交付本支线丹方的凡品或更高品质成品，换取灵石和下一炉辅助物；高品质也可直接出售后再决定是否接单。",
+      "tier": 3,
+      "tags": [
+        "commission",
+        "side"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 2
+      },
+      "required_recipe_id": "recipe_gushen",
+      "min_quality": "common",
+      "quantity": 1,
+      "reward_spirit_stones": 160,
+      "reward_exp": 12,
+      "reward_items": {
+        "consumable_shuangsheng": 1
+      },
+      "reward_flame": "",
+      "repeatable": true
+    },
+    {
+      "id": "quest_chiyang_order",
+      "name": "赤阳丹·宗门订单",
+      "description": "交付本支线丹方的凡品或更高品质成品，换取灵石和下一炉辅助物；高品质也可直接出售后再决定是否接单。",
+      "tier": 3,
+      "tags": [
+        "commission",
+        "side"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 2
+      },
+      "required_recipe_id": "recipe_chiyang",
+      "min_quality": "common",
+      "quantity": 1,
+      "reward_spirit_stones": 170,
+      "reward_exp": 12,
+      "reward_items": {
+        "consumable_shuangsheng": 1
+      },
+      "reward_flame": "",
+      "repeatable": true
+    },
+    {
+      "id": "quest_bingxin_order",
+      "name": "冰心丹·宗门订单",
+      "description": "交付本支线丹方的凡品或更高品质成品，换取灵石和下一炉辅助物；高品质也可直接出售后再决定是否接单。",
+      "tier": 4,
+      "tags": [
+        "commission",
+        "side"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 3
+      },
+      "required_recipe_id": "recipe_bingxin",
+      "min_quality": "common",
+      "quantity": 2,
+      "reward_spirit_stones": 440,
+      "reward_exp": 16,
+      "reward_items": {
+        "consumable_yanjiu": 1
+      },
+      "reward_flame": "",
+      "repeatable": true
+    },
+    {
+      "id": "quest_hupo_order",
+      "name": "护魄丹·宗门订单",
+      "description": "交付本支线丹方的凡品或更高品质成品，换取灵石和下一炉辅助物；高品质也可直接出售后再决定是否接单。",
+      "tier": 4,
+      "tags": [
+        "commission",
+        "side"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 3
+      },
+      "required_recipe_id": "recipe_hupo",
+      "min_quality": "common",
+      "quantity": 1,
+      "reward_spirit_stones": 231,
+      "reward_exp": 16,
+      "reward_items": {
+        "consumable_yanjiu": 1
+      },
+      "reward_flame": "",
+      "repeatable": true
+    },
+    {
+      "id": "quest_yanshou_order",
+      "name": "延寿丹·宗门订单",
+      "description": "交付本支线丹方的凡品或更高品质成品，换取灵石和下一炉辅助物；高品质也可直接出售后再决定是否接单。",
+      "tier": 5,
+      "tags": [
+        "commission",
+        "side"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 4
+      },
+      "required_recipe_id": "recipe_yanshou",
+      "min_quality": "common",
+      "quantity": 1,
+      "reward_spirit_stones": 330,
+      "reward_exp": 20,
+      "reward_items": {
+        "consumable_bingpo": 1
+      },
+      "reward_flame": "",
+      "repeatable": true
+    },
+    {
+      "id": "quest_lianhun_order",
+      "name": "炼魂丹·宗门订单",
+      "description": "交付本支线丹方的凡品或更高品质成品，换取灵石和下一炉辅助物；高品质也可直接出售后再决定是否接单。",
+      "tier": 6,
+      "tags": [
+        "commission",
+        "side"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 5
+      },
+      "required_recipe_id": "recipe_lianhun",
+      "min_quality": "common",
+      "quantity": 1,
+      "reward_spirit_stones": 484,
+      "reward_exp": 24,
+      "reward_items": {
+        "consumable_bingpo": 1
+      },
+      "reward_flame": "",
+      "repeatable": true
+    },
+    {
+      "id": "quest_niepan_order",
+      "name": "涅槃丹·宗门订单",
+      "description": "交付本支线丹方的凡品或更高品质成品，换取灵石和下一炉辅助物；高品质也可直接出售后再决定是否接单。",
+      "tier": 6,
+      "tags": [
+        "commission",
+        "side"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 5
+      },
+      "required_recipe_id": "recipe_niepan",
+      "min_quality": "common",
+      "quantity": 1,
+      "reward_spirit_stones": 506,
+      "reward_exp": 24,
+      "reward_items": {
+        "consumable_bingpo": 1
+      },
+      "reward_flame": "",
+      "repeatable": true
+    },
+    {
+      "id": "quest_leijie_order",
+      "name": "雷劫丹·宗门订单",
+      "description": "交付本支线丹方的凡品或更高品质成品，换取灵石和下一炉辅助物；高品质也可直接出售后再决定是否接单。",
+      "tier": 7,
+      "tags": [
+        "commission",
+        "side"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 6
+      },
+      "required_recipe_id": "recipe_leijie",
+      "min_quality": "common",
+      "quantity": 1,
+      "reward_spirit_stones": 759,
+      "reward_exp": 28,
+      "reward_items": {
+        "consumable_jiuzhuan": 1
+      },
+      "reward_flame": "",
+      "repeatable": true
+    },
+    {
+      "id": "quest_xuanhuang_order",
+      "name": "玄黄丹·宗门订单",
+      "description": "交付本支线丹方的凡品或更高品质成品，换取灵石和下一炉辅助物；高品质也可直接出售后再决定是否接单。",
+      "tier": 8,
+      "tags": [
+        "commission",
+        "side"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 7
+      },
+      "required_recipe_id": "recipe_xuanhuang",
+      "min_quality": "common",
+      "quantity": 1,
+      "reward_spirit_stones": 1012,
+      "reward_exp": 32,
+      "reward_items": {
+        "consumable_jiuzhuan": 1
+      },
+      "reward_flame": "",
+      "repeatable": true
+    },
+    {
+      "id": "quest_jiuzhuan_order",
+      "name": "九转还真丹·宗门订单",
+      "description": "交付本支线丹方的凡品或更高品质成品，换取灵石和下一炉辅助物；高品质也可直接出售后再决定是否接单。",
+      "tier": 9,
+      "tags": [
+        "commission",
+        "side"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 8
+      },
+      "required_recipe_id": "recipe_jiuzhuan",
+      "min_quality": "common",
+      "quantity": 1,
+      "reward_spirit_stones": 1595,
+      "reward_exp": 36,
+      "reward_items": {
+        "consumable_jiuzhuan": 1
+      },
+      "reward_flame": "",
+      "repeatable": true
+    },
+    {
+      "id": "quest_leijie_showcase",
+      "name": "丹会雷劫展评",
+      "description": "每世一次，提交一枚上品或极品成丹；请比较收藏、直接出售与交付的取舍。",
+      "tier": 7,
+      "tags": [
+        "commission",
+        "showcase"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 6
+      },
+      "required_recipe_id": "recipe_leijie",
+      "min_quality": "superior",
+      "quantity": 1,
+      "reward_spirit_stones": 1931,
+      "reward_exp": 56,
+      "reward_items": {
+        "consumable_shuangsheng": 2
+      },
+      "reward_flame": "",
+      "repeatable": false
+    },
+    {
+      "id": "quest_jiuzhuan_showcase",
+      "name": "九转名丹留样",
+      "description": "每世一次，提交一枚上品或极品成丹；请比较收藏、直接出售与交付的取舍。",
+      "tier": 9,
+      "tags": [
+        "commission",
+        "showcase"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 8
+      },
+      "required_recipe_id": "recipe_jiuzhuan",
+      "min_quality": "superior",
+      "quantity": 1,
+      "reward_spirit_stones": 4059,
+      "reward_exp": 72,
+      "reward_items": {
+        "consumable_shuangsheng": 2
+      },
+      "reward_flame": "",
+      "repeatable": false
     }
   ]
 }

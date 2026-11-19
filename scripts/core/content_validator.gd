@@ -58,6 +58,8 @@ func validate_documents(documents: Dictionary) -> Array[Dictionary]:
 			var fields: Array = COMMON_FIELDS + CATEGORY_FIELDS[category]
 			if category in ["furnaces", "flames", "consumables"] and item is Dictionary and item.has("effect_strategy"):
 				fields.append("effect_strategy")
+			if category == "consumables" and item is Dictionary and item.has("research_bonus"):
+				fields.append("research_bonus")
 			if not _shape(item, fields, path, errors):
 				continue
 			_validate_common(item, path, errors)
@@ -468,7 +470,9 @@ func _validate_equipment(item: Dictionary, category: String, path: String, error
 	else:
 		_error(errors, "INVALID_TYPE", path + ".quality_transfers", "品质转移必须是目标品质到权重点数的对象。")
 	if category == "consumables":
-		_enum(item.get("effect_category"), ["success", "quality", "refund"], path + ".effect_category", errors)
+		_enum(item.get("effect_category"), ["success", "quality", "refund", "extra", "research"], path + ".effect_category", errors)
+		if item.has("research_bonus"):
+			_integer(item.research_bonus, 0, 5, path + ".research_bonus", errors)
 		_boolean(item.get("shop_available"), path + ".shop_available", errors)
 		_integer(item.get("sell_price"), 0, MAX_INTEGER, path + ".sell_price", errors)
 		var unlock: Variant = item.get("unlock")

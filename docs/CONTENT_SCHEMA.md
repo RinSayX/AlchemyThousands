@@ -79,7 +79,7 @@ P8 允许三类装备添加可选 `effect_strategy`：仅接受 `normal`、`stab
 
 `quality_transfers` 描述从低品质向目标品质转移的请求量，而非向总权重直接加值。P3 已实现并验证固定顺序、下位品质补足与不足截至可用量，详见 ALCHEMY_API.md。内容验证器仍只验证结构、目标和有限非负点数，不将所有构筑组合的运行态计算放在静态验证器中。
 
-消耗品另须包含 `effect_category`（`success` / `quality` / `refund`）、`shop_available`（须与 `unlock.type == shop` 一致）、`sell_price`（非负整数，可购商品卖价不得高于 `unlock.price`）。MVP 的每炉数量限制在 P3 实现，不在内容库中管理玩家库存。
+消耗品另须包含 `effect_category`（`success` / `quality` / `refund` / `extra` / `research`）、`shop_available`（须与 `unlock.type == shop` 一致）、`sell_price`（非负整数，可购商品卖价不得高于 `unlock.price`）。MVP 的每炉数量限制在 P3 实现，不在内容库中管理玩家库存。
 
 ## P5 委托与探索
 
@@ -172,3 +172,7 @@ godot --headless --path . --script res://tests/test_runner.gd -- --content-only
 ## P8 丹方材料目录批次
 
 0.1.10共117条：25丹方、25材料（含丹渣）、6炉、5火、3消耗品、5委托、13事件、11品阶、9天赋、9传承、6变数。没有新增静态字段或变更schema。新增13张丹方使用shop解锁且购买境界等于炼制要求；新增材料均为repeatable，8种在shop供应、8种在exploration固定付费取得。素材用途与最低境界可达性由目录专项回归审计，原84条保持不变。详细列表、成本和统计见 P8_CATALOG_REPORT.md。
+
+## P8 消耗品与委托事件扩充
+
+0.1.11共144条，消耗品8/委托20/事件20，其余数量保持0.1.10。仅消耗品可选 research_bonus，有限整数0～5，缺省0；ContentDB转为int。标签/策略条件匹配才向本炉基础研究心得加该值，不重复计算首次发现或多丹奖励。分类新增extra/research，不放宽每炉一件规则。新委托和事件使用既有字段，详情见 P8_CONTRACTS_REPORT.md。

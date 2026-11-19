@@ -620,6 +620,353 @@
           "reward_flame": ""
         }
       ]
+    },
+    {
+      "id": "event_misty_pass",
+      "name": "雾隐山径",
+      "description": "比较固定补给与冒险寻获的费用、概率和奖励，也可无额外消耗离开。",
+      "tier": 1,
+      "tags": [
+        "exploration",
+        "encounter"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 0
+      },
+      "weight": 1,
+      "options": [
+        {
+          "id": "choice_safe",
+          "name": "稳妥备料",
+          "description": "按公开费用与概率结算，物品可重复取得；不影响主线考核资格。",
+          "cost_stones": 4,
+          "cost_items": {},
+          "success_rate": 1,
+          "success_items": {
+            "herb_gancao": 1
+          },
+          "failure_items": {},
+          "success_stones": 0,
+          "failure_stones": 0,
+          "reward_flame": ""
+        },
+        {
+          "id": "choice_risk",
+          "name": "冒险寻获",
+          "description": "按公开费用与概率结算，物品可重复取得；不影响主线考核资格。",
+          "cost_stones": 6,
+          "cost_items": {},
+          "success_rate": 0.35,
+          "success_items": {
+            "essence_yuelu": 1
+          },
+          "failure_items": {
+            "herb_qinghua": 1
+          },
+          "success_stones": 0,
+          "failure_stones": 0,
+          "reward_flame": ""
+        }
+      ]
+    },
+    {
+      "id": "event_cinder_shrine",
+      "name": "余烬符祠",
+      "description": "比较固定补给与冒险寻获的费用、概率和奖励，也可无额外消耗离开。",
+      "tier": 2,
+      "tags": [
+        "exploration",
+        "encounter"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 2
+      },
+      "weight": 1,
+      "options": [
+        {
+          "id": "choice_safe",
+          "name": "稳妥备料",
+          "description": "按公开费用与概率结算，物品可重复取得；不影响主线考核资格。",
+          "cost_stones": 22,
+          "cost_items": {},
+          "success_rate": 1,
+          "success_items": {
+            "consumable_shuangsheng": 1
+          },
+          "failure_items": {},
+          "success_stones": 0,
+          "failure_stones": 0,
+          "reward_flame": ""
+        },
+        {
+          "id": "choice_risk",
+          "name": "冒险寻获",
+          "description": "按公开费用与概率结算，物品可重复取得；不影响主线考核资格。",
+          "cost_stones": 8,
+          "cost_items": {},
+          "success_rate": 0.3,
+          "success_items": {
+            "consumable_shuangsheng": 1,
+            "herb_chixue": 1
+          },
+          "failure_items": {
+            "ore_tiejing": 1
+          },
+          "success_stones": 0,
+          "failure_stones": 0,
+          "reward_flame": ""
+        }
+      ]
+    },
+    {
+      "id": "event_formula_exchange",
+      "name": "古方集市",
+      "description": "比较固定补给与冒险寻获的费用、概率和奖励，也可无额外消耗离开。",
+      "tier": 3,
+      "tags": [
+        "exploration",
+        "encounter"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 3
+      },
+      "weight": 1,
+      "options": [
+        {
+          "id": "choice_safe",
+          "name": "稳妥备料",
+          "description": "按公开费用与概率结算，物品可重复取得；不影响主线考核资格。",
+          "cost_stones": 26,
+          "cost_items": {},
+          "success_rate": 1,
+          "success_items": {
+            "consumable_yanjiu": 1
+          },
+          "failure_items": {},
+          "success_stones": 0,
+          "failure_stones": 0,
+          "reward_flame": ""
+        },
+        {
+          "id": "choice_risk",
+          "name": "冒险寻获",
+          "description": "按公开费用与概率结算，物品可重复取得；不影响主线考核资格。",
+          "cost_stones": 10,
+          "cost_items": {},
+          "success_rate": 0.35,
+          "success_items": {
+            "consumable_yanjiu": 1
+          },
+          "failure_items": {
+            "herb_gancao": 1
+          },
+          "success_stones": 0,
+          "failure_stones": 0,
+          "reward_flame": ""
+        }
+      ]
+    },
+    {
+      "id": "event_frost_cache",
+      "name": "冰魄遗藏",
+      "description": "比较固定补给与冒险寻获的费用、概率和奖励，也可无额外消耗离开。",
+      "tier": 4,
+      "tags": [
+        "exploration",
+        "encounter"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 4
+      },
+      "weight": 1,
+      "options": [
+        {
+          "id": "choice_safe",
+          "name": "稳妥备料",
+          "description": "按公开费用与概率结算，物品可重复取得；不影响主线考核资格。",
+          "cost_stones": 28,
+          "cost_items": {},
+          "success_rate": 1,
+          "success_items": {
+            "consumable_bingpo": 1
+          },
+          "failure_items": {},
+          "success_stones": 0,
+          "failure_stones": 0,
+          "reward_flame": ""
+        },
+        {
+          "id": "choice_risk",
+          "name": "冒险寻获",
+          "description": "按公开费用与概率结算，物品可重复取得；不影响主线考核资格。",
+          "cost_stones": 12,
+          "cost_items": {},
+          "success_rate": 0.4,
+          "success_items": {
+            "consumable_bingpo": 1
+          },
+          "failure_items": {
+            "herb_bingxin": 1
+          },
+          "success_stones": 0,
+          "failure_stones": 0,
+          "reward_flame": ""
+        }
+      ]
+    },
+    {
+      "id": "event_wandering_master",
+      "name": "云游丹师",
+      "description": "比较固定补给与冒险寻获的费用、概率和奖励，也可无额外消耗离开。",
+      "tier": 5,
+      "tags": [
+        "exploration",
+        "encounter"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 5
+      },
+      "weight": 1,
+      "options": [
+        {
+          "id": "choice_safe",
+          "name": "稳妥备料",
+          "description": "按公开费用与概率结算，物品可重复取得；不影响主线考核资格。",
+          "cost_stones": 28,
+          "cost_items": {},
+          "success_rate": 1,
+          "success_items": {
+            "consumable_wenhuo": 1,
+            "herb_yangyuan": 1
+          },
+          "failure_items": {},
+          "success_stones": 0,
+          "failure_stones": 0,
+          "reward_flame": ""
+        },
+        {
+          "id": "choice_risk",
+          "name": "冒险寻获",
+          "description": "按公开费用与概率结算，物品可重复取得；不影响主线考核资格。",
+          "cost_stones": 14,
+          "cost_items": {},
+          "success_rate": 0.4,
+          "success_items": {
+            "consumable_wenhuo": 2,
+            "herb_jinyang": 1
+          },
+          "failure_items": {
+            "herb_qinghua": 1
+          },
+          "success_stones": 0,
+          "failure_stones": 0,
+          "reward_flame": ""
+        }
+      ]
+    },
+    {
+      "id": "event_thunder_stall",
+      "name": "雷引祭坛",
+      "description": "比较固定补给与冒险寻获的费用、概率和奖励，也可无额外消耗离开。",
+      "tier": 6,
+      "tags": [
+        "exploration",
+        "encounter"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 6
+      },
+      "weight": 1,
+      "options": [
+        {
+          "id": "choice_safe",
+          "name": "稳妥备料",
+          "description": "按公开费用与概率结算，物品可重复取得；不影响主线考核资格。",
+          "cost_stones": 54,
+          "cost_items": {},
+          "success_rate": 1,
+          "success_items": {
+            "consumable_jiuzhuan": 1
+          },
+          "failure_items": {},
+          "success_stones": 0,
+          "failure_stones": 0,
+          "reward_flame": ""
+        },
+        {
+          "id": "choice_risk",
+          "name": "冒险寻获",
+          "description": "按公开费用与概率结算，物品可重复取得；不影响主线考核资格。",
+          "cost_stones": 20,
+          "cost_items": {},
+          "success_rate": 0.3,
+          "success_items": {
+            "consumable_jiuzhuan": 1
+          },
+          "failure_items": {
+            "ore_zilei": 1
+          },
+          "success_stones": 0,
+          "failure_stones": 0,
+          "reward_flame": ""
+        }
+      ]
+    },
+    {
+      "id": "event_celestial_forge",
+      "name": "天工炉坊",
+      "description": "比较固定补给与冒险寻获的费用、概率和奖励，也可无额外消耗离开。",
+      "tier": 8,
+      "tags": [
+        "exploration",
+        "encounter"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 8
+      },
+      "weight": 1,
+      "options": [
+        {
+          "id": "choice_safe",
+          "name": "稳妥备料",
+          "description": "按公开费用与概率结算，物品可重复取得；不影响主线考核资格。",
+          "cost_stones": 60,
+          "cost_items": {},
+          "success_rate": 1,
+          "success_items": {
+            "consumable_shuangsheng": 2,
+            "consumable_wendan": 2
+          },
+          "failure_items": {},
+          "success_stones": 0,
+          "failure_stones": 0,
+          "reward_flame": ""
+        },
+        {
+          "id": "choice_risk",
+          "name": "冒险寻获",
+          "description": "按公开费用与概率结算，物品可重复取得；不影响主线考核资格。",
+          "cost_stones": 24,
+          "cost_items": {},
+          "success_rate": 0.25,
+          "success_items": {
+            "consumable_jiuzhuan": 2
+          },
+          "failure_items": {
+            "ore_xuanhuang": 1
+          },
+          "success_stones": 0,
+          "failure_stones": 0,
+          "reward_flame": ""
+        }
+      ]
     }
   ]
 }
