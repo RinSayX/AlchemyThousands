@@ -15,6 +15,7 @@ const Quests := preload("res://scripts/services/quest_service.gd")
 const Exploration := preload("res://scripts/services/exploration_service.gd")
 const Forage := preload("res://scripts/services/forage_service.gd")
 const MaterialSources := preload("res://scripts/core/material_sources.gd")
+const Consumables := preload("res://scripts/core/consumable_loadout.gd")
 const EndingTrial := preload("res://scripts/services/ending_trial_service.gd")
 const BaicaoTrial := preload("res://scripts/services/baicao_service.gd")
 var _baicao: RefCounted
@@ -155,6 +156,27 @@ func buy_item(id: String) -> Dictionary:
 	if is_busy():
 		return Result.failure("BUSY", "请先结束当前炼制或秘境事件。")
 	return _after_action(_shop.buy_item(_state, id, 1, _next_id()))
+
+
+func quote_consumables(setup: Dictionary) -> Dictionary:
+	var loadout := Consumables.resolve(content, setup)
+	if not loadout.ok: return loadout
+	if loadout.result.ids.is_empty(): return Result.failure("NO_CONSUMABLES", "请先选择消耗品。")
+	return _shop.quote_buy(_state, _consumable_cart(loadout.result.ids))
+
+
+func buy_consumables(setup: Dictionary) -> Dictionary:
+	if is_busy(): return Result.failure("BUSY", "请先结束当前炼制或秘境事件。")
+	var quote := quote_consumables(setup)
+	if not quote.ok: return quote
+	var ids: Array = Consumables.resolve(content, setup).result.ids
+	return _after_action(_shop.buy_batch(_state, _consumable_cart(ids), _next_id()))
+
+
+func _consumable_cart(ids: Array) -> Array[Dictionary]:
+	var cart: Array[Dictionary] = []
+	for id in ids: cart.append({"item_id": id, "quantity": 1})
+	return cart
 
 
 func quote_products() -> Dictionary:

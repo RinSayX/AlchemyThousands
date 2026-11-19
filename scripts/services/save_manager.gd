@@ -7,6 +7,7 @@ const State := preload("res://scripts/core/progression_state.gd")
 const Context := preload("res://scripts/core/rng_context.gd")
 const Economy := preload("res://scripts/services/economy_service.gd")
 const Pills := preload("res://scripts/core/pill_stack.gd")
+const Consumables := preload("res://scripts/core/consumable_loadout.gd")
 const Result := preload("res://scripts/core/transaction_result.gd")
 const SCHEMA := 2
 const MAX_BYTES := 16 * 1024 * 1024
@@ -156,6 +157,14 @@ func _validate_payload(data: Variant) -> Dictionary:
 			for id in record[field]:
 				if not _state.resources.economy.is_stackable(id) or not Economy.valid_integer(record[field][id], 1):
 					return Result.failure("INVALID_SAVE", "炼丹记录物品引用不合法。")
+		var setup: Variant = record.snapshot.get("setup", {})
+		if setup is Dictionary and setup.has("consumable_ids"):
+			var loadout := Consumables.resolve(_state.db, setup)
+			if not loadout.ok or setup.consumable_ids != loadout.result.ids:
+				return Result.failure("INVALID_SAVE", "炼丹记录双消耗品配置不合法。")
+			for id in _state.db.get_ids("consumables"):
+				if record.consumed.get(id, 0) != (1 if id in loadout.result.ids else 0):
+					return Result.failure("INVALID_SAVE", "炼丹记录双消耗品与实际消耗不符。")
 	return Result.success()
 
 

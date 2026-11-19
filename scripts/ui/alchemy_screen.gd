@@ -290,7 +290,7 @@ func _build_configuration(column: VBoxContainer) -> void:
 	equipment_grid.add_theme_constant_override("h_separation", 12)
 	equipment_grid.add_theme_constant_override("v_separation", 8)
 	contents.add_child(equipment_grid)
-	for definition in [["furnace_id", "丹炉"], ["flame_id", "异火"], ["consumable_id", "符箓"], ["strategy", "策略"]]:
+	for definition in [["furnace_id", "丹炉"], ["flame_id", "异火"], ["consumable_id", "消耗品一"], ["strategy", "策略"], ["consumable_id_2", "消耗品二"]]:
 		var row := VBoxContainer.new()
 		row.add_theme_constant_override("separation", 3)
 		row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -306,6 +306,7 @@ func _build_configuration(column: VBoxContainer) -> void:
 			if not _refreshing:
 				refresh()
 		)
+	_label(contents, "每炉最多两件，不同效果类别各一件。未匹配策略或属性的物品仍会消耗。", 13, MUTED, true)
 	mutation_toggle = CheckButton.new()
 	mutation_toggle.text = "主动启用青灵异变"
 	mutation_toggle.tooltip_text = "需六品、涅槃丹、紫霄雷火、冲品策略且无禁火压制；成功后再按公开概率判定。"
@@ -400,7 +401,7 @@ func refresh() -> void:
 		for quality in QUALITY_NAMES:
 			quality_labels[quality].text = "%s  %.1f%%" % [QUALITY_NAMES[quality], view.quality_probabilities[quality] * 100]
 		legendary.text = "单炉极品概率  %.2f%%" % (view.legendary_per_attempt * 100)
-		costs.text = "本炉材料价值：%s\n符箓消耗：%s" % [_money(view.material_shop_cost), _names(view.consumables)]
+		costs.text = "本炉材料价值：%s\n消耗品：%s\n消耗品合价：%s" % [_money(view.material_shop_cost), _names(view.consumables), _money(view.consumable_shop_cost)]
 		if view.extra_pill_chance > 0:
 			costs.text += "\n成功后额外成丹：%.1f%%（同品质一枚）" % (view.extra_pill_chance * 100)
 		if view.get("research_bonus", 0) > 0:
@@ -429,12 +430,11 @@ func refresh() -> void:
 	unlock_button.text = "研习丹方 · %d" % recipe_quote.result.total if recipe_quote.ok else "尚未达到获取条件"
 	unlock_button.disabled = not idle or not recipe_quote.ok
 	unlock_button.tooltip_text = recipe_quote.message if not recipe_quote.ok else "花费灵石，习得本次修行可用的丹方。"
-	var token: String = setup.consumable_id
-	token_button.visible = not token.is_empty()
-	var token_quote := session.quote_item(token)
-	token_button.text = "购符 · %d 灵石" % token_quote.result.total if token_quote.ok else "购买所选符箓"
-	token_button.disabled = not idle or token.is_empty() or not token_quote.ok
-	token_button.tooltip_text = "先选择一件符箓。" if token.is_empty() else ("购入一件所选符箓。" if token_quote.ok else token_quote.message)
+	var token_quote := session.quote_consumables(setup)
+	token_button.visible = not setup.get("consumable_id", "").is_empty() or not setup.get("consumable_ids", []).is_empty()
+	token_button.text = "购买所选各一件 · %d 灵石" % token_quote.result.total if token_quote.ok else "购买所选消耗品"
+	token_button.disabled = not idle or not token_quote.ok
+	token_button.tooltip_text = "一次购买所选每种各一件；完整校验后统一扣费。" if token_quote.ok else token_quote.message
 	furnace_title.text = session.content.get_item(setup.furnace_id).name
 	flame_title.text = " / " + session.content.get_item(setup.flame_id).name
 	for option in selectors.values():
@@ -487,7 +487,7 @@ func _render_recipes(state: Dictionary) -> void:
 
 
 func _populate_equipment(state: Dictionary) -> void:
-	for field in ["furnace_id", "flame_id", "consumable_id", "strategy"]:
+	for field in ["furnace_id", "flame_id", "consumable_id", "strategy", "consumable_id_2"]:
 		var option: OptionButton = selectors[field]
 		var old: String = str(option.get_item_metadata(option.selected)) if option.selected >= 0 else ""
 		option.clear()
@@ -496,15 +496,20 @@ func _populate_equipment(state: Dictionary) -> void:
 				option.add_item(["正常炼制", "稳妥炼制", "冲击极品"][index])
 				option.set_item_metadata(index, STRATEGIES[index])
 		else:
-			var category: String = {"furnace_id": "furnaces", "flame_id": "flames", "consumable_id": "consumables"}[field]
-			if field == "consumable_id":
-				option.add_item("不使用符箓")
+			var is_token: bool = field in ["consumable_id", "consumable_id_2"]
+			var category: String = "consumables" if is_token else {"furnace_id": "furnaces", "flame_id": "flames"}[field]
+			if is_token:
+				option.add_item("不使用消耗品")
 				option.set_item_metadata(0, "")
 			for item in session.content.get_items(category):
 				var owned: bool = true
 				var title: String = item.name
-				if field == "consumable_id":
+				if is_token:
 					title += " ×%d" % state.inventory.get(item.id, 0)
+					if field == "consumable_id_2":
+						var first: String = selectors.consumable_id.get_item_metadata(selectors.consumable_id.selected)
+						owned = first.is_empty() or session.content.get_item(first).effect_category != item.effect_category
+						if not owned: title += " · 同类已选"
 				else:
 					owned = state["owned_furnaces" if field == "furnace_id" else "owned_flames"].has(item.id)
 					if not owned:
@@ -514,7 +519,7 @@ func _populate_equipment(state: Dictionary) -> void:
 				option.set_item_metadata(index, item.id)
 				option.set_item_disabled(index, not owned)
 				option.get_popup().set_item_tooltip(index, item.description)
-		var fallback: String = {"furnace_id": state.equipped_furnace, "flame_id": state.equipped_flame, "consumable_id": "", "strategy": "normal"}[field]
+		var fallback: String = {"furnace_id": state.equipped_furnace, "flame_id": state.equipped_flame, "consumable_id": "", "consumable_id_2": "", "strategy": "normal"}[field]
 		var target := old if not old.is_empty() else fallback
 		for index in range(option.item_count):
 			if option.get_item_metadata(index) == target and not option.is_item_disabled(index):
@@ -527,6 +532,13 @@ func current_setup() -> Dictionary:
 	for field in selectors:
 		var option: OptionButton = selectors[field]
 		setup[field] = option.get_item_metadata(option.selected)
+	var second: String = setup.consumable_id_2
+	setup.erase("consumable_id_2")
+	if not second.is_empty():
+		var ids: Array = [second]
+		if not setup.consumable_id.is_empty(): ids.append(setup.consumable_id)
+		setup.erase("consumable_id")
+		setup["consumable_ids"] = ids
 	if is_instance_valid(mutation_toggle) and mutation_toggle.button_pressed: setup["mutation_id"] = Pills.MUTATION_ID
 	return setup
 
@@ -624,7 +636,7 @@ func buy_recipe() -> void:
 
 func buy_token() -> void:
 	if phase == "idle":
-		_trade(func() -> Dictionary: return session.buy_item(current_setup().consumable_id), "符箓已入背包。")
+		_trade(func() -> Dictionary: return session.buy_consumables(current_setup()), "所选消耗品已各购入一件。")
 
 
 func sell_products() -> void:

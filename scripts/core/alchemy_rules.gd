@@ -7,7 +7,7 @@ const QUALITIES := ["common", "good", "superior", "legendary"]
 const STRATEGIES := {"normal": 0.0, "stable": 0.10, "rush": -0.15}
 
 
-static func calculate(recipe: Dictionary, rank: int, furnace: Dictionary, flame: Dictionary, consumable: Dictionary, strategy: String, talents: Array = [], effects: Dictionary = {}) -> Dictionary:
+static func calculate(recipe: Dictionary, rank: int, furnace: Dictionary, flame: Dictionary, consumable: Dictionary, strategy: String, talents: Array = [], effects: Dictionary = {}, secondary_consumable: Dictionary = {}) -> Dictionary:
 	var weights: Dictionary = recipe.quality_weights.duplicate(true)
 	var bonuses := {"base": recipe.base_success_rate, "rank": minf(maxi(rank - recipe.required_rank, 0) * 0.02, 0.10), "furnace": 0.0, "flame": 0.0, "consumable": 0.0, "material": 0.0, "world": 0.0, "strategy": STRATEGIES[strategy]}
 	var refund := 0.0
@@ -15,7 +15,10 @@ static func calculate(recipe: Dictionary, rank: int, furnace: Dictionary, flame:
 	var research_bonus := 0
 	var transfers: Array[Dictionary] = []
 	var equipment := {"furnace": furnace, "flame": flame, "consumable": consumable}
-	for source in ["furnace", "flame", "consumable"]:
+	if not secondary_consumable.is_empty():
+		equipment["consumable_2"] = secondary_consumable
+		bonuses["consumable_2"] = 0.0
+	for source in equipment:
 		var item: Dictionary = equipment[source]
 		if item.get("effect_strategy", strategy) != strategy:
 			continue
@@ -26,7 +29,7 @@ static func calculate(recipe: Dictionary, rank: int, furnace: Dictionary, flame:
 		bonuses[source] = item.success_bonus
 		refund += item.material_refund_bonus
 		extra += item.extra_pill_chance
-		if source == "consumable": research_bonus = item.get("research_bonus", 0)
+		if source in ["consumable", "consumable_2"]: research_bonus += item.get("research_bonus", 0)
 		for target in ["good", "superior", "legendary"]:
 			if item.quality_transfers.has(target):
 				var amount: float = item.quality_transfers[target]

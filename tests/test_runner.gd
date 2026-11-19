@@ -27,6 +27,8 @@ const EndingTests := preload("res://tests/test_endings.gd")
 const EndingUITests := preload("res://tests/test_endings_ui.gd")
 const BaicaoTests := preload("res://tests/test_baicao.gd")
 const BaicaoUITests := preload("res://tests/test_baicao_ui.gd")
+const DualTests := preload("res://tests/test_dual_consumables.gd")
+const DualUITests := preload("res://tests/test_dual_consumables_ui.gd")
 
 var checks := 0
 var failures: Array[String] = []
@@ -39,7 +41,7 @@ func _initialize() -> void:
 func _run() -> void:
 	var args := OS.get_cmdline_user_args()
 	var selected := ""
-	for flag in ["--content-only", "--economy-only", "--alchemy-only", "--resources-only", "--progression-only", "--rebirth-only", "--balance-only", "--equipment-only", "--catalog-only", "--contracts-only", "--endings-only", "--baicao-only", "--ui-only"]:
+	for flag in ["--content-only", "--economy-only", "--alchemy-only", "--resources-only", "--progression-only", "--rebirth-only", "--balance-only", "--equipment-only", "--catalog-only", "--contracts-only", "--endings-only", "--baicao-only", "--dual-only", "--ui-only"]:
 		if args.has(flag):
 			if not selected.is_empty():
 				_check(false, "Choose one focused test suite at a time")
@@ -72,6 +74,8 @@ func _run() -> void:
 		_check(EndingTests.new().run(_check), "P8: Ending trial suite completed")
 	if selected.is_empty() or selected == "--baicao-only":
 		_check(BaicaoTests.new().run(_check), "P8: Baicao and mutation suite completed")
+	if selected.is_empty() or selected == "--dual-only":
+		_check(DualTests.new().run(_check), "P8: Dual consumable suite completed")
 	if not selected.is_empty() and selected != "--ui-only":
 		_finish()
 		return
@@ -137,6 +141,7 @@ func _run() -> void:
 	_check(await ContractsUITests.new().run(self, _check), "P8: Contracts UI suite completed")
 	_check(await EndingUITests.new().run(self, _check), "P8: Ending trial UI suite completed")
 	_check(await BaicaoUITests.new().run(self, _check), "P8: Baicao and mutation UI suite completed")
+	_check(await DualUITests.new().run(self, _check), "P8: Dual consumable UI suite completed")
 	_finish()
 
 

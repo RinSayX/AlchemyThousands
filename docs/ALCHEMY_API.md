@@ -25,7 +25,7 @@ if loaded.ok:
 - `preview_alchemy(state, recipe_id, setup = {})`：纯计算，不读取或抽取 RNG、不消耗资源、不改变存档脏标记。
 - `execute_alchemy(state, recipe_id, setup, action_id)`：重新计算并冻结快照，一炉一操作 ID，完整结算后一次提交。
 
-`setup` 仅允许 `furnace_id`、`flame_id`、`consumable_id`、`strategy`、可选 `mutation_id`。装备默认来自状态的 `equipped_furnace` / `equipped_flame`，消耗品默认为空，策略默认 normal，mutation_id省略或空字符串表示关闭。每炉至多选择一个消耗品 ID；不接受数组、调用方自报概率或额外加成。选择本炉装备不修改永久装备选择。
+`setup` 仅允许 `furnace_id`、`flame_id`、`consumable_id`或`consumable_ids`、`strategy`、可选 `mutation_id`。装备默认来自状态的 `equipped_furnace` / `equipped_flame`，消耗品默认为空，策略默认 normal，mutation_id省略或空字符串表示关闭。旧consumable_id仍为单个字符串；0.1.14新增consumable_ids数组，接受0～2个有效ID，不能与旧字段同时提供。每种effect_category最多一件；拒绝重复/空ID、错误类型、超过两件、调用方自报概率或额外加成。选择本炉装备不修改永久装备选择。
 
 ## 状态与概率
 
@@ -45,7 +45,7 @@ if loaded.ok:
 
 成功率按基础、境界熟练、丹炉、异火、符箓、传承、世界、天赋及策略加法求和，最后限幅 5%～95%。境界熟练为超过丹方要求的每阶 +2 个百分点，上限 +10；不满足境界时禁止炼制。天地禁火仅跳过特殊异火修正，不删除异火所有权、不阻断收服或认证。
 
-品质转移顺序：丹炉 → 异火 → 符箓 → 传承/世界 → 天赋 → 策略。每件装备依次处理 good、superior、legendary 目标；从目标以下品质按 common → good → superior 顺序搬移。不足时只转移可用权重，不产生负数或扩充总权重；预览披露请求和实际点数。stable 最后把最多 1 点 legendary 转回 common；rush 最后向 legendary 转移最多 5 点。
+品质转移顺序：丹炉 → 异火 → 消耗品（ID升序）→ 传承/世界 → 天赋 → 策略。每件装备依次处理 good、superior、legendary 目标；从目标以下品质按 common → good → superior 顺序搬移。不足时只转移可用权重，不产生负数或扩充总权重；预览披露请求和实际点数。stable 最后把最多 1 点 legendary 转回 common；rush 最后向 legendary 转移最多 5 点。
 
 normal 无策略修正；stable 成功率 +0.10；rush -0.15。装备 `effect_tags` 为空时通用，非空时丹方含任一标签才应用该装备所有修正。可选 `effect_strategy` 还要求当前策略匹配，否则整件装备的所有修正不激活；未配置该字段保持通用。失败返还率和多丹概率相加后限幅 [0,1]。
 
@@ -102,7 +102,7 @@ godot --headless --path . --script res://tools/alchemy_simulator.gd -- res://doc
 
 ## P8 新消耗品补充
 
-消耗品可有整数research_bonus（0～5，缺省0）；calculate快照披露实际激活值，AlchemyService将其加入research_rewards.base。研究香+2，成功失败均生效一次；new_quality仍独立，世界/传承按原规则叠加，多丹不重复发成长。缺物品、重复action和奖励溢出均回滚。分类extra/research不改变setup形状，每炉仍只能一个consumable_id，数组拒绝。双生符与九龙概率相加为45%时也只抽一次多丹判定，最多两枚同品质丹。界面公开额外成丹概率及基础/首次发现心得。
+消耗品可有整数research_bonus（0～5，缺省0）；calculate快照披露实际激活值，AlchemyService将其加入research_rewards.base。研究香+2，成功失败均生效一次；new_quality仍独立，世界/传承按原规则叠加，多丹不重复发成长。缺物品、重复action和奖励溢出均回滚。分类extra/research沿用旧字段；0.1.14双件入口另见下节，旧consumable_id的数组仍拒绝。双生符与九龙概率相加为45%时也只抽一次多丹判定，最多两枚同品质丹。界面公开额外成丹概率及基础/首次发现心得。
 
 ## 通关后精研与概率开炉的边界
 
@@ -115,3 +115,13 @@ godot --headless --path . --script res://tools/alchemy_simulator.gd -- res://doc
 20%是成功后的条件概率，单炉异变率=最终成功率×20%，不修改成功率或四档品质分布。成功后依次抽品质、异变、额外成丹；最多两枚，沿用同一品质/异变。普通与异变堆叠独立；首次品质心得仍按无变异的基础品质键防重，不另发异变心得。
 
 大宗师标准通关、习得涅槃丹且本世持有紫霄雷火后，可通过BaicaoService确定性复现：消耗180心得、三份涅槃配方药材，产上品青灵异变涅槃丹1枚，历练+60、研制/行动各+1。无概率、符箓、天赋折扣、材料替换或研究奖励，RNG不变；禁火世界仍可研究复现。该操作先保存完整候选后切换，失败不扣费。接口和费用见 P8_BAICAO_REPORT.md。
+
+## 双消耗品装配（0.1.14）
+
+`consumable_ids: ["consumable_wendan", "consumable_juling"]`在校验后按ID升序规范化，与槽位顺序无关。每个effect_category只能选择一件，即使某件未匹配当前属性/策略也不放宽。当前8种物品共25种合法双件。空列表等价于不带，单项列表与旧单件计算/随机抽取等价；旧字段生成的setup快照形状保持不变。
+
+Rules.calculate末尾可选secondary_consumable只供可信计算调用，装备后依次处理两件，再处理传承/世界、天赋、策略；类别校验由ConsumableLoadout与AlchemyService负责。success_breakdown第二件使用consumable_2，quality_transfers亦按对应source披露。两件分别匹配标签/策略，成功/返还/多丹相加后按原范围限幅，research_bonus求和；未匹配仍消耗选中的一件。多丹仍一次判定且最多两枚，品质/变异沿用主丹，不重复发成长。
+
+预览consumables包含每件数量1，missing_consumables列全部缺口，consumable_shop_cost为合价；非商店来源或合价溢出记null，total_shop_cost同样受上限约束。开炉一次性检查并扣除药材及两件消耗品，缺任一件或结算溢出时完整回滚，无部分收费或额外RNG。新装配不新增抽样步骤，仍按成功→品质→可选变异→可选多丹。
+
+GameSession.quote_consumables(setup)纯查询所选每种各1件的完整报价，buy_consumables(setup)重新报价后调用原子购物车；无选择为NO_CONSUMABLES、同类/混合字段为INVALID_SETUP，境界/资金/溢出沿用商店错误。两命令只解释消耗品选择，不要求药材已经齐全。UI购买防重复点击；同一类别的第二槽条目禁用，改变第一槽会清除不相容的第二槽。两槽默认空，重启不恢复临时装配，历史快照保留实际两件。完整分析见 P8_DUAL_REPORT.md。

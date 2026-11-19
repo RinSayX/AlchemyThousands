@@ -190,3 +190,7 @@ mutation恰含id/name/recipe_id/flame_id/strategy/required_rank/chance。当前�
 ending恰含id/name/required_rank/material_count/research_crafts/research_cost/study_research_cost/study_material_multiplier。固定ending_baicao、境界10；材料门槛为25～材料总数的整数，研制/两项心得费用为1～10000整数，材料倍数1～4且乘后不溢出。当前配置为25种材料、12次研制、120认证心得、180复现心得、三份药材。
 
 运行时PillStack仅接受空/null普通标记，或recipe_niepan的mutation_qingling；四品质各自堆叠，其他配方/变异组合拒绝。注册引用与有界数据规则共同控制行为；不从内容加载可执行脚本。详情见 P8_BAICAO_REPORT.md。
+
+## 双消耗品类别约束（0.1.14）
+
+不增加内容字段，不改144条定义或独立结局规则。既有consumables.effect_category（success/quality/refund/extra/research）作为每炉互斥类别：最多两件、类别不重复，按ID升序应用。互斥依据类别而非某件包含的单个数值字段，例如温火符类别为success，仍可与quality类聚灵符组合；未匹配策略/标签不取消类别限制。此规则由纯ConsumableLoadout在业务入口校验，旧consumable_id沿用原字符串契约，新增consumable_ids列表见 ALCHEMY_API.md。

@@ -114,3 +114,9 @@ godot --headless --path . --script res://tests/test_runner.gd
 ```
 
 演示只创建局部状态，展示买材料、拒绝重复提交、测试注入一枚良品丹药并出售的过程，不读取或保存用户进度，也不运行炼丹判定。
+
+## 双件购买与消耗（0.1.14）
+
+GameSession.quote_consumables(setup)与buy_consumables(setup)将通过类别校验的0～2项选择转为购物车，每项数量1；空选择拒绝NO_CONSUMABLES。购买重新检查两项境界、合计资金、库存溢出后一次提交，第二件不可买或钱只够一件时不扣费、不部分发货。沿用ShopService.buy_batch与操作防重，不改变物品单价；已有库存不抵这次“所选各买一件”的明确数量。
+
+炼丹消耗与商店资格仍分离：奖励取得的消耗品可使用，每炉两件为不同effect_category，未激活的物品也消耗。丹房同时显示两件耗材及合价；单件输入与旧报价路径仍支持，详情见 ALCHEMY_API.md、P8_DUAL_REPORT.md。

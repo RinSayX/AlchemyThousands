@@ -14,6 +14,7 @@ const FIELDS := ["exp", "research_points", "action_count", "statistics", "alchem
 const COUNTERS := ["alchemy_attempts", "alchemy_successes", "alchemy_failures"]
 const Lineage := preload("res://scripts/core/lineage_rules.gd")
 const Talents := preload("res://scripts/core/talent_rules.gd")
+const Loadout := preload("res://scripts/core/consumable_loadout.gd")
 const Mutation := preload("res://scripts/core/baicao_definition.gd")
 var _mutation_definition: Dictionary = {}
 const RESIDUE := "material_danzha"
@@ -96,7 +97,7 @@ func preview_alchemy(state: Dictionary, recipe_id: String, setup: Dictionary = {
 	if state.rank < recipe.required_rank:
 		return Result.failure("RANK_LOCKED", "境界不足，无法炼制此丹方。")
 	for field in setup:
-		if field not in ["furnace_id", "flame_id", "consumable_id", "strategy", "mutation_id"]:
+		if field not in ["furnace_id", "flame_id", "consumable_id", "consumable_ids", "strategy", "mutation_id"]:
 			return Result.failure("INVALID_SETUP", "未知炼丹配置字段：" + str(field))
 	var selected := {"furnace_id": setup.get("furnace_id", state.equipped_furnace), "flame_id": setup.get("flame_id", state.equipped_flame), "consumable_id": setup.get("consumable_id", ""), "strategy": setup.get("strategy", "normal")}
 	for field in selected:
@@ -106,6 +107,12 @@ func preview_alchemy(state: Dictionary, recipe_id: String, setup: Dictionary = {
 		return Result.failure("INVALID_SETUP", "未知炼制策略。")
 	if selected.furnace_id not in state.owned_furnaces or selected.flame_id not in state.owned_flames:
 		return Result.failure("EQUIPMENT_NOT_OWNED", "未拥有所选丹炉或异火。")
+	var loadout := Loadout.resolve(_db, setup)
+	if not loadout.ok: return loadout
+	var ids: Array = loadout.result.ids
+	if setup.has("consumable_ids"):
+		selected.erase("consumable_id")
+		selected["consumable_ids"] = ids
 	var requested: Variant = setup.get("mutation_id", "")
 	if not requested is String or requested not in ["", Pills.MUTATION_ID]:
 		return Result.failure("INVALID_SETUP", "变异选项必须是已注册的单个 ID。")
@@ -114,14 +121,13 @@ func preview_alchemy(state: Dictionary, recipe_id: String, setup: Dictionary = {
 		if not mutation_available: return Result.failure("MUTATION_UNAVAILABLE", "青灵异变需要六品、涅槃丹、紫霄雷火和冲品策略，且不受禁火压制。")
 		selected["mutation_id"] = requested
 	var consumable: Dictionary = {}
+	var secondary: Dictionary = {}
 	var consume: Dictionary = {}
-	if not selected.consumable_id.is_empty():
-		if selected.consumable_id not in _db.get_ids("consumables"):
-			return Result.failure("INVALID_SETUP", "所选符箓不存在。")
-		consumable = _db.get_item(selected.consumable_id)
-		consume[selected.consumable_id] = 1
+	if not ids.is_empty(): consumable = _db.get_item(ids[0])
+	if ids.size() == 2: secondary = _db.get_item(ids[1])
+	for id in ids: consume[id] = 1
 	var effects := Lineage.alchemy(_db, state, recipe, selected)
-	var snapshot := Rules.calculate(recipe, state.rank, _db.get_item(selected.furnace_id), _db.get_item(selected.flame_id), consumable, selected.strategy, Talents.definitions(_db, state), effects)
+	var snapshot := Rules.calculate(recipe, state.rank, _db.get_item(selected.furnace_id), _db.get_item(selected.flame_id), consumable, selected.strategy, Talents.definitions(_db, state), effects, secondary)
 	snapshot["mutation_available"] = mutation_available
 	if not requested.is_empty():
 		snapshot.mutation_chance = _mutation_definition.mutation.chance
@@ -140,7 +146,12 @@ func preview_alchemy(state: Dictionary, recipe_id: String, setup: Dictionary = {
 		if state.inventory.get(id, 0) < 1:
 			missing_consumables[id] = 1
 	var material_cost: Variant = _shop_cost(recipe.materials, state)
-	var consumable_cost: Variant = 0 if consumable.is_empty() else (consumable.unlock.price if consumable.unlock.type == "shop" else null)
+	var consumable_cost: Variant = 0
+	for id in ids:
+		var item: Dictionary = _db.get_item(id)
+		if consumable_cost is int and item.unlock.type == "shop" and consumable_cost <= Economy.MAX_VALUE - item.unlock.price:
+			consumable_cost += item.unlock.price
+		else: consumable_cost = null
 	var total_cost: Variant = null
 	if material_cost is int and consumable_cost is int and material_cost + consumable_cost <= Economy.MAX_VALUE:
 		total_cost = material_cost + consumable_cost
