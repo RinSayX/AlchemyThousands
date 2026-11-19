@@ -16,6 +16,8 @@ static func calculate(recipe: Dictionary, rank: int, furnace: Dictionary, flame:
 	var equipment := {"furnace": furnace, "flame": flame, "consumable": consumable}
 	for source in ["furnace", "flame", "consumable"]:
 		var item: Dictionary = equipment[source]
+		if item.get("effect_strategy", strategy) != strategy:
+			continue
 		if source == "flame" and effects.get("suppress_flame", false):
 			continue
 		if item.is_empty() or not _matches(item.effect_tags, recipe.tags):

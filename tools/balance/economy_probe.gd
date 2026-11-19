@@ -88,8 +88,9 @@ static func fixture(db: RefCounted, target: int, style: String, loadout: Array, 
 	return state
 
 
-static func analyze(db: RefCounted, state: Dictionary, recipe_id: String, style: String, min_quality: String, samples: int, seed_value: int) -> Dictionary:
-	var view := Alchemy.new(db).preview_alchemy(state, recipe_id, setup(db, state, recipe_id, style))
+static func analyze(db: RefCounted, state: Dictionary, recipe_id: String, style: String, min_quality: String, samples: int, seed_value: int, setup_override: Dictionary = {}) -> Dictionary:
+	var selected := setup(db, state, recipe_id, style) if setup_override.is_empty() else setup_override.duplicate(true)
+	var view := Alchemy.new(db).preview_alchemy(state, recipe_id, selected)
 	if not view.ok:
 		return {"ok": false, "error": view.message}
 	var snapshot: Dictionary = view.result

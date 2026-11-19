@@ -22,11 +22,11 @@ func destinations(state: Dictionary) -> Dictionary:
 	var rows: Array[Dictionary] = []
 	var total := 0.0
 	for event in _state.db.get_items("exploration_events"):
-		if state.rank >= event.unlock.required_rank:
+		if _available(state, event):
 			total += event.weight
 	for event in _state.db.get_items("exploration_events"):
-		var unlocked: bool = state.rank >= event.unlock.required_rank
-		rows.append({"event": event, "unlocked": unlocked, "encounter_probability": event.weight / total if unlocked and total > 0 else 0.0})
+		var unlocked := _available(state, event)
+		rows.append({"event": event, "unlocked": unlocked, "completed": _completed(state, event), "encounter_probability": event.weight / total if unlocked and total > 0 else 0.0})
 	return Result.success({}, {"rows": rows, "pending": state.pending_exploration})
 
 
@@ -36,7 +36,7 @@ func enter(state: Dictionary, action_id: Variant, event_id: String = "") -> Dict
 		return prepared
 	var eligible: Array[Dictionary] = []
 	for event in _state.db.get_items("exploration_events"):
-		if state.rank >= event.unlock.required_rank:
+		if _available(state, event):
 			eligible.append(event)
 	if eligible.is_empty():
 		return Result.failure("NO_EVENT", "没有开放的秘境。")
@@ -52,6 +52,8 @@ func enter(state: Dictionary, action_id: Variant, event_id: String = "") -> Dict
 		return Result.failure("UNKNOWN_EVENT", "秘境不存在。")
 	elif state.rank < _state.db.get_item(event_id).unlock.required_rank:
 		return Result.failure("RANK_LOCKED", "境界不足，秘境尚未开放。")
+	elif not _available(state, _state.db.get_item(event_id)):
+		return Result.failure("EVENT_EXHAUSTED", "此处试炼奖励已取得，或当前尚不满足选项条件。")
 	if next.exploration_serial == Economy.MAX_VALUE:
 		return Result.failure("AMOUNT_OVERFLOW", "秘境序号超出上限。")
 	next.exploration_serial += 1
@@ -75,6 +77,8 @@ func preview_option(state: Dictionary, instance_id: String, option_id: String) -
 			continue
 		if not source.get("required_heritage", "").is_empty() and source.required_heritage not in state.get("equipped_inheritances", []):
 			return Result.failure("OPTION_LOCKED", "此秘境选项需要携带对应传承。")
+		if _claimed(state, source):
+			return Result.failure("REWARD_ALREADY_OWNED", "此试炼奖励已持有，不会再次扣除材料或灵石。")
 		var option := Lineage.option(_state.db, state, event.id, source)
 		var can_pay: bool = state.spirit_stones >= option.cost_stones
 		var missing: Dictionary = {}
@@ -134,3 +138,23 @@ func leave(state: Dictionary, instance_id: String, action_id: Variant) -> Dictio
 	var next: Dictionary = prepared.result.candidate
 	next.pending_exploration = {}
 	return _state.commit(state, next, action_id, {"left": true, "instance_id": instance_id})
+
+
+func _claimed(state: Dictionary, option: Dictionary) -> bool:
+	if not option.get("requires_unowned_reward", false): return false
+	return option.get("reward_flame", "") in state.owned_flames or option.get("reward_furnace", "") in state.owned_furnaces
+
+
+func _available(state: Dictionary, event: Dictionary) -> bool:
+	if state.rank < event.unlock.required_rank: return false
+	for option in event.options:
+		if _claimed(state, option): continue
+		if option.get("required_heritage", "") != "" and option.required_heritage not in state.get("equipped_inheritances", []): continue
+		return true
+	return false
+
+
+func _completed(state: Dictionary, event: Dictionary) -> bool:
+	for option in event.options:
+		if not _claimed(state, option): return false
+	return true

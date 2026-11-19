@@ -171,6 +171,8 @@ func _shop(state: Dictionary) -> void:
 		var owned: int = state.inventory.get(item.id, 0)
 		_label(text, item.name + ("  ·  持有 %d" % owned if category in ["materials", "consumables"] else ""), 17, GOLD)
 		_label(text, item.description, 14, MUTED, true)
+		if item.unlock.type == "exploration":
+			_label(text, _equipment_source(item.id), 14, MUTED, true)
 		var quote := session.quote_shop(item.id, q)
 		var buy := _button(row, "购买 %d · %d 灵石" % [q, quote.result.total] if quote.ok else "不可购买", _buy.bind(item.id, q))
 		buy.disabled = _locked or not quote.ok
@@ -218,7 +220,7 @@ func _exploration(state: Dictionary) -> void:
 			var text := _text_column(row)
 			_label(text, offer.event.name, 17, GOLD)
 			_label(text, "%s\n随机寻访权重占比 %.1f%% · 需要境界 %d" % [offer.event.description, offer.encounter_probability * 100, offer.event.unlock.required_rank], 14, MUTED, true)
-			var visit := _button(row, "前往" if offer.unlocked else "尚未开放", _enter.bind(offer.event.id))
+			var visit := _button(row, "前往" if offer.unlocked else ("试炼已完成" if offer.completed else "尚未开放"), _enter.bind(offer.event.id))
 			visit.disabled = _locked or not offer.unlocked
 			option_buttons[offer.event.id] = visit
 		return
@@ -228,6 +230,12 @@ func _exploration(state: Dictionary) -> void:
 	for source in event.options:
 		var view := session.preview_event_option(source.id)
 		if not view.ok:
+			if view.error_code == "REWARD_ALREADY_OWNED":
+				var claimed_row := _row()
+				_label(_text_column(claimed_row), source.name + " · 奖励已持有，本世不再扣费。", 15, MUTED, true)
+				var claimed := _button(claimed_row, "已取得", func(): pass)
+				claimed.disabled = true
+				option_buttons[source.id] = claimed
 			continue
 		var option: Dictionary = view.result.option
 		var row := _row()
@@ -240,8 +248,19 @@ func _exploration(state: Dictionary) -> void:
 		choose.disabled = _locked or not view.ok or not view.result.can_execute
 		choose.tooltip_text = "费用或所需物品不足。" if view.ok and not view.result.can_execute else ""
 		option_buttons[option.id] = choose
+		if option.get("requires_unowned_reward", false):
+			_label(text, "本次修行仅能取得一次；持有后不再扣费，轮回后重新开放。", 14, MUTED, true)
 	var leave := _button(body, "离开当前事件 · 无额外消耗", _leave)
 	leave.disabled = _locked
+
+
+func _equipment_source(id: String) -> String:
+	var sources: Array[String] = []
+	for event in session.content.get_items("exploration_events"):
+		for option in event.options:
+			if option.success_rate == 1 and id in [option.get("reward_flame", ""), option.get("reward_furnace", "")]:
+				sources.append("%d品 · %s / %s" % [event.unlock.required_rank, event.name, option.name])
+	return "稳定获取：" + "；".join(sources) if not sources.is_empty() else "获取途径请查看秘境与委托。"
 
 
 func _forage() -> void:
@@ -519,6 +538,7 @@ func _deliver(id: String) -> void:
 
 
 func _enter(id: String) -> void:
+	scroll.scroll_vertical = 0
 	_perform(func() -> Dictionary: return session.enter_event(id), "已进入秘境，请查看消耗与奖励后选择。")
 
 

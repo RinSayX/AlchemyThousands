@@ -274,7 +274,9 @@ func _test_recovery() -> void:
 
 func _test_distribution() -> void:
 	var events := db.get_items("exploration_events")
-	_check.call(Rules.pick_event(events, 0.0) == "event_qinglan" and Rules.pick_event(events, 4.0 / 11.0) == "event_old_grove" and Rules.pick_event(events, 0.99999999) == "event_earth_fire", "P5: Weighted event selection uses half-open boundaries")
+	var total := 0.0
+	for event in events: total += event.weight
+	_check.call(Rules.pick_event(events, 0.0) == "event_qinglan" and Rules.pick_event(events, events[0].weight / total) == "event_old_grove" and Rules.pick_event(events, 0.99999999) == events[-1].id, "P5: Weighted event selection uses half-open boundaries")
 	_check.call(not Rules.succeeds(0.3, 0.3) and Rules.succeeds(0.3, 0.29999999) and not Rules.succeeds(0, 0) and Rules.succeeds(1, 0.99999999), "P5: Event success uses exact displayed probability boundaries")
 	var rng := Context.new(20261119)
 	var counts: Dictionary = {}
@@ -290,7 +292,7 @@ func _test_distribution() -> void:
 			if Rules.succeeds(rate, rng.next_float("exploration")):
 				wins[rate] += 1
 	for event in events:
-		var expected: float = event.weight / 11.0
+		var expected: float = event.weight / total
 		var actual: float = counts[event.id] / 100000.0
 		_check.call(absf(actual - expected) <= 6 * sqrt(expected * (1 - expected) / 100000.0), "P5 statistics: %s %.4f / %.4f" % [event.id, actual, expected])
 	for rate in rates:

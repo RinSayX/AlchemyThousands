@@ -262,6 +262,176 @@
           "reward_flame": "flame_earth"
         }
       ]
+    },
+    {
+      "id": "event_qinglian_trial",
+      "name": "青莲试炼",
+      "description": "三品后以药性温养莲火；奖励确定，每次修行仅可收服一次。",
+      "tier": 3,
+      "tags": [
+        "trial"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 3
+      },
+      "weight": 1,
+      "options": [
+        {
+          "id": "choice_attune_qinglian",
+          "name": "温养莲火",
+          "description": "备齐公开祭材，确定性取得本世尚未持有的奖励。",
+          "cost_stones": 600,
+          "cost_items": {
+            "herb_ningshen": 4,
+            "herb_lingzhi": 2
+          },
+          "success_rate": 1,
+          "success_items": {},
+          "failure_items": {},
+          "success_stones": 0,
+          "failure_stones": 0,
+          "reward_flame": "flame_qinglian",
+          "requires_unowned_reward": true
+        }
+      ]
+    },
+    {
+      "id": "event_xuanbing_trial",
+      "name": "霜渊试炼",
+      "description": "四品后可分别祭炼玄冰丹炉与收服寒髓冰焰；已取得的奖励不再扣费。",
+      "tier": 4,
+      "tags": [
+        "trial"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 4
+      },
+      "weight": 1,
+      "options": [
+        {
+          "id": "choice_forge_xuanbing",
+          "name": "祭炼玄冰炉",
+          "description": "备齐公开祭材，确定性取得本世尚未持有的奖励。",
+          "cost_stones": 1200,
+          "cost_items": {
+            "ore_tiejing": 6,
+            "essence_hunlu": 2
+          },
+          "success_rate": 1,
+          "success_items": {},
+          "failure_items": {},
+          "success_stones": 0,
+          "failure_stones": 0,
+          "reward_flame": "",
+          "requires_unowned_reward": true,
+          "reward_furnace": "furnace_xuanbing"
+        },
+        {
+          "id": "choice_attune_hansui",
+          "name": "收服寒髓冰焰",
+          "description": "备齐公开祭材，确定性取得本世尚未持有的奖励。",
+          "cost_stones": 900,
+          "cost_items": {
+            "herb_lingzhi": 2,
+            "essence_hunlu": 3
+          },
+          "success_rate": 1,
+          "success_items": {},
+          "failure_items": {},
+          "success_stones": 0,
+          "failure_stones": 0,
+          "reward_flame": "flame_hansui",
+          "requires_unowned_reward": true
+        }
+      ]
+    },
+    {
+      "id": "event_zixiao_trial",
+      "name": "紫霄试炼",
+      "description": "六品后以雷火祭材换取冲品装备；装备只在对应策略激活，不涉及变异。",
+      "tier": 6,
+      "tags": [
+        "trial"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 6
+      },
+      "weight": 1,
+      "options": [
+        {
+          "id": "choice_forge_zixiao",
+          "name": "祭炼紫霄雷炉",
+          "description": "备齐公开祭材，确定性取得本世尚未持有的奖励。",
+          "cost_stones": 1800,
+          "cost_items": {
+            "ore_tiejing": 8,
+            "essence_hunlu": 2
+          },
+          "success_rate": 1,
+          "success_items": {},
+          "failure_items": {},
+          "success_stones": 0,
+          "failure_stones": 0,
+          "reward_flame": "",
+          "requires_unowned_reward": true,
+          "reward_furnace": "furnace_zixiao"
+        },
+        {
+          "id": "choice_attune_zixiao",
+          "name": "收服紫霄雷火",
+          "description": "备齐公开祭材，确定性取得本世尚未持有的奖励。",
+          "cost_stones": 1600,
+          "cost_items": {
+            "herb_lingzhi": 3,
+            "essence_hunlu": 3
+          },
+          "success_rate": 1,
+          "success_items": {},
+          "failure_items": {},
+          "success_stones": 0,
+          "failure_stones": 0,
+          "reward_flame": "flame_zixiao",
+          "requires_unowned_reward": true
+        }
+      ]
+    },
+    {
+      "id": "event_jiulong_trial",
+      "name": "九龙试炼",
+      "description": "八品后可祭炼九龙神炉；多丹只在炼制成功后抽取，额外丹药沿用同炉品质。",
+      "tier": 8,
+      "tags": [
+        "trial"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 8
+      },
+      "weight": 1,
+      "options": [
+        {
+          "id": "choice_forge_jiulong",
+          "name": "祭炼九龙神炉",
+          "description": "备齐公开祭材，确定性取得本世尚未持有的奖励。",
+          "cost_stones": 4200,
+          "cost_items": {
+            "ore_tiejing": 10,
+            "herb_lingzhi": 4,
+            "essence_hunlu": 4
+          },
+          "success_rate": 1,
+          "success_items": {},
+          "failure_items": {},
+          "success_stones": 0,
+          "failure_stones": 0,
+          "reward_flame": "",
+          "requires_unowned_reward": true,
+          "reward_furnace": "furnace_jiulong"
+        }
+      ]
     }
   ]
 }

@@ -64,6 +64,69 @@
         "fire"
       ],
       "effect_ids": []
+    },
+    {
+      "id": "furnace_xuanbing",
+      "name": "玄冰丹炉",
+      "description": "霜渊试炼祭炉所得。失败材料返还率+25个百分点，适合昂贵材料；不增加成功率。",
+      "tier": 4,
+      "tags": [
+        "trial"
+      ],
+      "unlock": {
+        "type": "exploration",
+        "required_rank": 4
+      },
+      "success_bonus": 0,
+      "quality_transfers": {},
+      "material_refund_bonus": 0.25,
+      "extra_pill_chance": 0,
+      "effect_tags": [],
+      "effect_ids": []
+    },
+    {
+      "id": "furnace_zixiao",
+      "name": "紫霄雷炉",
+      "description": "紫霄试炼祭炉所得。仅冲击极品时成功率-3个百分点，向极品转移15点权重。",
+      "tier": 6,
+      "tags": [
+        "trial"
+      ],
+      "unlock": {
+        "type": "exploration",
+        "required_rank": 6
+      },
+      "success_bonus": -0.03,
+      "quality_transfers": {
+        "legendary": 15
+      },
+      "material_refund_bonus": 0,
+      "extra_pill_chance": 0,
+      "effect_tags": [],
+      "effect_ids": [],
+      "effect_strategy": "rush"
+    },
+    {
+      "id": "furnace_jiulong",
+      "name": "九龙神炉",
+      "description": "九龙试炼祭炉所得。炼制火或魂属性丹方时成功率+8个百分点，成功后20%概率额外成丹一枚，品质相同。",
+      "tier": 8,
+      "tags": [
+        "trial"
+      ],
+      "unlock": {
+        "type": "exploration",
+        "required_rank": 8
+      },
+      "success_bonus": 0.08,
+      "quality_transfers": {},
+      "material_refund_bonus": 0,
+      "extra_pill_chance": 0.2,
+      "effect_tags": [
+        "fire",
+        "soul"
+      ],
+      "effect_ids": []
     }
   ]
 }

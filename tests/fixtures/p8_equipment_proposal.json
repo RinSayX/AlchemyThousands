@@ -1,0 +1,309 @@
+{
+  "furnaces": [
+    {
+      "id": "furnace_xuanbing",
+      "name": "玄冰丹炉",
+      "description": "霜渊试炼祭炉所得。失败材料返还率+25个百分点，适合昂贵材料；不增加成功率。",
+      "tier": 4,
+      "tags": [
+        "trial"
+      ],
+      "unlock": {
+        "type": "exploration",
+        "required_rank": 4
+      },
+      "success_bonus": 0,
+      "quality_transfers": {},
+      "material_refund_bonus": 0.25,
+      "extra_pill_chance": 0,
+      "effect_tags": [],
+      "effect_ids": []
+    },
+    {
+      "id": "furnace_zixiao",
+      "name": "紫霄雷炉",
+      "description": "紫霄试炼祭炉所得。仅冲击极品时成功率-3个百分点，向极品转移15点权重。",
+      "tier": 6,
+      "tags": [
+        "trial"
+      ],
+      "unlock": {
+        "type": "exploration",
+        "required_rank": 6
+      },
+      "success_bonus": -0.03,
+      "quality_transfers": {
+        "legendary": 15
+      },
+      "material_refund_bonus": 0,
+      "extra_pill_chance": 0,
+      "effect_tags": [],
+      "effect_ids": [],
+      "effect_strategy": "rush"
+    },
+    {
+      "id": "furnace_jiulong",
+      "name": "九龙神炉",
+      "description": "九龙试炼祭炉所得。炼制火或魂属性丹方时成功率+8个百分点，成功后20%概率额外成丹一枚，品质相同。",
+      "tier": 8,
+      "tags": [
+        "trial"
+      ],
+      "unlock": {
+        "type": "exploration",
+        "required_rank": 8
+      },
+      "success_bonus": 0.08,
+      "quality_transfers": {},
+      "material_refund_bonus": 0,
+      "extra_pill_chance": 0.2,
+      "effect_tags": [
+        "fire",
+        "soul"
+      ],
+      "effect_ids": []
+    }
+  ],
+  "flames": [
+    {
+      "id": "flame_qinglian",
+      "name": "青莲异火",
+      "description": "青莲试炼收服。木属性丹方成功率+2个百分点，向良品转移5点、上品转移3点权重。",
+      "tier": 3,
+      "tags": [
+        "trial"
+      ],
+      "unlock": {
+        "type": "exploration",
+        "required_rank": 3
+      },
+      "success_bonus": 0.02,
+      "quality_transfers": {
+        "good": 5,
+        "superior": 3
+      },
+      "material_refund_bonus": 0,
+      "extra_pill_chance": 0,
+      "effect_tags": [
+        "wood"
+      ],
+      "effect_ids": []
+    },
+    {
+      "id": "flame_hansui",
+      "name": "寒髓冰焰",
+      "description": "霜渊试炼收服。失败材料返还率+20个百分点；不增加成功率。",
+      "tier": 4,
+      "tags": [
+        "trial"
+      ],
+      "unlock": {
+        "type": "exploration",
+        "required_rank": 4
+      },
+      "success_bonus": 0,
+      "quality_transfers": {},
+      "material_refund_bonus": 0.2,
+      "extra_pill_chance": 0,
+      "effect_tags": [],
+      "effect_ids": []
+    },
+    {
+      "id": "flame_zixiao",
+      "name": "紫霄雷火",
+      "description": "紫霄试炼收服。仅冲击极品且丹方含火或魂属性时，成功率+3个百分点、向极品转移10点权重。",
+      "tier": 6,
+      "tags": [
+        "trial"
+      ],
+      "unlock": {
+        "type": "exploration",
+        "required_rank": 6
+      },
+      "success_bonus": 0.03,
+      "quality_transfers": {
+        "legendary": 10
+      },
+      "material_refund_bonus": 0,
+      "extra_pill_chance": 0,
+      "effect_tags": [
+        "fire",
+        "soul"
+      ],
+      "effect_ids": [],
+      "effect_strategy": "rush"
+    }
+  ],
+  "exploration_events": [
+    {
+      "id": "event_qinglian_trial",
+      "name": "青莲试炼",
+      "description": "三品后以药性温养莲火；奖励确定，每次修行仅可收服一次。",
+      "tier": 3,
+      "tags": [
+        "trial"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 3
+      },
+      "weight": 1,
+      "options": [
+        {
+          "id": "choice_attune_qinglian",
+          "name": "温养莲火",
+          "description": "备齐公开祭材，确定性取得本世尚未持有的奖励。",
+          "cost_stones": 600,
+          "cost_items": {
+            "herb_ningshen": 4,
+            "herb_lingzhi": 2
+          },
+          "success_rate": 1,
+          "success_items": {},
+          "failure_items": {},
+          "success_stones": 0,
+          "failure_stones": 0,
+          "reward_flame": "flame_qinglian",
+          "requires_unowned_reward": true
+        }
+      ]
+    },
+    {
+      "id": "event_xuanbing_trial",
+      "name": "霜渊试炼",
+      "description": "四品后可分别祭炼玄冰丹炉与收服寒髓冰焰；已取得的奖励不再扣费。",
+      "tier": 4,
+      "tags": [
+        "trial"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 4
+      },
+      "weight": 1,
+      "options": [
+        {
+          "id": "choice_forge_xuanbing",
+          "name": "祭炼玄冰炉",
+          "description": "备齐公开祭材，确定性取得本世尚未持有的奖励。",
+          "cost_stones": 1200,
+          "cost_items": {
+            "ore_tiejing": 6,
+            "essence_hunlu": 2
+          },
+          "success_rate": 1,
+          "success_items": {},
+          "failure_items": {},
+          "success_stones": 0,
+          "failure_stones": 0,
+          "reward_flame": "",
+          "requires_unowned_reward": true,
+          "reward_furnace": "furnace_xuanbing"
+        },
+        {
+          "id": "choice_attune_hansui",
+          "name": "收服寒髓冰焰",
+          "description": "备齐公开祭材，确定性取得本世尚未持有的奖励。",
+          "cost_stones": 900,
+          "cost_items": {
+            "herb_lingzhi": 2,
+            "essence_hunlu": 3
+          },
+          "success_rate": 1,
+          "success_items": {},
+          "failure_items": {},
+          "success_stones": 0,
+          "failure_stones": 0,
+          "reward_flame": "flame_hansui",
+          "requires_unowned_reward": true
+        }
+      ]
+    },
+    {
+      "id": "event_zixiao_trial",
+      "name": "紫霄试炼",
+      "description": "六品后以雷火祭材换取冲品装备；装备只在对应策略激活，不涉及变异。",
+      "tier": 6,
+      "tags": [
+        "trial"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 6
+      },
+      "weight": 1,
+      "options": [
+        {
+          "id": "choice_forge_zixiao",
+          "name": "祭炼紫霄雷炉",
+          "description": "备齐公开祭材，确定性取得本世尚未持有的奖励。",
+          "cost_stones": 1800,
+          "cost_items": {
+            "ore_tiejing": 8,
+            "essence_hunlu": 2
+          },
+          "success_rate": 1,
+          "success_items": {},
+          "failure_items": {},
+          "success_stones": 0,
+          "failure_stones": 0,
+          "reward_flame": "",
+          "requires_unowned_reward": true,
+          "reward_furnace": "furnace_zixiao"
+        },
+        {
+          "id": "choice_attune_zixiao",
+          "name": "收服紫霄雷火",
+          "description": "备齐公开祭材，确定性取得本世尚未持有的奖励。",
+          "cost_stones": 1600,
+          "cost_items": {
+            "herb_lingzhi": 3,
+            "essence_hunlu": 3
+          },
+          "success_rate": 1,
+          "success_items": {},
+          "failure_items": {},
+          "success_stones": 0,
+          "failure_stones": 0,
+          "reward_flame": "flame_zixiao",
+          "requires_unowned_reward": true
+        }
+      ]
+    },
+    {
+      "id": "event_jiulong_trial",
+      "name": "九龙试炼",
+      "description": "八品后可祭炼九龙神炉；多丹只在炼制成功后抽取，额外丹药沿用同炉品质。",
+      "tier": 8,
+      "tags": [
+        "trial"
+      ],
+      "unlock": {
+        "type": "rank",
+        "required_rank": 8
+      },
+      "weight": 1,
+      "options": [
+        {
+          "id": "choice_forge_jiulong",
+          "name": "祭炼九龙神炉",
+          "description": "备齐公开祭材，确定性取得本世尚未持有的奖励。",
+          "cost_stones": 4200,
+          "cost_items": {
+            "ore_tiejing": 10,
+            "herb_lingzhi": 4,
+            "essence_hunlu": 4
+          },
+          "success_rate": 1,
+          "success_items": {},
+          "failure_items": {},
+          "success_stones": 0,
+          "failure_stones": 0,
+          "reward_flame": "",
+          "requires_unowned_reward": true,
+          "reward_furnace": "furnace_jiulong"
+        }
+      ]
+    }
+  ]
+}

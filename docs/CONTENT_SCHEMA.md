@@ -1,4 +1,4 @@
-# 静态内容格式与接口（P1～P7）
+# 静态内容格式与接口（P1～P8）
 
 适用于 Godot `4.5.stable.official.876b29033`，内容格式版本 `schema_version: 1`。内容库只定义并校验静态内容，交易、炼丹与资源结算分别由业务服务执行。原始设计文档不变，未定数值的首批配置记录在 BALANCE.md。
 
@@ -75,6 +75,8 @@
 | `effect_tags` | 与 `tags` 相同的数组格式；空表示通用，非空表示丹方含任一指定标签时应用这件装备的修正 |
 | `effect_ids` | P1 必须为空；未知效果 ID 或脚本字符串均拒绝 |
 
+P8 允许三类装备添加可选 `effect_strategy`：仅接受 `normal`、`stable`、`rush`，省略时不限制策略。该条件与 `effect_tags` 同时满足才激活该件装备的全部修正；非匹配策略不触发成功、品质、回收或多丹。
+
 `quality_transfers` 描述从低品质向目标品质转移的请求量，而非向总权重直接加值。P3 已实现并验证固定顺序、下位品质补足与不足截至可用量，详见 ALCHEMY_API.md。内容验证器仍只验证结构、目标和有限非负点数，不将所有构筑组合的运行态计算放在静态验证器中。
 
 消耗品另须包含 `effect_category`（`success` / `quality` / `refund`）、`shop_available`（须与 `unlock.type == shop` 一致）、`sell_price`（非负整数，可购商品卖价不得高于 `unlock.price`）。MVP 的每炉数量限制在 P3 实现，不在内容库中管理玩家库存。
@@ -96,7 +98,7 @@
 | `success_rate` | 有限数值 [0,1]，独立于炼丹 5%～95% 限幅 |
 | `reward_flame` | 成功时发放的异火 ID 或空字符串 |
 
-P7 另允许可选 `required_heritage`（有效传承 ID 或空字符串）、`reward_furnace`（有效丹炉 ID 或空字符串）。前者控制选项资格，后者是成功后的独立永久装备奖励，不混入材料堆叠。未携带所需传承返回 OPTION_LOCKED；重复拥有奖励丹炉不叠加份数。其他未知字段仍拒绝。
+P7 另允许可选 `required_heritage`（有效传承 ID 或空字符串）、`reward_furnace`（有效丹炉 ID 或空字符串）。前者控制选项资格，后者是成功后的独立永久装备奖励，不混入材料堆叠。未携带所需传承返回 OPTION_LOCKED；重复拥有奖励丹炉不叠加份数。P8 另允许布尔 `requires_unowned_reward`。为 true 时必须 `success_rate == 1`，且 reward_flame / reward_furnace 恰有一个非空有效引用。已持有该奖励时在收费前返回 REWARD_ALREADY_OWNED；全部选项完成的地点返回 EVENT_EXHAUSTED，并移出随机池。完成状态由本世装备所有权推导，轮回后重置；省略或 false 保留可重复事件行为。其他未知字段仍拒绝。
 
 全部奖励/消耗物品映射只允许存在的材料或消耗品，不允许丹方、装备或任意脚本作为堆叠物品。数量、金额和经验不超过统一整数上限；加载后规范化为运行时 int。所有引用验证通过才替换缓存，非法事件不影响此前可用内容。委托实例和待处理秘境属于运行状态，不写入静态定义。
 

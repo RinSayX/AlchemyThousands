@@ -1,8 +1,10 @@
-# P7 本世与永久进度存档
+# P7～P8 本世与永久进度存档
 
 Godot `4.5.stable.official.876b29033`，当前存档 schema 2，兼容读取 P6 schema 1。默认 `user://run_save.json`，上一有效修订为 `.bak`，设置独立放在 settings.cfg。macOS 用户目录为 `~/Library/Application Support/AlchemyThousands/`。
 
 P8首轮调优沿用schema2。装备和天赋ID不变，旧库存/永久档/RNG照常读取，不重算已结算炉次或补发奖励；历史快照保留其JSON精度下的原值，未来开炉使用当前内容。引擎版本相同不代表跨两套数值配置仍生成相同未来结果，复现须同时固定内容版本。
+
+P8装备扩充仍使用schema2。新装备ID保存于本世 owned_furnaces / owned_flames；四处试炼完成状态由这些所有权推导，不增存档字段、不补发旧玩家未取得的装备。部分领取、全部领取和进行中事件均按已有结构保存。读档不能重复扣费领奖；轮回清除本世装备后试炼重新开放，永久档案继续保留。
 
 ## 封套与内容
 

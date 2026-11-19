@@ -1,13 +1,14 @@
 extends RefCounted
 ## End-to-end reachability driver: only public session commands, no injected loot/rank.
 const Session := preload("res://scripts/core/game_session.gd")
+const Lineage := preload("res://scripts/core/lineage_rules.gd")
 var session: Session
 var steps := 0
 var error := ""
 var checkpoints: Dictionary = {}
 
 
-func run(style: String = "research", stop_at: int = 10, choose_last: bool = true, existing_session: Variant = null) -> Dictionary:
+func run(style: String = "research", stop_at: int = 10, choose_last: bool = true, existing_session: Variant = null, milestone: Callable = Callable()) -> Dictionary:
 	session = Session.new() if existing_session == null else existing_session
 	if existing_session == null and not _accept(session.new_run(20261119)):
 		return _result(false)
@@ -31,6 +32,9 @@ func run(style: String = "research", stop_at: int = 10, choose_last: bool = true
 		if target in [3, 6, 9] and (target < stop_at or choose_last):
 			if not _accept(session.choose_talent("talent_%s_%d" % [style, target])):
 				return _result(false)
+		if milestone.is_valid() and not milestone.call(target):
+			error = "Milestone acquisition failed at rank %d" % target
+			return _result(false)
 	return _result(true)
 
 
@@ -61,6 +65,9 @@ func _ensure_items(costs: Dictionary) -> bool:
 		while deficit > 0:
 			var item: Dictionary = session.content.get_item(id)
 			if item.shop_available:
+				var price: int = Lineage.buy_price(session.content, session.state(), item, item.buy_price) * deficit
+				while session.state().spirit_stones < price:
+					if not _earn(): return false
 				if not _accept(session.buy_shop(id, deficit)):
 					return false
 			elif id == "herb_lingzhi":
@@ -77,6 +84,11 @@ func _ensure_items(costs: Dictionary) -> bool:
 
 
 func _event(event_id: String, choice: String) -> bool:
+	for original in session.content.get_item(event_id).options:
+		if original.id == choice:
+			var option: Dictionary = Lineage.option(session.content, session.state(), event_id, original)
+			while session.state().spirit_stones < option.cost_stones:
+				if not _earn(): return false
 	var entered := session.enter_event(event_id)
 	if not _accept(entered):
 		return false

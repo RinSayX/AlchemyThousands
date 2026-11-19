@@ -55,7 +55,10 @@ func validate_documents(documents: Dictionary) -> Array[Dictionary]:
 		for index in range(items.size()):
 			var path := "%s.items[%d]" % [category, index]
 			var item: Variant = items[index]
-			if not _shape(item, COMMON_FIELDS + CATEGORY_FIELDS[category], path, errors):
+			var fields: Array = COMMON_FIELDS + CATEGORY_FIELDS[category]
+			if category in ["furnaces", "flames", "consumables"] and item is Dictionary and item.has("effect_strategy"):
+				fields.append("effect_strategy")
+			if not _shape(item, fields, path, errors):
 				continue
 			_validate_common(item, path, errors)
 			var id: Variant = item.get("id")
@@ -286,6 +289,15 @@ func _validate_event(item: Dictionary, path: String, errors: Array[Dictionary]) 
 					fields.append(field)
 					if not option[field] is String:
 						_error(errors, "INVALID_TYPE", p + "." + field, "传承和丹炉引用必须为 ID 或空字符串。")
+			if option.has("requires_unowned_reward"):
+				fields.append("requires_unowned_reward")
+				_boolean(option.requires_unowned_reward, p + ".requires_unowned_reward", errors)
+				if option.requires_unowned_reward is bool and option.requires_unowned_reward:
+					var rewards := 0
+					for field in ["reward_flame", "reward_furnace"]:
+						if option.get(field) is String and not option[field].is_empty(): rewards += 1
+					if rewards != 1 or not _is_number(option.get("success_rate")) or option.success_rate != 1:
+						_error(errors, "INVALID_TRIAL", p, "一次性试炼须确定性奖励恰好一件丹炉或异火。")
 		if not _shape(option, fields, p, errors):
 			continue
 		for field in ["id", "name", "description"]:
@@ -437,6 +449,8 @@ func _validate_material(item: Dictionary, path: String, errors: Array[Dictionary
 
 
 func _validate_equipment(item: Dictionary, category: String, path: String, errors: Array[Dictionary]) -> void:
+	if item.has("effect_strategy"):
+		_enum(item.effect_strategy, ["normal", "stable", "rush"], path + ".effect_strategy", errors)
 	_number(item.get("success_bonus"), -1, 1, path + ".success_bonus", errors)
 	_number(item.get("material_refund_bonus"), 0, 1, path + ".material_refund_bonus", errors)
 	_number(item.get("extra_pill_chance"), 0, 1, path + ".extra_pill_chance", errors)

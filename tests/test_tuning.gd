@@ -75,8 +75,9 @@ func run(check: Callable) -> bool:
 	var loaded := live.load_directory()
 	var matches: bool = loaded.ok
 	for category in base_docs:
-		matches = matches and _equivalent(live.get_items(category), combined.get_items(category))
-	_ok(matches, "Live definitions match the isolated combined candidate across all eleven tables")
+		for item in combined.get_items(category):
+			matches = matches and _equivalent(live.get_item(item.id), item)
+	_ok(matches, "All pre-expansion live definitions retain the validated combined tuning")
 	return true
 
 
